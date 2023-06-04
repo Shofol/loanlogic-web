@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Chart from "react-apexcharts";
 import { HelpCircle } from "react-feather";
+import "./OverviewCircle.scss";
 
 // ** Reactstrap Imports
 import {
@@ -14,13 +15,14 @@ import {
   CardBody,
   CardText,
   Row,
-  Col
+  Col,
+  CardSubtitle
 } from "reactstrap";
 
 const OverviewCircle = (props) => {
   // ** State
   // const [data, setData] = useState(null)
-  const { data } = props;
+  const { data, fontSize = "2.5rem" } = props;
 
   // useEffect(() => {
   //   axios.get('/card/card-analytics/goal-overview').then(res => setData(res.data))
@@ -60,7 +62,7 @@ const OverviewCircle = (props) => {
             value: {
               color: "#5e5873",
               fontFamily: "Montserrat",
-              fontSize: "2.86rem",
+              fontSize: fontSize,
               fontWeight: "600"
             }
           }
@@ -84,7 +86,7 @@ const OverviewCircle = (props) => {
       },
       grid: {
         padding: {
-          bottom: 30
+          bottom: 6
         }
       }
     },
@@ -92,11 +94,23 @@ const OverviewCircle = (props) => {
 
   return data !== null ? (
     <Card className="h-100">
-      <CardHeader>
-        <CardTitle tag="h4">{props.title}</CardTitle>
+      <CardHeader className="circleHeader">
+        <CardTitle tag="h4" className={props.smallTitle ? "fs-6" : ""}>
+          {props.title}
+        </CardTitle>
+        {props.subTitle && (
+          <CardSubtitle
+            style={{
+              marginTop: ".05rem",
+              fontSize: props.smallTitle ? "12px" : ""
+            }}
+          >
+            {props.subTitle}
+          </CardSubtitle>
+        )}
         {/* <HelpCircle size={18} className="text-muted cursor-pointer" /> */}
       </CardHeader>
-      <CardBody className="p-0">
+      <CardBody className="p-0 d-flex flex-1 justify-content-center">
         <Chart
           options={options}
           series={series}

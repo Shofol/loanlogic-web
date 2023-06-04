@@ -3,10 +3,11 @@ import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { Card, CardTitle, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import RecuperaciónDiaria from "./recuperaciónDiaria";
-import FotoGarantía from "./fotoGarantía";
+import PreValidaciónDirección from "./preValidaciónDirección";
+import PreValidaciónCrédito from "./preValidaciónCrédito";
+import Mora from "./mora";
 
-const GestorComercial = () => {
+const GestorDeCobros = () => {
   const { colors } = useContext(ThemeColors);
 
   return (
@@ -43,6 +44,17 @@ const GestorComercial = () => {
           />
         </Col>
 
+        {/* <Col lg="2" md="6" xs="12">
+          <OverviewCircle
+            data={{ completed: 80, inProgress: 20 }}
+            title="COLOCACIÓN"
+            text="24.000 Q / 200.000 Q"
+            height="150"
+            fontSize="2rem"
+            color={colors.info.main}
+          />
+        </Col> */}
+
         <Col>
           <Card className="h-100">
             <CardTitle className="mb-0 p-1 fs-5">
@@ -63,14 +75,18 @@ const GestorComercial = () => {
         </Col>
       </Row>
       <Card className="my-2 p-2">
-        <RecuperaciónDiaria />
+        <PreValidaciónDirección />
       </Card>
 
       <Card className="my-2 p-2">
-        <FotoGarantía />
+        <PreValidaciónCrédito />
+      </Card>
+
+      <Card className="my-2 p-2">
+        <Mora />
       </Card>
     </div>
   );
 };
 
-export default GestorComercial;
+export default GestorDeCobros;

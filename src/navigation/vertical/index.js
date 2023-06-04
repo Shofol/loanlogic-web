@@ -26,6 +26,18 @@ export default [
         title: "Gestor comercial",
         icon: <Circle size={20} />,
         navLink: "/dashboard/gestorComercial"
+      },
+      {
+        id: "gestorDeCobros",
+        title: "Gestor de Cobros",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/gestorDeCobros"
+      },
+      {
+        id: "supervisorOficina",
+        title: "Supervisor Oficina",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/supervisorOficina"
       }
     ]
   },

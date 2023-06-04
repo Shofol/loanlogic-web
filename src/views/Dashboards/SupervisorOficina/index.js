@@ -3,47 +3,67 @@ import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { Card, CardTitle, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import RecuperaciónDiaria from "./recuperaciónDiaria";
-import FotoGarantía from "./fotoGarantía";
+import PreValidaciónDirección from "./preValidaciónDirección";
+import ValidaciónCrédito from "./validaciónCrédito";
+import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
+import "./supervisorOficina.scss";
 
-const GestorComercial = () => {
+const SupervisorOficina = () => {
   const { colors } = useContext(ThemeColors);
 
   return (
     <div>
       <Row>
-        <Col lg="3" md="6" xs="12">
+        <Col lg="2" md="6" xs="12" className="statColumn">
           <OverviewCircle
             data={{ completed: 80, inProgress: 20 }}
             title="MORA"
             text="24.000 Q / 200.000 Q"
-            height="200"
+            height="150"
+            fontSize="2rem"
+            smallTitle={true}
             color={colors.primary.main}
           />
         </Col>
 
-        <Col lg="3" md="6" xs="12">
+        <Col lg="2" md="6" xs="12" className="statColumn">
           <OverviewCircle
             data={{ completed: 80, inProgress: 20 }}
             title="COLOCACIÓN"
             text="24.000 Q / 200.000 Q"
-            height="200"
+            height="150"
+            fontSize="2rem"
+            smallTitle={true}
             color={colors.info.main}
           />
         </Col>
 
-        <Col lg="3" md="6" xs="12">
+        <Col lg="2" md="6" xs="12" className="statColumn">
+          <OverviewCircle
+            data={{ completed: 80, inProgress: 20 }}
+            title="DESEMBOLSO"
+            text="24.000 Q / 200.000 Q"
+            height="150"
+            fontSize="2rem"
+            smallTitle={true}
+            color={colors.success.main}
+          />
+        </Col>
+
+        <Col lg="2" md="6" xs="12" className="statColumn">
           <OverviewCircle
             data={{ completed: 80, inProgress: 20 }}
             title="RECUPERACIÓN"
             subTitle="(sin incluir avances)"
             text="24.000 Q / 200.000 Q"
-            height="200"
-            color={colors.success.main}
+            height="150"
+            fontSize="2rem"
+            smallTitle={true}
+            color={colors.warning.main}
           />
         </Col>
 
-        <Col>
+        <Col className="statColumn">
           <Card className="h-100">
             <CardTitle className="mb-0 p-1 fs-5">
               DESGLOSE RECUPERACIÓN
@@ -63,14 +83,18 @@ const GestorComercial = () => {
         </Col>
       </Row>
       <Card className="my-2 p-2">
-        <RecuperaciónDiaria />
+        <PreValidaciónDirección />
       </Card>
 
       <Card className="my-2 p-2">
-        <FotoGarantía />
+        <ValidaciónCrédito />
+      </Card>
+
+      <Card className="my-2 p-2">
+        <CréditosPendienteDesembolso />
       </Card>
     </div>
   );
 };
 
-export default GestorComercial;
+export default SupervisorOficina;
