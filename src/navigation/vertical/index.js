@@ -10,7 +10,8 @@ import {
   PieChart,
   User,
   Clipboard,
-  Shield
+  Shield,
+  Circle
 } from "react-feather";
 
 export default [
@@ -18,7 +19,15 @@ export default [
     id: "dashboard",
     title: "Dashboard",
     icon: <Home size={20} />,
-    navLink: "/home"
+    navLink: "/home",
+    children: [
+      {
+        id: "gestorComercial",
+        title: "Gestor comercial",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/gestorComercial"
+      }
+    ]
   },
 
   {
@@ -64,7 +73,7 @@ export default [
       {
         id: "productConfig",
         title: "Configuration",
-        icon: <Clipboard size={20} />,
+        icon: <Circle size={20} />,
         navLink: "/productos/config"
       }
     ]
@@ -78,7 +87,7 @@ export default [
       {
         id: "validation",
         title: "Validation",
-        icon: <Shield size={20} />,
+        icon: <Circle size={20} />,
         navLink: "/créditos/validation"
       }
     ]

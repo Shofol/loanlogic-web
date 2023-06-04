@@ -11,12 +11,13 @@ import {
   CardTitle,
   CardHeader,
   InputGroup,
-  InputGroupText
+  InputGroupText,
+  UncontrolledTooltip
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import RangeList from "../../@core/components/rangeList";
-import { Save, RefreshCw } from "react-feather";
+import { Save, RefreshCw, Info } from "react-feather";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 
@@ -99,6 +100,29 @@ const ConfigForm = () => {
               </Col>
               <Col sm="9">
                 <dd>Calle Monte Toro 30, Samayac</dd>
+                <div className="d-flex">
+                  <div className="form-check mb-sm-2 mb-md-0 me-md-3">
+                    <Input
+                      type="radio"
+                      id="dirección-aceptar"
+                      name="direcciónAceptar"
+                      defaultChecked
+                    />
+                    <Label className="form-check-label" for="dirección-aceptar">
+                      Aceptar
+                    </Label>
+                  </div>
+                  <div className="form-check">
+                    <Input
+                      type="radio"
+                      name="direcciónAceptar"
+                      id="direcciónRechazar"
+                    />
+                    <Label className="form-check-label" for="direcciónRechazar">
+                      Rechazar
+                    </Label>
+                  </div>
+                </div>
               </Col>
             </Row>
           </dl>
@@ -130,7 +154,6 @@ const ConfigForm = () => {
               </Col>
               <Col sm="9">
                 <dd>
-                  {" "}
                   <img
                     className="img-fluid"
                     src={image}
@@ -139,6 +162,29 @@ const ConfigForm = () => {
                     height="100px"
                   />
                 </dd>
+                <div className="d-flex my-1">
+                  <div className="form-check mb-sm-2 mb-md-0 me-md-3">
+                    <Input
+                      type="radio"
+                      id="garantía-aceptar"
+                      name="garantíaAceptar"
+                      defaultChecked
+                    />
+                    <Label className="form-check-label" for="garantía-aceptar">
+                      Aceptar
+                    </Label>
+                  </div>
+                  <div className="form-check">
+                    <Input
+                      type="radio"
+                      name="garantíaAceptar"
+                      id="garantíaRechazar"
+                    />
+                    <Label className="form-check-label" for="garantíaRechazar">
+                      Rechazar
+                    </Label>
+                  </div>
+                </div>
               </Col>
             </Row>
           </dl>
@@ -151,23 +197,56 @@ const ConfigForm = () => {
               <Col sm="9">
                 <div className="form-check form-check-inline">
                   <Input type="checkbox" defaultChecked id="vidriosRotos" />
-                  <Label for="vidriosRotos" className="form-check-label">
+                  <Label
+                    for="vidriosRotos"
+                    className="form-check-label"
+                    style={{ marginRight: ".25rem" }}
+                  >
                     Vidrios rotos
                   </Label>
+                  <Info size={16} id="vidriosRotosTooltip" />
+                  <UncontrolledTooltip
+                    placement="top"
+                    target="vidriosRotosTooltip"
+                  >
+                    Verifica si hay cristales rotos en la propiedad y anótalo en
+                    los comentarios
+                  </UncontrolledTooltip>
                 </div>
 
                 <div className="form-check form-check-inline">
                   <Input type="checkbox" id="postes" />
-                  <Label for="postes" className="form-check-label">
+                  <Label
+                    for="postes"
+                    className="form-check-label"
+                    style={{ marginRight: ".25rem" }}
+                  >
                     Postes
                   </Label>
+                  <Info size={16} id="postesTooltip" />
+                  <UncontrolledTooltip placement="top" target="postesTooltip">
+                    Verifica si hay postes de impago en la vivienda y anótalo en
+                    los comentarios
+                  </UncontrolledTooltip>
                 </div>
 
                 <div className="form-check form-check-inline">
                   <Input type="checkbox" id="malasReferencias" />
-                  <Label for="malasReferencias" className="form-check-label">
+                  <Label
+                    for="malasReferencias"
+                    className="form-check-label"
+                    style={{ marginRight: ".25rem" }}
+                  >
                     Malas referencias vecinos
                   </Label>
+                  <Info size={16} id="malasReferenciasTooltip" />
+                  <UncontrolledTooltip
+                    placement="top"
+                    target="malasReferenciasTooltip"
+                  >
+                    Habla con los vecinos para pedir referencias y anótalo en
+                    los comentarios
+                  </UncontrolledTooltip>
                 </div>
               </Col>
             </Row>
