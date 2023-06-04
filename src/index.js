@@ -7,9 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
-// ** ThemeColors Context
-
+// ** Intl, CASL & ThemeColors Context
+import ability from "./configs/acl/ability";
 import { ThemeContext } from "./utility/context/ThemeColors";
+import { AbilityContext } from "./utility/context/Can";
 
 // ** ThemeConfig
 import themeConfig from "./configs/themeConfig";
@@ -52,13 +53,15 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <Suspense fallback={<Spinner />}>
-        <ThemeContext>
-          <LazyApp />
-          <Toaster
-            position={themeConfig.layout.toastPosition}
-            toastOptions={{ className: "react-hot-toast" }}
-          />
-        </ThemeContext>
+        <AbilityContext.Provider value={ability}>
+          <ThemeContext>
+            <LazyApp />
+            <Toaster
+              position={themeConfig.layout.toastPosition}
+              toastOptions={{ className: "react-hot-toast" }}
+            />
+          </ThemeContext>
+        </AbilityContext.Provider>
       </Suspense>
     </Provider>
   </BrowserRouter>

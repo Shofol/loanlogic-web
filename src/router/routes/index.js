@@ -16,7 +16,7 @@ import { isObjEmpty } from "@utils";
 const getLayout = {
   blank: <BlankLayout />,
   vertical: <VerticalLayout />,
-  horizontal: <HorizontalLayout />,
+  horizontal: <HorizontalLayout />
 };
 
 // ** Document title
@@ -32,49 +32,55 @@ const Register = lazy(() => import("../../views/Register"));
 const ForgotPassword = lazy(() => import("../../views/ForgotPassword"));
 const Error = lazy(() => import("../../views/Error"));
 
+// ** Routes Imports
+import ProductosRoutes from "./Productos";
+import CréditosRoutes from "./Créditos";
+
 // ** Merge Routes
 const Routes = [
   {
     path: "/",
     index: true,
-    element: <Navigate replace to={DefaultRoute} />,
+    element: <Navigate replace to={DefaultRoute} />
   },
   {
     path: "/home",
-    element: <Home />,
+    element: <Home />
   },
   {
     path: "/second-page",
-    element: <SecondPage />,
+    element: <SecondPage />
   },
   {
     path: "/login",
     element: <Login />,
     meta: {
-      layout: "blank",
-    },
+      layout: "blank"
+    }
   },
   {
     path: "/register",
     element: <Register />,
     meta: {
-      layout: "blank",
-    },
+      layout: "blank"
+    }
   },
   {
     path: "/forgot-password",
     element: <ForgotPassword />,
     meta: {
-      layout: "blank",
-    },
+      layout: "blank"
+    }
   },
   {
     path: "/error",
     element: <Error />,
     meta: {
-      layout: "blank",
-    },
+      layout: "blank"
+    }
   },
+  ...ProductosRoutes,
+  ...CréditosRoutes
 ];
 
 const getRouteMeta = (route) => {
@@ -142,7 +148,7 @@ const getRoutes = (layout) => {
     AllRoutes.push({
       path: "/",
       element: getLayout[layoutItem] || getLayout[defaultLayout],
-      children: LayoutRoutes,
+      children: LayoutRoutes
     });
   });
   return AllRoutes;
