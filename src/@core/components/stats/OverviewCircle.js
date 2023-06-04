@@ -22,7 +22,7 @@ import {
 const OverviewCircle = (props) => {
   // ** State
   // const [data, setData] = useState(null)
-  const { data, fontSize = "2.5rem" } = props;
+  const { data, fontSize = "2.5rem", fixedHeight = true } = props;
 
   // useEffect(() => {
   //   axios.get('/card/card-analytics/goal-overview').then(res => setData(res.data))
@@ -94,7 +94,7 @@ const OverviewCircle = (props) => {
 
   return data !== null ? (
     <Card className="h-100">
-      <CardHeader className="circleHeader">
+      <CardHeader className={fixedHeight ? "circleHeader" : ""}>
         <CardTitle tag="h4" className={props.smallTitle ? "fs-6" : ""}>
           {props.title}
         </CardTitle>

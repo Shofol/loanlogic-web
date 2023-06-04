@@ -89,7 +89,12 @@ const ConfigForm = () => {
                 <dt>Tipo de negocio</dt>
               </Col>
               <Col sm="4">
-                <dd>Venta de tamales a domicilio, ...</dd>
+                <Input
+                  type="text"
+                  name="tipoDeNegocio"
+                  id="tipoDeNegocio"
+                  placeholder="Tipo de negocio"
+                />
               </Col>
             </Row>
           </dl>
@@ -106,7 +111,6 @@ const ConfigForm = () => {
                       type="radio"
                       id="dirección-aceptar"
                       name="direcciónAceptar"
-                      defaultChecked
                     />
                     <Label className="form-check-label" for="dirección-aceptar">
                       Aceptar
@@ -131,8 +135,13 @@ const ConfigForm = () => {
               <Col sm="2">
                 <dt>Inventario</dt>
               </Col>
-              <Col sm="9">
-                <dd>50 tamales, cada día produce X</dd>
+              <Col sm="4">
+                <Input
+                  type="text"
+                  name="inventario"
+                  id="inventario"
+                  placeholder="Inventario"
+                />
               </Col>
             </Row>
           </dl>
@@ -141,8 +150,13 @@ const ConfigForm = () => {
               <Col sm="2">
                 <dt>Día de pago</dt>
               </Col>
-              <Col sm="9">
-                <dd>cada día, pero la tienda Super24 le paga cada 7 días</dd>
+              <Col sm="4">
+                <Input
+                  type="text"
+                  name="díaDePago"
+                  id="díaDePago"
+                  placeholder="Día de pago"
+                />
               </Col>
             </Row>
           </dl>
@@ -168,7 +182,6 @@ const ConfigForm = () => {
                       type="radio"
                       id="garantía-aceptar"
                       name="garantíaAceptar"
-                      defaultChecked
                     />
                     <Label className="form-check-label" for="garantía-aceptar">
                       Aceptar
@@ -196,7 +209,7 @@ const ConfigForm = () => {
               </Col>
               <Col sm="9">
                 <div className="form-check form-check-inline">
-                  <Input type="checkbox" defaultChecked id="vidriosRotos" />
+                  <Input type="checkbox" id="vidriosRotos" />
                   <Label
                     for="vidriosRotos"
                     className="form-check-label"
@@ -302,12 +315,7 @@ const ConfigForm = () => {
             </Col>
             <Col sm="4 d-flex gap-3">
               <div className="form-check">
-                <Input
-                  type="radio"
-                  id="aceptar-active"
-                  name="aceptar"
-                  defaultChecked
-                />
+                <Input type="radio" id="aceptar-active" name="aceptar" />
                 <Label className="form-check-label" for="aceptar-active">
                   Aceptar
                 </Label>

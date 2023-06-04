@@ -36,6 +36,7 @@ const Error = lazy(() => import("../../views/Error"));
 import ProductosRoutes from "./Productos";
 import CréditosRoutes from "./Créditos";
 import DashboardRoutes from "./Dashboards";
+import CobranzaRoutes from "./Cobranza";
 
 // ** Merge Routes
 const Routes = [
@@ -82,7 +83,8 @@ const Routes = [
   },
   ...ProductosRoutes,
   ...CréditosRoutes,
-  ...DashboardRoutes
+  ...DashboardRoutes,
+  ...CobranzaRoutes
 ];
 
 const getRouteMeta = (route) => {
