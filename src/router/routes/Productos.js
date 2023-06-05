@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-const ConfigForm = lazy(() => import("../../views/productos/ConfigForm"));
+const ConfigForm = lazy(() => import("../../views/Productos/ConfigForm"));
 
 const DashboardRoutes = [
   {

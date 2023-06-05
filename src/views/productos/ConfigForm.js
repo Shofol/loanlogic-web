@@ -17,6 +17,7 @@ import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import RangeList from "../../@core/components/rangeList";
 import { Save, RefreshCw } from "react-feather";
+import { agenciasValues } from "../../configs/data";
 
 const ConfigForm = () => {
   const periodicidadValues = [
@@ -62,14 +63,6 @@ const ConfigForm = () => {
   const paísOptions = [
     { value: "quetzal", label: "Guatemala - Quetzal" },
     { value: "dollar", label: "US - Dollar" }
-  ];
-
-  const agenciasPermitidasValues = [
-    { value: "quetzal", label: "Mazatenango" },
-    { value: "quetzaltenango", label: "Quetzaltenango" },
-    { value: "coatepeque", label: "Coatepeque" },
-    { value: "coban", label: "Coban" },
-    { value: "guatemala", label: "Guatemala" }
   ];
 
   return (
@@ -269,7 +262,7 @@ const ConfigForm = () => {
                 theme={selectThemeColors}
                 isMulti
                 name="colors"
-                options={agenciasPermitidasValues}
+                options={agenciasValues}
                 className="react-select"
                 classNamePrefix="select"
               />

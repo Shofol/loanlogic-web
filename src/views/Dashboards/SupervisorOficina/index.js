@@ -46,7 +46,7 @@ const SupervisorOficina = () => {
             height="150"
             fontSize="2rem"
             smallTitle={true}
-            color={colors.success.main}
+            color={colors.danger.main}
           />
         </Col>
 

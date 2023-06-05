@@ -40,7 +40,7 @@ const GestorDeCobros = () => {
             subTitle="(sin incluir avances)"
             text="24.000 Q / 200.000 Q"
             height="200"
-            color={colors.success.main}
+            color={colors.warning.main}
           />
         </Col>
 

@@ -82,7 +82,15 @@ export default [
     id: "reportería",
     title: "Reportería",
     icon: <File size={20} />,
-    navLink: "/reportería"
+    navLink: "/reportería",
+    children: [
+      {
+        id: "carteraPorAsesor",
+        title: "Cartera por Asesor",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/cartera-asesor"
+      }
+    ]
   },
   {
     id: "productos",
