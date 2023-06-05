@@ -1,0 +1,19 @@
+.stickyFirstColumn {
+  position: sticky;
+  left: 0;
+}
+
+.stickySecondColumn {
+  position: sticky;
+  left: 103px;
+}
+
+.contentWidth {
+  min-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .contentWidth {
+    min-width: 50vw;
+  }
+}
