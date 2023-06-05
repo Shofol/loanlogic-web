@@ -1,0 +1,41 @@
+image: 'atlassian/default-image:2'
+#image: node:16
+
+pipelines:
+  default:
+    - step:
+        name: Build and test the app
+        image: 'node:latest'
+        script:
+          - npm install
+          #- npm test
+          - npm build
+        artifacts:
+          - build/**
+  branches:
+    testing:
+      - step:
+          name: Deploying the app to S3
+          deployment: testing
+          script:
+            - pipe: 'atlassian/aws-s3-deploy:0.3.7'
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                S3_BUCKET: $TESTING_S3_BUCKET
+                LOCAL_PATH: build
+                ACL: public-read
+    master:
+      - step:
+          name: Deploying the app to S3
+          deployment: master
+          script:
+            - pipe: 'atlassian/aws-s3-deploy:0.3.7'
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                S3_BUCKET: $PRODUCTION_S3_BUCKET
+                LOCAL_PATH: build
+                ACL: public-read
