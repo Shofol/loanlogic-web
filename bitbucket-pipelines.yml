@@ -26,10 +26,20 @@ pipelines:
                 S3_BUCKET: $TESTING_S3_BUCKET
                 LOCAL_PATH: build
                 ACL: public-read
+      - step:
+          name: Invalidate cache
+          script:
+            - pipe: atlassian/aws-cloudfront-invalidate:0.7.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                DISTRIBUTION_ID: $TESTING_CLOUDFRONT_DISTRIBUTION
+
     master:
       - step:
           name: Deploying the app to S3
-          deployment: master
+          deployment: production
           script:
             - pipe: 'atlassian/aws-s3-deploy:0.3.7'
               variables:
@@ -39,3 +49,12 @@ pipelines:
                 S3_BUCKET: $PRODUCTION_S3_BUCKET
                 LOCAL_PATH: build
                 ACL: public-read
+      - step:
+          name: Invalidate cache
+          script:
+            - pipe: atlassian/aws-cloudfront-invalidate:0.7.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                DISTRIBUTION_ID: $PRODUCTION_CLOUDFRONT_DISTRIBUTION
