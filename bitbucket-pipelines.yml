@@ -11,7 +11,16 @@ pipelines:
           #- npm test
           - npm run build
   branches:
-    testing:
+    deploy-s3:
+      - step:
+          name: Build and test the app
+          image: 'node:latest'
+          script:
+            - npm install --legacy-peer-deps
+            #- npm test
+            - npm run build
+          artifacts:
+            - dist/**
       - step:
           name: Deploying the app to S3
           deployment: testing
@@ -35,6 +44,15 @@ pipelines:
                 DISTRIBUTION_ID: $TESTING_CLOUDFRONT_DISTRIBUTION
 
     master:
+      - step:
+          name: Build and test the app
+          image: 'node:latest'
+          script:
+            - npm install --legacy-peer-deps
+            #- npm test
+            - npm run build
+          artifacts:
+            - dist/**
       - step:
           name: Deploying the app to S3
           deployment: production
