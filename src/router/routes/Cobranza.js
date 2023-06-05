@@ -1,13 +1,11 @@
 import { lazy } from "react";
 
-const DebtCollection = lazy(() =>
-  import("../../views/Cobranza/DebtCollection")
-);
+const Cobranza = lazy(() => import("../../views/Cobranza"));
 
 const CobranzaRoutes = [
   {
-    path: "/cobranza/debtCollection",
-    element: <DebtCollection />
+    path: "/cobranza",
+    element: <Cobranza />
   }
 ];
 

@@ -53,15 +53,15 @@ export default [
     id: "cobranza",
     title: "Cobranza",
     icon: <Layers size={20} />,
-    navLink: "/cobranza",
-    children: [
-      {
-        id: "debtCollection",
-        title: "Debt Collection",
-        icon: <Circle size={20} />,
-        navLink: "/cobranza/debtCollection"
-      }
-    ]
+    navLink: "/cobranza"
+    // children: [
+    //   {
+    //     id: "debtCollection",
+    //     title: "Debt Collection",
+    //     icon: <Circle size={20} />,
+    //     navLink: "/cobranza/debtCollection"
+    //   }
+    // ]
   },
 
   {

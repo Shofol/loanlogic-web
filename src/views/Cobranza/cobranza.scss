@@ -3,14 +3,41 @@
   margin-bottom: 0;
 }
 
+.acc-desembolso-title {
+  width: 12.5rem;
+  margin-bottom: 0;
+}
+
+.contentWidth {
+  min-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .contentWidth {
+    min-width: 50vw;
+  }
+}
+
 @media print {
   body {
     visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  * {
+    box-shadow: none !important;
   }
   #section-to-print {
     visibility: visible;
     position: absolute;
     left: 0;
     top: 0;
+  }
+
+  #section-to-hide {
+    visibility: hidden;
   }
 }
