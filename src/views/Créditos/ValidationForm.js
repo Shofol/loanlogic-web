@@ -10,13 +10,8 @@ import {
   CardBody,
   CardTitle,
   CardHeader,
-  InputGroup,
-  InputGroupText,
   UncontrolledTooltip
 } from "reactstrap";
-import Select from "react-select";
-import { selectThemeColors } from "@utils";
-import RangeList from "../../@core/components/rangeList";
 import { Save, RefreshCw, Info } from "react-feather";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";

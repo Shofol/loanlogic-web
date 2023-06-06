@@ -4,6 +4,10 @@ const CarteraPorAsesor = lazy(() =>
   import("../../views/Reportería/CarteraPorAsesor")
 );
 
+const CarteraConsolidada = lazy(() =>
+  import("../../views/Reportería/CarteraConsolidada")
+);
+
 const Amortization = lazy(() => import("../../views/Reportería/Amortization"));
 
 const ReporteríaRoutes = [
@@ -14,6 +18,10 @@ const ReporteríaRoutes = [
   {
     path: "/reportería/amortization",
     element: <Amortization />
+  },
+  {
+    path: "/reportería/carteraConsolidada",
+    element: <CarteraConsolidada />
   }
 ];
 

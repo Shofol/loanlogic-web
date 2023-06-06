@@ -95,6 +95,12 @@ export default [
         title: "Amortization Table",
         icon: <Circle size={20} />,
         navLink: "/reportería/amortization"
+      },
+      {
+        id: "carteraConsolidada",
+        title: "Cartera Consolidada",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/carteraConsolidada"
       }
     ]
   },
@@ -123,6 +129,12 @@ export default [
         title: "Validation",
         icon: <Circle size={20} />,
         navLink: "/créditos/validation"
+      },
+      {
+        id: "garantía",
+        title: "Garantía",
+        icon: <Circle size={20} />,
+        navLink: "/créditos/garantía"
       }
     ]
   },
