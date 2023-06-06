@@ -20,7 +20,7 @@ import { agenciasValues, portfolioData } from "../../configs/data";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
-import "./test.scss";
+import "./Reportería.scss";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API

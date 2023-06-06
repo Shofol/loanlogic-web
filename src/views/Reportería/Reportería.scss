@@ -17,6 +17,14 @@
   margin: auto;
 }
 
+.ag-theme-alpine {
+  --ag-foreground-color: #6f6d7d;
+  --ag-header-background-color: #f3f2f7;
+  --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
+  --ag-font-family: "Montserrat", Helvetica, Arial, serif;
+  --ag-odd-row-background-color: none;
+}
+
 @media screen and (min-width: 768px) {
   .contentWidth {
     min-width: 50vw;
