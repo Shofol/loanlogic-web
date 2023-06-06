@@ -20,6 +20,7 @@ import { agenciasValues, portfolioData } from "../../configs/data";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
+import "./test.scss";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -96,12 +97,15 @@ const CarteraPorAsesor = () => {
 
         <h4>Cartera actual</h4>
 
-        <div>
+        <div style={{ width: "75vw", height: "50vh" }}>
           {/* Example using Grid's API */}
-          <button onClick={buttonListener}>Push Me</button>
+          {/* <button onClick={buttonListener}>Push Me</button> */}
 
           {/* On div wrapping Grid a) specify theme CSS Class Class and b) sets Grid size */}
-          <div className="ag-theme-alpine" style={{ width: 1000, height: 500 }}>
+          <div
+            className="ag-theme-alpine"
+            style={{ width: "100%", height: "100%" }}
+          >
             <AgGridReact
               ref={gridRef}
               rowSelection="multiple"
