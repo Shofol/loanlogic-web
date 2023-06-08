@@ -91,24 +91,18 @@ const ConfigForm = () => {
             gastosGestión: "",
             gastosDeAsistencia: "",
             agenciasPermitidas: [],
-            interésMoratorio: "",
-            interésMoratorio: "",
-            interésMoratorio: "",
-            interésMoratorio: "",
             gastoAdministrativo: [
               {
                 rangoMinimo: "",
                 rangoMáximo: "",
-                gastoadministrativo: "",
-                id: `range-${Math.random()}`
+                gastoadministrativo: ""
               }
             ],
             bono: [
               {
                 rangoMinimo: "",
                 rangoMáximo: "",
-                bono: "",
-                id: `range-${Math.random()}`
+                bono: ""
               }
             ]
           }}
