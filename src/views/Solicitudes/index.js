@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // ** Reactstrap Imports
 import {
   Row,
@@ -19,10 +19,10 @@ import { Save, RefreshCw, Edit, Check, X } from "react-feather";
 import { agenciasValues } from "../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
-import "./Créditos.scss";
+import "../Créditos/Créditos.scss";
 import ReactPaginate from "react-paginate";
 
-const ClientesLista = () => {
+const Solicitudes = () => {
   const estadoOptions = [
     { value: "all", label: "TODOS" },
     { value: "prevalidation", label: "PENDIENTE PRE-VALIDACIÓN" },
@@ -43,7 +43,7 @@ const ClientesLista = () => {
   return (
     <Card className="p-2">
       <CardHeader>
-        <CardTitle tag="h4">Clientes</CardTitle>
+        <CardTitle tag="h4">Solicitudes</CardTitle>
       </CardHeader>
 
       <CardBody>
@@ -145,7 +145,7 @@ const ClientesLista = () => {
                     />
                   </th>
                   <th>
-                    <span>Dirección</span>
+                    <span>Monto</span>
                     <Input
                       type="text"
                       name="productoNombre"
@@ -155,7 +155,7 @@ const ClientesLista = () => {
                     />
                   </th>
                   <th>
-                    <span>DPI</span>
+                    <span>Tipo crédito</span>
                     <Input
                       type="text"
                       name="productoNombre"
@@ -185,7 +185,7 @@ const ClientesLista = () => {
                     />
                   </th>
                   <th>
-                    <span>Num. Celular</span>
+                    <span>Estado</span>
                     <Input
                       type="text"
                       name="productoNombre"
@@ -194,6 +194,7 @@ const ClientesLista = () => {
                       className="table-filter"
                     />
                   </th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -207,6 +208,17 @@ const ClientesLista = () => {
                   <td>Suchitepéquez</td>
                   <td>Suchitepéquez</td>
                   <td>Pendiente pre-validación</td>
+                  <td className="d-flex gap-1">
+                    <Button.Ripple className="btn-icon" outline color="danger">
+                      <Check size={16} />
+                    </Button.Ripple>
+                    <Button.Ripple className="btn-icon" outline color="danger">
+                      <X size={16} />
+                    </Button.Ripple>
+                    <Button.Ripple className="btn-icon" outline color="primary">
+                      <Edit size={16} />
+                    </Button.Ripple>
+                  </td>
                 </tr>
               </tbody>
             </Table>
@@ -258,4 +270,4 @@ const ClientesLista = () => {
   );
 };
 
-export default ClientesLista;
+export default Solicitudes;

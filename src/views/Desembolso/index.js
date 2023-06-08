@@ -85,6 +85,14 @@ const Desembolso = () => {
                 <span>:</span>
                 <p className="mb-0 ms-1">5Q</p>
               </div>
+
+              <div className="mb-0 d-flex fw-bold">
+                <p className="acc-desembolso-title">
+                  Descuento días adelantado
+                </p>
+                <span>:</span>
+                <p className="mb-0 ms-1"> -100 Q</p>
+              </div>
               <hr></hr>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Total desembolso</p>
@@ -92,6 +100,20 @@ const Desembolso = () => {
                 <p className="mb-0 ms-1">105Q</p>
               </div>
               <hr></hr>
+
+              <Row className="d-flex align-items-center fw-bold mb-sm-2">
+                <Col md="6" className="pe-0">
+                  <p className="mb-0">Desembolso realizado</p>
+                </Col>
+                <Col className="px-0" md="6">
+                  <Input
+                    type="text"
+                    name="desembolsoRealizado"
+                    id="desembolsoRealizado"
+                    placeholder="Desembolso realizado"
+                  />
+                </Col>
+              </Row>
             </Col>
           </Row>
           <hr className="mb-0"></hr>
@@ -110,7 +132,7 @@ const Desembolso = () => {
               <Row className="my-1">
                 <Col sm="12">
                   <div className="d-flex justify-content-center">
-                    {/* <Button.Ripple
+                    <Button.Ripple
                       className="me-1"
                       color="primary"
                       type="submit"
@@ -118,7 +140,7 @@ const Desembolso = () => {
                     >
                       <Save size={16} />
                       <span className="align-middle mx-25">Guardar</span>
-                    </Button.Ripple> */}
+                    </Button.Ripple>
                     <Button.Ripple
                       outline
                       color="secondary"

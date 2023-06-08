@@ -18,6 +18,7 @@ import { selectThemeColors } from "@utils";
 import RangeList from "../../@core/components/rangeList";
 import { Save, RefreshCw } from "react-feather";
 import { agenciasValues } from "../../configs/data";
+import { Field, Formik } from "formik";
 
 const ConfigForm = () => {
   const periodicidadValues = [
@@ -72,228 +73,351 @@ const ConfigForm = () => {
       </CardHeader>
 
       <CardBody>
-        <Form>
-          <Row>
-            <Col sm="12" md="6" className="mb-1">
-              <Label className="form-label" for="productoNombre">
-                Nombre del producto
-              </Label>
-              <Input
-                type="text"
-                name="productoNombre"
-                id="productoNombre"
-                placeholder="Nombre del producto"
-              />
-            </Col>
-            <Col sm="12" md="6" className="mb-1">
-              <Label className="form-label" for="productoCódigo">
-                Código del producto
-              </Label>
-              <Input
-                type="text"
-                name="productoCódigo"
-                id="productoCódigo"
-                placeholder="Código del producto"
-              />
-            </Col>
-            <Col sm="12" md="6" className="mb-1">
-              <Label className="form-label">Periodicidad</Label>
-              <Select
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                defaultValue={periodicidadValues[0]}
-                options={periodicidadValues}
-                isClearable={false}
-              />
-            </Col>
-            <Col sm="6" md="3" className="mb-1">
-              <Label className="form-label" for="duración">
-                Duración
-              </Label>
-              <Input
-                type="text"
-                name="duración"
-                id="duración"
-                placeholder="Duración"
-              />
-            </Col>
-            <Col sm="6" md="3" className="mb-1">
-              <Label className="form-label">Duración Periodicidad</Label>
-              <Select
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                defaultValue={duraciónOptions[0]}
-                options={duraciónOptions}
-                isClearable={false}
-              />
-            </Col>
-            <Col sm="12" md="6" className="mb-1">
-              <Label className="form-label">Tipo de garantia</Label>
-              <Select
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                defaultValue={tipoDeGarantiaOptions[0]}
-                options={tipoDeGarantiaOptions}
-                isClearable={false}
-              />
-            </Col>
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="montoMínimo">
-                Monto mínimo
-              </Label>
-              <Input
-                type="number"
-                name="montoMínimo"
-                id="montoMínimo"
-                placeholder="Monto mínimo"
-              />
-            </Col>
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="montoMáximo">
-                Monto máximo
-              </Label>
-              <Input
-                type="number"
-                name="montoMáximo"
-                id="montoMáximo"
-                placeholder="Monto máximo"
-              />
-            </Col>
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="rangoMáximoSupervisores">
-                Rango máximo supervisores
-              </Label>
-              <Input
-                type="number"
-                name="rangoMáximoSupervisores"
-                id="rangoMáximoSupervisores"
-                placeholder="Rango máximo supervisores"
-              />
-            </Col>
+        <Formik
+          initialValues={{
+            productoNombre: "",
+            productoCódigo: "",
+            periodicidad: "",
+            duración: "",
+            duraciónPeriodicidad: "",
+            tipoDeGarantia: "",
+            montoMínimo: "",
+            montoMáximo: "",
+            rangoMáximoSupervisores: "",
+            país: "",
+            interésCrédito: "",
+            iva: "",
+            interésMoratorio: "",
+            gastosGestión: "",
+            gastosDeAsistencia: "",
+            agenciasPermitidas: [],
+            interésMoratorio: "",
+            interésMoratorio: "",
+            interésMoratorio: "",
+            interésMoratorio: "",
+            gastoAdministrativo: [
+              {
+                rangoMinimo: "",
+                rangoMáximo: "",
+                gastoadministrativo: "",
+                id: `range-${Math.random()}`
+              }
+            ],
+            bono: [
+              {
+                rangoMinimo: "",
+                rangoMáximo: "",
+                bono: "",
+                id: `range-${Math.random()}`
+              }
+            ]
+          }}
+          // validate={(values) => {
+          //   const errors = {};
+          //   if (!values.email) {
+          //     errors.email = "Required";
+          //   } else if (
+          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          //   ) {
+          //     errors.email = "Invalid email address";
+          //   }
+          //   return errors;
+          // }}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log(values);
+            setTimeout(() => {
+              console.log(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+            }, 400);
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            setFieldValue
+            /* and other goodies */
+          }) => (
+            <Form onSubmit={handleSubmit}>
+              <Row>
+                <Col sm="12" md="6" className="mb-1">
+                  <Label className="form-label" for="productoNombre">
+                    Nombre del producto
+                  </Label>
+                  <Input
+                    type="text"
+                    name="productoNombre"
+                    id="productoNombre"
+                    placeholder="Nombre del producto"
+                    tag={Field}
+                  />
+                </Col>
+                <Col sm="12" md="6" className="mb-1">
+                  <Label className="form-label" for="productoCódigo">
+                    Código del producto
+                  </Label>
+                  <Input
+                    type="text"
+                    name="productoCódigo"
+                    id="productoCódigo"
+                    placeholder="Código del producto"
+                    tag={Field}
+                  />
+                </Col>
+                <Col sm="12" md="6" className="mb-1">
+                  <Label className="form-label">Periodicidad</Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    // defaultValue={periodicidadValues[0]}
+                    options={periodicidadValues}
+                    isClearable={false}
+                    name="periodicidad"
+                    onChange={(option) =>
+                      setFieldValue("periodicidad", option.value)
+                    }
+                  />
+                </Col>
+                <Col sm="6" md="3" className="mb-1">
+                  <Label className="form-label" for="duración">
+                    Duración
+                  </Label>
+                  <Input
+                    type="text"
+                    name="duración"
+                    id="duración"
+                    placeholder="Duración"
+                    tag={Field}
+                  />
+                </Col>
+                <Col sm="6" md="3" className="mb-1">
+                  <Label className="form-label">Duración Periodicidad</Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    // defaultValue={duraciónOptions[0]}
+                    options={duraciónOptions}
+                    isClearable={false}
+                    name="duraciónPeriodicidad"
+                    onChange={(option) =>
+                      setFieldValue("duraciónPeriodicidad", option.value)
+                    }
+                  />
+                </Col>
+                <Col sm="12" md="6" className="mb-1">
+                  <Label className="form-label">Tipo de garantia</Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    // defaultValue={tipoDeGarantiaOptions[0]}
+                    options={tipoDeGarantiaOptions}
+                    isClearable={false}
+                    onChange={(option) =>
+                      setFieldValue("tipoDeGarantia", option.value)
+                    }
+                    name="tipoDeGarantia"
+                  />
+                </Col>
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="montoMínimo">
+                    Monto mínimo
+                  </Label>
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="montoMínimo"
+                      id="montoMínimo"
+                      placeholder="Monto mínimo"
+                      tag={Field}
+                    />
+                    <InputGroupText>Q</InputGroupText>
+                  </InputGroup>
+                </Col>
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="montoMáximo">
+                    Monto máximo
+                  </Label>
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="montoMáximo"
+                      id="montoMáximo"
+                      placeholder="Monto máximo"
+                      tag={Field}
+                    />
+                    <InputGroupText>Q</InputGroupText>
+                  </InputGroup>
+                </Col>
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="rangoMáximoSupervisores">
+                    Rango máximo supervisores
+                  </Label>
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="rangoMáximoSupervisores"
+                      id="rangoMáximoSupervisores"
+                      placeholder="Rango máximo supervisores"
+                      tag={Field}
+                    />
+                    <InputGroupText>Q</InputGroupText>
+                  </InputGroup>
+                </Col>
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label">País</Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    // defaultValue={paísOptions[0]}
+                    options={paísOptions}
+                    isClearable={false}
+                    onChange={(option) => setFieldValue("país", option.value)}
+                    name="país"
+                  />
+                </Col>
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="interésCrédito">
+                    Interés crédito (IVA includo)
+                  </Label>
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="interésCrédito"
+                      id="interésCrédito"
+                      placeholder="Interés crédito (IVA includo)"
+                      tag={Field}
+                    />
+                    <InputGroupText>%</InputGroupText>
+                  </InputGroup>
+                </Col>
 
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label">País</Label>
-              <Select
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                defaultValue={paísOptions[0]}
-                options={paísOptions}
-                isClearable={false}
-              />
-            </Col>
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="interésCrédito">
-                Interés crédito (IVA includo)
-              </Label>
-              <InputGroup>
-                <Input
-                  type="number"
-                  name="interésCrédito"
-                  id="interésCrédito"
-                  placeholder="Interés crédito (IVA includo)"
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="iva">
+                    IVA
+                  </Label>
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="iva"
+                      id="iva"
+                      placeholder="IVA"
+                      tag={Field}
+                    />
+                    <InputGroupText>%</InputGroupText>
+                  </InputGroup>
+                </Col>
+
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="interésMoratorio">
+                    Interés moratorio:
+                  </Label>
+
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="interésMoratorio"
+                      id="interésMoratorio"
+                      placeholder="Interés moratorio"
+                      tag={Field}
+                    />
+                    <InputGroupText>%</InputGroupText>
+                  </InputGroup>
+                </Col>
+
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="GastosGestión">
+                    Gastos por gestión de cobranza
+                  </Label>
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="gastosGestión"
+                      id="gastosGestión"
+                      placeholder="Gastos por gestión de cobranza"
+                      tag={Field}
+                    />
+                    <InputGroupText>Q</InputGroupText>
+                  </InputGroup>
+                </Col>
+
+                <Col sm="12" md="3" className="mb-1">
+                  <Label className="form-label" for="gastosDeAsistencia">
+                    Gastos de asistencia
+                  </Label>
+                  <InputGroup>
+                    <Input
+                      type="number"
+                      name="gastosDeAsistencia"
+                      id="gastosDeAsistencia"
+                      placeholder="Gastos de asistencia"
+                      tag={Field}
+                    />
+                    <InputGroupText>Q</InputGroupText>
+                  </InputGroup>
+                </Col>
+
+                <Col className="mb-1" md="3" sm="12">
+                  <Label className="form-label">Agencias permitidas</Label>
+                  <Select
+                    isClearable={false}
+                    theme={selectThemeColors}
+                    isMulti
+                    options={agenciasValues}
+                    className="react-select"
+                    classNamePrefix="select"
+                    onChange={(option) =>
+                      setFieldValue(
+                        "agenciasPermitidas",
+                        option.map((option) => option.value)
+                      )
+                    }
+                    name="agenciasPermitidas"
+                  />
+                </Col>
+
+                <RangeList
+                  fieldName="gastoAdministrativo"
+                  label="Gasto administrativo"
+                  assosLabel="Gasto administrativo"
+                  values={values}
                 />
-                <InputGroupText>%</InputGroupText>
-              </InputGroup>
-            </Col>
 
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="iva">
-                IVA
-              </Label>
-              <InputGroup>
-                <Input type="number" name="iva" id="iva" placeholder="IVA" />
-                <InputGroupText>%</InputGroupText>
-              </InputGroup>
-            </Col>
-
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="interésMoratorio">
-                Interés moratorio:
-              </Label>
-
-              <InputGroup>
-                <Input
-                  type="number"
-                  name="interésMoratorio"
-                  id="interésMoratorio"
-                  placeholder="Interés moratorio"
+                <RangeList
+                  label="Bono (colocación asesores)"
+                  assosLabel="Bono"
+                  fieldName="bono"
+                  values={values}
                 />
-                <InputGroupText>%</InputGroupText>
-              </InputGroup>
-            </Col>
 
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="GastosGestión">
-                Gastos por gestión de cobranza
-              </Label>
-              <Input
-                type="number"
-                name="GastosGestión"
-                id="GastosGestión"
-                placeholder="Gastos por gestión de cobranza"
-              />
-            </Col>
-
-            <Col sm="12" md="3" className="mb-1">
-              <Label className="form-label" for="gastosDeAsistencia">
-                Gastos de asistencia
-              </Label>
-              <InputGroup>
-                <Input
-                  type="number"
-                  name="gastosDeAsistencia:"
-                  id="gastosDeAsistencia"
-                  placeholder="Gastos de asistencia"
-                />
-                <InputGroupText>Q</InputGroupText>
-              </InputGroup>
-            </Col>
-
-            <Col className="mb-1" md="3" sm="12">
-              <Label className="form-label">
-                Agencias permitidas: (multi selector)
-              </Label>
-              <Select
-                isClearable={false}
-                theme={selectThemeColors}
-                isMulti
-                name="colors"
-                options={agenciasValues}
-                className="react-select"
-                classNamePrefix="select"
-              />
-            </Col>
-
-            <RangeList
-              label="Gasto administrativo"
-              assosLabel="Gasto administrativo"
-            />
-
-            <RangeList label="Bono (colocación asesores)" assosLabel="Bono" />
-
-            <Col sm="12">
-              <div className="d-flex justify-content-end">
-                <Button.Ripple
-                  className="me-1"
-                  color="primary"
-                  type="submit"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <Save size={16} />
-                  <span className="align-middle mx-25">Guardar</span>
-                </Button.Ripple>
-                <Button.Ripple outline color="secondary" type="reset">
-                  <RefreshCw size={16} />
-                  <span className="align-middle mx-25">Descartar</span>
-                </Button.Ripple>
-              </div>
-            </Col>
-          </Row>
-        </Form>
+                <Col sm="12">
+                  <div className="d-flex justify-content-end">
+                    <Button.Ripple
+                      className="me-1"
+                      color="primary"
+                      type="submit"
+                      // onClick={(e) => e.preventDefault()}
+                    >
+                      <Save size={16} />
+                      <span className="align-middle mx-25">Guardar</span>
+                    </Button.Ripple>
+                    <Button.Ripple outline color="secondary" type="reset">
+                      <RefreshCw size={16} />
+                      <span className="align-middle mx-25">Descartar</span>
+                    </Button.Ripple>
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+          )}
+        </Formik>
       </CardBody>
     </Card>
   );

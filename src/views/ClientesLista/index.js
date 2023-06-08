@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // ** Reactstrap Imports
 import {
   Row,
@@ -15,14 +15,13 @@ import {
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
-import { Save, RefreshCw, Edit, Check, X } from "react-feather";
 import { agenciasValues } from "../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
-import "./Créditos.scss";
+import "../Créditos/Créditos.scss";
 import ReactPaginate from "react-paginate";
 
-const Solicitudes = () => {
+const ClientesLista = () => {
   const estadoOptions = [
     { value: "all", label: "TODOS" },
     { value: "prevalidation", label: "PENDIENTE PRE-VALIDACIÓN" },
@@ -43,7 +42,7 @@ const Solicitudes = () => {
   return (
     <Card className="p-2">
       <CardHeader>
-        <CardTitle tag="h4">Solicitudes</CardTitle>
+        <CardTitle tag="h4">Clientes</CardTitle>
       </CardHeader>
 
       <CardBody>
@@ -145,7 +144,7 @@ const Solicitudes = () => {
                     />
                   </th>
                   <th>
-                    <span>Monto</span>
+                    <span>Dirección</span>
                     <Input
                       type="text"
                       name="productoNombre"
@@ -155,7 +154,7 @@ const Solicitudes = () => {
                     />
                   </th>
                   <th>
-                    <span>Tipo crédito</span>
+                    <span>DPI</span>
                     <Input
                       type="text"
                       name="productoNombre"
@@ -185,7 +184,7 @@ const Solicitudes = () => {
                     />
                   </th>
                   <th>
-                    <span>Estado</span>
+                    <span>Num. Celular</span>
                     <Input
                       type="text"
                       name="productoNombre"
@@ -194,7 +193,6 @@ const Solicitudes = () => {
                       className="table-filter"
                     />
                   </th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -208,17 +206,6 @@ const Solicitudes = () => {
                   <td>Suchitepéquez</td>
                   <td>Suchitepéquez</td>
                   <td>Pendiente pre-validación</td>
-                  <td className="d-flex gap-1">
-                    <Button.Ripple className="btn-icon" outline color="danger">
-                      <Check size={16} />
-                    </Button.Ripple>
-                    <Button.Ripple className="btn-icon" outline color="danger">
-                      <X size={16} />
-                    </Button.Ripple>
-                    <Button.Ripple className="btn-icon" outline color="primary">
-                      <Edit size={16} />
-                    </Button.Ripple>
-                  </td>
                 </tr>
               </tbody>
             </Table>
@@ -270,4 +257,4 @@ const Solicitudes = () => {
   );
 };
 
-export default Solicitudes;
+export default ClientesLista;

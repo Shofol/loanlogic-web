@@ -101,6 +101,42 @@ export default [
         title: "Cartera Consolidada",
         icon: <Circle size={20} />,
         navLink: "/reportería/carteraConsolidada"
+      },
+      {
+        id: "resumenAsesor",
+        title: "Resumen asesor",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/resumenAsesor"
+      },
+      {
+        id: "colocación",
+        title: "Colocación",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/colocación"
+      },
+      {
+        id: "mora",
+        title: "Mora",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/mora"
+      },
+      {
+        id: "cancelacionesAnticipadas",
+        title: "Cancelaciones",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/cancelaciones-anticipadas"
+      },
+      {
+        id: "papelerías",
+        title: "Papelerías",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/papelerías"
+      },
+      {
+        id: "asistencias",
+        title: "Asistencias",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/asistencias"
       }
     ]
   },
@@ -135,12 +171,6 @@ export default [
         title: "Garantía",
         icon: <Circle size={20} />,
         navLink: "/créditos/garantía"
-      },
-      {
-        id: "solicitudes",
-        title: "Solicitudes",
-        icon: <Circle size={20} />,
-        navLink: "/créditos/solicitudes"
       },
       {
         id: "clientes",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Col, Label, Row, Table } from "reactstrap";
+import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
 import { selectThemeColors } from "@utils";
@@ -9,14 +9,15 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
 
-const CarteraConsolidada = () => {
+const ResumenAsesor = () => {
   const [picker, setPicker] = useState(new Date().toLocaleDateString());
 
   return (
     <Card className="p-2">
+      <CardTitle>Resumen diario asesor</CardTitle>
       <Row>
         <Col md="6">
-          <Label className="form-label">Agencias</Label>
+          <Label className="form-label">Oficina</Label>
           <Select
             isClearable={false}
             theme={selectThemeColors}
@@ -46,17 +47,18 @@ const CarteraConsolidada = () => {
         </Col>
       </Row>
 
-      <Table className="mt-4 consolidadoTable">
+      <Table className="mt-4">
         <thead>
           <tr>
-            <th colSpan="3" className="bg-secondary-subtle text-center fs-5">
-              Consolidado {picker}
-            </th>
-          </tr>
-          <tr>
             <th>No.</th>
-            <th>Agente</th>
-            <th>Cuota</th>
+            <th>Oficina</th>
+            <th>Asesor</th>
+            <th>Clientes activos</th>
+            <th>Clientes colocados</th>
+            <th>Colocación</th>
+            <th>Cartera</th>
+            <th>Mora</th>
+            <th>%</th>
           </tr>
         </thead>
         <tbody>
@@ -64,55 +66,45 @@ const CarteraConsolidada = () => {
             <td>1</td>
             <td>John Doe</td>
             <td>Q 950</td>
-          </tr>
-          <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Q 950</td>
             <td>1</td>
             <td>John Doe</td>
             <td>Q 950</td>
           </tr>
           <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Q 950</td>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Q 950</td>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Q 950</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Q 950</td>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Q 950</td>
             <td>1</td>
             <td>John Doe</td>
             <td>Q 950</td>
           </tr>
         </tbody>
-
         <tfoot>
           <tr>
-            <th colSpan="2">TOTAL PAGOS DEL DÍA</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Devolución de desembolsos</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Colocación del día</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Clientes colocados</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Papelerías</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Asistencias</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Descuentos/Asueto</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Cancelaciones anticipadas</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">TOTAL</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
+            <th colSpan={3}>Total</th>
+            <td>1000</td>
+            <td>1000</td>
+            <td>1000</td>
+            <td>1000</td>
+            <td>1000</td>
+            <td>1000</td>
           </tr>
         </tfoot>
       </Table>
@@ -126,4 +118,4 @@ const CarteraConsolidada = () => {
   );
 };
 
-export default CarteraConsolidada;
+export default ResumenAsesor;
