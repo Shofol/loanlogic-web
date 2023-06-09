@@ -1,4 +1,4 @@
-import { MoreVertical, Edit, Trash } from "react-feather";
+import { MoreVertical, Edit, Trash, Check, X } from "react-feather";
 import {
   Table,
   UncontrolledDropdown,
@@ -48,7 +48,15 @@ const RecuperaciónDiaria = () => {
             <td>Samayac</td>
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
-            <td>
+            <td className="d-flex gap-1">
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <Check size={16} />
+              </Button.Ripple>
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <X size={16} />
+              </Button.Ripple>
+            </td>
+            {/* <td>
               <UncontrolledDropdown>
                 <DropdownToggle
                   className="icon-btn hide-arrow"
@@ -69,7 +77,7 @@ const RecuperaciónDiaria = () => {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-            </td>
+            </td> */}
           </tr>
           <tr>
             <td>1</td>
@@ -80,7 +88,15 @@ const RecuperaciónDiaria = () => {
             <td>Samayac</td>
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
-            <td>
+            <td className="d-flex gap-1">
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <Check size={16} />
+              </Button.Ripple>
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <X size={16} />
+              </Button.Ripple>
+            </td>
+            {/* <td>
               <UncontrolledDropdown>
                 <DropdownToggle
                   className="icon-btn hide-arrow"
@@ -101,7 +117,7 @@ const RecuperaciónDiaria = () => {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </Table>

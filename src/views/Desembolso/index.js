@@ -99,7 +99,7 @@ const Desembolso = () => {
                 <span>:</span>
                 <p className="mb-0 ms-1">105Q</p>
               </div>
-              <hr></hr>
+              {/* <hr></hr>
 
               <Row className="d-flex align-items-center fw-bold mb-sm-2">
                 <Col md="6" className="pe-0">
@@ -113,13 +113,13 @@ const Desembolso = () => {
                     placeholder="Desembolso realizado"
                   />
                 </Col>
-              </Row>
+              </Row> */}
             </Col>
           </Row>
           <hr className="mb-0"></hr>
 
           <Row>
-            <Col md="6">
+            <Col md="5">
               <h5 className="fw-bold mb-0 mt-1 ps-0">
                 Capital e intereses amortizado: 505Q
               </h5>
@@ -128,7 +128,7 @@ const Desembolso = () => {
               </h5>
             </Col>
 
-            <Col md="6" id="section-to-hide">
+            <Col md="7" id="section-to-hide">
               <Row className="my-1">
                 <Col sm="12">
                   <div className="d-flex justify-content-center">
@@ -139,7 +139,9 @@ const Desembolso = () => {
                       onClick={(e) => e.preventDefault()}
                     >
                       <Save size={16} />
-                      <span className="align-middle mx-25">Guardar</span>
+                      <span className="align-middle mx-25">
+                        Confirmar Desembolso
+                      </span>
                     </Button.Ripple>
                     <Button.Ripple
                       outline

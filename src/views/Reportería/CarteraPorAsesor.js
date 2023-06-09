@@ -6,6 +6,7 @@ import React, {
   useCallback
 } from "react";
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -21,6 +22,7 @@ import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 import "./Reportería.scss";
+import { Download } from "react-feather";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -117,6 +119,12 @@ const CarteraPorAsesor = () => {
               lockPinned={true}
             />
           </div>
+        </div>
+        <div className="d-flex justify-content-center mt-2">
+          <Button.Ripple color="primary" type="reset">
+            <Download size={16} />
+            <span className="align-middle mx-25">Descargar CSV</span>
+          </Button.Ripple>
         </div>
       </CardBody>
     </Card>

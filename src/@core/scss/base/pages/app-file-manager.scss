@@ -7,8 +7,8 @@
 // 	Author URL: http://www.themeforest.net/user/pixinvent
 // ================================================================================================
 
-@import '../bootstrap-extended/include'; // Bootstrap includes
-@import '../components/include'; // Components includes
+@import "../bootstrap-extended/include"; // Bootstrap includes
+@import "../components/include"; // Components includes
 
 $file-manager-logo-height: 7.5rem;
 $file-manager-fs-xl: ($font-size-base + 0.5);
@@ -68,18 +68,18 @@ $file-manager-fs-xl: ($font-size-base + 0.5);
             &.jstree-closed {
               > .jstree-icon {
                 background-image: url(str-replace(
-                  str-replace($chevron-right, 'currentColor', $headings-color),
-                  '#',
-                  '%23'
+                  str-replace($chevron-right, "currentColor", $headings-color),
+                  "#",
+                  "%23"
                 ));
               }
             }
             &.jstree-open {
               > .jstree-icon {
                 background-image: url(str-replace(
-                  str-replace($chevron-down, 'currentColor', $headings-color),
-                  '#',
-                  '%23'
+                  str-replace($chevron-down, "currentColor", $headings-color),
+                  "#",
+                  "%23"
                 ));
               }
             }

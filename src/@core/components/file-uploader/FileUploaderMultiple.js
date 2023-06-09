@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
 
 // ** Reactstrap Imports
 import {
@@ -15,10 +15,17 @@ import {
 // ** Third Party Imports
 import { useDropzone } from "react-dropzone";
 import { FileText, X, DownloadCloud } from "react-feather";
+import "../../../@core/scss/base/pages/app-file-manager.scss";
 
-const FileUploaderMultiple = () => {
+const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
   // ** State
   const [files, setFiles] = useState([]);
+
+  const handleUpload = () => {
+    if (setFieldValue && fieldName) {
+      setFieldValue(fieldName, files);
+    }
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -120,7 +127,9 @@ const FileUploaderMultiple = () => {
               >
                 Remove All
               </Button>
-              <Button color="primary">Upload Files</Button>
+              <Button color="primary" onClick={handleUpload}>
+                Upload Files
+              </Button>
             </div>
           </Fragment>
         ) : null}

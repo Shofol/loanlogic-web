@@ -1,4 +1,4 @@
-import { MoreVertical, Edit, Trash } from "react-feather";
+import { MoreVertical, Edit, Trash, Check, X } from "react-feather";
 import {
   Table,
   UncontrolledDropdown,
@@ -48,27 +48,13 @@ const Mora = () => {
             <td>Samayac</td>
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
-            <td>
-              <UncontrolledDropdown>
-                <DropdownToggle
-                  className="icon-btn hide-arrow"
-                  color="transparent"
-                  size="sm"
-                  caret
-                >
-                  <MoreVertical size={15} />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Edit className="me-50" size={15} />{" "}
-                    <span className="align-middle">Edit</span>
-                  </DropdownItem>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Trash className="me-50" size={15} />{" "}
-                    <span className="align-middle">Delete</span>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+            <td className="d-flex gap-1">
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <Check size={16} />
+              </Button.Ripple>
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <X size={16} />
+              </Button.Ripple>
             </td>
           </tr>
           <tr>
@@ -80,27 +66,13 @@ const Mora = () => {
             <td>Samayac</td>
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
-            <td>
-              <UncontrolledDropdown>
-                <DropdownToggle
-                  className="icon-btn hide-arrow"
-                  color="transparent"
-                  size="sm"
-                  caret
-                >
-                  <MoreVertical size={15} />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Edit className="me-50" size={15} />{" "}
-                    <span className="align-middle">Edit</span>
-                  </DropdownItem>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Trash className="me-50" size={15} />{" "}
-                    <span className="align-middle">Delete</span>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+            <td className="d-flex gap-1">
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <Check size={16} />
+              </Button.Ripple>
+              <Button.Ripple className="btn-icon" outline color="danger">
+                <X size={16} />
+              </Button.Ripple>
             </td>
           </tr>
         </tbody>
