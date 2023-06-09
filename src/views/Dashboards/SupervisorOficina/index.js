@@ -7,6 +7,7 @@ import PreValidaciónDirección from "./preValidaciónDirección";
 import ValidaciónCrédito from "./validaciónCrédito";
 import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
 import "./supervisorOficina.scss";
+import MoraPorAgente from "./MoraPorAgente";
 
 const SupervisorOficina = () => {
   const { colors } = useContext(ThemeColors);
@@ -92,6 +93,10 @@ const SupervisorOficina = () => {
 
       <Card className="my-2 p-2">
         <CréditosPendienteDesembolso />
+      </Card>
+
+      <Card className="my-2 p-2">
+        <MoraPorAgente />
       </Card>
     </div>
   );
