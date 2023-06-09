@@ -22,6 +22,7 @@ const CancelacionesAnticipadas = lazy(() =>
 );
 const Papelerías = lazy(() => import("../../views/Reportería/Papelerías"));
 const Asistencias = lazy(() => import("../../views/Reportería/Asistencias"));
+const Cobro = lazy(() => import("../../views/Reportería/Cobro"));
 
 CancelacionesAnticipadas;
 
@@ -61,6 +62,10 @@ const ReporteríaRoutes = [
   {
     path: "/reportería/asistencias",
     element: <Asistencias />
+  },
+  {
+    path: "/reportería/cobro",
+    element: <Cobro />
   }
 ];
 

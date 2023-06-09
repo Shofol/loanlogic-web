@@ -137,6 +137,12 @@ export default [
         title: "Asistencias",
         icon: <Circle size={20} />,
         navLink: "/reportería/asistencias"
+      },
+      {
+        id: "cobro",
+        title: "Cobro",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/cobro"
       }
     ]
   },
