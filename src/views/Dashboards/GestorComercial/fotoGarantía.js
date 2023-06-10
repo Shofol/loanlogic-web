@@ -23,7 +23,7 @@ const FotoGarantía = () => {
           </Button>
         </Col>
       </Row>
-      <Table>
+      <Table responsive>
         <thead>
           <tr>
             <th>Sl. No</th>
