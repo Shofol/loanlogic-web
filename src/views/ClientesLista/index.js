@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // ** Reactstrap Imports
 import {
   Row,
@@ -11,7 +11,7 @@ import {
   CardTitle,
   CardHeader,
   Table,
-  Input
+  Input,
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
@@ -20,25 +20,45 @@ import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "../Créditos/Créditos.scss";
 import ReactPaginate from "react-paginate";
+import { Search } from "react-feather";
+import API from "../../@core/api/api";
 
 const ClientesLista = () => {
   const estadoOptions = [
     { value: "all", label: "TODOS" },
-    { value: "prevalidation", label: "PENDIENTE PRE-VALIDACIÓN" },
-    { value: "address", label: "PENDIENTE VALIDACIÓN DIRECCIÓN" },
-    { value: "approval", label: "PENDIENTE APROBACIÓN" },
+    { value: "pending-pre-validation", label: "PENDIENTE PRE-VALIDACIÓN" },
+    {
+      value: "address-validation-pending",
+      label: "PENDIENTE VALIDACIÓN DIRECCIÓN",
+    },
+    { value: "pending-approval", label: "PENDIENTE APROBACIÓN" },
     { value: "accepted", label: "ACEPTADO" },
-    { value: "cancelled", label: "CANCELADO" }
+    { value: "cancelled", label: "CANCELADO" },
   ];
-  const [picker, setPicker] = useState(null);
+  const [desdePicker, setDesdePicker] = useState(new Date());
+  const [hastaPicker, setHastaPicker] = useState(new Date());
+
   // ** States
-  const [currentPage, setCurrentPage] = useState(0);
-  const data = [1, 2, 3, 4, 5, 5, 6, 6, 6, 6, 6, 66, 6];
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [agency, setAgency] = useState([]);
+  const [status, setStatus] = useState([]);
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
     setCurrentPage(page.selected);
   };
+
+  const fetchData = async () => {
+    const response = await API.get(
+      `client?page=${currentPage}&pageSize=1&startDate=${desdePicker}&endDate=${hastaPicker}&agency=${agency.join(
+        ","
+      )}&status=${status.join(",")}`
+    );
+    console.log(response.data.data);
+    setData([...response.data.data]);
+  };
+
   return (
     <Card className="p-2">
       <CardHeader>
@@ -58,6 +78,9 @@ const ClientesLista = () => {
                 options={agenciasValues}
                 className="react-select"
                 classNamePrefix="select"
+                onChange={(option) =>
+                  setAgency(option.map((option) => option.value))
+                }
               />
             </Col>
             <Col md="6" sm="12" className="mb-1">
@@ -70,6 +93,9 @@ const ClientesLista = () => {
                 options={estadoOptions}
                 className="react-select"
                 classNamePrefix="select"
+                onChange={(option) =>
+                  setStatus(option.map((option) => option.value))
+                }
               />
             </Col>
             <Col md="6">
@@ -77,16 +103,16 @@ const ClientesLista = () => {
                 Desde el
               </Label>
               <Flatpickr
-                value={picker}
+                value={desdePicker}
                 id="hf-picker"
                 className="form-control"
-                onChange={(selectedDates, dateStr, instance) =>
-                  setPicker(dateStr)
-                }
+                onChange={(selectedDates, dateStr, instance) => {
+                  setDesdePicker(dateStr);
+                }}
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "d/m/Y"
+                  dateFormat: "Y-m-d",
                 }}
               />
             </Col>
@@ -95,19 +121,30 @@ const ClientesLista = () => {
                 Hasta el
               </Label>
               <Flatpickr
-                value={picker}
+                value={hastaPicker}
                 id="hf-picker"
                 className="form-control"
                 onChange={(selectedDates, dateStr, instance) =>
-                  setPicker(dateStr)
+                  setHastaPicker(dateStr)
                 }
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "d/m/Y"
+                  dateFormat: "Y-m-d",
                 }}
               />
             </Col>
+
+            <div className="d-flex justify-content-end">
+              <Button.Ripple
+                className="mt-2"
+                color="primary"
+                onClick={fetchData}
+              >
+                <Search size={14} />
+                <span className="align-middle ms-25">Search</span>
+              </Button.Ripple>
+            </div>
 
             <Table className="mt-4" responsive>
               <thead>
@@ -196,17 +233,22 @@ const ClientesLista = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>S1034</td>
-                  <td>John</td>
-                  <td>Doe</td>
-                  <td>Calle de monte toro, 30</td>
-                  <td>Samayac</td>
-                  <td>Suchitepéquez</td>
-                  <td>Suchitepéquez</td>
-                  <td>Pendiente pre-validación</td>
-                </tr>
+                {data.length > 0 &&
+                  data.map((client) => {
+                    return (
+                      <tr>
+                        <td>1</td>
+                        <td>{client.id}</td>
+                        <td>{client.name}</td>
+                        <td>{client.surname}</td>
+                        <td>{client.residence_address}</td>
+                        <td>{client.dpi_number}</td>
+                        <td>{client.residence_municipality}</td>
+                        <td>{client.department_of_residence}</td>
+                        <td>{client.phone_number}</td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </Table>
 

@@ -6,36 +6,19 @@ import {
   Input,
   Button,
   InputGroup,
-  InputGroupText
+  InputGroupText,
 } from "reactstrap";
 // ** Icons Imports
 import { Plus, Minus, Trash } from "react-feather";
 import { FieldArray, Field } from "formik";
 
-const RangeList = ({ label, assosLabel = "", fieldName, values }) => {
-  // const [rangeList, setRangeList] = useState([
-  //   { min: "", max: "", assosValue: "", id: `range-${Math.random()}` }
-  // ]);
-
-  // const addNewRange = () => {
-  //   let tempRangelist = [...rangeList];
-  //   const newEntry = {
-  //     min: 0,
-  //     max: 0,
-  //     assoValue: 0,
-  //     id: `range-${Math.random()}`
-  //   };
-  //   console.log(tempRangelist);
-  //   tempRangelist = [...tempRangelist, newEntry];
-  //   setRangeList(tempRangelist);
-  // };
-
-  // const handleChange = (name, value, index) => {
-  //   let tempRangelist = [...rangeList];
-  //   tempRangelist[index][name] = value;
-  //   setRangeList(tempRangelist);
-  // };
-
+const RangeList = ({
+  label,
+  assosLabel = "",
+  fieldName,
+  values,
+  assosPH = "",
+}) => {
   return (
     <div className="mt-2">
       <FieldArray
@@ -50,14 +33,14 @@ const RangeList = ({ label, assosLabel = "", fieldName, values }) => {
                   return (
                     <Row key={index}>
                       <Col sm="12" md="3" className="mb-1">
-                        <Label className="form-label" for="nameVertical">
+                        <Label className="form-label" for="minimum_range">
                           Rango mínimo
                         </Label>
                         <InputGroup>
                           <Input
                             type="number"
-                            name={`${fieldName}[${index}].rangoMinimo`}
-                            id="rangoMinimo"
+                            name={`${fieldName}[${index}].minimum_range`}
+                            id="minimum_range"
                             placeholder="Rango mínimo"
                             tag={Field}
                           />
@@ -66,14 +49,14 @@ const RangeList = ({ label, assosLabel = "", fieldName, values }) => {
                       </Col>
 
                       <Col sm="12" md="3" className="mb-1">
-                        <Label className="form-label" for="rangoMáximo">
+                        <Label className="form-label" for="maximum_range ">
                           Rango máximo
                         </Label>
                         <InputGroup>
                           <Input
                             type="number"
-                            name={`${fieldName}[${index}].rangoMáximo`}
-                            id="rangoMáximo"
+                            name={`${fieldName}[${index}].maximum_range `}
+                            id="maximum_range"
                             placeholder="Rango máximo"
                             tag={Field}
                           />
@@ -82,21 +65,15 @@ const RangeList = ({ label, assosLabel = "", fieldName, values }) => {
                       </Col>
 
                       <Col sm="12" md="3" className="mb-1">
-                        <Label
-                          className="form-label"
-                          for={assosLabel.toLowerCase().split(" ").join("")}
-                        >
-                          {assosLabel}
+                        <Label className="form-label" for={assosLabel}>
+                          {assosPH}
                         </Label>
                         <InputGroup>
                           <Input
                             type="number"
-                            name={`${fieldName}[${index}].${assosLabel
-                              .toLowerCase()
-                              .split(" ")
-                              .join("")}`}
-                            id={assosLabel.toLowerCase().split(" ").join("")}
-                            placeholder={assosLabel}
+                            name={`${fieldName}[${index}].${assosLabel}`}
+                            id={assosLabel}
+                            placeholder={assosPH}
                             tag={Field}
                           />
                           <InputGroupText>Q</InputGroupText>
@@ -121,21 +98,6 @@ const RangeList = ({ label, assosLabel = "", fieldName, values }) => {
                           </span>
                         </Button.Ripple>
                       </Col>
-
-                      {/* <Col
-              sm="12"
-              md="1"
-              className="d-flex align-items-center justify-content-center"
-            >
-              <Button.Ripple
-                className="btn-icon "
-                size="md"
-                outline
-                color="primary"
-              >
-                <Minus size={16} />
-              </Button.Ripple>
-            </Col> */}
                     </Row>
                   );
                 })}

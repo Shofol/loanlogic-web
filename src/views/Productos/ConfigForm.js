@@ -11,7 +11,7 @@ import {
   CardTitle,
   CardHeader,
   InputGroup,
-  InputGroupText
+  InputGroupText,
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
@@ -19,51 +19,53 @@ import RangeList from "../../@core/components/rangeList";
 import { Save, RefreshCw } from "react-feather";
 import { agenciasValues } from "../../configs/data";
 import { Field, Formik } from "formik";
+import API from "../../@core/api/api";
 
 const ConfigForm = () => {
   const periodicidadValues = [
     { value: "diario", label: "Diario" },
     { value: "semanal", label: "Semanal" },
     { value: "quincenal", label: "Quincenal" },
-    { value: "mensual", label: "Mensual" }
+    { value: "mensual", label: "Mensual" },
   ];
 
   const duraciónOptions = [
     { value: "días", label: "Días" },
     { value: "semanas", label: "Semanas" },
-    { value: "meses", label: "Meses" }
+    { value: "meses", label: "Meses" },
   ];
 
   const tipoDeGarantiaOptions = [
     { value: "fiduciaria", label: "Fiduciaria (firma contrato)" },
     {
       value: "prendaria",
-      label: "Prendaria (el cliente la puede seguir utilizando)"
+      label: "Prendaria (el cliente la puede seguir utilizando)",
     },
     { value: "cheque", label: "Cheque (entrega como garantia en la agencia)" },
     {
       value: "mobiliaria",
       label:
-        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
+        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)",
     },
     {
       value: "hipotecaria",
-      label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
+      label: "Hipotecaria (se crea un gravamen sobre la propiedad)",
     },
     {
       value: "compraVenta",
-      label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
+      label:
+        "Compra-venta (si no me pagas, me quedo con la casa para venderla)",
     },
     {
       value: "empeño",
       label:
-        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
-    }
+        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)",
+    },
   ];
 
   const paísOptions = [
     { value: "quetzal", label: "Guatemala - Quetzal" },
-    { value: "dollar", label: "US - Dollar" }
+    { value: "dollar", label: "US - Dollar" },
   ];
 
   return (
@@ -75,36 +77,36 @@ const ConfigForm = () => {
       <CardBody>
         <Formik
           initialValues={{
-            productoNombre: "",
-            productoCódigo: "",
-            periodicidad: "",
-            duración: "",
-            duraciónPeriodicidad: "",
-            tipoDeGarantia: "",
-            montoMínimo: "",
-            montoMáximo: "",
-            rangoMáximoSupervisores: "",
-            país: "",
-            interésCrédito: "",
-            iva: "",
-            interésMoratorio: "",
-            gastosGestión: "",
-            gastosDeAsistencia: "",
-            agenciasPermitidas: [],
-            gastoAdministrativo: [
-              {
-                rangoMinimo: "",
-                rangoMáximo: "",
-                gastoadministrativo: ""
-              }
+            product_name: "",
+            product_code: "",
+            frequency: "",
+            duration: "",
+            duration_frequency: "",
+            guarantee_type: "",
+            minimum_amount: "",
+            maximum_amount: "",
+            maximum_supervisor_range: "",
+            country: "",
+            credit_interest: "",
+            vat: "",
+            late_interest: "",
+            management_expenses: "",
+            assistance_expenses: "",
+            agencies: [],
+            administrative_expenses: [
+              // {
+              //   minimum_range: null,
+              //   maximum_range: null,
+              //   administrative_expense: null,
+              // },
             ],
-            bono: [
-              {
-                rangoMinimo: "",
-                rangoMáximo: "",
-                bono: ""
-              }
-            ]
+            bonuses: [
+              // {
+              //   minimum_range: null,
+              //   maximum_range: null,
+              //   bonus: null,
+              // },
+            ],
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -117,12 +119,17 @@ const ConfigForm = () => {
           //   }
           //   return errors;
           // }}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
+          onSubmit={async (values, { setSubmitting }) => {
             setTimeout(() => {
               console.log(JSON.stringify(values, null, 2));
               setSubmitting(false);
             }, 400);
+
+            // if (values.administrative_expenses.length > 0) {
+            //   values.administrative_expenses.map();
+            // }
+
+            const result = await API.post("/product", values);
           }}
         >
           {({
@@ -133,31 +140,31 @@ const ConfigForm = () => {
             handleBlur,
             handleSubmit,
             isSubmitting,
-            setFieldValue
+            setFieldValue,
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col sm="12" md="6" className="mb-1">
-                  <Label className="form-label" for="productoNombre">
+                  <Label className="form-label" for="product_name">
                     Nombre del producto
                   </Label>
                   <Input
                     type="text"
-                    name="productoNombre"
-                    id="productoNombre"
+                    name="product_name"
+                    id="product_name"
                     placeholder="Nombre del producto"
                     tag={Field}
                   />
                 </Col>
                 <Col sm="12" md="6" className="mb-1">
-                  <Label className="form-label" for="productoCódigo">
+                  <Label className="form-label" for="product_code">
                     Código del producto
                   </Label>
                   <Input
                     type="text"
-                    name="productoCódigo"
-                    id="productoCódigo"
+                    name="product_code"
+                    id="product_code"
                     placeholder="Código del producto"
                     tag={Field}
                   />
@@ -171,20 +178,20 @@ const ConfigForm = () => {
                     // defaultValue={periodicidadValues[0]}
                     options={periodicidadValues}
                     isClearable={false}
-                    name="periodicidad"
+                    name="frequency"
                     onChange={(option) =>
-                      setFieldValue("periodicidad", option.value)
+                      setFieldValue("frequency", option.value)
                     }
                   />
                 </Col>
                 <Col sm="6" md="3" className="mb-1">
-                  <Label className="form-label" for="duración">
+                  <Label className="form-label" for="duration">
                     Duración
                   </Label>
                   <Input
                     type="text"
-                    name="duración"
-                    id="duración"
+                    name="duration"
+                    id="duration"
                     placeholder="Duración"
                     tag={Field}
                   />
@@ -195,12 +202,11 @@ const ConfigForm = () => {
                     theme={selectThemeColors}
                     className="react-select"
                     classNamePrefix="select"
-                    // defaultValue={duraciónOptions[0]}
                     options={duraciónOptions}
                     isClearable={false}
-                    name="duraciónPeriodicidad"
+                    name="duration_frequency"
                     onChange={(option) =>
-                      setFieldValue("duraciónPeriodicidad", option.value)
+                      setFieldValue("duration_frequency", option.value)
                     }
                   />
                 </Col>
@@ -214,20 +220,20 @@ const ConfigForm = () => {
                     options={tipoDeGarantiaOptions}
                     isClearable={false}
                     onChange={(option) =>
-                      setFieldValue("tipoDeGarantia", option.value)
+                      setFieldValue("guarantee_type", option.value)
                     }
-                    name="tipoDeGarantia"
+                    name="guarantee_type"
                   />
                 </Col>
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="montoMínimo">
+                  <Label className="form-label" for="minimum_amount">
                     Monto mínimo
                   </Label>
                   <InputGroup>
                     <Input
                       type="number"
-                      name="montoMínimo"
-                      id="montoMínimo"
+                      name="minimum_amount"
+                      id="minimum_amount"
                       placeholder="Monto mínimo"
                       tag={Field}
                     />
@@ -235,14 +241,14 @@ const ConfigForm = () => {
                   </InputGroup>
                 </Col>
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="montoMáximo">
+                  <Label className="form-label" for="maximum_amount">
                     Monto máximo
                   </Label>
                   <InputGroup>
                     <Input
                       type="number"
-                      name="montoMáximo"
-                      id="montoMáximo"
+                      name="maximum_amount"
+                      id="maximum_amount"
                       placeholder="Monto máximo"
                       tag={Field}
                     />
@@ -250,14 +256,14 @@ const ConfigForm = () => {
                   </InputGroup>
                 </Col>
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="rangoMáximoSupervisores">
+                  <Label className="form-label" for="maximum_supervisor_range">
                     Rango máximo supervisores
                   </Label>
                   <InputGroup>
                     <Input
                       type="number"
-                      name="rangoMáximoSupervisores"
-                      id="rangoMáximoSupervisores"
+                      name="maximum_supervisor_range"
+                      id="maximum_supervisor_range"
                       placeholder="Rango máximo supervisores"
                       tag={Field}
                     />
@@ -273,19 +279,21 @@ const ConfigForm = () => {
                     // defaultValue={paísOptions[0]}
                     options={paísOptions}
                     isClearable={false}
-                    onChange={(option) => setFieldValue("país", option.value)}
-                    name="país"
+                    onChange={(option) =>
+                      setFieldValue("country", option.value)
+                    }
+                    name="country"
                   />
                 </Col>
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="interésCrédito">
+                  <Label className="form-label" for="credit_interest">
                     Interés crédito (IVA includo)
                   </Label>
                   <InputGroup>
                     <Input
                       type="number"
-                      name="interésCrédito"
-                      id="interésCrédito"
+                      name="credit_interest"
+                      id="credit_interest"
                       placeholder="Interés crédito (IVA includo)"
                       tag={Field}
                     />
@@ -294,14 +302,14 @@ const ConfigForm = () => {
                 </Col>
 
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="iva">
+                  <Label className="form-label" for="vat">
                     IVA
                   </Label>
                   <InputGroup>
                     <Input
                       type="number"
-                      name="iva"
-                      id="iva"
+                      name="vat"
+                      id="vat"
                       placeholder="IVA"
                       tag={Field}
                     />
@@ -310,15 +318,15 @@ const ConfigForm = () => {
                 </Col>
 
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="interésMoratorio">
+                  <Label className="form-label" for="late_interest">
                     Interés moratorio:
                   </Label>
 
                   <InputGroup>
                     <Input
                       type="number"
-                      name="interésMoratorio"
-                      id="interésMoratorio"
+                      name="late_interest"
+                      id="late_interest"
                       placeholder="Interés moratorio"
                       tag={Field}
                     />
@@ -327,14 +335,14 @@ const ConfigForm = () => {
                 </Col>
 
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="GastosGestión">
+                  <Label className="form-label" for="management_expenses">
                     Gastos por gestión de cobranza
                   </Label>
                   <InputGroup>
                     <Input
                       type="number"
-                      name="gastosGestión"
-                      id="gastosGestión"
+                      name="management_expenses"
+                      id="management_expenses"
                       placeholder="Gastos por gestión de cobranza"
                       tag={Field}
                     />
@@ -343,14 +351,14 @@ const ConfigForm = () => {
                 </Col>
 
                 <Col sm="12" md="3" className="mb-1">
-                  <Label className="form-label" for="gastosDeAsistencia">
+                  <Label className="form-label" for="assistance_expenses">
                     Gastos de asistencia
                   </Label>
                   <InputGroup>
                     <Input
                       type="number"
-                      name="gastosDeAsistencia"
-                      id="gastosDeAsistencia"
+                      name="assistance_expenses"
+                      id="assistance_expenses"
                       placeholder="Gastos de asistencia"
                       tag={Field}
                     />
@@ -369,26 +377,28 @@ const ConfigForm = () => {
                     classNamePrefix="select"
                     onChange={(option) =>
                       setFieldValue(
-                        "agenciasPermitidas",
+                        "agencies",
                         option.map((option) => option.value)
                       )
                     }
-                    name="agenciasPermitidas"
+                    name="agencies"
                   />
                 </Col>
 
                 <RangeList
-                  fieldName="gastoAdministrativo"
+                  fieldName="administrative_expenses"
                   label="Gasto administrativo"
-                  assosLabel="Gasto administrativo"
+                  assosLabel="administrative_expense"
                   values={values}
+                  assosPH="Gasto administrativo"
                 />
 
                 <RangeList
                   label="Bono (colocación asesores)"
-                  assosLabel="Bono"
-                  fieldName="bono"
+                  assosLabel="bonus"
+                  fieldName="bonuses"
                   values={values}
+                  assosPH="Bono"
                 />
 
                 <Col sm="12">
