@@ -10,67 +10,15 @@ import {
   CardBody,
   CardTitle,
   CardHeader,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 import { Save, RefreshCw, Info } from "react-feather";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 import { Formik, Field } from "formik";
+import API from "../../@core/api/api";
 
 const ConfigForm = () => {
-  const periodicidadValues = [
-    { value: "diario", label: "Diario" },
-    { value: "semanal", label: "Semanal" },
-    { value: "quincenal", label: "Quincenal" },
-    { value: "mensual", label: "Mensual" }
-  ];
-
-  const duraciónOptions = [
-    { value: "días", label: "Días" },
-    { value: "semanas", label: "Semanas" },
-    { value: "meses", label: "Meses" }
-  ];
-
-  const tipoDeGarantiaOptions = [
-    { value: "fiduciaria", label: "Fiduciaria (firma contrato)" },
-    {
-      value: "prendaria",
-      label: "Prendaria (el cliente la puede seguir utilizando)"
-    },
-    { value: "cheque", label: "Cheque (entrega como garantia en la agencia)" },
-    {
-      value: "mobiliaria",
-      label:
-        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
-    },
-    {
-      value: "hipotecaria",
-      label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
-    },
-    {
-      value: "compraVenta",
-      label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
-    },
-    {
-      value: "empeño",
-      label:
-        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
-    }
-  ];
-
-  const paísOptions = [
-    { value: "quetzal", label: "Guatemala - Quetzal" },
-    { value: "dollar", label: "US - Dollar" }
-  ];
-
-  const agenciasPermitidasValues = [
-    { value: "quetzal", label: "Mazatenango" },
-    { value: "quetzaltenango", label: "Quetzaltenango" },
-    { value: "coatepeque", label: "Coatepeque" },
-    { value: "coban", label: "Coban" },
-    { value: "guatemala", label: "Guatemala" }
-  ];
-
   return (
     <Card>
       <CardHeader>
@@ -80,15 +28,16 @@ const ConfigForm = () => {
       <CardBody>
         <Formik
           initialValues={{
-            tipoDeNegocio: "",
-            dirección: "",
-            inventario: "",
-            observaste: "",
-            díaDePago: "",
-            garantía: "",
-            comentario: "",
-            evidencias: [],
-            documentosRrabajo: []
+            business_type: "",
+            address_approved: false,
+            inventory: "",
+            observations: "",
+            payment_day: "",
+            guarantee_approved: false,
+            comment: "",
+            evidences: [],
+            work_documents: [],
+            credit_approval: false,
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -101,12 +50,29 @@ const ConfigForm = () => {
           //   }
           //   return errors;
           // }}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-            setTimeout(() => {
-              console.log(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            // console.log(values);
+            // setTimeout(() => {
+            //   console.log(JSON.stringify(values, null, 2));
+            //   setSubmitting(false);
+            // }, 400);
+            const response = API.post("credit/validation/1", values);
+            toast.promise(
+              response,
+              {
+                loading: "Loading",
+                success: (data) => {
+                  resetForm();
+                  return `Successfully saved ${data.name}`;
+                },
+                error: (err) => {
+                  return `ERROR: ${formatMessage(err)}`;
+                },
+              },
+              {
+                style: { minWidth: "250px", fontWeight: "bold" },
+              }
+            );
           }}
         >
           {({
@@ -117,7 +83,8 @@ const ConfigForm = () => {
             handleBlur,
             handleSubmit,
             isSubmitting,
-            setFieldValue
+            setFieldValue,
+            resetForm,
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
@@ -129,8 +96,8 @@ const ConfigForm = () => {
                   <Col sm="4">
                     <Input
                       type="text"
-                      name="tipoDeNegocio"
-                      id="tipoDeNegocio"
+                      name="business_type"
+                      id="business_type"
                       placeholder="Tipo de negocio"
                       tag={Field}
                     />
@@ -149,10 +116,10 @@ const ConfigForm = () => {
                         <Input
                           type="radio"
                           id="dirección-aceptar"
-                          name="dirección"
+                          name="address_approved"
                           onChange={(e) => {
                             if (e.currentTarget.value === "on") {
-                              setFieldValue("dirección", "aceptado");
+                              setFieldValue("address_approved", true);
                             }
                           }}
                         />
@@ -166,11 +133,11 @@ const ConfigForm = () => {
                       <div className="form-check">
                         <Input
                           type="radio"
-                          name="dirección"
+                          name="address_approved"
                           id="direcciónRechazar"
                           onChange={(e) => {
                             if (e.currentTarget.value === "on") {
-                              setFieldValue("dirección", "rechazada");
+                              setFieldValue("address_approved", false);
                             }
                           }}
                         />
@@ -193,8 +160,8 @@ const ConfigForm = () => {
                   <Col sm="4">
                     <Input
                       type="text"
-                      name="inventario"
-                      id="inventario"
+                      name="inventory"
+                      id="inventory"
                       placeholder="Inventario"
                       tag={Field}
                     />
@@ -209,8 +176,8 @@ const ConfigForm = () => {
                   <Col sm="4">
                     <Input
                       type="text"
-                      name="díaDePago"
-                      id="díaDePago"
+                      name="payment_day"
+                      id="payment_day"
                       placeholder="Día de pago"
                       tag={Field}
                     />
@@ -238,10 +205,10 @@ const ConfigForm = () => {
                         <Input
                           type="radio"
                           id="garantía-aceptar"
-                          name="garantía"
+                          name="guarantee_approved"
                           onChange={(e) => {
                             if (e.currentTarget.value === "on") {
-                              setFieldValue("garantía", "aceptado");
+                              setFieldValue("guarantee_approved", true);
                             }
                           }}
                         />
@@ -255,11 +222,11 @@ const ConfigForm = () => {
                       <div className="form-check">
                         <Input
                           type="radio"
-                          name="garantía"
+                          name="guarantee_approved"
                           id="garantíaRechazar"
                           onChange={(e) => {
                             if (e.currentTarget.value === "on") {
-                              setFieldValue("garantía", "rechazada");
+                              setFieldValue("guarantee_approved", false);
                             }
                           }}
                         />
@@ -285,7 +252,7 @@ const ConfigForm = () => {
                       <Input
                         type="checkbox"
                         id="vidriosRotos"
-                        name="observaste"
+                        name="observations"
                         value="vidriosRotos"
                         tag={Field}
                       />
@@ -310,7 +277,7 @@ const ConfigForm = () => {
                       <Input
                         type="checkbox"
                         id="postes"
-                        name="observaste"
+                        name="observations"
                         value="postes"
                         tag={Field}
                       />
@@ -335,7 +302,7 @@ const ConfigForm = () => {
                       <Input
                         type="checkbox"
                         id="malasReferencias"
-                        name="observaste"
+                        name="observations"
                         value="malasReferencias"
                         tag={Field}
                       />
@@ -369,7 +336,7 @@ const ConfigForm = () => {
                 <Col sm="4">
                   <FileUploaderMultiple
                     setFieldValue={setFieldValue}
-                    fieldName="evidencias"
+                    fieldName="evidences"
                   />
                 </Col>
               </Row>
@@ -383,7 +350,7 @@ const ConfigForm = () => {
                 <Col sm="4">
                   <FileUploaderMultiple
                     setFieldValue={setFieldValue}
-                    fieldName="documentosRrabajo"
+                    fieldName="work_documents"
                   />
                 </Col>
               </Row>
@@ -398,15 +365,15 @@ const ConfigForm = () => {
                       Comentario
                     </Label>
                     <Input
-                      name="comentario"
+                      name="comment"
                       // value={value}
                       type="textarea"
-                      id="comentario"
+                      id="comment"
                       placeholder="Comentario"
                       // style={{ minHeight: "100px" }}
                       // tag={Field}
                       onBlur={(e) => {
-                        setFieldValue("comentario", e.target.value);
+                        setFieldValue("comment", e.target.value);
                       }}
                       // className={classnames({ "text-danger": value.length > 20 })}
                     />
@@ -423,10 +390,10 @@ const ConfigForm = () => {
                     <Input
                       type="radio"
                       id="aceptar-active"
-                      name="aceptarCrédito"
+                      name="credit_approval"
                       onChange={(e) => {
                         if (e.currentTarget.value === "on") {
-                          setFieldValue("aceptarCrédito", "aceptado");
+                          setFieldValue("credit_approval", true);
                         }
                       }}
                     />
@@ -464,7 +431,12 @@ const ConfigForm = () => {
                       <Save size={16} />
                       <span className="align-middle mx-25">Guardar</span>
                     </Button.Ripple>
-                    <Button.Ripple outline color="secondary" type="reset">
+                    <Button.Ripple
+                      outline
+                      color="secondary"
+                      type="reset"
+                      onClick={resetForm}
+                    >
                       <RefreshCw size={16} />
                       <span className="align-middle mx-25">Descartar</span>
                     </Button.Ripple>

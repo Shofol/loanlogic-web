@@ -10,40 +10,44 @@ import {
   Button,
   CardBody,
   CardTitle,
-  CardHeader
+  CardHeader,
 } from "reactstrap";
 import { Save, RefreshCw } from "react-feather";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 import { selectThemeColors } from "@utils";
 import Select from "react-select";
 import { Formik, Field } from "formik";
+import API from "../../@core/api/api";
+import { toast } from "react-hot-toast";
+import { formatMessage } from "../../utility/functions/formatMessage";
 
 const Garantía = () => {
   const tipoGarantíaValues = [
     { value: "fiduciaria", label: "Fiduciaria (firma contrato)" },
     {
       value: "prendaria",
-      label: "Prendaria (el cliente la puede seguir utilizando)"
+      label: "Prendaria (el cliente la puede seguir utilizando)",
     },
     { value: "cheque", label: "Cheque (entrega como garantia en la agencia)" },
     {
       value: "mobiliaria",
       label:
-        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
+        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)",
     },
     {
       value: "hipotecaria",
-      label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
+      label: "Hipotecaria (se crea un gravamen sobre la propiedad)",
     },
     {
       value: "compraVenta",
-      label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
+      label:
+        "Compra-venta (si no me pagas, me quedo con la casa para venderla)",
     },
     {
       value: "empeño",
       label:
-        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
-    }
+        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)",
+    },
   ];
 
   return (
@@ -55,11 +59,11 @@ const Garantía = () => {
       <CardBody>
         <Formik
           initialValues={{
-            tipoGarantía: "",
-            descripción: "",
-            modelo: "",
-            númeroDeSérie: "",
-            fotoGarantía: []
+            guarantee_item: "",
+            description: "",
+            model: "",
+            serial_number: "",
+            fotoGarantía: [],
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -73,11 +77,29 @@ const Garantía = () => {
           //   return errors;
           // }}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-            setTimeout(() => {
-              console.log(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            // console.log(values);
+            // setTimeout(() => {
+            //   console.log(JSON.stringify(values, null, 2));
+            //   setSubmitting(false);
+            // }, 400);
+
+            const response = API.post("guarantee", values);
+            toast.promise(
+              response,
+              {
+                loading: "Loading",
+                success: (data) => {
+                  resetForm();
+                  return `Successfully saved ${data.name}`;
+                },
+                error: (err) => {
+                  return `ERROR: ${formatMessage(err)}`;
+                },
+              },
+              {
+                style: { minWidth: "250px", fontWeight: "bold" },
+              }
+            );
           }}
         >
           {({
@@ -88,7 +110,8 @@ const Garantía = () => {
             handleBlur,
             handleSubmit,
             isSubmitting,
-            setFieldValue
+            setFieldValue,
+            resetForm,
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
@@ -102,9 +125,9 @@ const Garantía = () => {
                     defaultValue={tipoGarantíaValues[0]}
                     options={tipoGarantíaValues}
                     isClearable={false}
-                    name="tipoGarantía"
+                    name="guarantee_item"
                     onChange={(option) =>
-                      setFieldValue("tipoGarantía", option.value)
+                      setFieldValue("guarantee_item", option.value)
                     }
                   />
                 </Col>
@@ -112,11 +135,11 @@ const Garantía = () => {
                   <Label className="form-label">Descripción*</Label>
                   <Input
                     type="textarea"
-                    name="descripción"
-                    id="descripción"
+                    name="description"
+                    id="description"
                     placeholder="Descripción"
                     onBlur={(e) => {
-                      setFieldValue("descripción", e.target.value);
+                      setFieldValue("description", e.target.value);
                     }}
                   />
                 </Col>
@@ -127,8 +150,8 @@ const Garantía = () => {
                   <Label className="form-label">Modelo</Label>
                   <Input
                     type="text"
-                    name="modelo"
-                    id="modelo"
+                    name="model"
+                    id="model"
                     placeholder="Modelo"
                     tag={Field}
                   />
@@ -138,8 +161,8 @@ const Garantía = () => {
                   <Label className="form-label">Número de série</Label>
                   <Input
                     type="text"
-                    name="númeroDeSérie"
-                    id="númeroDeSérie"
+                    name="serial_number"
+                    id="serial_number"
                     placeholder="Número de série"
                     tag={Field}
                   />
@@ -151,7 +174,7 @@ const Garantía = () => {
                   <p className="fs-6">Foto de la garantía*</p>
                   <FileUploaderMultiple
                     setFieldValue={setFieldValue}
-                    fieldName="fotoGarantía"
+                    fieldName="photo"
                   />
                 </Col>
               </Row>
@@ -170,7 +193,9 @@ const Garantía = () => {
                     </Button.Ripple>
                     <Button.Ripple outline color="secondary" type="reset">
                       <RefreshCw size={16} />
-                      <span className="align-middle mx-25">Descartar</span>
+                      <span className="align-middle mx-25" onnClick={resetForm}>
+                        Descartar
+                      </span>
                     </Button.Ripple>
                   </div>
                 </Col>

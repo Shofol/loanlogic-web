@@ -6,15 +6,15 @@ const ValidationForm = lazy(() =>
 
 const Garantía = lazy(() => import("../../views/Créditos/Garantía"));
 
-const DashboardRoutes = [
+const CréditosRoutes = [
   {
-    path: "/créditos/validation",
-    element: <ValidationForm />
+    path: "/créditos/validation/:id",
+    element: <ValidationForm />,
   },
   {
     path: "/créditos/garantía",
-    element: <Garantía />
-  }
+    element: <Garantía />,
+  },
 ];
 
-export default DashboardRoutes;
+export default CréditosRoutes;

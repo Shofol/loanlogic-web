@@ -20,6 +20,8 @@ import { Save, RefreshCw } from "react-feather";
 import { agenciasValues } from "../../configs/data";
 import { Field, Formik } from "formik";
 import API from "../../@core/api/api";
+import { toast } from "react-hot-toast";
+import { formatMessage } from "../../utility/functions/formatMessage";
 
 const ConfigForm = () => {
   const periodicidadValues = [
@@ -119,17 +121,29 @@ const ConfigForm = () => {
           //   }
           //   return errors;
           // }}
-          onSubmit={async (values, { setSubmitting }) => {
-            setTimeout(() => {
-              console.log(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            // setTimeout(() => {
+            //   console.log(JSON.stringify(values, null, 2));
+            //   setSubmitting(false);
+            // }, 400);
 
-            // if (values.administrative_expenses.length > 0) {
-            //   values.administrative_expenses.map();
-            // }
-
-            const result = await API.post("/product", values);
+            const response = API.post("product", values);
+            toast.promise(
+              response,
+              {
+                loading: "Loading",
+                success: (data) => {
+                  resetForm();
+                  return `Successfully saved ${data.name}`;
+                },
+                error: (err) => {
+                  return `ERROR: ${formatMessage(err)}`;
+                },
+              },
+              {
+                style: { minWidth: "250px", fontWeight: "bold" },
+              }
+            );
           }}
         >
           {({
@@ -141,6 +155,7 @@ const ConfigForm = () => {
             handleSubmit,
             isSubmitting,
             setFieldValue,
+            resetForm,
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
@@ -412,7 +427,12 @@ const ConfigForm = () => {
                       <Save size={16} />
                       <span className="align-middle mx-25">Guardar</span>
                     </Button.Ripple>
-                    <Button.Ripple outline color="secondary" type="reset">
+                    <Button.Ripple
+                      outline
+                      color="secondary"
+                      type="reset"
+                      onnClick={resetForm}
+                    >
                       <RefreshCw size={16} />
                       <span className="align-middle mx-25">Descartar</span>
                     </Button.Ripple>

@@ -28,17 +28,17 @@ const ClientesLista = () => {
     { value: "all", label: "TODOS" },
     { value: "pending-pre-validation", label: "PENDIENTE PRE-VALIDACIÓN" },
     {
-      value: "address-validation-pending",
+      value: "pending-address-validation",
       label: "PENDIENTE VALIDACIÓN DIRECCIÓN",
     },
     { value: "pending-approval", label: "PENDIENTE APROBACIÓN" },
     { value: "accepted", label: "ACEPTADO" },
     { value: "cancelled", label: "CANCELADO" },
   ];
-  const [desdePicker, setDesdePicker] = useState(new Date());
-  const [hastaPicker, setHastaPicker] = useState(new Date());
 
   // ** States
+  const [desdePicker, setDesdePicker] = useState(new Date());
+  const [hastaPicker, setHastaPicker] = useState(new Date());
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);

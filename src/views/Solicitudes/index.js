@@ -11,35 +11,92 @@ import {
   CardTitle,
   CardHeader,
   Table,
-  Input
+  Input,
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
-import { Save, RefreshCw, Edit, Check, X } from "react-feather";
+import { Save, RefreshCw, Edit, Check, X, Search } from "react-feather";
 import { agenciasValues } from "../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "../Créditos/Créditos.scss";
 import ReactPaginate from "react-paginate";
+import API from "../../@core/api/api";
+import { useNavigate } from "react-router-dom";
 
 const Solicitudes = () => {
+  const navigate = useNavigate();
+
   const estadoOptions = [
     { value: "all", label: "TODOS" },
     { value: "prevalidation", label: "PENDIENTE PRE-VALIDACIÓN" },
     { value: "address", label: "PENDIENTE VALIDACIÓN DIRECCIÓN" },
     { value: "approval", label: "PENDIENTE APROBACIÓN" },
     { value: "accepted", label: "ACEPTADO" },
-    { value: "cancelled", label: "CANCELADO" }
+    { value: "cancelled", label: "CANCELADO" },
   ];
   const [picker, setPicker] = useState(null);
   // ** States
   const [currentPage, setCurrentPage] = useState(0);
-  const data = [1, 2, 3, 4, 5, 5, 6, 6, 6, 6, 6, 66, 6];
+  const [data, setData] = useState([]);
+  const [agency, setAgency] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [desdePicker, setDesdePicker] = useState(new Date());
+  const [hastaPicker, setHastaPicker] = useState(new Date());
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
     setCurrentPage(page.selected);
   };
+
+  const fetchData = async () => {
+    const response = await API.get(
+      `credit-application?page=${currentPage}&pageSize=1&sortField=createdAt&sortOrder=ASC&&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
+        ","
+      )}`
+    );
+    // &agency=${agency.join(
+    //   ","
+    // )}
+    // `?page=1&pageSize=10&sortField=createdAt&sortOrder=ASC&status=pending-approval&startDate=2021-06-11T11:40:15.272Z&endDate=2024-06-11T11:40:15.272Z`;
+    console.log(response.data.data);
+    setData([...response.data.data]);
+  };
+
+  const renderAction = (id, status) => {
+    if (
+      status === "pending-pre-validation" ||
+      status === "pending-address-validation"
+    ) {
+      return (
+        <>
+          <Button.Ripple
+            className="btn-icon"
+            outline
+            color="success"
+            onClick={() => {
+              navigate(`/créditos/validation/${id}`);
+            }}
+          >
+            <Check size={16} />
+          </Button.Ripple>
+
+          <Button.Ripple className="btn-icon" outline color="danger">
+            <X size={16} />
+          </Button.Ripple>
+        </>
+      );
+    } else if (status === "pending-validation") {
+      return (
+        <Button.Ripple className="btn-icon" outline color="primary">
+          <Edit size={16} />
+        </Button.Ripple>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <Card className="p-2">
       <CardHeader>
@@ -59,6 +116,9 @@ const Solicitudes = () => {
                 options={agenciasValues}
                 className="react-select"
                 classNamePrefix="select"
+                onChange={(option) =>
+                  setAgency(option.map((option) => option.value))
+                }
               />
             </Col>
             <Col md="6" sm="12" className="mb-1">
@@ -71,6 +131,9 @@ const Solicitudes = () => {
                 options={estadoOptions}
                 className="react-select"
                 classNamePrefix="select"
+                onChange={(option) =>
+                  setStatus(option.map((option) => option.value))
+                }
               />
             </Col>
             <Col md="6">
@@ -78,16 +141,16 @@ const Solicitudes = () => {
                 Desde el
               </Label>
               <Flatpickr
-                value={picker}
+                value={desdePicker}
                 id="hf-picker"
                 className="form-control"
-                onChange={(selectedDates, dateStr, instance) =>
-                  setPicker(dateStr)
-                }
+                onChange={(selectedDates, dateStr, instance) => {
+                  setDesdePicker(dateStr);
+                }}
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "d/m/Y"
+                  dateFormat: "Y-m-d",
                 }}
               />
             </Col>
@@ -96,19 +159,30 @@ const Solicitudes = () => {
                 Hasta el
               </Label>
               <Flatpickr
-                value={picker}
+                value={hastaPicker}
                 id="hf-picker"
                 className="form-control"
                 onChange={(selectedDates, dateStr, instance) =>
-                  setPicker(dateStr)
+                  setHastaPicker(dateStr)
                 }
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "d/m/Y"
+                  dateFormat: "Y-m-d",
                 }}
               />
             </Col>
+
+            <div className="d-flex justify-content-end">
+              <Button.Ripple
+                className="mt-2"
+                color="primary"
+                onClick={fetchData}
+              >
+                <Search size={14} />
+                <span className="align-middle ms-25">Search</span>
+              </Button.Ripple>
+            </div>
 
             <Table className="mt-4" responsive>
               <thead>
@@ -198,28 +272,51 @@ const Solicitudes = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>S1034</td>
-                  <td>John</td>
-                  <td>Doe</td>
-                  <td>Calle de monte toro, 30</td>
-                  <td>Samayac</td>
-                  <td>Suchitepéquez</td>
-                  <td>Suchitepéquez</td>
-                  <td>Pendiente pre-validación</td>
-                  <td className="d-flex gap-1">
-                    <Button.Ripple className="btn-icon" outline color="danger">
-                      <Check size={16} />
-                    </Button.Ripple>
-                    <Button.Ripple className="btn-icon" outline color="danger">
-                      <X size={16} />
-                    </Button.Ripple>
-                    <Button.Ripple className="btn-icon" outline color="primary">
-                      <Edit size={16} />
-                    </Button.Ripple>
-                  </td>
-                </tr>
+                {data.length > 0 &&
+                  data.map((app) => {
+                    return (
+                      <tr key={app.id}>
+                        <td>1</td>
+                        <td>{app.id}</td>
+                        <td>{app.client.name}</td>
+                        <td>{app.client.surname}</td>
+                        <td>{app.credit_amount}</td>
+                        <td></td>
+                        <td>{app.client.residence_municipality}</td>
+                        <td>{app.client.department_of_residence}</td>
+                        <td>{app.status}</td>
+                        <td
+                          className="d-flex gap-1"
+                          style={{ maxWidth: "200px" }}
+                        >
+                          {renderAction(app.id, app.status)}
+                          {/* 
+                          <Button.Ripple
+                            className="btn-icon"
+                            outline
+                            color="danger"
+                          >
+                            <Check size={16} />
+                          </Button.Ripple>
+
+                          <Button.Ripple
+                            className="btn-icon"
+                            outline
+                            color="danger"
+                          >
+                            <X size={16} />
+                          </Button.Ripple>
+                          <Button.Ripple
+                            className="btn-icon"
+                            outline
+                            color="primary"
+                          >
+                            <Edit size={16} />
+                          </Button.Ripple> */}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </Table>
 

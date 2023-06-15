@@ -49,13 +49,13 @@ const RangeList = ({
                       </Col>
 
                       <Col sm="12" md="3" className="mb-1">
-                        <Label className="form-label" for="maximum_range ">
+                        <Label className="form-label" for="maximum_range">
                           Rango máximo
                         </Label>
                         <InputGroup>
                           <Input
                             type="number"
-                            name={`${fieldName}[${index}].maximum_range `}
+                            name={`${fieldName}[${index}].maximum_range`}
                             id="maximum_range"
                             placeholder="Rango máximo"
                             tag={Field}
