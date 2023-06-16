@@ -41,6 +41,7 @@ import DesembolsoRoutes from "./Desembolso";
 import ReporteríaRoutes from "./Reportería";
 import SolicitudesRoutes from "./Solicitudes";
 import ClientesListaRoutes from "./ClientesLista";
+import UsuariosRoutes from "./Usuarios";
 
 // ** Merge Routes
 const Routes = [
@@ -92,7 +93,8 @@ const Routes = [
   ...DesembolsoRoutes,
   ...ReporteríaRoutes,
   ...SolicitudesRoutes,
-  ...ClientesListaRoutes
+  ...ClientesListaRoutes,
+  ...UsuariosRoutes
 ];
 
 const getRouteMeta = (route) => {

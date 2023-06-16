@@ -14,7 +14,7 @@ const Colocación = () => {
 
   return (
     <Card className="p-2">
-      <CardTitle>Resumen diario asesor</CardTitle>
+      <CardTitle>Colocación</CardTitle>
       <Row>
         <Col md="4">
           <Label className="form-label">Oficina</Label>

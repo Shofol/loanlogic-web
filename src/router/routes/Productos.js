@@ -2,11 +2,11 @@ import { lazy } from "react";
 
 const ConfigForm = lazy(() => import("../../views/Productos/ConfigForm"));
 
-const DashboardRoutes = [
+const ProductosRoutes = [
   {
     path: "/productos/config",
     element: <ConfigForm />
   }
 ];
 
-export default DashboardRoutes;
+export default ProductosRoutes;
