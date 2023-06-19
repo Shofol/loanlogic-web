@@ -11,12 +11,12 @@ import {
 } from "reactstrap";
 import { Globe } from "react-feather";
 
-const CréditosPendienteDesembolso = () => {
+const ValidaciónDatos = () => {
   return (
     <>
       <Row className="mb-1">
         <Col md="6">
-          <h4 className="mb-1">Créditos Pendiente Desembolso</h4>
+          <h4 className="mb-1">Validación Datos</h4>
         </Col>
         <Col md="6" className="d-flex justify-content-end">
           <Button color="flat-primary" size="sm">
@@ -33,9 +33,9 @@ const CréditosPendienteDesembolso = () => {
             <th>Apellidos</th>
             <th>Dirección</th>
             <th>Municipio</th>
-            <th>Monto desembolso</th>
+            <th>Departamento</th>
             <th>Estado</th>
-            <th>Desembolso</th>
+            <th>Pre-validar</th>
           </tr>
         </thead>
         <tbody>
@@ -81,4 +81,4 @@ const CréditosPendienteDesembolso = () => {
   );
 };
 
-export default CréditosPendienteDesembolso;
+export default ValidaciónDatos;

@@ -7,7 +7,7 @@ import {
   DropdownToggle,
   Row,
   Col,
-  Button
+  Button,
 } from "reactstrap";
 import { Globe } from "react-feather";
 
@@ -24,7 +24,7 @@ const PreValidaciónDirección = () => {
           </Button>
         </Col>
       </Row>
-      <Table>
+      <Table responsive>
         <thead>
           <tr>
             <th>Sl. No</th>

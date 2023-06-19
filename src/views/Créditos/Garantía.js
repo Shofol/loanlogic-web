@@ -63,7 +63,8 @@ const Garantía = () => {
             description: "",
             model: "",
             serial_number: "",
-            fotoGarantía: [],
+            photo: [],
+            application_id: 1,
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -77,13 +78,12 @@ const Garantía = () => {
           //   return errors;
           // }}
           onSubmit={(values, { setSubmitting }) => {
-            // console.log(values);
-            // setTimeout(() => {
-            //   console.log(JSON.stringify(values, null, 2));
-            //   setSubmitting(false);
-            // }, 400);
+            const form = new FormData();
+            Object.keys(values).map((key) => {
+              form.append(key, values[`${key}`]);
+            });
 
-            const response = API.post("guarantee", values);
+            const response = API.post("guarantee", form);
             toast.promise(
               response,
               {

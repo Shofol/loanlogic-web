@@ -422,7 +422,6 @@ const ConfigForm = () => {
                       className="me-1"
                       color="primary"
                       type="submit"
-                      // onClick={(e) => e.preventDefault()}
                     >
                       <Save size={16} />
                       <span className="align-middle mx-25">Guardar</span>

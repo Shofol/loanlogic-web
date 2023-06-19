@@ -1,5 +1,7 @@
 .fallback-spinner {
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  // height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +36,7 @@
       height: 55px;
       border-radius: 50%;
       border: 3px solid transparent;
-      border-left: 3px solid rgba(121, 97, 249, 1);
+      border-left: 3px solid var(--bs-primary);
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
     }

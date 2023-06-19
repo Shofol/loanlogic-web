@@ -8,10 +8,17 @@ import Select from "react-select";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "../Reportería/Reportería.scss";
 import { Download, Edit, User } from "react-feather";
+import SidebarNewUsers from "./SidebarNewUsers";
+import EditUser from "./EditUser";
 
 const Usuarios = () => {
   const [picker, setPicker] = useState(new Date().toLocaleDateString());
   const [previousMonth, setPreviousMonth] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
+
+  // ** Function to toggle sidebar
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   useEffect(() => {
     setMonth();
@@ -26,6 +33,10 @@ const Usuarios = () => {
     current.setMonth(current.getMonth() - 1);
     const previousMonth = current.toLocaleString("default", { month: "long" });
     setPreviousMonth(previousMonth);
+  };
+
+  const handleEdit = (user) => {
+    setEdit(true);
   };
 
   return (
@@ -46,7 +57,7 @@ const Usuarios = () => {
         </Col>
 
         <Col md="6" className="d-flex mt-2 justify-content-end">
-          <Button.Ripple color="primary" type="reset">
+          <Button.Ripple color="primary" type="reset" onClick={toggleSidebar}>
             <User size={16} />
             <span className="align-middle mx-25">Crear nuevo usuario</span>
           </Button.Ripple>
@@ -69,7 +80,7 @@ const Usuarios = () => {
           /> */}
         </Col>
       </Row>
-      <Table className="mt-4">
+      <Table className="mt-4" responsive>
         <thead>
           <tr>
             <th>No.</th>
@@ -96,7 +107,12 @@ const Usuarios = () => {
             <td>John Doe</td>
             <td>Q 950</td>
             <td>
-              <Button.Ripple className="btn-icon" outline color="primary">
+              <Button.Ripple
+                className="btn-icon"
+                outline
+                color="primary"
+                onClick={(user) => handleEdit(user)}
+              >
                 <Edit size={16} />
               </Button.Ripple>
             </td>
@@ -109,6 +125,8 @@ const Usuarios = () => {
           <span className="align-middle mx-25">DESCARGAR</span>
         </Button.Ripple>
       </div>
+      <SidebarNewUsers open={sidebarOpen} toggleSidebar={toggleSidebar} />
+      <EditUser showModal={edit} />
     </Card>
   );
 };

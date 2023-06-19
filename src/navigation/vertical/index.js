@@ -11,7 +11,7 @@ import {
   User,
   Clipboard,
   Shield,
-  Circle
+  Circle,
 } from "react-feather";
 
 export default [
@@ -25,35 +25,41 @@ export default [
         id: "gestorComercial",
         title: "Gestor comercial",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/gestorComercial"
+        navLink: "/dashboard/gestorComercial",
       },
       {
         id: "gestorDeCobros",
         title: "Gestor de Cobros",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/gestorDeCobros"
+        navLink: "/dashboard/gestorDeCobros",
       },
       {
         id: "supervisorOficina",
         title: "Supervisor Oficina",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/supervisorOficina"
-      }
-    ]
+        navLink: "/dashboard/supervisorOficina",
+      },
+      {
+        id: "asistenteAdministrativo",
+        title: "Asis. Administrativo",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/asistenteAdministrativo",
+      },
+    ],
   },
 
   {
     id: "solicitudes",
     title: "Solicitudes",
     icon: <FileText size={20} />,
-    navLink: "/solicitudes"
+    navLink: "/solicitudes",
   },
 
   {
     id: "cobranza",
     title: "Cobranza",
     icon: <Layers size={20} />,
-    navLink: "/cobranza"
+    navLink: "/cobranza",
     // children: [
     //   {
     //     id: "debtCollection",
@@ -68,14 +74,14 @@ export default [
     id: "desembolso",
     title: "Desembolso",
     icon: <CreditCard size={20} />,
-    navLink: "/desembolso"
+    navLink: "/desembolso",
   },
 
   {
     id: "clientes",
     title: "Clientes",
     icon: <Users size={20} />,
-    navLink: "/clientes"
+    navLink: "/clientes",
   },
 
   {
@@ -88,63 +94,63 @@ export default [
         id: "carteraPorAsesor",
         title: "Cartera por Asesor",
         icon: <Circle size={20} />,
-        navLink: "/reportería/cartera-asesor"
+        navLink: "/reportería/cartera-asesor",
       },
       {
         id: "amortization",
         title: "Amortization Table",
         icon: <Circle size={20} />,
-        navLink: "/reportería/amortization"
+        navLink: "/reportería/amortization",
       },
       {
         id: "carteraConsolidada",
         title: "Cartera Consolidada",
         icon: <Circle size={20} />,
-        navLink: "/reportería/carteraConsolidada"
+        navLink: "/reportería/carteraConsolidada",
       },
       {
         id: "resumenAsesor",
         title: "Resumen asesor",
         icon: <Circle size={20} />,
-        navLink: "/reportería/resumenAsesor"
+        navLink: "/reportería/resumenAsesor",
       },
       {
         id: "colocación",
         title: "Colocación",
         icon: <Circle size={20} />,
-        navLink: "/reportería/colocación"
+        navLink: "/reportería/colocación",
       },
       {
         id: "mora",
         title: "Mora",
         icon: <Circle size={20} />,
-        navLink: "/reportería/mora"
+        navLink: "/reportería/mora",
       },
       {
         id: "cancelacionesAnticipadas",
         title: "Cancelaciones",
         icon: <Circle size={20} />,
-        navLink: "/reportería/cancelaciones-anticipadas"
+        navLink: "/reportería/cancelaciones-anticipadas",
       },
       {
         id: "papelerías",
         title: "Papelerías",
         icon: <Circle size={20} />,
-        navLink: "/reportería/papelerías"
+        navLink: "/reportería/papelerías",
       },
       {
         id: "asistencias",
         title: "Asistencias",
         icon: <Circle size={20} />,
-        navLink: "/reportería/asistencias"
+        navLink: "/reportería/asistencias",
       },
       {
         id: "cobro",
         title: "Cobro",
         icon: <Circle size={20} />,
-        navLink: "/reportería/cobro"
-      }
-    ]
+        navLink: "/reportería/cobro",
+      },
+    ],
   },
   {
     id: "productos",
@@ -156,9 +162,9 @@ export default [
         id: "productConfig",
         title: "Configuration",
         icon: <Circle size={20} />,
-        navLink: "/productos/config"
-      }
-    ]
+        navLink: "/productos/config",
+      },
+    ],
   },
   {
     id: "créditos",
@@ -176,27 +182,27 @@ export default [
         id: "visualizar-solicitud",
         title: "Visualizar Solicitud",
         icon: <Circle size={20} />,
-        navLink: "/créditos/visualizar-solicitud"
+        navLink: "/créditos/visualizar-solicitud",
       },
       {
         id: "garantía",
         title: "Garantía",
         icon: <Circle size={20} />,
-        navLink: "/créditos/garantía"
+        navLink: "/créditos/garantía",
       },
       {
         id: "clientes",
         title: "Clientes",
         icon: <Circle size={20} />,
-        navLink: "/créditos/clientes"
-      }
-    ]
+        navLink: "/créditos/clientes",
+      },
+    ],
   },
 
   {
     id: "usuarios",
     title: "Usuarios",
     icon: <User size={20} />,
-    navLink: "/usuarios"
-  }
+    navLink: "/usuarios",
+  },
 ];

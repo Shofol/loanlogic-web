@@ -9,13 +9,14 @@ import {
   CardBody,
   Button,
   ListGroup,
-  ListGroupItem
+  ListGroupItem,
 } from "reactstrap";
 
 // ** Third Party Imports
 import { useDropzone } from "react-dropzone";
 import { FileText, X, DownloadCloud } from "react-feather";
 import "../../../@core/scss/base/pages/app-file-manager.scss";
+import { toast } from "react-hot-toast";
 
 const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
   // ** State
@@ -23,6 +24,7 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
 
   const handleUpload = () => {
     if (setFieldValue && fieldName) {
+      toast.success("Uploaded Successfully");
       setFieldValue(fieldName, files);
     }
   };
@@ -30,7 +32,7 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
       setFiles([...files, ...acceptedFiles.map((file) => Object.assign(file))]);
-    }
+    },
   });
 
   const renderFilePreview = (file) => {
@@ -99,7 +101,7 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
       <CardBody className="border-1 border-primary rounded cursor-pointer">
         <div
           {...getRootProps({
-            className: "dropzone"
+            className: "dropzone",
           })}
         >
           <input {...getInputProps()} />
