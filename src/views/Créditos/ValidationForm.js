@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 // ** Reactstrap Imports
 import {
   Row,
@@ -10,7 +11,7 @@ import {
   CardBody,
   CardTitle,
   CardHeader,
-  UncontrolledTooltip,
+  UncontrolledTooltip
 } from "reactstrap";
 import { Save, RefreshCw, Info } from "react-feather";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
@@ -19,6 +20,29 @@ import { Formik, Field } from "formik";
 import API from "../../@core/api/api";
 
 const ConfigForm = () => {
+  const [dirección, setDirección] = useState("");
+  const [garantía, setGarantía] = useState([]);
+
+  useEffect(() => {
+    fetchApplication();
+  }, []);
+
+  const fetchApplication = async () => {
+    const response = await API.get("credit-application/1");
+    const application = response.data.data;
+    setDirección(
+      application.client.residence_address +
+        ", " +
+        application.client.residence_municipality
+    );
+
+    if (application.guarantee && application.guarantee.photo) {
+      setGarantía(application.guarantee.photo);
+    } else {
+      setGarantía(application.gurrentee_items.photo);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -37,7 +61,7 @@ const ConfigForm = () => {
             comment: "",
             evidences: [],
             work_documents: [],
-            credit_approval: false,
+            credit_approval: false
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -67,10 +91,10 @@ const ConfigForm = () => {
                 },
                 error: (err) => {
                   return `ERROR: ${formatMessage(err)}`;
-                },
+                }
               },
               {
-                style: { minWidth: "250px", fontWeight: "bold" },
+                style: { minWidth: "250px", fontWeight: "bold" }
               }
             );
           }}
@@ -84,7 +108,7 @@ const ConfigForm = () => {
             handleSubmit,
             isSubmitting,
             setFieldValue,
-            resetForm,
+            resetForm
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
@@ -110,7 +134,7 @@ const ConfigForm = () => {
                     <dt>Dirección*</dt>
                   </Col>
                   <Col sm="9">
-                    <dd>Calle Monte Toro 30, Samayac</dd>
+                    <dd>{dirección}</dd>
                     <div className="d-flex">
                       <div className="form-check mb-sm-2 mb-md-0 me-md-3">
                         <Input
@@ -192,13 +216,18 @@ const ConfigForm = () => {
                   </Col>
                   <Col sm="9">
                     <dd>
-                      <img
-                        className="img-fluid"
-                        src={image}
-                        alt={"item.name"}
-                        width="100px"
-                        height="100px"
-                      />
+                      {garantía.map((photo) => {
+                        return (
+                          <img
+                            key={photo}
+                            className="img-fluid"
+                            src={photo}
+                            alt={"Garantía photo"}
+                            width="100px"
+                            height="100px"
+                          />
+                        );
+                      })}
                     </dd>
                     <div className="d-flex my-1">
                       <div className="form-check mb-sm-2 mb-md-0 me-md-3">

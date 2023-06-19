@@ -10,12 +10,24 @@ import "../Reportería/Reportería.scss";
 import { Download, Edit, User } from "react-feather";
 import SidebarNewUsers from "./SidebarNewUsers";
 import EditUser from "./EditUser";
+import API from "../../@core/api/api";
+import ReactPaginate from "react-paginate";
 
 const Usuarios = () => {
+  const [currentPage, setCurrentPage] = useState(0);
   const [picker, setPicker] = useState(new Date().toLocaleDateString());
   const [previousMonth, setPreviousMonth] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [agent, setAgent] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [user, setUser] = useState(null);
+
+  // ** Function to handle Pagination
+  const handlePagination = (page) => {
+    setCurrentPage(page.selected);
+  };
 
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
@@ -36,7 +48,22 @@ const Usuarios = () => {
   };
 
   const handleEdit = (user) => {
+    setUser(user);
     setEdit(true);
+  };
+
+  useEffect(() => {
+    if (agent && agent.length > 0) {
+      fetchData();
+    }
+  }, [agent]);
+
+  const fetchData = async () => {
+    const response = await API.get(
+      `user?agency=${agent.join(",")}&page=${currentPage}&pageSize=12`
+    );
+    setUsers([...response.data.data]);
+    setTotalPages(response.data.pagination.totalPages);
   };
 
   return (
@@ -53,6 +80,9 @@ const Usuarios = () => {
             options={agenciasValues}
             className="react-select"
             classNamePrefix="select"
+            onChange={(options) => {
+              setAgent(options.map((option) => option.value));
+            }}
           />
         </Col>
 
@@ -91,12 +121,39 @@ const Usuarios = () => {
             <th>Num. Celular</th>
             <th>Fecha aniversario</th>
             <th>Fecha creación usuario</th>
-            <th>Estado</th>
+            {/* <th>Estado</th> */}
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {users.length > 0
+            ? users.map((user, index) => {
+                return (
+                  <tr key={user.id}>
+                    <td>{index + 1}</td>
+                    <td>{user.name}</td>
+                    <td>{user.role}</td>
+                    <td>{user.agency}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phone}</td>
+                    <td>{user.date_of_birth}</td>
+                    <td>{user.createdAt}</td>
+                    {/* <td>Q 950</td> */}
+                    <td>
+                      <Button.Ripple
+                        className="btn-icon"
+                        outline
+                        color="primary"
+                        onClick={() => handleEdit(user)}
+                      >
+                        <Edit size={16} />
+                      </Button.Ripple>
+                    </td>
+                  </tr>
+                );
+              })
+            : null}
+          {/* <tr>
             <td>1</td>
             <td>John Doe</td>
             <td>Q 950</td>
@@ -116,17 +173,53 @@ const Usuarios = () => {
                 <Edit size={16} />
               </Button.Ripple>
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </Table>
+      <div className="d-flex justify-content-center my-1">
+        <ReactPaginate
+          nextLabel=""
+          breakLabel="..."
+          previousLabel=""
+          pageRangeDisplayed={2}
+          forcePage={currentPage}
+          marginPagesDisplayed={2}
+          activeClassName="active"
+          pageClassName="page-item"
+          breakClassName="page-item"
+          nextLinkClassName="page-link"
+          pageLinkClassName="page-link"
+          breakLinkClassName="page-link"
+          previousLinkClassName="page-link"
+          nextClassName="page-item next-item"
+          previousClassName="page-item prev-item"
+          pageCount={Math.ceil(totalPages)}
+          onPageChange={(page) => handlePagination(page)}
+          containerClassName="pagination react-paginate separated-pagination pagination-sm justify-content-end pe-1 mt-1"
+        />
+      </div>
+
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">
           <Download size={16} />
           <span className="align-middle mx-25">DESCARGAR</span>
         </Button.Ripple>
       </div>
-      <SidebarNewUsers open={sidebarOpen} toggleSidebar={toggleSidebar} />
-      <EditUser showModal={edit} />
+      <SidebarNewUsers
+        open={sidebarOpen}
+        toggleSidebar={toggleSidebar}
+        onClose={() => {
+          fetchData();
+        }}
+      />
+      <EditUser
+        showModal={edit}
+        user={user}
+        onClose={() => {
+          fetchData();
+          setEdit(false);
+        }}
+      />
     </Card>
   );
 };

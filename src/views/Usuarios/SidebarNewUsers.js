@@ -17,6 +17,8 @@ import { Field, Formik } from "formik";
 import { Button, Label, FormText, Form, Input } from "reactstrap";
 import { agenciasValues } from "../../configs/data";
 import { RefreshCw, Save } from "react-feather";
+import API from "../../@core/api/api";
+import { toast } from "react-hot-toast";
 
 const defaultValues = {
   email: "",
@@ -24,7 +26,7 @@ const defaultValues = {
   company: "",
   fullName: "",
   username: "",
-  country: null,
+  country: null
 };
 
 const roles = [
@@ -35,15 +37,15 @@ const roles = [
   { label: "Director ventas", value: "sales-director" },
   { label: "Director cobranza", value: "collection-director" },
   { label: "Cartera y contabilidad", value: "accounting" },
-  { label: "Administrador", value: "administrator" },
+  { label: "Administrador", value: "administrator" }
 ];
 
 const estadoValues = [
   { label: "ACTIVO", value: "active" },
-  { label: "DESHABILITADO", value: "disabled" },
+  { label: "DESHABILITADO", value: "disabled" }
 ];
 
-const SidebarNewUsers = ({ open, toggleSidebar }) => {
+const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
   // ** States
   const [data, setData] = useState(null);
   const [plan, setPlan] = useState("basic");
@@ -66,17 +68,17 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
       headerClassName="mb-1"
       contentClassName="pt-0"
       toggleSidebar={toggleSidebar}
-      // onClosed={handleSidebarClosed}
+      onClosed={onClose}
     >
       <Formik
         initialValues={{
           name: "",
           role: "",
-          agent: "",
+          agency: "",
           email: "",
-          contact: "",
-          birthDate: "",
-          status: "",
+          phone: "",
+          date_of_birth: "",
+          is_active: ""
         }}
         // validate={(values) => {
         //   const errors = {};
@@ -90,21 +92,22 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
         //   return errors;
         // }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          const response = API.post("product", values);
+          const response = API.post("/user/register", values);
           toast.promise(
             response,
             {
               loading: "Loading",
               success: (data) => {
                 resetForm();
-                return `Successfully saved ${data.name}`;
+                console.log(data);
+                return `${data.data.message}`;
               },
               error: (err) => {
                 return `ERROR: ${formatMessage(err)}`;
-              },
+              }
             },
             {
-              style: { minWidth: "250px", fontWeight: "bold" },
+              style: { minWidth: "250px", fontWeight: "bold" }
             }
           );
         }}
@@ -118,7 +121,7 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
           handleSubmit,
           isSubmitting,
           setFieldValue,
-          resetForm,
+          resetForm
           /* and other goodies */
         }) => (
           <Form onSubmit={handleSubmit}>
@@ -163,8 +166,8 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
                 classNamePrefix="select"
                 options={agenciasValues}
                 theme={selectThemeColors}
-                name="agent"
-                onChange={(option) => setFieldValue("agent", option.value)}
+                name="agency"
+                onChange={(option) => setFieldValue("agency", option.value)}
               />
             </div>
 
@@ -188,14 +191,14 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
             </div>
 
             <div className="mb-1">
-              <Label className="form-label" for="contact">
+              <Label className="form-label" for="phone">
                 Num. Celular <span className="text-danger">*</span>
               </Label>
               <Input
-                id="contact"
+                id="phone"
                 placeholder="502-222-222"
-                invalid={errors.contact && true}
-                name="contact"
+                invalid={errors.phone && true}
+                name="phone"
                 tag={Field}
               />
             </div>
@@ -210,12 +213,12 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
                 className="form-control"
                 onChange={(dateStr, instance) => {
                   setPicker(dateStr);
-                  setFieldValue("birthDate", dateStr);
+                  setFieldValue("date_of_birth", dateStr[0]);
                 }}
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "d/m/Y",
+                  dateFormat: "d/m/Y"
                 }}
               />
             </div>
@@ -229,8 +232,13 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
                 classNamePrefix="select"
                 options={estadoValues}
                 theme={selectThemeColors}
-                name="status"
-                onChange={(option) => setFieldValue("status", option.value)}
+                name="is_active"
+                onChange={(option) =>
+                  setFieldValue(
+                    "is_active",
+                    option.value === estadoValues[0] ? true : false
+                  )
+                }
               />
             </div>
 

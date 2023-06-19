@@ -9,7 +9,7 @@ import {
   CardBody,
   Button,
   ListGroup,
-  ListGroupItem,
+  ListGroupItem
 } from "reactstrap";
 
 // ** Third Party Imports
@@ -31,8 +31,9 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
-      setFiles([...files, ...acceptedFiles.map((file) => Object.assign(file))]);
-    },
+      setFiles([...files, ...acceptedFiles]);
+    }
+    // .map((file) => Object.assign(file))
   });
 
   const renderFilePreview = (file) => {
@@ -101,7 +102,7 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
       <CardBody className="border-1 border-primary rounded cursor-pointer">
         <div
           {...getRootProps({
-            className: "dropzone",
+            className: "dropzone"
           })}
         >
           <input {...getInputProps()} />

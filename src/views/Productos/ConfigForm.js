@@ -11,7 +11,7 @@ import {
   CardTitle,
   CardHeader,
   InputGroup,
-  InputGroupText,
+  InputGroupText
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
@@ -25,49 +25,48 @@ import { formatMessage } from "../../utility/functions/formatMessage";
 
 const ConfigForm = () => {
   const periodicidadValues = [
-    { value: "diario", label: "Diario" },
-    { value: "semanal", label: "Semanal" },
-    { value: "quincenal", label: "Quincenal" },
-    { value: "mensual", label: "Mensual" },
+    { value: "DIARIO", label: "Diario" },
+    { value: "SEMANAL", label: "Semanal" },
+    { value: "QUINCENAL", label: "Quincenal" },
+    { value: "MENSUAL", label: "Mensual" }
   ];
 
   const duraciónOptions = [
-    { value: "días", label: "Días" },
-    { value: "semanas", label: "Semanas" },
-    { value: "meses", label: "Meses" },
+    { value: "DÍAS", label: "Días" },
+    { value: "SEMANAS", label: "Semanas" },
+    { value: "MESES", label: "Meses" }
   ];
 
   const tipoDeGarantiaOptions = [
-    { value: "fiduciaria", label: "Fiduciaria (firma contrato)" },
+    { value: "FIDUCIARIA", label: "Fiduciaria (firma contrato)" },
     {
-      value: "prendaria",
-      label: "Prendaria (el cliente la puede seguir utilizando)",
+      value: "PRENDARIA",
+      label: "Prendaria (el cliente la puede seguir utilizando)"
     },
-    { value: "cheque", label: "Cheque (entrega como garantia en la agencia)" },
+    { value: "CHEQUE", label: "Cheque (entrega como garantia en la agencia)" },
     {
-      value: "mobiliaria",
+      value: "MOBILIARIA",
       label:
-        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)",
+        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
     },
     {
-      value: "hipotecaria",
-      label: "Hipotecaria (se crea un gravamen sobre la propiedad)",
+      value: "HIPOTECARIA",
+      label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
     },
     {
-      value: "compraVenta",
+      value: "COMPRA_VENTA",
+      label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
+    },
+    {
+      value: "EMPEÑO",
       label:
-        "Compra-venta (si no me pagas, me quedo con la casa para venderla)",
-    },
-    {
-      value: "empeño",
-      label:
-        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)",
-    },
+        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
+    }
   ];
 
   const paísOptions = [
-    { value: "quetzal", label: "Guatemala - Quetzal" },
-    { value: "dollar", label: "US - Dollar" },
+    { value: "QUENTZAL", label: "Guatemala - Quetzal" },
+    { value: "DOLLAR", label: "US - Dollar" }
   ];
 
   return (
@@ -108,7 +107,7 @@ const ConfigForm = () => {
               //   maximum_range: null,
               //   bonus: null,
               // },
-            ],
+            ]
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -138,10 +137,10 @@ const ConfigForm = () => {
                 },
                 error: (err) => {
                   return `ERROR: ${formatMessage(err)}`;
-                },
+                }
               },
               {
-                style: { minWidth: "250px", fontWeight: "bold" },
+                style: { minWidth: "250px", fontWeight: "bold" }
               }
             );
           }}
@@ -155,7 +154,7 @@ const ConfigForm = () => {
             handleSubmit,
             isSubmitting,
             setFieldValue,
-            resetForm,
+            resetForm
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
@@ -231,6 +230,7 @@ const ConfigForm = () => {
                     theme={selectThemeColors}
                     className="react-select"
                     classNamePrefix="select"
+                    isMulti={true}
                     // defaultValue={tipoDeGarantiaOptions[0]}
                     options={tipoDeGarantiaOptions}
                     isClearable={false}
@@ -430,7 +430,7 @@ const ConfigForm = () => {
                       outline
                       color="secondary"
                       type="reset"
-                      onnClick={resetForm}
+                      onClick={resetForm}
                     >
                       <RefreshCw size={16} />
                       <span className="align-middle mx-25">Descartar</span>

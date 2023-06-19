@@ -10,7 +10,7 @@ import {
   Button,
   CardBody,
   CardTitle,
-  CardHeader,
+  CardHeader
 } from "reactstrap";
 import { Save, RefreshCw } from "react-feather";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
@@ -26,28 +26,27 @@ const Garantía = () => {
     { value: "fiduciaria", label: "Fiduciaria (firma contrato)" },
     {
       value: "prendaria",
-      label: "Prendaria (el cliente la puede seguir utilizando)",
+      label: "Prendaria (el cliente la puede seguir utilizando)"
     },
     { value: "cheque", label: "Cheque (entrega como garantia en la agencia)" },
     {
       value: "mobiliaria",
       label:
-        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)",
+        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
     },
     {
       value: "hipotecaria",
-      label: "Hipotecaria (se crea un gravamen sobre la propiedad)",
+      label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
     },
     {
       value: "compraVenta",
-      label:
-        "Compra-venta (si no me pagas, me quedo con la casa para venderla)",
+      label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
     },
     {
       value: "empeño",
       label:
-        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)",
-    },
+        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
+    }
   ];
 
   return (
@@ -64,7 +63,7 @@ const Garantía = () => {
             model: "",
             serial_number: "",
             photo: [],
-            application_id: 1,
+            application_id: 1
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -77,10 +76,17 @@ const Garantía = () => {
           //   }
           //   return errors;
           // }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, { setSubmitting, resetForm }) => {
             const form = new FormData();
+
             Object.keys(values).map((key) => {
-              form.append(key, values[`${key}`]);
+              if (key === "photo") {
+                values[`${key}`].map((file) => {
+                  form.append(key, file);
+                });
+              } else {
+                form.append(key, values[`${key}`]);
+              }
             });
 
             const response = API.post("guarantee", form);
@@ -94,10 +100,10 @@ const Garantía = () => {
                 },
                 error: (err) => {
                   return `ERROR: ${formatMessage(err)}`;
-                },
+                }
               },
               {
-                style: { minWidth: "250px", fontWeight: "bold" },
+                style: { minWidth: "250px", fontWeight: "bold" }
               }
             );
           }}
@@ -111,7 +117,7 @@ const Garantía = () => {
             handleSubmit,
             isSubmitting,
             setFieldValue,
-            resetForm,
+            resetForm
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
@@ -122,7 +128,7 @@ const Garantía = () => {
                     theme={selectThemeColors}
                     className="react-select"
                     classNamePrefix="select"
-                    defaultValue={tipoGarantíaValues[0]}
+                    // defaultValue={tipoGarantíaValues[0]}
                     options={tipoGarantíaValues}
                     isClearable={false}
                     name="guarantee_item"
@@ -193,7 +199,7 @@ const Garantía = () => {
                     </Button.Ripple>
                     <Button.Ripple outline color="secondary" type="reset">
                       <RefreshCw size={16} />
-                      <span className="align-middle mx-25" onnClick={resetForm}>
+                      <span className="align-middle mx-25" onClick={resetForm}>
                         Descartar
                       </span>
                     </Button.Ripple>

@@ -1,9 +1,9 @@
 export const agenciasValues = [
-  { value: "Mazatenango", label: "Mazatenango" },
-  { value: "Quetzaltenango", label: "Quetzaltenango" },
-  { value: "Coatepeque", label: "Coatepeque" },
-  { value: "Coban", label: "Coban" },
-  { value: "Guatemala", label: "Guatemala" },
+  { value: "MAZATENANGO", label: "Mazatenango" },
+  { value: "QUETZALTENANGO", label: "Quetzaltenango" },
+  { value: "COATEPEQUE", label: "Coatepeque" },
+  { value: "Coban", label: "COBAN" },
+  { value: "GUATEMALA", label: "Guatemala" }
 ];
 export const portfolioData = {
   columns: [
@@ -22,8 +22,8 @@ export const portfolioData = {
         { field: "interés", width: 120 },
         { field: "k+i", width: 120 },
         { field: "saldo", width: 120 },
-        { field: "pagos", width: 120 },
-      ],
+        { field: "pagos", width: 120 }
+      ]
     },
     { headerName: "MARTES", children: [{ field: "44866", width: 120 }] },
     { headerName: "MIÉRCOLES", children: [{ field: "44867", width: 120 }] },
@@ -34,7 +34,7 @@ export const portfolioData = {
     { headerName: "MIÉRCOLES", children: [{ field: "44872", width: 120 }] },
     { headerName: "JUEVES", children: [{ field: "44873", width: 120 }] },
     { headerName: "VIERNES", children: [{ field: "44874", width: 120 }] },
-    { headerName: "LUNES", children: [{ field: "44875", width: 120 }] },
+    { headerName: "LUNES", children: [{ field: "44875", width: 120 }] }
   ],
   rows: [
     {
@@ -60,7 +60,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
+      44875: "20"
     },
     {
       no: "1",
@@ -85,7 +85,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
+      44875: "20"
     },
     {
       no: "1",
@@ -110,7 +110,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
+      44875: "20"
     },
     {
       no: "1",
@@ -135,7 +135,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
+      44875: "20"
     },
     {
       no: "1",
@@ -160,7 +160,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
+      44875: "20"
     },
     {
       no: "1",
@@ -185,7 +185,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
+      44875: "20"
     },
     {
       no: "1",
@@ -210,7 +210,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
+      44875: "20"
     },
     {
       no: "1",
@@ -235,7 +235,7 @@ export const portfolioData = {
       44872: "20",
       44873: "20",
       44874: "20",
-      44875: "20",
-    },
-  ],
+      44875: "20"
+    }
+  ]
 };
