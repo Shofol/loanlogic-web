@@ -1,12 +1,42 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Card, Row, Col, Input, Label, Button } from "reactstrap";
 import "./cobranza.scss";
 import OverviewCircle from "../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { Printer, Save } from "react-feather";
+import API from "../../@core/api/api";
+import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { formatMessage } from "../../utility/functions/formatMessage";
 
 const Cobranza = () => {
   const { colors } = useContext(ThemeColors);
+  const { id } = useParams();
+  const [payment_made, setPayment_made] = useState("");
+
+  const submit = () => {
+    const values = {
+      payment_made: payment_made,
+      application_id: 1
+    };
+    const response = API.post("/debt/collection", values);
+
+    toast.promise(
+      response,
+      {
+        loading: "Loading",
+        success: (data) => {
+          return `${data.data.message}`;
+        },
+        error: (err) => {
+          return `ERROR: ${formatMessage(err)}`;
+        }
+      },
+      {
+        style: { minWidth: "250px", fontWeight: "bold" }
+      }
+    );
+  };
 
   return (
     <div id="section-to-print">
@@ -103,6 +133,8 @@ const Cobranza = () => {
                     name="pagoRealizado"
                     id="productoNombre"
                     placeholder="Pago realizado"
+                    value={payment_made}
+                    onChange={(e) => setPayment_made(e.target.value)}
                   />
                 </Col>
               </Row>
@@ -128,7 +160,7 @@ const Cobranza = () => {
                       className="me-1"
                       color="primary"
                       type="submit"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={submit}
                     >
                       <Save size={16} />
                       <span className="align-middle mx-25">Guardar</span>
