@@ -23,8 +23,9 @@ const CancelacionesAnticipadas = lazy(() =>
 const Papelerías = lazy(() => import("../../views/Reportería/Papelerías"));
 const Asistencias = lazy(() => import("../../views/Reportería/Asistencias"));
 const Cobro = lazy(() => import("../../views/Reportería/Cobro"));
-
-CancelacionesAnticipadas;
+const ResumenAgencia = lazy(() =>
+  import("../../views/Reportería/ResumenAgencia")
+);
 
 const ReporteríaRoutes = [
   {
@@ -42,6 +43,10 @@ const ReporteríaRoutes = [
   {
     path: "/reportería/resumenAsesor",
     element: <ResumenAsesor />
+  },
+  {
+    path: "/reportería/resumenAgencia",
+    element: <ResumenAgencia />
   },
   {
     path: "/reportería/colocación",

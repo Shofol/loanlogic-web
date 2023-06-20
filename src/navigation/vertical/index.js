@@ -115,6 +115,12 @@ export default [
         navLink: "/reportería/resumenAsesor"
       },
       {
+        id: "resumenAgencia",
+        title: "Resumen agencia",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/resumenAgencia"
+      },
+      {
         id: "colocación",
         title: "Colocación",
         icon: <Circle size={20} />,
