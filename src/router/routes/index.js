@@ -42,6 +42,7 @@ import ReporteríaRoutes from "./Reportería";
 import SolicitudesRoutes from "./Solicitudes";
 import ClientesListaRoutes from "./ClientesLista";
 import UsuariosRoutes from "./Usuarios";
+import Route from "../../views/Route";
 
 // ** Merge Routes
 const Routes = [
@@ -85,6 +86,10 @@ const Routes = [
     meta: {
       layout: "blank"
     }
+  },
+  {
+    path: "/route",
+    element: <Route />
   },
   ...ProductosRoutes,
   ...CréditosRoutes,

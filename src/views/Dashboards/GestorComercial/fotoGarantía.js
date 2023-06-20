@@ -9,8 +9,11 @@ import {
   Button
 } from "reactstrap";
 import { Globe, Edit } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 const FotoGarantía = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Row className="mb-1">
@@ -18,7 +21,13 @@ const FotoGarantía = () => {
           <h4 className="mb-1">Foto garantía</h4>
         </Col>
         <Col md="6" className="d-flex justify-content-end">
-          <Button color="flat-primary" size="sm">
+          <Button
+            color="flat-primary"
+            size="sm"
+            onClick={() => {
+              navigate("/route");
+            }}
+          >
             Ver ruta <Globe size={12} />
           </Button>
         </Col>

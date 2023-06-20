@@ -1,16 +1,9 @@
-import {
-  Table,
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  Row,
-  Col,
-  Button,
-} from "reactstrap";
+import { Table, Row, Col, Button } from "reactstrap";
 import { Globe, Edit } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 const ValidaciónCrédito = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Row className="mb-1">
@@ -18,7 +11,13 @@ const ValidaciónCrédito = () => {
           <h4 className="mb-1">Validación Crédito</h4>
         </Col>
         <Col md="6" className="d-flex justify-content-end">
-          <Button color="flat-primary" size="sm">
+          <Button
+            color="flat-primary"
+            size="sm"
+            onClick={() => {
+              navigate("/route");
+            }}
+          >
             Ver ruta <Globe size={12} />
           </Button>
         </Col>
