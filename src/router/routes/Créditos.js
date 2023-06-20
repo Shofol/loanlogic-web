@@ -10,8 +10,6 @@ const VisualizarSolicitud = lazy(() =>
   import("../../views/Créditos/VisualizarSolicitud")
 );
 
-const ClientesLista = lazy(() => import("../../views/ClientesLista"));
-
 const CréditosRoutes = [
   {
     path: "/créditos/validation/:id",
@@ -24,10 +22,6 @@ const CréditosRoutes = [
   {
     path: "/créditos/visualizar-solicitud",
     element: <VisualizarSolicitud />
-  },
-  {
-    path: "/créditos/clientes",
-    element: <ClientesLista />
   }
 ];
 

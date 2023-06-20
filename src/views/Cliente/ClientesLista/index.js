@@ -11,29 +11,32 @@ import {
   CardTitle,
   CardHeader,
   Table,
-  Input,
+  Input
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues } from "../../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
-import "../Créditos/Créditos.scss";
+import "../../Créditos/Créditos.scss";
 import ReactPaginate from "react-paginate";
 import { Search } from "react-feather";
-import API from "../../@core/api/api";
+import API from "../../../@core/api/api";
+import { useNavigate } from "react-router-dom";
 
 const ClientesLista = () => {
+  const navigate = useNavigate();
+
   const estadoOptions = [
     { value: "all", label: "TODOS" },
     { value: "pending-pre-validation", label: "PENDIENTE PRE-VALIDACIÓN" },
     {
       value: "pending-address-validation",
-      label: "PENDIENTE VALIDACIÓN DIRECCIÓN",
+      label: "PENDIENTE VALIDACIÓN DIRECCIÓN"
     },
     { value: "pending-approval", label: "PENDIENTE APROBACIÓN" },
     { value: "accepted", label: "ACEPTADO" },
-    { value: "cancelled", label: "CANCELADO" },
+    { value: "cancelled", label: "CANCELADO" }
   ];
 
   // ** States
@@ -112,7 +115,7 @@ const ClientesLista = () => {
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "Y-m-d",
+                  dateFormat: "Y-m-d"
                 }}
               />
             </Col>
@@ -130,7 +133,7 @@ const ClientesLista = () => {
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "Y-m-d",
+                  dateFormat: "Y-m-d"
                 }}
               />
             </Col>
@@ -236,7 +239,11 @@ const ClientesLista = () => {
                 {data.length > 0 &&
                   data.map((client) => {
                     return (
-                      <tr>
+                      <tr
+                        key={client.id}
+                        onClick={() => navigate(`/clientes/${client.id}`)}
+                        className="cursor-pointer"
+                      >
                         <td>1</td>
                         <td>{client.id}</td>
                         <td>{client.name}</td>

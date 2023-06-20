@@ -195,12 +195,6 @@ export default [
         title: "Garantía",
         icon: <Circle size={20} />,
         navLink: "/créditos/garantía"
-      },
-      {
-        id: "clientes",
-        title: "Clientes",
-        icon: <Circle size={20} />,
-        navLink: "/créditos/clientes"
       }
     ]
   },
