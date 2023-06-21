@@ -155,6 +155,12 @@ export default [
         title: "Cobro",
         icon: <Circle size={20} />,
         navLink: "/reportería/cobro"
+      },
+      {
+        id: "kpiVisualization",
+        title: "KPI visualization",
+        icon: <Circle size={20} />,
+        navLink: "/reportería/kpi"
       }
     ]
   },

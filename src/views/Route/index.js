@@ -8,8 +8,16 @@ import {
   CardTitle,
   Table
 } from "reactstrap";
+import GoogleMapReact from "google-map-react";
 
 const Route = () => {
+  const defaultProps = {
+    center: {
+      lat: 10.99835602,
+      lng: 77.01502627
+    },
+    zoom: 11
+  };
   return (
     <Card>
       <CardHeader>
@@ -17,6 +25,19 @@ const Route = () => {
       </CardHeader>
 
       <CardBody>
+        <div style={{ height: "40vh", width: "100%" }} className="mb-4">
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: "" }}
+            defaultCenter={defaultProps.center}
+            defaultZoom={defaultProps.zoom}
+          >
+            {/* <AnyReactComponent
+              lat={59.955413}
+              lng={30.337844}
+              text="My Marker"
+            /> */}
+          </GoogleMapReact>
+        </div>
         <Table responsive>
           <thead>
             <tr>

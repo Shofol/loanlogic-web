@@ -11,7 +11,7 @@ import {
   CardTitle,
   CardHeader,
   Table,
-  Input,
+  Input
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
@@ -33,7 +33,7 @@ const Solicitudes = () => {
     { value: "address", label: "PENDIENTE VALIDACIÓN DIRECCIÓN" },
     { value: "approval", label: "PENDIENTE APROBACIÓN" },
     { value: "accepted", label: "ACEPTADO" },
-    { value: "cancelled", label: "CANCELADO" },
+    { value: "cancelled", label: "CANCELADO" }
   ];
   const [picker, setPicker] = useState(null);
   // ** States
@@ -150,7 +150,7 @@ const Solicitudes = () => {
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "Y-m-d",
+                  dateFormat: "Y-m-d"
                 }}
               />
             </Col>
@@ -168,7 +168,7 @@ const Solicitudes = () => {
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "Y-m-d",
+                  dateFormat: "Y-m-d"
                 }}
               />
             </Col>

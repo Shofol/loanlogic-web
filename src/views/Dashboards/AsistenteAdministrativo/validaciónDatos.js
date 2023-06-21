@@ -10,6 +10,7 @@ import {
   Button
 } from "reactstrap";
 import { Globe } from "react-feather";
+import { useNavigate } from "react-router-dom";
 
 const ValidaciónDatos = () => {
   const navigate = useNavigate();
