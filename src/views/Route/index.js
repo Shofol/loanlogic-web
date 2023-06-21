@@ -9,14 +9,15 @@ import {
   Table
 } from "reactstrap";
 import GoogleMapReact from "google-map-react";
+import { Marker } from "./Marker";
 
 const Route = () => {
   const defaultProps = {
     center: {
-      lat: 10.99835602,
-      lng: 77.01502627
+      lat: 60,
+      lng: 30
     },
-    zoom: 11
+    zoom: 6
   };
   return (
     <Card>
@@ -27,15 +28,27 @@ const Route = () => {
       <CardBody>
         <div style={{ height: "40vh", width: "100%" }} className="mb-4">
           <GoogleMapReact
-            bootstrapURLKeys={{ key: "" }}
+            bootstrapURLKeys={{
+              key: "AIzaSyA6lRO0CRoj0_tyWJL6Ub-DMtEkXDHQoko"
+            }}
             defaultCenter={defaultProps.center}
             defaultZoom={defaultProps.zoom}
           >
-            {/* <AnyReactComponent
+            <Marker
               lat={59.955413}
               lng={30.337844}
-              text="My Marker"
-            /> */}
+              text={"AND"} /* Kreyser Avrora */
+            />
+            <Marker
+              lat={59.955413}
+              lng={30.337842}
+              text={"AND"} /* Kreyser Avrora */
+            />
+            <Marker
+              lat={59.955413}
+              lng={31.397842}
+              text={"AND"} /* Kreyser Avrora */
+            />
           </GoogleMapReact>
         </div>
         <Table responsive>
