@@ -29,15 +29,19 @@ const Solicitudes = () => {
 
   const estadoOptions = [
     { value: "all", label: "TODOS" },
-    { value: "prevalidation", label: "PENDIENTE PRE-VALIDACIÓN" },
-    { value: "address", label: "PENDIENTE VALIDACIÓN DIRECCIÓN" },
-    { value: "approval", label: "PENDIENTE APROBACIÓN" },
+    { value: "pending-pre-validation", label: "PENDIENTE PRE-VALIDACIÓN" },
+    {
+      value: "pending-address-validation",
+      label: "PENDIENTE VALIDACIÓN DIRECCIÓN"
+    },
+    { value: "pending-approval", label: "PENDIENTE APROBACIÓN" },
     { value: "accepted", label: "ACEPTADO" },
     { value: "cancelled", label: "CANCELADO" }
   ];
+
   const [picker, setPicker] = useState(null);
   // ** States
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
   const [status, setStatus] = useState([]);
@@ -51,7 +55,7 @@ const Solicitudes = () => {
 
   const fetchData = async () => {
     const response = await API.get(
-      `credit-application?page=${currentPage}&pageSize=1&sortField=createdAt&sortOrder=ASC&&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
+      `credit-application?page=${currentPage}&pageSize=10&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
         ","
       )}`
     );
@@ -95,6 +99,10 @@ const Solicitudes = () => {
     } else {
       return null;
     }
+  };
+
+  const handleRowClick = (id) => {
+    navigate(`/créditos/visualizar-solicitud/${id}`);
   };
 
   return (
@@ -275,7 +283,7 @@ const Solicitudes = () => {
                 {data.length > 0 &&
                   data.map((app) => {
                     return (
-                      <tr key={app.id}>
+                      <tr key={app.id} onClick={() => handleRowClick(app.id)}>
                         <td>1</td>
                         <td>{app.id}</td>
                         <td>{app.client.name}</td>

@@ -44,6 +44,12 @@ export default [
         title: "Asis. Administrativo",
         icon: <Circle size={20} />,
         navLink: "/dashboard/asistenteAdministrativo"
+      },
+      {
+        id: "Administrador",
+        title: "Administrador",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/administrador"
       }
     ]
   },
@@ -207,6 +213,12 @@ export default [
         title: "Garantía",
         icon: <Circle size={20} />,
         navLink: "/créditos/garantía"
+      },
+      {
+        id: "solicitud-crédito",
+        title: "Solicitud Crédito",
+        icon: <Circle size={20} />,
+        navLink: "/créditos/solicitud-crédito"
       }
     ]
   },

@@ -16,23 +16,31 @@ const AsistenteAdministrativo = lazy(() =>
   import("../../views/Dashboards/AsistenteAdministrativo")
 );
 
+const Administrador = lazy(() =>
+  import("../../views/Dashboards/Administrador")
+);
+
 const DashboardRoutes = [
   {
     path: "/dashboard/gestorComercial",
-    element: <GestorComercial />,
+    element: <GestorComercial />
   },
   {
     path: "/dashboard/gestorDeCobros",
-    element: <GestorDeCobros />,
+    element: <GestorDeCobros />
   },
   {
     path: "/dashboard/supervisorOficina",
-    element: <SupervisorOficina />,
+    element: <SupervisorOficina />
   },
   {
     path: "/dashboard/asistenteAdministrativo",
-    element: <AsistenteAdministrativo />,
+    element: <AsistenteAdministrativo />
   },
+  {
+    path: "/dashboard/administrador",
+    element: <Administrador />
+  }
 ];
 
 export default DashboardRoutes;
