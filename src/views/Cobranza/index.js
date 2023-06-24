@@ -8,11 +8,13 @@ import API from "../../@core/api/api";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
+import Cleave from "cleave.js/react";
 
 const Cobranza = () => {
   const { colors } = useContext(ThemeColors);
   const { id } = useParams();
   const [payment_made, setPayment_made] = useState("");
+  const options = { numeral: true };
 
   const submit = () => {
     const values = {
@@ -128,14 +130,23 @@ const Cobranza = () => {
                   <p>Pago realizado</p>
                 </Col>
                 <Col className="px-0" md="7">
-                  <Input
+                  <Cleave
+                    className="form-control"
+                    placeholder="Pago realizado"
+                    options={options}
+                    id="pagoRealizado"
+                    name="pagoRealizado"
+                    value={payment_made}
+                    onChange={(e) => setPayment_made(e.target.value)}
+                  />
+                  {/* <Input
                     type="text"
                     name="pagoRealizado"
                     id="productoNombre"
                     placeholder="Pago realizado"
                     value={payment_made}
                     onChange={(e) => setPayment_made(e.target.value)}
-                  />
+                  /> */}
                 </Col>
               </Row>
             </Col>

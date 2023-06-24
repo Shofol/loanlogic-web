@@ -6,7 +6,10 @@ import {
   CardTitle,
   Col,
   Row,
-  Progress
+  Progress,
+  InputGroup,
+  Input,
+  InputGroupText
 } from "reactstrap";
 import OverviewCircle from "../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
@@ -182,15 +185,35 @@ const KPI = () => {
         </CardHeader>
 
         <CardBody>
-          <div className="d-flex gap-2 align-items-end ">
+          <div className="d-flex gap-2 align-items-end mb-2">
             <p>Meta</p>
             <div>
               <p>Diario</p>
-              <p>20</p>
+              <InputGroup>
+                <Input
+                  type="number"
+                  name={`diario`}
+                  id="diario"
+                  placeholder="Diario"
+                  disabled
+                  value={20}
+                />
+                <InputGroupText>Q</InputGroupText>
+              </InputGroup>
             </div>
             <div>
               <p>Mensual</p>
-              <p>50,000</p>
+              <InputGroup>
+                <Input
+                  type="number"
+                  name={`mensual`}
+                  id="mensual"
+                  placeholder="Mensual"
+                  disabled
+                  value={50000}
+                />
+                <InputGroupText>Q</InputGroupText>
+              </InputGroup>
             </div>
           </div>
 
