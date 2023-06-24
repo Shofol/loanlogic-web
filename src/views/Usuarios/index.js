@@ -58,9 +58,15 @@ const Usuarios = () => {
     }
   }, [agent]);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const fetchData = async () => {
     const response = await API.get(
-      `user?agency=${agent.join(",")}&page=${currentPage}&pageSize=12`
+      agent && agent > 0
+        ? `user?agency=${agent.join(",")}&page=${currentPage}&pageSize=12`
+        : `user?page=${currentPage}&pageSize=12`
     );
     setUsers([...response.data.data]);
     setTotalPages(response.data.pagination.totalPages);

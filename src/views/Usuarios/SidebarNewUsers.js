@@ -51,6 +51,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
   const [plan, setPlan] = useState("basic");
   const [role, setRole] = useState("subscriber");
   const [picker, setPicker] = useState(new Date());
+  const [startDatepicker, setStartDatePicker] = useState(new Date());
 
   // const handleSidebarClosed = () => {
   //   for (const key in defaultValues) {
@@ -224,6 +225,26 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
             </div>
 
             <div className="mb-1">
+              <Label className="form-label" for="hf-picker">
+                Fecha de ingreso
+              </Label>
+              <Flatpickr
+                value={startDatepicker}
+                id="hf-picker"
+                className="form-control bg-white"
+                onChange={(dateStr, instance) => {
+                  setStartDatePicker(dateStr);
+                  setFieldValue("start_date", dateStr[0]);
+                }}
+                options={{
+                  altInput: true,
+                  altFormat: "F j, Y",
+                  dateFormat: "d/m/Y"
+                }}
+              />
+            </div>
+
+            <div className="mb-1">
               <Label className="form-label" for="country">
                 Estado <span className="text-danger">*</span>
               </Label>
@@ -236,7 +257,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 onChange={(option) =>
                   setFieldValue(
                     "is_active",
-                    option.value === estadoValues[0] ? true : false
+                    option.value === estadoValues[0].value ? true : false
                   )
                 }
               />

@@ -58,11 +58,14 @@ const EditUser = ({ showModal, user, onClose }) => {
   // ** States
   const [show, setShow] = useState(false);
   const [picker, setPicker] = useState(new Date());
+  const [startDatepicker, setStartDatePicker] = useState(new Date());
+
   // const [user, setUser] = useState(selectedUser);
 
   useEffect(() => {
     if (user) {
       setPicker(new Date(user.date_of_birth));
+      setStartDatePicker(new Date(user.start_date));
     }
   }, [user]);
 
@@ -73,6 +76,7 @@ const EditUser = ({ showModal, user, onClose }) => {
     email: user ? user.email : "",
     phone: user ? user.phone : "",
     date_of_birth: user ? user.date_of_birth : "",
+    start_date: user ? user.start_date : "",
     is_active: user ? user.is_active : ""
   };
 
@@ -283,6 +287,28 @@ const EditUser = ({ showModal, user, onClose }) => {
 
                   <Col md="6">
                     <div className="mb-1">
+                      <Label className="form-label" for="hf-picker">
+                        Fecha de ingreso
+                      </Label>
+                      <Flatpickr
+                        value={startDatepicker}
+                        id="hf-picker"
+                        className="form-control bg-white"
+                        onChange={(dateStr, instance) => {
+                          setStartDatePicker(dateStr);
+                          setFieldValue("start_date", dateStr[0]);
+                        }}
+                        options={{
+                          altInput: true,
+                          altFormat: "F j, Y",
+                          dateFormat: "d/m/Y"
+                        }}
+                      />
+                    </div>
+                  </Col>
+
+                  <Col md="6">
+                    <div className="mb-1">
                       <Label className="form-label" for="country">
                         Estado <span className="text-danger">*</span>
                       </Label>
@@ -295,14 +321,16 @@ const EditUser = ({ showModal, user, onClose }) => {
                         defaultValue={
                           user
                             ? user.is_active
-                              ? estadoValues[0]
-                              : estadoValues[1]
+                              ? estadoValues[0].value
+                              : estadoValues[1].value
                             : null
                         }
                         onChange={(option) =>
                           setFieldValue(
                             "is_active",
-                            option.value === estadoValues[0] ? true : false
+                            option.value === estadoValues[0].value
+                              ? true
+                              : false
                           )
                         }
                       />
