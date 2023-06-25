@@ -28,14 +28,15 @@ const ConfigForm = () => {
     { value: "DAILY", label: "Diario" },
     { value: "WEEKLY", label: "Semanal" },
     { value: "BIWEEKLY", label: "Quincenal" },
-    { value: "MONTHLY", label: "Mensual" },
     { value: "FORTNIGHTLY", label: "Catorcenal" },
-    { value: "END_MONTH", label: "Fin de mes" }
+    { value: "END_MONTH", label: "Mensual (fin de mes)" }
   ];
 
   const duraciónOptions = [
     { value: "DÍAS", label: "Días" },
     { value: "SEMANAS", label: "Semanas" },
+    { value: "CATORCENAS", label: "Catorcenas" },
+    { value: "QUINCENAS", label: "Quincenas" },
     { value: "MESES", label: "Meses" }
   ];
 
@@ -66,10 +67,7 @@ const ConfigForm = () => {
     }
   ];
 
-  const paísOptions = [
-    { value: "QUENTZAL", label: "Guatemala - Quetzal" },
-    { value: "DOLLAR", label: "US - Dollar" }
-  ];
+  const paísOptions = [{ value: "QUENTZAL", label: "Guatemala - Quetzal" }];
 
   return (
     <Card>
@@ -186,7 +184,7 @@ const ConfigForm = () => {
                   />
                 </Col>
                 <Col sm="12" md="6" className="mb-1">
-                  <Label className="form-label">Periodicidad</Label>
+                  <Label className="form-label">Periodicidad de cobros</Label>
                   <Select
                     theme={selectThemeColors}
                     className="react-select"
@@ -202,7 +200,7 @@ const ConfigForm = () => {
                 </Col>
                 <Col sm="6" md="3" className="mb-1">
                   <Label className="form-label" for="duration">
-                    Duración
+                    Duración (valor)
                   </Label>
                   <Input
                     type="text"
@@ -213,7 +211,7 @@ const ConfigForm = () => {
                   />
                 </Col>
                 <Col sm="6" md="3" className="mb-1">
-                  <Label className="form-label">Duración Periodicidad</Label>
+                  <Label className="form-label">Duración (unidad)</Label>
                   <Select
                     theme={selectThemeColors}
                     className="react-select"
