@@ -64,7 +64,7 @@ const Usuarios = () => {
 
   const fetchData = async () => {
     const response = await API.get(
-      agent && agent > 0
+      agent && agent.length > 0
         ? `user?agency=${agent.join(",")}&page=${currentPage}&pageSize=12`
         : `user?page=${currentPage}&pageSize=12`
     );

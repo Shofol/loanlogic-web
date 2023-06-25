@@ -40,8 +40,12 @@ const ClientesLista = () => {
   ];
 
   // ** States
-  const [desdePicker, setDesdePicker] = useState(new Date());
-  const [hastaPicker, setHastaPicker] = useState(new Date());
+  const today = new Date();
+  let prevDay = new Date();
+  prevDay = new Date(prevDay.setDate(prevDay.getDate() - 7));
+  const [desdePicker, setDesdePicker] = useState(prevDay);
+  const [hastaPicker, setHastaPicker] = useState(today);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
@@ -52,13 +56,20 @@ const ClientesLista = () => {
     setCurrentPage(page.selected);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const fetchData = async () => {
     const response = await API.get(
-      `client?page=${currentPage}&pageSize=1&startDate=${desdePicker}&endDate=${hastaPicker}&agency=${agency.join(
-        ","
-      )}&status=${status.join(",")}`
+      agency && agency.length > 0
+        ? `client?page=${currentPage}&pageSize=1&startDate=${desdePicker}&endDate=${hastaPicker}&agency=${agency.join(
+            ","
+          )}&status=${status.join(",")}`
+        : `client?page=${currentPage}&pageSize=1&startDate=${
+            desdePicker.toISOString().split("T")[0]
+          }&endDate=${hastaPicker.toISOString().split("T")[0]}`
     );
-    console.log(response.data.data);
     setData([...response.data.data]);
   };
 

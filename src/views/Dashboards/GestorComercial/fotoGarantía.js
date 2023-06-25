@@ -57,7 +57,14 @@ const FotoGarantía = () => {
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
             <td>
-              <Button.Ripple className="btn-icon" outline color="primary">
+              <Button.Ripple
+                className="btn-icon"
+                outline
+                color="primary"
+                onClick={() => {
+                  navigate('/créditos/garantía/1"');
+                }}
+              >
                 <Edit size={16} />
               </Button.Ripple>
               {/* <UncontrolledDropdown>

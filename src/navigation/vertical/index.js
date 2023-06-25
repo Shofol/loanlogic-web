@@ -208,12 +208,12 @@ export default [
       //   icon: <Circle size={20} />,
       //   navLink: "/créditos/visualizar-solicitud"
       // },
-      {
-        id: "garantía",
-        title: "Garantía",
-        icon: <Circle size={20} />,
-        navLink: "/créditos/garantía"
-      },
+      // {
+      //   id: "garantía",
+      //   title: "Garantía",
+      //   icon: <Circle size={20} />,
+      //   navLink: "/créditos/garantía"
+      // },
       {
         id: "solicitud-crédito",
         title: "Solicitud Crédito",

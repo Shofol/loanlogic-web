@@ -20,7 +20,7 @@ const CréditosRoutes = [
     element: <ValidationForm />
   },
   {
-    path: "/créditos/garantía",
+    path: "/créditos/garantía/:id",
     element: <Garantía />
   },
   {

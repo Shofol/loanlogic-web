@@ -33,11 +33,11 @@ const ConfigForm = () => {
   ];
 
   const duraciónOptions = [
-    { value: "DÍAS", label: "Días" },
-    { value: "SEMANAS", label: "Semanas" },
-    { value: "CATORCENAS", label: "Catorcenas" },
-    { value: "QUINCENAS", label: "Quincenas" },
-    { value: "MESES", label: "Meses" }
+    { value: "DAYS", label: "Días" },
+    { value: "WEEKS", label: "Semanas" },
+    // { value: "CATORCENAS", label: "Catorcenas" },
+    // { value: "QUINCENAS", label: "Quincenas" },
+    { value: "MONTHS", label: "Meses" }
   ];
 
   const tipoDeGarantiaOptions = [
