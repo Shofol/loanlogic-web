@@ -2,7 +2,7 @@ export const agenciasValues = [
   { value: "MAZATENANGO", label: "Mazatenango" },
   { value: "QUETZALTENANGO", label: "Quetzaltenango" },
   { value: "COATEPEQUE", label: "Coatepeque" },
-  { value: "Coban", label: "COBAN" },
+  { value: "COBAN", label: "Coban" },
   { value: "GUATEMALA", label: "Guatemala" }
 ];
 export const portfolioData = {
