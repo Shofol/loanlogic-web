@@ -159,7 +159,14 @@ const Asalariado = ({ stepper }) => {
           </Col>
         </Row>
         <div className="d-flex justify-content-end mt-2">
-          <Button color="secondary" className="btn-prev me-1" outline>
+          <Button
+            color="secondary"
+            className="btn-prev me-1"
+            outline
+            onClick={() => {
+              stepper.previous();
+            }}
+          >
             <ArrowLeft
               size={14}
               className="align-middle me-sm-25 me-0"

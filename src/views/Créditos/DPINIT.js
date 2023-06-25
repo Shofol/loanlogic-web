@@ -21,8 +21,12 @@ import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
+import { departments, municipalitiesValues } from "../../configs/data";
+import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 
 const DPINIT = ({ stepper }) => {
+  const [municipalities, setMunicipalities] = useState([]);
+
   const professions = [
     { title: "Asalariado (trabaja para una empresa)", value: "salaried" },
     { title: "Tiene negocio propio", value: "business" },
@@ -66,26 +70,42 @@ const DPINIT = ({ stepper }) => {
               (departamento, municipio)*
             </p>
           </Col>
+
+          <Col sm="3" className="mt-2">
+            <Label className="form-label" for="department">
+              Departamento
+            </Label>
+            <Select
+              theme={selectThemeColors}
+              className="react-select"
+              classNamePrefix="select"
+              options={departments}
+              isClearable={false}
+              name="department"
+              id="department"
+              onChange={(option) => {
+                setMunicipalities(
+                  municipalitiesValues.filter(
+                    (muni) => muni.department === option.value
+                  )[0].municipalities
+                );
+                // setFieldValue("department_of_residence", option.value);
+              }}
+            />
+          </Col>
+
           <Col sm="3" className="mt-2">
             <Label className="form-label" for="assistance_expenses">
               Municipio
             </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Municipio"
-            />
-          </Col>
-          <Col sm="3" className="mt-2">
-            <Label className="form-label" for="assistance_expenses">
-              Departamento
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Departamento"
+            <Select
+              theme={selectThemeColors}
+              className="react-select"
+              classNamePrefix="select"
+              options={municipalities}
+              isClearable={false}
+              name="frequency"
+              // onChange={(option) => setFieldValue("frequency", option.value)}
             />
           </Col>
         </Row>
@@ -106,46 +126,52 @@ const DPINIT = ({ stepper }) => {
             <p>Vecindad*</p>
           </Col>
           <Col sm="3" className="mt-2">
+            <Label className="form-label" for="department">
+              Departamento
+            </Label>
+            <Select
+              theme={selectThemeColors}
+              className="react-select"
+              classNamePrefix="select"
+              options={departments}
+              isClearable={false}
+              name="department"
+              id="department"
+              onChange={(option) => {
+                setMunicipalities(
+                  municipalitiesValues.filter(
+                    (muni) => muni.department === option.value
+                  )[0].municipalities
+                );
+                // setFieldValue("department_of_residence", option.value);
+              }}
+            />
+          </Col>
+
+          <Col sm="3" className="mt-2">
             <Label className="form-label" for="assistance_expenses">
               Municipio
             </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Municipio"
-            />
-          </Col>
-          <Col sm="3" className="mt-2">
-            <Label className="form-label" for="assistance_expenses">
-              Departamento
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Departamento"
+            <Select
+              theme={selectThemeColors}
+              className="react-select"
+              classNamePrefix="select"
+              options={municipalities}
+              isClearable={false}
+              name="frequency"
+              // onChange={(option) => setFieldValue("frequency", option.value)}
             />
           </Col>
         </Row>
 
         <Row className="mt-4">
-          <Col md="3">
+          <Col md="12">
             <p className="mt-2">Foto ambos lados del DPI*</p>
-          </Col>
-          <Col md="9" className="d-flex align-items-center gap-2">
-            {professions.map((prof) => {
-              return (
-                <img
-                  key={prof.value}
-                  className="img-fluid"
-                  src={image}
-                  alt={"item.name"}
-                  width="80px"
-                  height="80px"
-                />
-              );
-            })}
+            <FileUploaderMultiple
+              setFieldValue={() => {}}
+              // setFieldValue={setFieldValue}
+              fieldName="photo"
+            />
           </Col>
         </Row>
 
@@ -190,7 +216,14 @@ const DPINIT = ({ stepper }) => {
         </Row>
 
         <div className="d-flex justify-content-end mt-2">
-          <Button color="secondary" className="btn-prev me-1" outline>
+          <Button
+            color="secondary"
+            className="btn-prev me-1"
+            outline
+            onClick={() => {
+              stepper.previous();
+            }}
+          >
             <ArrowLeft
               size={14}
               className="align-middle me-sm-25 me-0"

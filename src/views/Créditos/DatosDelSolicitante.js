@@ -21,8 +21,11 @@ import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
+import { departments, municipalitiesValues } from "../../configs/data";
+import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 
 const DatosDelSolicitante = ({ stepper }) => {
+  const [municipalities, setMunicipalities] = useState([]);
   const professions = [
     { title: "Asalariado (trabaja para una empresa)", value: "salaried" },
     { title: "Tiene negocio propio", value: "business" },
@@ -55,7 +58,7 @@ const DatosDelSolicitante = ({ stepper }) => {
         <CardTitle tag="h4">Datos del solicitante</CardTitle>
       </CardHeader>
       <CardBody>
-        <Row>
+        <Row className="mt-2">
           <Col sm="3">
             <Label className="form-label" for="assistance_expenses">
               Primer apellido*
@@ -151,25 +154,37 @@ const DatosDelSolicitante = ({ stepper }) => {
 
         <Row className="mt-1">
           <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Municipio de residencia*
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Municipio de residencia"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
+            <Label className="form-label" for="department_of_residence">
               Departamento de residencia*
             </Label>
             <Select
               theme={selectThemeColors}
               className="react-select"
               classNamePrefix="select"
-              options={professions}
+              options={departments}
+              isClearable={false}
+              name="department_of_residence"
+              id="department_of_residence"
+              onChange={(option) => {
+                setMunicipalities(
+                  municipalitiesValues.filter(
+                    (muni) => muni.department === option.value
+                  )[0].municipalities
+                );
+                // setFieldValue("department_of_residence", option.value);
+              }}
+            />
+          </Col>
+
+          <Col sm="3">
+            <Label className="form-label" for="assistance_expenses">
+              Municipio de residencia*
+            </Label>
+            <Select
+              theme={selectThemeColors}
+              className="react-select"
+              classNamePrefix="select"
+              options={municipalities}
               isClearable={false}
               name="frequency"
               // onChange={(option) => setFieldValue("frequency", option.value)}
@@ -246,30 +261,25 @@ const DatosDelSolicitante = ({ stepper }) => {
           </Col>
         </Row>
         <Row className="mt-2">
-          <Col md="3">
-            <p className="mt-2">
-              Foto del recibo de la luz <br />
-              (u otro recibo)*
-            </p>
-          </Col>
-          <Col md="9" className="d-flex align-items-center gap-2">
-            {professions.map((prof) => {
-              return (
-                <img
-                  key={prof.value}
-                  className="img-fluid"
-                  src={image}
-                  alt={"item.name"}
-                  width="80px"
-                  height="80px"
-                />
-              );
-            })}
+          <Col md="12">
+            <p className="mt-2">Foto del recibo de la luz (u otro recibo)*</p>
+            <FileUploaderMultiple
+              setFieldValue={() => {}}
+              // setFieldValue={setFieldValue}
+              fieldName="photo"
+            />
           </Col>
         </Row>
 
         <div className="d-flex justify-content-end mt-2">
-          <Button color="secondary" className="btn-prev me-1" outline>
+          <Button
+            color="secondary"
+            className="btn-prev me-1"
+            outline
+            onClick={() => {
+              stepper.previous();
+            }}
+          >
             <ArrowLeft
               size={14}
               className="align-middle me-sm-25 me-0"

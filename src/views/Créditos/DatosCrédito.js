@@ -18,23 +18,53 @@ import "./Créditos.scss";
 import { ArrowRight, Info } from "react-feather";
 
 const DatosCrédito = ({ stepper }) => {
-  const [rangeValue, setRangeValue] = useState(50);
+  const [rangeValue, setRangeValue] = useState(500);
 
   const guaranteeTypes = [
-    { title: "Garantía fiduciaria", value: "fiduciaryGuarantee" },
-    { title: "Prenda", value: "garment" },
-    { title: "Cheque", value: "cheque" },
-    { title: "Mobiliaria", value: "furniture" },
-    { title: "Hipotecaria", value: "mortgage" },
-    { title: "Compra - venta;", value: "buyAndSell" },
-    { title: "Empeño", value: "endeavor" }
+    {
+      title: "Garantía fiduciaria",
+      value: "fiduciaryGuarantee",
+      tip: "Firma contrato"
+    },
+    {
+      title: "Prenda",
+      value: "garment",
+      tip: "El cliente la puede seguir utilizando"
+    },
+    {
+      title: "Cheque",
+      value: "cheque",
+      tip: "Entrega como garantia en la agencia"
+    },
+    {
+      title: "Mobiliaria",
+      value: "furniture",
+      tip: "Registro formal ante el registro mercantil, pero el cliente puede seguir utilizando"
+    },
+    {
+      title: "Hipotecaria",
+      value: "mortgage",
+      tip: "Se crea un gravamen sobre la propiedad"
+    },
+    {
+      title: "Compra - venta;",
+      value: "buyAndSell",
+      tip: "Si no me pagas, me quedo con la casa para venderla"
+    },
+    {
+      title: "Empeño",
+      value: "endeavor",
+      tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo"
+    }
   ];
 
   const paymentMethods = [
     { value: "DAILY", label: "Diario" },
     { value: "WEEKLY", label: "Semanal" },
     { value: "BIWEEKLY", label: "Quincenal" },
-    { value: "END_MONTH", label: "Fin de mes" }
+    { value: "FORTNIGHTLY", label: "Catorcenal" },
+    { value: "MONTHLY", label: "Mensual" },
+    { value: "END_MONTH", label: "Mensual (fin de mes)" }
   ];
 
   const professions = [
@@ -79,7 +109,7 @@ const DatosCrédito = ({ stepper }) => {
                     checked={true}
                   />
                   <Label className="form-check-label" htmlFor={method.value}>
-                    {method.title}
+                    {method.label}
                   </Label>
                 </div>
               );
@@ -98,6 +128,9 @@ const DatosCrédito = ({ stepper }) => {
                   className="horizontal-slider"
                   thumbClassName="example-thumb"
                   trackClassName="example-track"
+                  min={500}
+                  max={20000}
+                  step={500}
                   onChange={(value) => {
                     setRangeValue(value);
                   }}
@@ -139,7 +172,7 @@ const DatosCrédito = ({ stepper }) => {
                   id={guarntee.value}
                   name="guaranteeType"
                   value={guarntee.value}
-                  checked={true}
+                  // checked={true}
                 />
                 <Label
                   htmlFor={guarntee.value}
@@ -148,9 +181,12 @@ const DatosCrédito = ({ stepper }) => {
                 >
                   {guarntee.title}
                 </Label>
-                <Info size={16} id={guarntee.value} />
-                <UncontrolledTooltip placement="top" target={guarntee.value}>
-                  {guarntee.title}
+                <Info size={16} id={`tip-${guarntee.value}`} />
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`tip-${guarntee.value}`}
+                >
+                  {guarntee.tip}
                 </UncontrolledTooltip>
               </div>
             );
