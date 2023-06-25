@@ -35,10 +35,11 @@ const VisualizarSolicitud = () => {
   ];
 
   const paymentMethods = [
-    { title: "diario", value: "diario" },
-    { title: "semanal", value: "semanal" },
-    { title: "quincenal", value: "quincenal" },
-    { title: "final de mes", value: "final" }
+    { value: "DAILY", label: "Diario" },
+    { value: "WEEKLY", label: "Semanal" },
+    { value: "BIWEEKLY", label: "Quincenal" },
+
+    { value: "END_MONTH", label: "Fin de mes" }
   ];
 
   const professions = [

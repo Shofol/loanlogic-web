@@ -45,25 +45,31 @@ const Solicitudes = () => {
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
   const [status, setStatus] = useState([]);
-  const [desdePicker, setDesdePicker] = useState(new Date());
-  const [hastaPicker, setHastaPicker] = useState(new Date());
+  const today = new Date();
+  let prevDay = new Date();
+  prevDay = new Date(prevDay.setDate(prevDay.getDate() - 7));
+  const [desdePicker, setDesdePicker] = useState(prevDay);
+  const [hastaPicker, setHastaPicker] = useState(today);
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
     setCurrentPage(page.selected);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const fetchData = async () => {
     const response = await API.get(
-      `credit-application?page=${currentPage}&pageSize=10&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
-        ","
-      )}`
+      status && status.length > 0
+        ? `credit-application?page=${currentPage}&pageSize=10&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
+            ","
+          )}`
+        : `credit-application?page=${currentPage}&pageSize=10&startDate=${
+            desdePicker.toISOString().split("T")[0]
+          }&endDate=${hastaPicker.toISOString().split("T")[0]}`
     );
-    // &agency=${agency.join(
-    //   ","
-    // )}
-    // `?page=1&pageSize=10&sortField=createdAt&sortOrder=ASC&status=pending-approval&startDate=2021-06-11T11:40:15.272Z&endDate=2024-06-11T11:40:15.272Z`;
-    console.log(response.data.data);
     setData([...response.data.data]);
   };
 
@@ -283,7 +289,11 @@ const Solicitudes = () => {
                 {data.length > 0 &&
                   data.map((app) => {
                     return (
-                      <tr key={app.id} onClick={() => handleRowClick(app.id)}>
+                      <tr
+                        key={app.id}
+                        onClick={() => handleRowClick(app.id)}
+                        className="clickable-row"
+                      >
                         <td>1</td>
                         <td>{app.id}</td>
                         <td>{app.client.name}</td>
@@ -297,30 +307,7 @@ const Solicitudes = () => {
                           className="d-flex gap-1"
                           style={{ maxWidth: "200px" }}
                         >
-                          {renderAction(app.id, app.status)}
-                          {/* 
-                          <Button.Ripple
-                            className="btn-icon"
-                            outline
-                            color="danger"
-                          >
-                            <Check size={16} />
-                          </Button.Ripple>
-
-                          <Button.Ripple
-                            className="btn-icon"
-                            outline
-                            color="danger"
-                          >
-                            <X size={16} />
-                          </Button.Ripple>
-                          <Button.Ripple
-                            className="btn-icon"
-                            outline
-                            color="primary"
-                          >
-                            <Edit size={16} />
-                          </Button.Ripple> */}
+                          {renderAction(app.id, app.status)}y
                         </td>
                       </tr>
                     );

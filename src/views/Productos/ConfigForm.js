@@ -25,10 +25,12 @@ import { formatMessage } from "../../utility/functions/formatMessage";
 
 const ConfigForm = () => {
   const periodicidadValues = [
-    { value: "DIARIO", label: "Diario" },
-    { value: "SEMANAL", label: "Semanal" },
-    { value: "QUINCENAL", label: "Quincenal" },
-    { value: "MENSUAL", label: "Mensual" }
+    { value: "DAILY", label: "Diario" },
+    { value: "WEEKLY", label: "Semanal" },
+    { value: "BIWEEKLY", label: "Quincenal" },
+    { value: "MONTHLY", label: "Mensual" },
+    { value: "FORTNIGHTLY", label: "Catorcenal" },
+    { value: "END_MONTH", label: "Fin de mes" }
   ];
 
   const duraciónOptions = [
