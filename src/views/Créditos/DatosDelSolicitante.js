@@ -21,7 +21,11 @@ import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
-import { departments, municipalitiesValues } from "../../configs/data";
+import {
+  departments,
+  municipalitiesValues,
+  nationalities
+} from "../../configs/data";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 
 const DatosDelSolicitante = ({ stepper }) => {
@@ -253,7 +257,7 @@ const DatosDelSolicitante = ({ stepper }) => {
               theme={selectThemeColors}
               className="react-select"
               classNamePrefix="select"
-              options={professions}
+              options={nationalities}
               isClearable={false}
               name="frequency"
               // onChange={(option) => setFieldValue("frequency", option.value)}

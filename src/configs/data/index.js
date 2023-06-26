@@ -240,6 +240,15 @@ export const portfolioData = {
   ]
 };
 
+export const nationalities = [
+  { label: "Guatemalteca", value: "Guatemalteca" },
+  { label: "Salvadoreña", value: "Salvadoreña" },
+  { label: "Hondureña", value: "Hondureña" },
+  { label: "Mexicana", value: "Mexicana" },
+  { label: "Española", value: "Española" },
+  { label: "Otra", value: "Otra" }
+];
+
 export const departments = [
   { label: "Alta Verapaz", value: "Alta Verapaz" },
   { label: "Baja Verapaz", value: "Baja Verapaz" },
