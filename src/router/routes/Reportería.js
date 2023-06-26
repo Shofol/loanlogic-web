@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import RankingAsesores from "../../views/Reportería/RankingAsesores";
 
 const CarteraPorAsesor = lazy(() =>
   import("../../views/Reportería/CarteraPorAsesor")
@@ -76,7 +77,8 @@ const ReporteríaRoutes = [
   {
     path: "/reportería/kpi",
     element: <KPI />
-  }
+  },
+  { path: "reportería/rankingAsesores", element: <RankingAsesores /> }
 ];
 
 export default ReporteríaRoutes;

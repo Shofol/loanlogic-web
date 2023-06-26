@@ -167,6 +167,12 @@ export default [
         title: "KPI visualization",
         icon: <Circle size={20} />,
         navLink: "/reportería/kpi"
+      },
+      {
+        id: "rankingAsesores",
+        title: "Ranking Asesores",
+        icon: <Circle size={20} />,
+        navLink: "reportería/rankingAsesores"
       }
     ]
   },
