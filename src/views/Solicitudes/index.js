@@ -50,6 +50,7 @@ const Solicitudes = () => {
   prevDay = new Date(prevDay.setDate(prevDay.getDate() - 7));
   const [desdePicker, setDesdePicker] = useState(prevDay);
   const [hastaPicker, setHastaPicker] = useState(today);
+  const [queryParams, setQueryParams] = useState({});
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -57,20 +58,46 @@ const Solicitudes = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    handleSearch();
   }, []);
 
   const fetchData = async () => {
+    // const response = await API.get(
+    //   status && status.length > 0
+    //     ? `credit-application?page=${currentPage}&pageSize=10&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
+    //         ","
+    //       )}`
+    //     : `credit-application?page=${currentPage}&pageSize=10&startDate=${
+    //         desdePicker.toISOString().split("T")[0]
+    //       }&endDate=${hastaPicker.toISOString().split("T")[0]}`
+    // );
+    // setData([...response.data.data]);
+
+    let params = ``;
+    Object.entries(queryParams).map((pair) => {
+      params = params + `&${pair[0]}=${pair[1]}`;
+    });
     const response = await API.get(
-      status && status.length > 0
-        ? `credit-application?page=${currentPage}&pageSize=10&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
-            ","
-          )}`
-        : `credit-application?page=${currentPage}&pageSize=10&startDate=${
-            desdePicker.toISOString().split("T")[0]
-          }&endDate=${hastaPicker.toISOString().split("T")[0]}`
+      `credit-application?page=${currentPage}&pageSize=1` + params
     );
     setData([...response.data.data]);
+    setQueryParams({});
+  };
+
+  const handleSearch = () => {
+    setSearchParams();
+    fetchData();
+  };
+
+  const setSearchParams = () => {
+    if (agency.length > 0) {
+      queryParams.agency = agency.join(",");
+    }
+    if (status.length > 0) {
+      queryParams.status = status.join(",");
+    }
+    queryParams.startDate = new Date(desdePicker).toISOString().split("T")[0];
+    queryParams.endDate = new Date(hastaPicker).toISOString().split("T")[0];
   };
 
   const renderAction = (id, status) => {
@@ -191,7 +218,7 @@ const Solicitudes = () => {
               <Button.Ripple
                 className="mt-2"
                 color="primary"
-                onClick={fetchData}
+                onClick={handleSearch}
               >
                 <Search size={14} />
                 <span className="align-middle ms-25">Search</span>
@@ -305,9 +332,9 @@ const Solicitudes = () => {
                         <td>{app.status}</td>
                         <td
                           className="d-flex gap-1"
-                          style={{ maxWidth: "200px" }}
+                          style={{ maxWidth: "150px" }}
                         >
-                          {renderAction(app.id, app.status)}y
+                          {renderAction(app.id, app.status)}
                         </td>
                       </tr>
                     );

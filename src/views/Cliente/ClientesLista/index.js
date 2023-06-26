@@ -50,6 +50,7 @@ const ClientesLista = () => {
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
   const [status, setStatus] = useState([]);
+  const [queryParams, setQueryParams] = useState({});
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -57,20 +58,35 @@ const ClientesLista = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    handleSearch();
   }, []);
 
   const fetchData = async () => {
+    let params = ``;
+    Object.entries(queryParams).map((pair) => {
+      params = params + `&${pair[0]}=${pair[1]}`;
+    });
     const response = await API.get(
-      agency && agency.length > 0
-        ? `client?page=${currentPage}&pageSize=1&startDate=${desdePicker}&endDate=${hastaPicker}&agency=${agency.join(
-            ","
-          )}&status=${status.join(",")}`
-        : `client?page=${currentPage}&pageSize=1&startDate=${
-            desdePicker.toISOString().split("T")[0]
-          }&endDate=${hastaPicker.toISOString().split("T")[0]}`
+      `client?page=${currentPage}&pageSize=1` + params
     );
     setData([...response.data.data]);
+    setQueryParams({});
+  };
+
+  const handleSearch = () => {
+    setSearchParams();
+    fetchData();
+  };
+
+  const setSearchParams = () => {
+    if (agency.length > 0) {
+      queryParams.agency = agency.join(",");
+    }
+    if (status.length > 0) {
+      queryParams.status = status.join(",");
+    }
+    queryParams.startDate = new Date(desdePicker).toISOString().split("T")[0];
+    queryParams.endDate = new Date(hastaPicker).toISOString().split("T")[0];
   };
 
   return (
@@ -103,7 +119,7 @@ const ClientesLista = () => {
                 isClearable={false}
                 theme={selectThemeColors}
                 isMulti
-                name="colors"
+                name="status"
                 options={estadoOptions}
                 className="react-select"
                 classNamePrefix="select"
@@ -153,7 +169,7 @@ const ClientesLista = () => {
               <Button.Ripple
                 className="mt-2"
                 color="primary"
-                onClick={fetchData}
+                onClick={handleSearch}
               >
                 <Search size={14} />
                 <span className="align-middle ms-25">Search</span>
@@ -253,7 +269,7 @@ const ClientesLista = () => {
                       <tr
                         key={client.id}
                         onClick={() => navigate(`/clientes/${client.id}`)}
-                        className="cursor-pointer"
+                        className="clickable-row"
                       >
                         <td>1</td>
                         <td>{client.id}</td>
