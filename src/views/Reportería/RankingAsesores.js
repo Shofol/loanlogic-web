@@ -12,7 +12,7 @@ import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import "flatpickr/dist/plugins/monthSelect/style.css";
 
 const RankingAsesores = ({ title }) => {
-  const [picker, setPicker] = useState(new Date().toLocaleDateString());
+  const [picker, setPicker] = useState(new Date());
   // const [previousMonth, setPreviousMonth] = useState("");
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const RankingAsesores = ({ title }) => {
             <th>No.</th>
             <th>Oficina</th>
             <th>Asesor</th>
-            <th>{picker}</th>
+            <th>{picker.toLocaleDateString()}</th>
             <th>Meta</th>
             <th>% Efectividad</th>
             <th>Diferencia</th>

@@ -282,7 +282,7 @@ export const municipalitiesValues = [
       { label: "Chisec", value: "Chisec" },
       {
         label: "Fray Bartolomé de las Casas",
-        label: "Fray Bartolomé de las Casas"
+        value: "Fray Bartolomé de las Casas"
       },
       { label: "San Cristóbal Verapaz", value: "San Cristóbal Verapaz" },
       { label: "San Pedro Carchá", value: "San Pedro Carchá" },

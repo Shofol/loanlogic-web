@@ -27,34 +27,24 @@ import {
   nationalities
 } from "../../configs/data";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
+import { ErrorMessage, Field, Formik } from "formik";
+import Flatpickr from "react-flatpickr";
+import "@styles/react/libs/flatpickr/flatpickr.scss";
 
-const DatosDelSolicitante = ({ stepper }) => {
+const DatosDelSolicitante = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
-  const professions = [
-    { title: "Asalariado (trabaja para una empresa)", value: "salaried" },
-    { title: "Tiene negocio propio", value: "business" },
-    {
-      title: "Ambas, es asalariado y también tiene negocio propio",
-      value: "salariedAndBusiness"
-    },
-    { title: "Sin ingresos", value: "noIcome" }
-  ];
 
   const maritialStatus = [
-    { label: "Soltero/a", value: "single" },
-    { label: "Casado/a", value: "married" },
-    { label: "Divorciado/a", value: "divorced" },
-    { label: "Viudo/a", value: "widow" }
+    { label: "Soltero/a", value: "Single" },
+    { label: "Casado/a", value: "Married" },
+    { label: "Divorciado/a", value: "Divorced" },
+    { label: "Viudo/a", value: "Widow" }
   ];
 
-  const sex = [
-    { label: "Masculino", value: "male" },
-    { label: "Femenino", value: "female" }
+  const sexValues = [
+    { label: "Masculino", value: "Male" },
+    { label: "Femenino", value: "Female" }
   ];
-
-  const onSubmit = () => {
-    stepper.next();
-  };
 
   return (
     <div>
@@ -62,249 +52,447 @@ const DatosDelSolicitante = ({ stepper }) => {
         <CardTitle tag="h4">Datos del solicitante</CardTitle>
       </CardHeader>
       <CardBody>
-        <Row className="mt-2">
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Primer apellido*
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Primer apellido"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Segundo apellido*
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Segundo apellido"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Nombre*
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Nombre"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Si la respuesta es sí, indicar las instituciones y mont{" "}
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Segundo nombre"
-            />
-          </Col>
-        </Row>
+        <Formik
+          initialValues={{
+            photos_of_bills: [],
+            surname: "",
+            second_surname: "",
+            name: "",
+            second_name: "",
+            phone_number: "",
+            landline_phone_number: "",
+            email: "",
+            residence_address: "",
+            residence_municipality: "",
+            department_of_residence: "",
+            birth_date: "",
+            profession: "",
+            civil_status: "",
+            sex: "",
+            nationality: ""
+          }}
+          validate={(values) => {
+            const errors = {};
+            const requiredMsg = "Esto es requerido";
+            if (!values.surname) {
+              errors.surname = requiredMsg;
+            }
+            if (!values.second_name) {
+              errors.second_name = requiredMsg;
+            }
+            if (!values.second_surname) {
+              errors.second_surname = requiredMsg;
+            }
+            if (!values.name) {
+              errors.name = requiredMsg;
+            }
+            if (!values.phone_number) {
+              errors.phone_number = requiredMsg;
+            }
+            if (!values.landline_phone_number) {
+              errors.landline_phone_number = requiredMsg;
+            }
+            if (!values.email) {
+              errors.email = requiredMsg;
+            }
+            if (!values.residence_address) {
+              errors.residence_address = requiredMsg;
+            }
+            if (!values.department_of_residence) {
+              errors.department_of_residence = requiredMsg;
+            }
+            if (!values.residence_municipality) {
+              errors.residence_municipality = requiredMsg;
+            }
+            if (!values.birth_date) {
+              errors.birth_date = requiredMsg;
+            }
+            if (!values.sex) {
+              errors.birth_date = requiredMsg;
+            }
+            if (!values.civil_status) {
+              errors.civil_status = requiredMsg;
+            }
+            if (!values.nationality) {
+              errors.nationality = requiredMsg;
+            }
+            if (
+              !values.photos_of_bills ||
+              values.photos_of_bills.length === 0
+            ) {
+              errors.photos_of_bills = requiredMsg;
+            }
 
-        <Row className="mt-1">
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Número de celular
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Número de celular"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Número de teléfono fijo
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Número de teléfono fijo"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Correo electrónico
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Correo electrónico"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Dirección de residencia*
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Dirección de residencia"
-            />
-          </Col>
-        </Row>
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setTimeout(() => {
+              onSubmit(values);
+              setSubmitting(false);
+              stepper.next();
+            }, 400);
+          }}
+        >
+          {({ handleSubmit, setFieldValue, resetForm }) => (
+            <Form onSubmit={handleSubmit}>
+              <Row className="mt-2">
+                <Col sm="3">
+                  <Label className="form-label" for="surname">
+                    Primer apellido<span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="surname"
+                    id="surname"
+                    placeholder="Primer apellido"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="surname"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="second_surname">
+                    Segundo apellido<span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="second_surname"
+                    id="second_surname"
+                    placeholder="Segundo apellido"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="second_surname"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="name">
+                    Nombre<span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Nombre"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="name"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="second_name">
+                    Si la respuesta es sí, indicar las instituciones y mont
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="second_name"
+                    id="second_name"
+                    placeholder="Segundo nombre"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="second_name"
+                    className="text-danger"
+                  />
+                </Col>
+              </Row>
 
-        <Row className="mt-1">
-          <Col sm="3">
-            <Label className="form-label" for="department_of_residence">
-              Departamento de residencia*
-            </Label>
-            <Select
-              theme={selectThemeColors}
-              className="react-select"
-              classNamePrefix="select"
-              options={departments}
-              isClearable={false}
-              name="department_of_residence"
-              id="department_of_residence"
-              onChange={(option) => {
-                setMunicipalities(
-                  municipalitiesValues.filter(
-                    (muni) => muni.department === option.value
-                  )[0].municipalities
-                );
-                // setFieldValue("department_of_residence", option.value);
-              }}
-            />
-          </Col>
+              <Row className="mt-1">
+                <Col sm="3">
+                  <Label className="form-label" for="phone_number">
+                    Número de celular <span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="phone_number"
+                    id="phone_number"
+                    placeholder="Número de celular"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="phone_number"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="landline_phone_number">
+                    Número de teléfono fijo{" "}
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="landline_phone_number"
+                    id="landline_phone_number"
+                    placeholder="Número de teléfono fijo"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="landline_phone_number"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="email">
+                    Correo electrónico <span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Correo electrónico"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="email"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="residence_address">
+                    Dirección de residencia
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="residence_address"
+                    id="residence_address"
+                    placeholder="Dirección de residencia"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="residence_address"
+                    className="text-danger"
+                  />
+                </Col>
+              </Row>
 
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Municipio de residencia*
-            </Label>
-            <Select
-              theme={selectThemeColors}
-              className="react-select"
-              classNamePrefix="select"
-              options={municipalities}
-              isClearable={false}
-              name="frequency"
-              // onChange={(option) => setFieldValue("frequency", option.value)}
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Fecha de nacimiento*
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Fecha de nacimiento"
-            />
-          </Col>
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Profesión*
-            </Label>
-            <Input
-              type="text"
-              name="inventory"
-              id="inventory"
-              placeholder="Profesión"
-            />
-          </Col>
-        </Row>
+              <Row className="mt-1">
+                <Col sm="3">
+                  <Label className="form-label" for="department_of_residence">
+                    Departamento de residencia
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={departments}
+                    isClearable={false}
+                    name="department_of_residence"
+                    id="department_of_residence"
+                    onChange={(option) => {
+                      setMunicipalities(
+                        municipalitiesValues.filter(
+                          (muni) => muni.department === option.value
+                        )[0].municipalities
+                      );
+                      setFieldValue("department_of_residence", option.value);
+                    }}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="department_of_residence"
+                    className="text-danger"
+                  />
+                </Col>
 
-        <Row className="mt-1">
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Estado civil*
-            </Label>
-            <Select
-              theme={selectThemeColors}
-              className="react-select"
-              classNamePrefix="select"
-              options={maritialStatus}
-              isClearable={false}
-              name="frequency"
-              // onChange={(option) => setFieldValue("frequency", option.value)}
-            />
-          </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="residence_municipality">
+                    Municipio de residencia
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={municipalities}
+                    isClearable={false}
+                    name="residence_municipality"
+                    onChange={(option) =>
+                      setFieldValue("residence_municipality", option.value)
+                    }
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="residence_municipality"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="birth_date">
+                    Fecha de nacimiento<span className="text-danger">*</span>
+                  </Label>
+                  <Flatpickr
+                    // defaultValue={new Date().toLocaleDateString()}
+                    id="hf-picker"
+                    className="form-control"
+                    onChange={(selectedDates, dateStr, instance) => {
+                      setFieldValue("birth_date", dateStr);
+                      // setPicker(dateStr);
+                    }}
+                    options={{
+                      altInput: true,
+                      altFormat: "F j, Y",
+                      dateFormat: "Y-m-d"
+                    }}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="birth_date"
+                    className="text-danger"
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="profession">
+                    Profesión<span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="profession"
+                    id="profession"
+                    placeholder="Profesión"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="profession"
+                    className="text-danger"
+                  />
+                </Col>
+              </Row>
 
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Sexo
-            </Label>
-            <Select
-              theme={selectThemeColors}
-              className="react-select"
-              classNamePrefix="select"
-              options={sex}
-              isClearable={false}
-              name="frequency"
-              // onChange={(option) => setFieldValue("frequency", option.value)}
-            />
-          </Col>
+              <Row className="mt-1">
+                <Col sm="3">
+                  <Label className="form-label" for="civil_status">
+                    Estado civil<span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={maritialStatus}
+                    isClearable={false}
+                    name="civil_status"
+                    onChange={(option) =>
+                      setFieldValue("civil_status", option.value)
+                    }
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="civil_status"
+                    className="text-danger"
+                  />
+                </Col>
 
-          <Col sm="3">
-            <Label className="form-label" for="assistance_expenses">
-              Nacionalidad
-            </Label>
-            <Select
-              theme={selectThemeColors}
-              className="react-select"
-              classNamePrefix="select"
-              options={nationalities}
-              isClearable={false}
-              name="frequency"
-              // onChange={(option) => setFieldValue("frequency", option.value)}
-            />
-          </Col>
-        </Row>
-        <Row className="mt-2">
-          <Col md="12">
-            <p className="mt-2">Foto del recibo de la luz (u otro recibo)*</p>
-            <FileUploaderMultiple
-              setFieldValue={() => {}}
-              // setFieldValue={setFieldValue}
-              fieldName="photo"
-            />
-          </Col>
-        </Row>
+                <Col sm="3">
+                  <Label className="form-label" for="sex">
+                    Sexo<span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={sexValues}
+                    isClearable={false}
+                    name="sex"
+                    onChange={(option) => setFieldValue("sex", option.value)}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="sex"
+                    className="text-danger"
+                  />
+                </Col>
 
-        <div className="d-flex justify-content-end mt-2">
-          <Button
-            color="secondary"
-            className="btn-prev me-1"
-            outline
-            onClick={() => {
-              stepper.previous();
-            }}
-          >
-            <ArrowLeft
-              size={14}
-              className="align-middle me-sm-25 me-0"
-            ></ArrowLeft>
-            <span className="align-middle d-sm-inline-block d-none">
-              Previous
-            </span>
-          </Button>
-          <Button
-            type="submit"
-            color="primary"
-            className="btn-next"
-            onClick={onSubmit}
-          >
-            <span className="align-middle d-sm-inline-block d-none">Next</span>
-            <ArrowRight
-              size={14}
-              className="align-middle ms-sm-25 ms-0"
-            ></ArrowRight>
-          </Button>
-        </div>
+                <Col sm="3">
+                  <Label className="form-label" for="nationality">
+                    Nacionalidad<span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={nationalities}
+                    isClearable={false}
+                    name="nationality"
+                    onChange={(option) =>
+                      setFieldValue("nationality", option.value)
+                    }
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="nationality"
+                    className="text-danger"
+                  />
+                </Col>
+              </Row>
+              <Row className="mt-2">
+                <Col md="12">
+                  <p className="mt-2">
+                    Foto del recibo de la luz (u otro recibo)
+                    <span className="text-danger">*</span>
+                  </p>
+                  <FileUploaderMultiple
+                    setFieldValue={setFieldValue}
+                    fieldName="photos_of_bills"
+                  />
+                </Col>
+                <ErrorMessage
+                  component="div"
+                  name="photos_of_bills"
+                  className="text-danger"
+                />
+              </Row>
+
+              <div className="d-flex justify-content-end mt-2">
+                <Button
+                  color="secondary"
+                  className="btn-prev me-1"
+                  outline
+                  onClick={() => {
+                    stepper.previous();
+                  }}
+                >
+                  <ArrowLeft
+                    size={14}
+                    className="align-middle me-sm-25 me-0"
+                  ></ArrowLeft>
+                  <span className="align-middle d-sm-inline-block d-none">
+                    Previous
+                  </span>
+                </Button>
+                <Button
+                  type="submit"
+                  color="primary"
+                  className="btn-next"
+                  // onClick={onSubmit}
+                >
+                  <span className="align-middle d-sm-inline-block d-none">
+                    Next
+                  </span>
+                  <ArrowRight
+                    size={14}
+                    className="align-middle ms-sm-25 ms-0"
+                  ></ArrowRight>
+                </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </CardBody>
     </div>
   );
