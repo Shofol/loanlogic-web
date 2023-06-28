@@ -18,6 +18,7 @@ import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 import { Formik, Field } from "formik";
 import API from "../../@core/api/api";
+import { useParams } from "react-router-dom";
 
 const ConfigForm = () => {
   const [dirección, setDirección] = useState("");
@@ -27,8 +28,10 @@ const ConfigForm = () => {
     fetchApplication();
   }, []);
 
+  const { id } = useParams();
+
   const fetchApplication = async () => {
-    const response = await API.get("credit-application/1");
+    const response = await API.get(`credit-application/${id}`);
     const application = response.data.data;
     setDirección(
       application.client.residence_address +
@@ -80,7 +83,7 @@ const ConfigForm = () => {
             //   console.log(JSON.stringify(values, null, 2));
             //   setSubmitting(false);
             // }, 400);
-            const response = API.post("credit/validation/1", values);
+            const response = API.post(`credit/validation/${id}`, values);
             toast.promise(
               response,
               {
@@ -216,18 +219,20 @@ const ConfigForm = () => {
                   </Col>
                   <Col sm="9">
                     <dd>
-                      {garantía.map((photo) => {
-                        return (
-                          <img
-                            key={photo}
-                            className="img-fluid"
-                            src={photo}
-                            alt={"Garantía photo"}
-                            width="100px"
-                            height="100px"
-                          />
-                        );
-                      })}
+                      {garantía &&
+                        garantía.length > 0 &&
+                        garantía.map((photo) => {
+                          return (
+                            <img
+                              key={photo}
+                              className="img-fluid"
+                              src={photo}
+                              alt={"Garantía photo"}
+                              width="100px"
+                              height="100px"
+                            />
+                          );
+                        })}
                     </dd>
                     <div className="d-flex my-1">
                       <div className="form-check mb-sm-2 mb-md-0 me-md-3">
