@@ -73,17 +73,17 @@ const ValidaciónDatos = () => {
         <tbody>
           {data &&
             data.length > 0 &&
-            data.map((data) => {
+            data.map((data, index) => {
               return (
                 <tr key={data.id}>
-                  <td>1</td>
-                  <td>S1034</td>
-                  <td>John</td>
-                  <td>Doe</td>
-                  <td>Calle de monte toro, 30</td>
-                  <td>Samayac</td>
-                  <td>Suchitepéquez</td>
-                  <td>Pendiente pre-validación</td>
+                  <td>{index + 1}</td>
+                  <td>{data.id}</td>
+                  <td>{data?.client.name}</td>
+                  <td>{data?.client.surname}</td>
+                  <td>{data?.client.residence_address}</td>
+                  <td>{data?.client.residence_municipality}</td>
+                  <td>{data?.client.department_of_residence}</td>
+                  <td>{data.status}</td>
                   <td className="d-flex gap-1" width={"150px"}>
                     <Button.Ripple className="btn-icon" outline color="danger">
                       <Check size={16} />
