@@ -15,6 +15,15 @@ const FotoGarantía = () => {
     fetchData();
   }, []);
 
+  // ** Function to handle Pagination
+  const handlePagination = (page) => {
+    setCurrentPage(page.selected + 1);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
+
   const fetchData = async () => {
     const response = await api.get(
       `/tasks/guaranty?page=${currentPage}&pageSize=10`
