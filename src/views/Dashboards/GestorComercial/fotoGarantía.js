@@ -1,18 +1,27 @@
-import {
-  Table,
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  Row,
-  Col,
-  Button
-} from "reactstrap";
+import { Table, Row, Col, Button } from "reactstrap";
 import { Globe, Edit } from "react-feather";
 import { useNavigate } from "react-router-dom";
+import api from "../../../@core/api/api";
+import { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
 
 const FotoGarantía = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await api.get(
+      `/tasks/guaranty?page=${currentPage}&pageSize=10`
+    );
+    setData(response.data.data);
+    setTotalPages(response.data.pagination.totalPages);
+  };
 
   return (
     <>
@@ -47,50 +56,58 @@ const FotoGarantía = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>S1034</td>
-            <td>John</td>
-            <td>Doe</td>
-            <td>Calle de monte toro, 30</td>
-            <td>Samayac</td>
-            <td>Suchitepéquez</td>
-            <td>Pendiente pre-validación</td>
-            <td>
-              <Button.Ripple
-                className="btn-icon"
-                outline
-                color="primary"
-                onClick={() => {
-                  navigate('/créditos/garantía/1"');
-                }}
-              >
-                <Edit size={16} />
-              </Button.Ripple>
-              {/* <UncontrolledDropdown>
-                <DropdownToggle
-                  className="icon-btn hide-arrow"
-                  color="transparent"
-                  size="sm"
-                  caret
-                >
-                  <MoreVertical size={15} />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Edit className="me-50" size={15} />{" "}
-                    <span className="align-middle">Edit</span>
-                  </DropdownItem>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Trash className="me-50" size={15} />{" "}
-                    <span className="align-middle">Delete</span>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
-            </td>
-          </tr>
+          {data &&
+            data.length > 0 &&
+            data.map((guarantee, index) => {
+              return (
+                <tr key={guarantee.id}>
+                  <td>{index + 1}</td>
+                  <td>{guarantee.id}</td>
+                  <td>{guarantee?.client.name}</td>
+                  <td>{guarantee?.client.surname}</td>
+                  <td>{guarantee?.client.residence_address}</td>
+                  <td>{guarantee?.client.residence_municipality}</td>
+                  <td>{guarantee?.client.department_of_residence}</td>
+                  <td>{guarantee.status}</td>
+                  <td>
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="primary"
+                      onClick={() => {
+                        navigate(`/créditos/garantía/${guarantee.id}`);
+                      }}
+                    >
+                      <Edit size={16} />
+                    </Button.Ripple>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </Table>
+      <div className="d-flex justify-content-center my-1">
+        <ReactPaginate
+          nextLabel=""
+          breakLabel="..."
+          previousLabel=""
+          pageRangeDisplayed={2}
+          forcePage={currentPage - 1}
+          marginPagesDisplayed={2}
+          activeClassName="active"
+          pageClassName="page-item"
+          breakClassName="page-item"
+          nextLinkClassName="page-link"
+          pageLinkClassName="page-link"
+          breakLinkClassName="page-link"
+          previousLinkClassName="page-link"
+          nextClassName="page-item next-item"
+          previousClassName="page-item prev-item"
+          pageCount={totalPages}
+          onPageChange={(page) => handlePagination(page)}
+          containerClassName="pagination react-paginate separated-pagination pagination-sm justify-content-end pe-1 mt-1"
+        />
+      </div>
     </>
   );
 };

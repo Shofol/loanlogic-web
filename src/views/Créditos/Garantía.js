@@ -96,7 +96,7 @@ const Garantía = () => {
                 loading: "Loading",
                 success: (data) => {
                   resetForm();
-                  return `Successfully saved ${data.name}`;
+                  return `${data.data.message}`;
                 },
                 error: (err) => {
                   return `ERROR: ${formatMessage(err)}`;

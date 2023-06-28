@@ -55,7 +55,6 @@ const Solicitudes = () => {
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
-    // console.log(page.selected)
     setCurrentPage(page.selected + 1);
   };
 
@@ -64,17 +63,6 @@ const Solicitudes = () => {
   }, [currentPage]);
 
   const fetchData = async () => {
-    // const response = await API.get(
-    //   status && status.length > 0
-    //     ? `credit-application?page=${currentPage}&pageSize=10&startDate=${desdePicker}&endDate=${hastaPicker}&status=${status.join(
-    //         ","
-    //       )}`
-    //     : `credit-application?page=${currentPage}&pageSize=10&startDate=${
-    //         desdePicker.toISOString().split("T")[0]
-    //       }&endDate=${hastaPicker.toISOString().split("T")[0]}`
-    // );
-    // setData([...response.data.data]);
-
     let params = ``;
     Object.entries(queryParams).map((pair) => {
       params = params + `&${pair[0]}=${pair[1]}`;
