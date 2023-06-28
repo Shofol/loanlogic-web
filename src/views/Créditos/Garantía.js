@@ -20,8 +20,10 @@ import { Formik, Field } from "formik";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
+import { useParams } from "react-router-dom";
 
 const Garantía = () => {
+  const { id } = useParams();
   const tipoGarantíaValues = [
     { value: "fiduciaria", label: "Fiduciaria (firma contrato)" },
     {
@@ -62,8 +64,7 @@ const Garantía = () => {
             description: "",
             model: "",
             serial_number: "",
-            photo: [],
-            application_id: 1
+            photo: []
           }}
           // validate={(values) => {
           //   const errors = {};
@@ -88,6 +89,8 @@ const Garantía = () => {
                 form.append(key, values[`${key}`]);
               }
             });
+
+            form.append("application_id", id);
 
             const response = API.post("guarantee", form);
             toast.promise(
