@@ -23,8 +23,10 @@ import { selectThemeColors } from "@utils";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import {
   departments,
+  maritialStatus,
   municipalitiesValues,
-  nationalities
+  nationalities,
+  sexValues
 } from "../../configs/data";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 import { ErrorMessage, Field, Formik } from "formik";
@@ -33,18 +35,6 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 
 const DatosDelSolicitante = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
-
-  const maritialStatus = [
-    { label: "Soltero/a", value: "Single" },
-    { label: "Casado/a", value: "Married" },
-    { label: "Divorciado/a", value: "Divorced" },
-    { label: "Viudo/a", value: "Widow" }
-  ];
-
-  const sexValues = [
-    { label: "Masculino", value: "Male" },
-    { label: "Femenino", value: "Female" }
-  ];
 
   return (
     <div>
@@ -94,6 +84,10 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
             }
             if (!values.email) {
               errors.email = requiredMsg;
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
             }
             if (!values.residence_address) {
               errors.residence_address = requiredMsg;
@@ -126,16 +120,14 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              onSubmit(values);
-              setSubmitting(false);
-              stepper.next();
-            }, 400);
+            onSubmit(values);
+            setSubmitting(false);
+            stepper.next();
           }}
         >
           {({ handleSubmit, setFieldValue, resetForm }) => (
             <Form onSubmit={handleSubmit}>
-              <Row className="mt-2">
+              <Row className="mt-2 d-flex align-items-end">
                 <Col sm="3">
                   <Label className="form-label" for="surname">
                     Primer apellido<span className="text-danger">*</span>
@@ -337,12 +329,11 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     Fecha de nacimiento<span className="text-danger">*</span>
                   </Label>
                   <Flatpickr
-                    // defaultValue={new Date().toLocaleDateString()}
                     id="hf-picker"
                     className="form-control"
+                    defaultValue={new Date().toDateString()}
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("birth_date", dateStr);
-                      // setPicker(dateStr);
                     }}
                     options={{
                       altInput: true,

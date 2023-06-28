@@ -17,80 +17,15 @@ import {
 import "./Créditos.scss";
 import { ArrowRight, Info } from "react-feather";
 import { ErrorMessage, Field, Formik } from "formik";
+import {
+  guaranteeTypes,
+  loanPaymentMethods,
+  paymentMethods,
+  professions
+} from "../../configs/data";
 
-const DatosCrédito = ({ stepper, onSubmit }) => {
+const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
   const [rangeValue, setRangeValue] = useState(500);
-
-  const loanPaymentMethods = [
-    { label: "Producto diario", value: "PRODUCTO DIARIO" },
-    {
-      label: "Producto semanal",
-      value: "PRODUCTO SEMANAL"
-    },
-
-    {
-      label: "Quincenal",
-      value: "QUINCENAL"
-    },
-    { label: "Fin de mes", value: "FIN DE MES" }
-  ];
-
-  const guaranteeTypes = [
-    {
-      title: "Garantía fiduciaria",
-      value: "FIDUCIARYGUARANTEE",
-      tip: "Firma contrato"
-    },
-    {
-      title: "Prenda",
-      value: "GARMENT",
-      tip: "El cliente la puede seguir utilizando"
-    },
-    {
-      title: "Cheque",
-      value: "CHEQUE",
-      tip: "Entrega como garantia en la agencia"
-    },
-    {
-      title: "Mobiliaria",
-      value: "FURNITURE",
-      tip: "Registro formal ante el registro mercantil, pero el cliente puede seguir utilizando"
-    },
-    {
-      title: "Hipotecaria",
-      value: "MORTGAGE",
-      tip: "Se crea un gravamen sobre la propiedad"
-    },
-    {
-      title: "Compra - venta;",
-      value: "BUYANDSELL",
-      tip: "Si no me pagas, me quedo con la casa para venderla"
-    },
-    {
-      title: "Empeño",
-      value: "ENDEAVOR",
-      tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo"
-    }
-  ];
-
-  const paymentMethods = [
-    { value: "DAILY", label: "Diario" },
-    { value: "WEEKLY", label: "Semanal" },
-    { value: "BIWEEKLY", label: "Quincenal" },
-    { value: "FORTNIGHTLY", label: "Catorcenal" },
-    // { value: "MONTHLY", label: "Mensual" },
-    { value: "END_MONTH", label: "Mensual (fin de mes)" }
-  ];
-
-  const professions = [
-    { title: "Asalariado (trabaja para una empresa)", value: "SALARIED" },
-    { title: "Tiene negocio propio", value: "BUSINESS" },
-    {
-      title: "Ambas, es asalariado y también tiene negocio propio",
-      value: "SALARIEDANDBUSINESS"
-    },
-    { title: "Sin ingresos", value: "NOINCOME" }
-  ];
 
   return (
     <div className="px-2">
@@ -128,6 +63,20 @@ const DatosCrédito = ({ stepper, onSubmit }) => {
             if (!values.credit_destination) {
               errors.credit_destination = "Se requiere el destino del crédito";
             }
+            if (
+              values.credit_destination &&
+              values.credit_destination.length < 5
+            ) {
+              errors.credit_destination = "Se requiere mínimo 5 caracteres";
+            }
+            if (
+              values.reason_for_credit_request &&
+              values.reason_for_credit_request.length < 5
+            ) {
+              errors.reason_for_credit_request =
+                "Se requiere mínimo 5 caracteres";
+            }
+
             if (!values.reason_for_credit_request) {
               errors.reason_for_credit_request =
                 "Se requiere el motivo solicitud del crédito";
@@ -144,11 +93,9 @@ const DatosCrédito = ({ stepper, onSubmit }) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              onSubmit(values);
-              setSubmitting(false);
-              stepper.next();
-            }, 400);
+            onSubmit(values);
+            setSubmitting(false);
+            stepper.next();
           }}
         >
           {({ handleSubmit, setFieldValue, resetForm }) => (
@@ -260,6 +207,7 @@ const DatosCrédito = ({ stepper, onSubmit }) => {
                     type="textarea"
                     name="credit_destination"
                     tag={Field}
+                    placeholder="mínimo 5 caracteres"
                   />
                   <ErrorMessage
                     component="div"
@@ -278,6 +226,7 @@ const DatosCrédito = ({ stepper, onSubmit }) => {
                   <Input
                     type="textarea"
                     name="reason_for_credit_request"
+                    placeholder="mínimo 5 caracteres"
                     tag={Field}
                   />
                   <ErrorMessage
@@ -345,7 +294,11 @@ const DatosCrédito = ({ stepper, onSubmit }) => {
                         id={prof.value}
                         name="occupation"
                         value={prof.value}
-                        tag={Field}
+                        // tag={Field}
+                        onChange={(e) => {
+                          setFieldValue("occupation", prof.value);
+                          onOccupationSelect(prof.value);
+                        }}
                       />
                       <Label className="form-check-label" htmlFor={prof.value}>
                         {prof.title}

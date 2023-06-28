@@ -63,11 +63,9 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              onSubmit(values);
-              setSubmitting(false);
-              stepper.next();
-            }, 400);
+            onSubmit(values);
+            setSubmitting(false);
+            stepper.next();
           }}
         >
           {({ handleSubmit, setFieldValue, resetForm }) => (
@@ -98,6 +96,7 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                   <Flatpickr
                     id="hf-picker"
                     className="form-control"
+                    defaultValue={new Date().toDateString()}
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("start_date", dateStr);
                     }}
@@ -138,7 +137,7 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                   </Label>
                   <InputGroup>
                     <Input
-                      type="text"
+                      type="number"
                       name="monthly_sales"
                       id="monthly_sales"
                       placeholder="Ventas mensuales"
@@ -156,7 +155,7 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                   </Label>
                   <InputGroup>
                     <Input
-                      type="text"
+                      type="number"
                       name="monthly_expenses5"
                       id="monthly_expenses5"
                       placeholder="Gastos mensuales"
@@ -208,7 +207,12 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                   className="btn-prev me-1"
                   outline
                   onClick={() => {
-                    stepper.previous();
+                    const occupation = localStorage.getItem("occupation");
+                    if (occupation === "BUSINESS") {
+                      stepper.to(3);
+                    } else {
+                      stepper.previous();
+                    }
                   }}
                 >
                   <ArrowLeft

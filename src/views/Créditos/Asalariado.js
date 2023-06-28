@@ -78,11 +78,13 @@ const Asalariado = ({ stepper, onSubmit }) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              onSubmit(values);
-              setSubmitting(false);
+            onSubmit(values);
+            setSubmitting(false);
+            if (localStorage.getItem("occupation") === "SALARIED") {
+              stepper.to(6);
+            } else {
               stepper.next();
-            }, 400);
+            }
           }}
         >
           {({ handleSubmit, setFieldValue, resetForm }) => (
@@ -117,6 +119,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("entry_date", dateStr);
                     }}
+                    defaultValue={new Date().toDateString()}
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
@@ -154,7 +157,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
                   </Label>
                   <InputGroup>
                     <Input
-                      type="text"
+                      type="number"
                       name="monthly_income"
                       id="monthly_income"
                       placeholder="Ingresos mensuales"
@@ -177,7 +180,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
                   </Label>
                   <InputGroup>
                     <Input
-                      type="text"
+                      type="number"
                       name="monthly_expenses"
                       id="monthly_expenses"
                       placeholder="Gastos mensuales"

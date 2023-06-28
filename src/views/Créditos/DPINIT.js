@@ -20,7 +20,11 @@ import "./Créditos.scss";
 import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
-import { departments, municipalitiesValues } from "../../configs/data";
+import {
+  departments,
+  municipalitiesValues,
+  wantCredit
+} from "../../configs/data";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
@@ -28,21 +32,6 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 
 const DPINIT = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
-
-  const professions = [
-    { title: "Asalariado (trabaja para una empresa)", value: "salaried" },
-    { title: "Tiene negocio propio", value: "business" },
-    {
-      title: "Ambas, es asalariado y también tiene negocio propio",
-      value: "salariedAndBusiness"
-    },
-    { title: "Sin ingresos", value: "noIcome" }
-  ];
-
-  const wantCredit = [
-    { label: "Sí", value: "yes" },
-    { label: "No", value: "no" }
-  ];
 
   return (
     <div>
@@ -105,11 +94,16 @@ const DPINIT = ({ stepper, onSubmit }) => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              onSubmit(values);
-              setSubmitting(false);
+            onSubmit(values);
+            setSubmitting(false);
+            const occupation = localStorage.getItem("occupation");
+            if (occupation === "BUSINESS") {
+              stepper.to(5);
+            } else if (occupation === "NOINCOME") {
+              stepper.to(6);
+            } else {
               stepper.next();
-            }, 400);
+            }
           }}
         >
           {({ handleSubmit, setFieldValue, resetForm }) => (
@@ -203,6 +197,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("expiration_date", dateStr);
                     }}
+                    defaultValue={new Date().toDateString()}
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
@@ -290,7 +285,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                 </Col>
               </Row>
 
-              <Row className="mt-4">
+              <Row className="mt-4 d-flex align-items-end">
                 <Col sm="3">
                   <Label className="form-label" for="nit">
                     NIT<span className="text-danger">*</span>

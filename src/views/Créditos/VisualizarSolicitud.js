@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactSlider from "react-slider";
 import {
   Card,
@@ -20,72 +20,80 @@ import { Info } from "react-feather";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
+import { useParams } from "react-router-dom";
+import api from "../../@core/api/api";
+import {
+  guaranteeTypes,
+  loanPaymentMethods,
+  paymentMethods,
+  professions
+} from "../../configs/data";
 
 const VisualizarSolicitud = () => {
   const [rangeValue, setRangeValue] = useState(50);
-
-  const guaranteeTypes = [
-    { title: "Garantía fiduciaria", value: "fiduciaryGuarantee" },
-    { title: "Prenda", value: "garment" },
-    { title: "Cheque", value: "cheque" },
-    { title: "Mobiliaria", value: "furniture" },
-    { title: "Hipotecaria", value: "mortgage" },
-    { title: "Compra - venta;", value: "buyAndSell" },
-    { title: "Empeño", value: "endeavor" }
-  ];
-
-  const paymentMethods = [
-    { title: "Diario", value: "DIARIO" },
-    { title: "Semanal", value: "SEMANAL" },
-    { title: "Catorcenal", value: "CATORCENAL" },
-    { title: "Quincenal", value: "QUINCENAL" },
-    { title: "Mensual (Fin de mes)", value: "MENSUAL" }
-  ];
-
-  const professions = [
-    { title: "Asalariado (trabaja para una empresa)", value: "salaried" },
-    { title: "Tiene negocio propio", value: "business" },
-    {
-      title: "Ambas, es asalariado y también tiene negocio propio",
-      value: "salariedAndBusiness"
-    },
-    { title: "Sin ingresos", value: "noIcome" }
-  ];
-
-  const maritialStatus = [
-    { label: "Soltero/a", value: "single" },
-    { label: "Casado/a", value: "married" },
-    { label: "Divorciado/a", value: "divorced" },
-    { label: "Viudo/a", value: "widow" }
-  ];
-
-  const sex = [
-    { label: "Masculino", value: "male" },
-    { label: "Femenino", value: "female" }
-  ];
-
+  let { id } = useParams();
   const wantCredit = [
     { label: "Sí", value: "yes" },
     { label: "No", value: "no" }
   ];
+
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
+
+  const fetchData = async () => {
+    const response = await api.get(`credit-application/${id}`);
+    setData(response.data.data);
+  };
 
   return (
     <>
       <Card>
         <CardHeader className="d-flex flex-column">
           <CardTitle tag="h4" className="mb-1">
-            Solicitud Núm. 1346
+            Solicitud Núm. {data?.id}
           </CardTitle>
-          <CardSubtitle tag="h5">Ricardo Solsona: Q1000 - 28D</CardSubtitle>
+          <CardSubtitle tag="h5">
+            {data?.client.name.toUpperCase()}
+            {/* : Q1000 - 28D */}
+          </CardSubtitle>
           <CardSubtitle className="mt-1" tag="h4">
             Solicitud crédito
           </CardSubtitle>
         </CardHeader>
-        <CardBody>
-          <Form>
-            <p htmlFor="assistance_expenses">
-              ¿Cómo quieres pagar tu préstamo?*
+        {data && (
+          <CardBody>
+            <p htmlFor="loan_payment_method">
+              Método de pago del préstamo
+              <span className="text-danger"></span>
             </p>
+            <div className="d-flex">
+              {loanPaymentMethods.map((method) => {
+                return (
+                  <div
+                    key={method.value}
+                    className="form-check mb-sm-2 mb-md-1 me-md-2"
+                  >
+                    <Input
+                      type="radio"
+                      id="loan_payment_method"
+                      name="loan_payment_method"
+                      disabled
+                      checked={data.loan_payment_method === method.value}
+                    />
+                    <Label className="form-check-label" htmlFor={method.value}>
+                      {method.label}
+                    </Label>
+                  </div>
+                );
+              })}
+            </div>
+
+            <p htmlFor="loan_payment_time">¿Cómo quieres pagar tu préstamo?</p>
             <div className="d-flex">
               {paymentMethods.map((method) => {
                 return (
@@ -97,11 +105,11 @@ const VisualizarSolicitud = () => {
                       disabled
                       type="radio"
                       id={method.value}
-                      name="paymentMethod"
-                      checked={true}
+                      name="loan_payment_time"
+                      checked={data.loan_payment_time === method.value}
                     />
                     <Label className="form-check-label" htmlFor={method.value}>
-                      {method.title}
+                      {method.label}
                     </Label>
                   </div>
                 );
@@ -110,44 +118,52 @@ const VisualizarSolicitud = () => {
             <Row className="mt-2">
               <Col md="4">
                 <p className="mb-0">
-                  Monto deseado del crédito:* de 500 en n500Q
+                  Monto deseado del crédito: de 500 en n500Q
                 </p>
               </Col>
               <Col md="8" className="align-items-center d-flex">
                 <div className="w-100">
                   <ReactSlider
-                    value={rangeValue}
+                    value={+data.credit_amount}
                     className="horizontal-slider"
                     thumbClassName="example-thumb"
                     trackClassName="example-track"
-                    onChange={(value) => {
-                      setRangeValue(value);
-                    }}
+                    min={500}
+                    max={20000}
+                    disabled
                     renderThumb={(props, state) => (
-                      <div {...props}>{rangeValue}</div>
+                      <div {...props}>{+data.credit_amount}</div>
                     )}
                   />
                 </div>
               </Col>
 
               <Col md="2" className="mt-3">
-                <p className="mb-0">Destino del crédito*</p>
+                <p className="mb-0">Destino del crédito</p>
               </Col>
               <Col md="4" className="mt-3">
-                <Input disabled type="textarea" />
+                <Input
+                  disabled
+                  type="textarea"
+                  defaultValue={data.credit_destination}
+                />
               </Col>
 
               <Col md="2" className="mt-3">
-                <p className="mb-0">Motivo solicitud del crédito*</p>
+                <p className="mb-0">Motivo solicitud del crédito</p>
               </Col>
               <Col md="4" className="mt-3">
-                <Input disabled type="textarea" />
+                <Input
+                  disabled
+                  type="textarea"
+                  defaultValue={data.reason_for_credit_request}
+                />
               </Col>
             </Row>
 
             <p className="mt-2">
               ¿De qué tipo de garantía dispone? (seleccione todas las opciones
-              pertinentes)*
+              pertinentes)
             </p>
 
             {guaranteeTypes.map((guarntee) => {
@@ -160,9 +176,13 @@ const VisualizarSolicitud = () => {
                     disabled
                     type="checkbox"
                     id={guarntee.value}
-                    name="guaranteeType"
-                    value={guarntee.value}
-                    checked={true}
+                    name="gurrentee_items"
+                    // value={guarntee.value}
+                    checked={
+                      data.gurrentee_items.filter(
+                        (item) => item === guarntee.value
+                      ).length > 0
+                    }
                   />
                   <Label
                     htmlFor={guarntee.value}
@@ -171,16 +191,19 @@ const VisualizarSolicitud = () => {
                   >
                     {guarntee.title}
                   </Label>
-                  <Info size={16} id={guarntee.value} />
-                  <UncontrolledTooltip placement="top" target={guarntee.value}>
-                    {guarntee.title}
+                  <Info size={16} id={`tip-${guarntee.value}`} />
+                  <UncontrolledTooltip
+                    placement="top"
+                    target={`tip-${guarntee.value}`}
+                  >
+                    {guarntee.tip}
                   </UncontrolledTooltip>
                 </div>
               );
             })}
 
-            <p htmlFor="assistance_expenses" className="mt-2">
-              Usted es (seleccione una única opción)*
+            <p htmlFor="occupation" className="mt-2">
+              Usted es (seleccione una única opción)
             </p>
             <div className="d-flex">
               {professions.map((prof) => {
@@ -193,8 +216,8 @@ const VisualizarSolicitud = () => {
                       disabled
                       type="radio"
                       id={prof.value}
-                      name="paymentprof"
-                      checked={true}
+                      name="occupation"
+                      checked={data.client.occupation === prof.value}
                     />
                     <Label className="form-check-label" htmlFor={prof.value}>
                       {prof.title}
@@ -203,8 +226,8 @@ const VisualizarSolicitud = () => {
                 );
               })}
             </div>
-          </Form>
-        </CardBody>
+          </CardBody>
+        )}
       </Card>
 
       <Card>
@@ -214,190 +237,195 @@ const VisualizarSolicitud = () => {
         <CardBody>
           <Row>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Primer apellido*
+              <Label className="form-label" for="surname">
+                Primer apellido
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="surname"
+                id="surname"
+                defaultValue={data?.client.surname}
                 placeholder="Primer apellido"
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Segundo apellido*
+              <Label className="form-label" for="second_surname">
+                Segundo apellido
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="second_surname"
+                id="second_surname"
+                defaultValue={data?.client.second_surname}
                 placeholder="Segundo apellido"
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Nombre*
+              <Label className="form-label" for="name">
+                Nombre
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="name"
+                id="name"
                 placeholder="Nombre"
+                defaultValue={data?.client.name}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="second_name">
                 Si la respuesta es sí, indicar las instituciones y mont{" "}
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="second_name"
+                id="second_name"
                 placeholder="Segundo nombre"
+                defaultValue={data?.client.second_name}
               />
             </Col>
           </Row>
 
           <Row className="mt-1">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="phone_number">
                 Número de celular
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="phone_number"
+                id="phone_number"
                 placeholder="Número de celular"
+                defaultValue={data?.client.phone_number}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="landline_phone_number">
                 Número de teléfono fijo
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="landline_phone_number"
+                id="landline_phone_number"
                 placeholder="Número de teléfono fijo"
+                defaultValue={data?.client.landline_phone_number}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="email">
                 Correo electrónico
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="email"
+                id="email"
                 placeholder="Correo electrónico"
+                defaultValue={data?.client.email}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Dirección de residencia*
+              <Label className="form-label" for="residence_address">
+                Dirección de residencia
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="residence_address"
+                id="residence_address"
                 placeholder="Dirección de residencia"
+                defaultValue={data?.client.residence_address}
               />
             </Col>
           </Row>
 
           <Row className="mt-1">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Municipio de residencia*
+              <Label className="form-label" for="residence_municipality">
+                Municipio de residencia
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="residence_municipality"
+                id="residence_municipality"
                 placeholder="Municipio de residencia"
+                defaultValue={data?.client.residence_municipality}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Departamento de residencia*
-              </Label>
-              <Select
-                isDisabled={true}
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                options={professions}
-                isClearable={false}
-                name="frequency"
-                // onChange={(option) => setFieldValue("frequency", option.value)}
-              />
-            </Col>
-            <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Fecha de nacimiento*
+              <Label className="form-label" for="department_of_residence">
+                Departamento de residencia
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="department_of_residence"
+                id="department_of_residence"
+                placeholder="Departamento de residencia"
+                defaultValue={data?.client.department_of_residence}
+              />
+            </Col>
+            <Col sm="3">
+              <Label className="form-label" for="birth_date">
+                Fecha de nacimiento
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="birth_date"
+                id="birth_date"
                 placeholder="Fecha de nacimiento"
+                defaultValue={new Date(data?.client.birth_date).toDateString()}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Profesión*
+              <Label className="form-label" for="profession">
+                Profesión
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="profession"
+                id="profession"
                 placeholder="Profesión"
+                defaultValue={data?.client.profession}
               />
             </Col>
           </Row>
 
           <Row className="mt-1">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Estado civil*
+              <Label className="form-label" for="civil_status">
+                Estado civil
               </Label>
-              <Select
-                isDisabled={true}
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                options={maritialStatus}
-                isClearable={false}
-                name="frequency"
-                // onChange={(option) => setFieldValue("frequency", option.value)}
+              <Input
+                disabled
+                type="text"
+                name="civil_status"
+                id="civil_status"
+                placeholder="Estado civil"
+                defaultValue={data?.client.civil_status}
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="sex">
                 Sexo
               </Label>
-              <Select
-                isDisabled={true}
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                options={sex}
-                isClearable={false}
-                name="frequency"
-                // onChange={(option) => setFieldValue("frequency", option.value)}
+              <Input
+                disabled
+                type="text"
+                name="sex"
+                id="sex"
+                placeholder="Sexo"
+                defaultValue={data?.client.sex}
               />
             </Col>
 
@@ -405,15 +433,13 @@ const VisualizarSolicitud = () => {
               <Label className="form-label" for="assistance_expenses">
                 Nacionalidad
               </Label>
-              <Select
-                isDisabled={true}
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                options={professions}
-                isClearable={false}
-                name="frequency"
-                // onChange={(option) => setFieldValue("frequency", option.value)}
+              <Input
+                disabled
+                type="text"
+                name="nationality"
+                id="nationality"
+                placeholder="Nacionalidad"
+                defaultValue={data?.client.nationality}
               />
             </Col>
           </Row>
@@ -421,20 +447,21 @@ const VisualizarSolicitud = () => {
             <Col md="3">
               <p className="mt-2">
                 Foto del recibo de la luz <br />
-                (u otro recibo)*
+                (u otro recibo)
               </p>
             </Col>
             <Col md="9" className="d-flex align-items-center gap-2">
-              {professions.map((prof) => {
+              {data?.client.photos_of_bills.map((src) => {
                 return (
-                  <img
-                    key={prof.value}
-                    className="img-fluid"
-                    src={image}
-                    alt={"item.name"}
-                    width="80px"
-                    height="80px"
-                  />
+                  <div key={src} className="border img-box">
+                    <img
+                      className="boxed-image"
+                      src={src}
+                      alt={"item.name"}
+                      width="80px"
+                      height="80px"
+                    />
+                  </div>
                 );
               })}
             </Col>
@@ -449,106 +476,115 @@ const VisualizarSolicitud = () => {
         <CardBody>
           <Row>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Número DPI*
+              <Label className="form-label" for="dpi_number">
+                Número DPI
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="dpi_number"
+                id="dpi_number"
                 placeholder="Número DPI"
+                defaultValue={data?.client.dpi_number}
               />
             </Col>
             <Col sm="3" className="mt-2 d-flex justify-content-end">
               <p>
                 Lugar de nacimiento <br />
-                (departamento, municipio)*
+                (departamento, municipio)
               </p>
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="place_of_birth_region">
                 Municipio
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="place_of_birth_region"
+                id="place_of_birth_region"
                 placeholder="Municipio"
+                defaultValue={data?.client.place_of_birth_region}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="place_of_birth_city">
                 Departamento
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="place_of_birth_city"
+                id="place_of_birth_city"
                 placeholder="Departamento"
+                defaultValue={data?.client.place_of_birth_city}
               />
             </Col>
           </Row>
 
           <Row>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Fecha vencimiento*
+              <Label className="form-label" for="expiration_date">
+                Fecha vencimiento
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="expiration_date"
+                id="expiration_date"
                 placeholder="Fecha vencimiento"
+                defaultValue={new Date(
+                  data?.client.expiration_date
+                ).toDateString()}
               />
             </Col>
             <Col sm="3" className="mt-2 d-flex justify-content-end">
-              <p>Vecindad*</p>
+              <p>Vecindad</p>
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="neighborhood_region">
                 Municipio
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="neighborhood_region"
+                id="neighborhood_region"
                 placeholder="Municipio"
+                defaultValue={data?.client.neighborhood_region}
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="neighborhood_city">
                 Departamento
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="neighborhood_city"
+                id="neighborhood_city"
                 placeholder="Departamento"
+                defaultValue={data?.client.neighborhood_city}
               />
             </Col>
           </Row>
 
           <Row className="mt-2">
             <Col md="3">
-              <p className="mt-2">Foto ambos lados del DPI*</p>
+              <p className="mt-2">Foto ambos lados del DPI</p>
             </Col>
             <Col md="9" className="d-flex align-items-center gap-2">
-              {professions.map((prof) => {
+              {data?.client.photos_of_the_dpi.map((src) => {
                 return (
-                  <img
-                    key={prof.value}
-                    className="img-fluid"
-                    src={image}
-                    alt={"item.name"}
-                    width="80px"
-                    height="80px"
-                  />
+                  <div key={src} className="border img-box">
+                    <img
+                      className="boxed-image"
+                      src={src}
+                      alt={"item.name"}
+                      width="80px"
+                      height="80px"
+                    />
+                  </div>
                 );
               })}
             </Col>
@@ -556,43 +592,47 @@ const VisualizarSolicitud = () => {
 
           <Row className="mt-2">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="nit">
                 NIT
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="nit"
+                id="nit"
                 placeholder="NIT"
+                defaultValue={data?.client.nit}
               />
             </Col>
-            <Col sm="5">
-              <Label className="form-label" for="assistance_expenses">
+            <Col sm="3">
+              <Label className="form-label" for="is_have_credit">
                 Tiene crédito con alguna institución financiera o con personas
                 individuales?
               </Label>
-              <Select
-                isDisabled={true}
-                theme={selectThemeColors}
-                className="react-select"
-                classNamePrefix="select"
-                options={wantCredit}
-                isClearable={false}
-                name="frequency"
-                // onChange={(option) => setFieldValue("frequency", option.value)}
+              <Input
+                disabled
+                type="text"
+                name="is_have_credit"
+                id="is_have_credit"
+                placeholder="Tiene crédito con alguna institución financiera o con personas
+                individuales?"
+                defaultValue={data?.is_have_credit}
               />
             </Col>
-            <Col sm="4">
-              <Label className="form-label" for="assistance_expenses">
+            <Col sm="6">
+              <Label
+                className="form-label"
+                for="credit_institutions_and_amount"
+              >
                 Si la respuesta es sí, indicar las instituciones y mon
               </Label>
               <Input
                 disabled
                 type="textarea"
-                name="inventory"
-                id="inventory"
+                name="credit_institutions_and_amount"
+                id="credit_institutions_and_amount"
                 placeholder="Si la respuesta es sí, indicar las instituciones y monto"
+                defaultValue={data?.credit_institutions_and_amount}
               />
             </Col>
           </Row>
@@ -606,53 +646,57 @@ const VisualizarSolicitud = () => {
         <CardBody>
           <Row>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Nombre de la empresa*
+              <Label className="form-label" for="company_name">
+                Nombre de la empresa
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="company_name"
+                id="company_name"
                 placeholder="Nombre de la empresa"
+                defaultValue={data?.client.company_name}
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Fecha de ingreo*
+              <Label className="form-label" for="entry_date">
+                Fecha de ingreo
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="entry_date"
+                id="entry_date"
+                defaultValue={new Date(data?.client.entry_date).toDateString()}
                 placeholder="Fecha de ingreo"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Puesto*
+              <Label className="form-label" for="position">
+                Puesto
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="position"
+                id="position"
+                defaultValue={data?.client.position}
                 placeholder="Puesto"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="monthly_income">
                 Ingresos mensuales
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="monthly_income"
+                id="monthly_income"
+                defaultValue={data?.client.monthly_income}
                 placeholder="Ingresos mensuales"
               />
             </Col>
@@ -660,53 +704,57 @@ const VisualizarSolicitud = () => {
 
           <Row className="mt-1">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Gastos mensuales*
+              <Label className="form-label" for="monthly_expenses">
+                Gastos mensuales
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="monthly_expenses"
+                id="monthly_expenses"
+                defaultValue={data?.client.monthly_expenses}
                 placeholder="Gastos mensuales"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="date_and_number_of_income">
                 Fecha y número de ingresos
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="date_and_number_of_income"
+                id="date_and_number_of_income"
+                defaultValue={data?.client.date_and_number_of_income}
                 placeholder="Fecha y número de ingresos"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Nombre del jefe inmediato*
+              <Label className="form-label" for="immediate_boss_name">
+                Nombre del jefe inmediato
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="immediate_boss_name"
+                id="immediate_boss_name"
+                defaultValue={data?.client.immediate_boss_name}
                 placeholder="Nombre del jefe inmediato"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Dirección del trabajo*
+              <Label className="form-label" for="work_address">
+                Dirección del trabajo
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="work_address"
+                id="work_address"
+                defaultValue={data?.client.work_address}
                 placeholder="Dirección del trabajo"
               />
             </Col>
@@ -714,27 +762,29 @@ const VisualizarSolicitud = () => {
 
           <Row className="mt-1">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Municipio del trabajo*
+              <Label className="form-label" for="work_municipality">
+                Municipio del trabajo
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="work_municipality"
+                id="work_municipality"
+                defaultValue={data?.client.work_municipality}
                 placeholder="Municipio del trabajo"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="work_phone">
                 Teléfono del trabajo
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="work_phone"
+                id="work_phone"
+                defaultValue={data?.client.work_phone}
                 placeholder="Teléfono del trabajo"
               />
             </Col>
@@ -749,54 +799,58 @@ const VisualizarSolicitud = () => {
         <CardBody>
           <Row>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Nombre del negocio*
+              <Label className="form-label" for="business_name">
+                Nombre del negocio
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="business_name"
+                id="business_name"
+                defaultValue={data?.client.business_name}
                 placeholder="Nombre del negocio"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Fecha de inicio*
+              <Label className="form-label" for="start_date">
+                Fecha de inicio
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="start_date"
+                id="start_date"
+                defaultValue={new Date(data?.client.start_date).toDateString()}
                 placeholder="Fecha de inicio"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                NIT*
+              <Label className="form-label" for="nit5">
+                NIT
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="nit5"
+                id="nit5"
+                defaultValue={data?.client.nit5}
                 placeholder="NIT"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
+              <Label className="form-label" for="monthly_sales">
                 Ventas mensuales
               </Label>
               <InputGroup>
                 <Input
                   disabled
                   type="text"
-                  name="inventory"
-                  id="inventory"
+                  name="monthly_sales"
+                  id="monthly_sales"
+                  defaultValue={data?.client.monthly_sales}
                   placeholder="Ventas mensuales"
                 />
                 <InputGroupText>Q</InputGroupText>
@@ -806,15 +860,16 @@ const VisualizarSolicitud = () => {
 
           <Row className="mt-1">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Gastos mensuales*
+              <Label className="form-label" for="monthly_expenses5">
+                Gastos mensuales
               </Label>
               <InputGroup>
                 <Input
                   disabled
                   type="text"
-                  name="inventory"
-                  id="inventory"
+                  name="monthly_expenses5"
+                  id="monthly_expenses5"
+                  defaultValue={data?.client.monthly_expenses5}
                   placeholder="Gastos mensuales"
                 />
                 <InputGroupText>Q</InputGroupText>
@@ -822,27 +877,29 @@ const VisualizarSolicitud = () => {
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Dirección del negocio*
+              <Label className="form-label" for="business_address">
+                Dirección del negocio
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="business_address"
+                id="business_address"
+                defaultValue={data?.client.business_address}
                 placeholder="Dirección del negocio"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Teléfono del negocio*
+              <Label className="form-label" for="business_phone">
+                Teléfono del negocio
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="business_phone"
+                id="business_phone"
+                defaultValue={data?.client.business_phone}
                 placeholder="Teléfono del negocio"
               />
             </Col>
@@ -859,53 +916,118 @@ const VisualizarSolicitud = () => {
         <CardBody>
           <Row>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Nombre y apellidos*
+              <Label className="form-label" for="f_references_name_and_surname">
+                Nombre y apellidos
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="f_references_name_and_surname"
+                id="f_references_name_and_surname"
+                defaultValue={data?.client.f_references_name_and_surname}
                 placeholder="Nombre y apellidos"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Parentesco*
+              <Label className="form-label" for="f_references_relationship">
+                Parentesco
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="f_references_relationship"
+                id="f_references_relationship"
+                defaultValue={data?.client.f_references_relationship}
                 placeholder="Parentesco"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Teléfono trabajo*
+              <Label className="form-label" for="f_references_work_phone">
+                Teléfono trabajo
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="f_references_work_phone"
+                id="f_references_work_phone"
+                defaultValue={data?.client.f_references_work_phone}
                 placeholder="Teléfono trabajo"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Celular*
+              <Label className="form-label" for="f_references_cell_phone">
+                Celular
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="f_references_cell_phone"
+                id="f_references_cell_phone"
+                defaultValue={data?.client.f_references_cell_phone}
+                placeholder="Celular"
+              />
+            </Col>
+          </Row>
+
+          <Row className="mt-1">
+            <Col sm="3">
+              <Label
+                className="form-label"
+                for="f_references_name_and_surname2"
+              >
+                Nombre y apellidos
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="f_references_name_and_surname2"
+                id="f_references_name_and_surname2"
+                defaultValue={data?.client.f_references_name_and_surname2}
+                placeholder="Nombre y apellidos"
+              />
+            </Col>
+
+            <Col sm="3">
+              <Label className="form-label" for="f_references_relationship2">
+                Parentesco
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="f_references_relationship2"
+                id="f_references_relationship2"
+                defaultValue={data?.client.f_references_relationship2}
+                placeholder="Parentesco"
+              />
+            </Col>
+
+            <Col sm="3">
+              <Label className="form-label" for="f_references_work_phone2">
+                Teléfono trabajo
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="f_references_work_phone2"
+                id="f_references_work_phone2"
+                defaultValue={data?.client.f_references_work_phone2}
+                placeholder="Teléfono trabajo"
+              />
+            </Col>
+
+            <Col sm="3">
+              <Label className="form-label" for="f_references_cell_phone2">
+                Celular
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="f_references_cell_phone2"
+                id="f_references_cell_phone2"
+                defaultValue={data?.client.f_references_cell_phone2}
                 placeholder="Celular"
               />
             </Col>
@@ -916,52 +1038,115 @@ const VisualizarSolicitud = () => {
           </CardTitle>
           <Row className="mt-1">
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Nombre y apellidos*
+              <Label className="form-label" for="p_references_name_and_surname">
+                Nombre y apellidos
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="p_references_name_and_surname"
+                id="p_references_name_and_surname"
+                defaultValue={data?.client.p_references_name_and_surname}
                 placeholder="Nombre y apellidos"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Parentesco*
+              <Label className="form-label" for="p_references_relationship">
+                Parentesco
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="p_references_relationship"
+                id="p_references_relationship"
+                defaultValue={data?.client.p_references_relationship}
                 placeholder="Parentesco"
               />
             </Col>
 
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Teléfono trabajo*
+              <Label className="form-label" for="p_references_work_phone">
+                Teléfono trabajo
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="p_references_work_phone"
+                id="p_references_work_phone"
+                defaultValue={data?.client.p_references_work_phone}
                 placeholder="Teléfono trabajo"
               />
             </Col>
             <Col sm="3">
-              <Label className="form-label" for="assistance_expenses">
-                Celular*
+              <Label className="form-label" for="p_references_cell_phone">
+                Celular
               </Label>
               <Input
                 disabled
                 type="text"
-                name="inventory"
-                id="inventory"
+                name="p_references_cell_phone"
+                id="p_references_cell_phone"
+                defaultValue={data?.client.p_references_cell_phone}
+                placeholder="Celular"
+              />
+            </Col>
+          </Row>
+          <Row className="mt-1">
+            <Col sm="3">
+              <Label
+                className="form-label"
+                for="p_references_name_and_surname2"
+              >
+                Nombre y apellidos
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="p_references_name_and_surname2"
+                id="p_references_name_and_surname2"
+                defaultValue={data?.client.p_references_name_and_surname2}
+                placeholder="Nombre y apellidos"
+              />
+            </Col>
+
+            <Col sm="3">
+              <Label className="form-label" for="p_references_relationship2">
+                Parentesco
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="p_references_relationship2"
+                id="p_references_relationship2"
+                defaultValue={data?.client.p_references_relationship2}
+                placeholder="Parentesco"
+              />
+            </Col>
+
+            <Col sm="3">
+              <Label className="form-label" for="p_references_work_phone2">
+                Teléfono trabajo
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="p_references_work_phone2"
+                id="p_references_work_phone2"
+                defaultValue={data?.client.p_references_work_phone2}
+                placeholder="Teléfono trabajo"
+              />
+            </Col>
+            <Col sm="3">
+              <Label className="form-label" for="p_references_cell_phone2">
+                Celular
+              </Label>
+              <Input
+                disabled
+                type="text"
+                name="p_references_cell_phone2"
+                id="p_references_cell_phone2"
+                defaultValue={data?.client.p_references_cell_phone2}
                 placeholder="Celular"
               />
             </Col>

@@ -42,6 +42,7 @@ const Solicitudes = () => {
   const [picker, setPicker] = useState(null);
   // ** States
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
   const [status, setStatus] = useState([]);
@@ -54,12 +55,13 @@ const Solicitudes = () => {
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
-    setCurrentPage(page.selected);
+    // console.log(page.selected)
+    setCurrentPage(page.selected + 1);
   };
 
   useEffect(() => {
     handleSearch();
-  }, []);
+  }, [currentPage]);
 
   const fetchData = async () => {
     // const response = await API.get(
@@ -78,9 +80,10 @@ const Solicitudes = () => {
       params = params + `&${pair[0]}=${pair[1]}`;
     });
     const response = await API.get(
-      `credit-application?page=${currentPage}&pageSize=1` + params
+      `credit-application?page=${currentPage}&pageSize=10` + params
     );
     setData([...response.data.data]);
+    setTotalPages(response.data.pagination.totalPages);
     setQueryParams({});
   };
 
@@ -314,14 +317,14 @@ const Solicitudes = () => {
               </thead>
               <tbody>
                 {data.length > 0 &&
-                  data.map((app) => {
+                  data.map((app, index) => {
                     return (
                       <tr
                         key={app.id}
                         onClick={() => handleRowClick(app.id)}
                         className="clickable-row"
                       >
-                        <td>1</td>
+                        <td>{index + 1}</td>
                         <td>{app.id}</td>
                         <td>{app.client.name}</td>
                         <td>{app.client.surname}</td>
@@ -348,7 +351,7 @@ const Solicitudes = () => {
                 breakLabel="..."
                 previousLabel=""
                 pageRangeDisplayed={2}
-                forcePage={currentPage}
+                forcePage={currentPage - 1}
                 marginPagesDisplayed={2}
                 activeClassName="active"
                 pageClassName="page-item"
@@ -359,7 +362,7 @@ const Solicitudes = () => {
                 previousLinkClassName="page-link"
                 nextClassName="page-item next-item"
                 previousClassName="page-item prev-item"
-                pageCount={Math.ceil(data.length / 7) || 1}
+                pageCount={totalPages}
                 onPageChange={(page) => handlePagination(page)}
                 containerClassName="pagination react-paginate separated-pagination pagination-sm justify-content-end pe-1 mt-1"
               />

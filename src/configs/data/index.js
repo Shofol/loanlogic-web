@@ -690,3 +690,90 @@ export const municipalitiesValues = [
 // Santa Lucía Cotzumalguapa
 // Siquinalá
 // Tiquisate
+
+export const guaranteeTypes = [
+  {
+    title: "Garantía fiduciaria",
+    value: "FIDUCIARYGUARANTEE",
+    tip: "Firma contrato"
+  },
+  {
+    title: "Prenda",
+    value: "GARMENT",
+    tip: "El cliente la puede seguir utilizando"
+  },
+  {
+    title: "Cheque",
+    value: "CHEQUE",
+    tip: "Entrega como garantia en la agencia"
+  },
+  {
+    title: "Mobiliaria",
+    value: "FURNITURE",
+    tip: "Registro formal ante el registro mercantil, pero el cliente puede seguir utilizando"
+  },
+  {
+    title: "Hipotecaria",
+    value: "MORTGAGE",
+    tip: "Se crea un gravamen sobre la propiedad"
+  },
+  {
+    title: "Compra - venta;",
+    value: "BUYANDSELL",
+    tip: "Si no me pagas, me quedo con la casa para venderla"
+  },
+  {
+    title: "Empeño",
+    value: "ENDEAVOR",
+    tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo"
+  }
+];
+
+export const paymentMethods = [
+  { value: "DAILY", label: "Diario" },
+  { value: "WEEKLY", label: "Semanal" },
+  { value: "BIWEEKLY", label: "Quincenal" },
+  { value: "FORTNIGHTLY", label: "Catorcenal" },
+  { value: "END_MONTH", label: "Mensual (fin de mes)" }
+];
+
+export const professions = [
+  { title: "Asalariado (trabaja para una empresa)", value: "SALARIED" },
+  { title: "Tiene negocio propio", value: "BUSINESS" },
+  {
+    title: "Ambas, es asalariado y también tiene negocio propio",
+    value: "SALARIEDANDBUSINESS"
+  },
+  { title: "Sin ingresos", value: "NOINCOME" }
+];
+
+export const loanPaymentMethods = [
+  { label: "Producto diario", value: "PRODUCTO DIARIO" },
+  {
+    label: "Producto semanal",
+    value: "PRODUCTO SEMANAL"
+  },
+
+  {
+    label: "Quincenal",
+    value: "QUINCENAL"
+  },
+  { label: "Fin de mes", value: "FIN DE MES" }
+];
+
+export const maritialStatus = [
+  { label: "Soltero/a", value: "Single" },
+  { label: "Casado/a", value: "Married" },
+  { label: "Divorciado/a", value: "Divorced" },
+  { label: "Viudo/a", value: "Widow" }
+];
+
+export const sexValues = [
+  { label: "Masculino", value: "Male" },
+  { label: "Femenino", value: "Female" }
+];
+
+export const wantCredit = [
+  { label: "Sí", value: "yes" },
+  { label: "No", value: "no" }
+];

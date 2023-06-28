@@ -22,7 +22,7 @@ const Wizard = forwardRef((props, ref) => {
     className,
     headerClassName,
     contentClassName,
-    contentWrapperClassName,
+    contentWrapperClassName
   } = props;
 
   // ** State
@@ -47,7 +47,7 @@ const Wizard = forwardRef((props, ref) => {
   // ** Renders Wizard Header
   const renderHeader = () => {
     return steps.map((step, index) => {
-      return (
+      return step !== null ? (
         <Fragment key={step.id}>
           {index !== 0 && index !== steps.length ? (
             <div className="line">{separator}</div>
@@ -55,7 +55,7 @@ const Wizard = forwardRef((props, ref) => {
           <div
             className={classnames("step", {
               crossed: activeIndex > index,
-              active: index === activeIndex,
+              active: index === activeIndex
             })}
             data-target={`#${step.id}`}
           >
@@ -72,25 +72,25 @@ const Wizard = forwardRef((props, ref) => {
             </button>
           </div>
         </Fragment>
-      );
+      ) : null;
     });
   };
 
   // ** Renders Wizard Content
   const renderContent = () => {
     return steps.map((step, index) => {
-      return (
+      return step !== null ? (
         <div
           className={classnames("content", {
             [contentClassName]: contentClassName,
-            "active dstepper-block": activeIndex === index,
+            "active dstepper-block": activeIndex === index
           })}
           id={step.id}
           key={step.id}
         >
           {step.content}
         </div>
-      );
+      ) : null;
     });
   };
 
@@ -101,19 +101,19 @@ const Wizard = forwardRef((props, ref) => {
         [className]: className,
         vertical: type === "vertical",
         "vertical wizard-modern": type === "modern-vertical",
-        "wizard-modern": type === "modern-horizontal",
+        "wizard-modern": type === "modern-horizontal"
       })}
     >
       <div
         className={classnames("bs-stepper-header", {
-          [headerClassName]: headerClassName,
+          [headerClassName]: headerClassName
         })}
       >
         {renderHeader()}
       </div>
       <div
         className={classnames("bs-stepper-content", {
-          [contentWrapperClassName]: contentWrapperClassName,
+          [contentWrapperClassName]: contentWrapperClassName
         })}
       >
         {renderContent()}
@@ -128,7 +128,7 @@ export default Wizard;
 Wizard.defaultProps = {
   options: {},
   type: "horizontal",
-  separator: <ChevronRight size={17} />,
+  separator: <ChevronRight size={17} />
 };
 
 // ** PropTypes
@@ -147,7 +147,7 @@ Wizard.propTypes = {
       title: PropTypes.string.isRequired,
       subtitle: PropTypes.string,
       icon: PropTypes.any,
-      content: PropTypes.any.isRequired,
+      content: PropTypes.any.isRequired
     })
-  ).isRequired,
+  ).isRequired
 };

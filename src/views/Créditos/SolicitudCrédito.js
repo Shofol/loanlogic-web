@@ -13,6 +13,14 @@ import Referencias from "./Referencias";
 import api from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
+import {
+  Briefcase,
+  CreditCard,
+  FileText,
+  Gift,
+  Globe,
+  User
+} from "react-feather";
 
 const SolicitudCrédito = () => {
   // ** Ref
@@ -21,21 +29,24 @@ const SolicitudCrédito = () => {
   // ** State
   const [stepper, setStepper] = useState(null);
   const [valueToSubmit, setValueToSubmit] = useState({});
+  const [occupation, setOccupation] = useState(null);
+  const [willSkip5, setWillSkip5] = useState(false);
 
   const handleSubmitForm = () => {
     const form = new FormData();
 
     let values = { ...valueToSubmit };
-    Object.keys(values).map((key) => {
-      if (key === "photo") {
-        values[`${key}`].map((file) => {
-          form.append(key, file);
+    Object.entries(values).map((pair) => {
+      if (pair[0] === "photos_of_bills" || pair[0] === "photos_of_the_dpi") {
+        values[`${pair[0]}`].map((file) => {
+          form.append(`${pair[0]}`, file);
         });
+      } else if (pair[0] === "gurrentee_items") {
+        form.append(`${pair[0]}`, JSON.stringify(pair[1]));
       } else {
-        form.append(key, values[`${key}`]);
+        form.append(pair[0], pair[1]);
       }
     });
-    console.log(form);
 
     const response = api.post("credit-application", form);
     toast.promise(
@@ -43,8 +54,7 @@ const SolicitudCrédito = () => {
       {
         loading: "Loading",
         success: (data) => {
-          resetForm();
-          return `Successfully saved ${data.name}`;
+          return `${data.data.message}`;
         },
         error: (err) => {
           return `ERROR: ${formatMessage(err)}`;
@@ -57,16 +67,20 @@ const SolicitudCrédito = () => {
   };
 
   useEffect(() => {
-    console.log(valueToSubmit);
-  }, [valueToSubmit]);
+    localStorage.setItem("occupation", occupation);
+  }, [occupation]);
 
   const steps = [
     {
       id: "datos-crédito",
       title: "Datos crédito",
+      icon: <CreditCard size={16} />,
       content: (
         <DatosCrédito
           stepper={stepper}
+          onOccupationSelect={(occupation) => {
+            setOccupation(occupation);
+          }}
           onSubmit={(value) => {
             setValueToSubmit({ ...valueToSubmit, ...value });
           }}
@@ -76,6 +90,7 @@ const SolicitudCrédito = () => {
     {
       id: "datos-del-solicitante",
       title: "Datos del solicitante",
+      icon: <User size={16} />,
       content: (
         <DatosDelSolicitante
           stepper={stepper}
@@ -88,6 +103,7 @@ const SolicitudCrédito = () => {
     {
       id: "dpi-nit",
       title: "DPI/NIT",
+      icon: <FileText size={16} />,
       content: (
         <DPINIT
           stepper={stepper}
@@ -97,34 +113,43 @@ const SolicitudCrédito = () => {
         />
       )
     },
-    {
-      id: "asalariado",
-      title: "Asalariado",
-      content: (
-        <Asalariado
-          stepper={stepper}
-          onSubmit={(value) => {
-            setValueToSubmit({ ...valueToSubmit, ...value });
-          }}
-        />
-      )
-    },
-    {
-      id: "negocio-propio",
-      title: "Negocio propio",
-      content: (
-        <NegocioPropio
-          stepper={stepper}
-          onSubmit={(value) => {
-            setValueToSubmit({ ...valueToSubmit, ...value });
-          }}
-        />
-      )
-    },
+    occupation !== "BUSINESS" && occupation !== "NOINCOME"
+      ? {
+          id: "asalariado",
+          title: "Asalariado",
+          icon: <Gift size={16} />,
+          content: (
+            <Asalariado
+              stepper={stepper}
+              onSubmit={(value) => {
+                setValueToSubmit({ ...valueToSubmit, ...value });
+              }}
+            />
+          )
+        }
+      : null,
+
+    occupation !== "SALARIED" && occupation !== "NOINCOME"
+      ? {
+          id: "negocio-propio",
+          title: "Negocio propio",
+          icon: <Briefcase size={16} />,
+          content: (
+            <NegocioPropio
+              stepper={stepper}
+              skipSept5={willSkip5}
+              onSubmit={(value) => {
+                setValueToSubmit({ ...valueToSubmit, ...value });
+              }}
+            />
+          )
+        }
+      : null,
 
     {
       id: "referencias",
       title: "Referencias",
+      icon: <Globe size={16} />,
       content: (
         <Referencias
           stepper={stepper}

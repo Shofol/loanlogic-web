@@ -23,8 +23,8 @@ import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 
 const Referencias = ({ stepper, onSubmit }) => {
-  const [referenciasPersonales, setReferenciasPersonales] = useState([1, 2]);
-  const [referenciasFamiliares, setReferenciasFamiliares] = useState([1, 2]);
+  const [referenciasPersonales, setReferenciasPersonales] = useState(["", "2"]);
+  const [referenciasFamiliares, setReferenciasFamiliares] = useState(["", "2"]);
 
   return (
     <div>
@@ -43,7 +43,15 @@ const Referencias = ({ stepper, onSubmit }) => {
             p_references_name_and_surname: "",
             p_references_relationship: "",
             p_references_work_phone: "",
-            p_references_cell_phone: ""
+            p_references_cell_phone: "",
+            f_references_name_and_surname2: "",
+            f_references_relationship2: "",
+            f_references_work_phone2: "",
+            f_references_cell_phone2: "",
+            p_references_name_and_surname2: "",
+            p_references_relationship2: "",
+            p_references_work_phone2: "",
+            p_references_cell_phone2: ""
           }}
           validate={(values) => {
             const errors = {};
@@ -52,7 +60,6 @@ const Referencias = ({ stepper, onSubmit }) => {
             if (!values.f_references_name_and_surname) {
               errors.f_references_name_and_surname = requiredMsg;
             }
-
             if (!values.f_references_relationship) {
               errors.f_references_relationship = requiredMsg;
             }
@@ -69,14 +76,31 @@ const Referencias = ({ stepper, onSubmit }) => {
               errors.p_references_cell_phone = requiredMsg;
             }
 
+            if (!values.f_references_name_and_surname2) {
+              errors.f_references_name_and_surname2 = requiredMsg;
+            }
+            if (!values.f_references_relationship2) {
+              errors.f_references_relationship2 = requiredMsg;
+            }
+            if (!values.f_references_cell_phone2) {
+              errors.f_references_cell_phone2 = requiredMsg;
+            }
+            if (!values.p_references_name_and_surname2) {
+              errors.p_references_name_and_surname2 = requiredMsg;
+            }
+            if (!values.p_references_relationship2) {
+              errors.p_references_relationship2 = requiredMsg;
+            }
+            if (!values.p_references_cell_phone2) {
+              errors.p_references_cell_phone2 = requiredMsg;
+            }
+
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              onSubmit(values);
-              setSubmitting(false);
-              stepper.next();
-            }, 400);
+            onSubmit(values);
+            setSubmitting(false);
+            stepper.next();
           }}
         >
           {({ handleSubmit, setFieldValue, resetForm }) => (
@@ -87,20 +111,20 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="f_references_name_and_surname"
+                        for={`f_references_name_and_surname${ref}`}
                       >
                         Nombre y apellidos*
                       </Label>
                       <Input
                         type="text"
-                        name="f_references_name_and_surname"
-                        id="f_references_name_and_surname"
+                        name={`f_references_name_and_surname${ref}`}
+                        id={`f_references_name_and_surname${ref}`}
                         placeholder="Nombre y apellidos"
                         tag={Field}
                       />
                       <ErrorMessage
                         component="div"
-                        name="f_references_name_and_surname"
+                        name={`f_references_name_and_surname${ref}`}
                         className="text-danger"
                       />
                     </Col>
@@ -108,20 +132,20 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="f_references_relationship"
+                        for={`f_references_relationship${ref}`}
                       >
                         Parentesco*
                       </Label>
                       <Input
                         type="text"
-                        name="f_references_relationship"
-                        id="f_references_relationship"
+                        name={`f_references_relationship${ref}`}
+                        id={`f_references_relationship${ref}`}
                         placeholder="Parentesco"
                         tag={Field}
                       />
                       <ErrorMessage
                         component="div"
-                        name="f_references_relationship"
+                        name={`f_references_relationship${ref}`}
                         className="text-danger"
                       />
                     </Col>
@@ -129,14 +153,14 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="f_references_work_phone"
+                        for={`f_references_work_phone${ref}`}
                       >
                         Teléfono trabajo*
                       </Label>
                       <Input
                         type="text"
-                        name="f_references_work_phone"
-                        id="f_references_work_phone"
+                        name={`f_references_work_phone${ref}`}
+                        id={`f_references_work_phone${ref}`}
                         placeholder="Teléfono trabajo"
                         tag={Field}
                       />
@@ -145,20 +169,20 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="f_references_cell_phone"
+                        for={`f_references_cell_phone${ref}`}
                       >
                         Celular*
                       </Label>
                       <Input
                         type="text"
-                        name="f_references_cell_phone"
-                        id="f_references_cell_phone"
+                        name={`f_references_cell_phone${ref}`}
+                        id={`f_references_cell_phone${ref}`}
                         placeholder="Celular"
                         tag={Field}
                       />
                       <ErrorMessage
                         component="div"
-                        name="f_references_cell_phone"
+                        name={`f_references_cell_phone${ref}`}
                         className="text-danger"
                       />
                     </Col>
@@ -175,20 +199,20 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="p_references_name_and_surname"
+                        for={`p_references_name_and_surname${ref}`}
                       >
                         Nombre y apellidos*
                       </Label>
                       <Input
                         type="text"
-                        name="p_references_name_and_surname"
-                        id="p_references_name_and_surname"
+                        name={`p_references_name_and_surname${ref}`}
+                        id={`p_references_name_and_surname${ref}`}
                         placeholder="Nombre y apellidos"
                         tag={Field}
                       />
                       <ErrorMessage
                         component="div"
-                        name="p_references_name_and_surname"
+                        name={`p_references_name_and_surname${ref}`}
                         className="text-danger"
                       />
                     </Col>
@@ -196,20 +220,20 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="p_references_relationship"
+                        for={`p_references_relationship${ref}`}
                       >
                         Parentesco*
                       </Label>
                       <Input
                         type="text"
-                        name="p_references_relationship"
-                        id="p_references_relationship"
+                        name={`p_references_relationship${ref}`}
+                        id={`p_references_relationship${ref}`}
                         placeholder="Parentesco"
                         tag={Field}
                       />
                       <ErrorMessage
                         component="div"
-                        name="p_references_relationship"
+                        name={`p_references_relationship${ref}`}
                         className="text-danger"
                       />
                     </Col>
@@ -217,14 +241,14 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="p_references_work_phone"
+                        for={`p_references_work_phone${ref}`}
                       >
                         Teléfono trabajo*
                       </Label>
                       <Input
                         type="text"
-                        name="p_references_work_phone"
-                        id="p_references_work_phone"
+                        name={`p_references_work_phone${ref}`}
+                        id={`p_references_work_phone${ref}`}
                         placeholder="Teléfono trabajo"
                         tag={Field}
                       />
@@ -232,20 +256,20 @@ const Referencias = ({ stepper, onSubmit }) => {
                     <Col sm="3" className="mt-1">
                       <Label
                         className="form-label"
-                        for="p_references_cell_phone"
+                        for={`p_references_cell_phone${ref}`}
                       >
                         Celular*
                       </Label>
                       <Input
                         type="text"
-                        name="p_references_cell_phone"
-                        id="p_references_cell_phone"
+                        name={`p_references_cell_phone${ref}`}
+                        id={`p_references_cell_phone${ref}`}
                         placeholder="Celular"
                         tag={Field}
                       />
                       <ErrorMessage
                         component="div"
-                        name="p_references_cell_phone"
+                        name={`p_references_cell_phone${ref}`}
                         className="text-danger"
                       />
                     </Col>
@@ -259,7 +283,14 @@ const Referencias = ({ stepper, onSubmit }) => {
                   className="btn-prev me-1"
                   outline
                   onClick={() => {
-                    stepper.previous();
+                    const occupation = localStorage.getItem("occupation");
+                    if (occupation === "SALARIED") {
+                      stepper.to(4);
+                    } else if (occupation === "NOINCOME") {
+                      stepper.to(3);
+                    } else {
+                      stepper.previous();
+                    }
                   }}
                 >
                   <ArrowLeft
