@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import api from "../../../@core/api/api";
 
 const ValidaciónCrédito = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -73,17 +72,17 @@ const ValidaciónCrédito = () => {
         <tbody>
           {data &&
             data.length > 0 &&
-            data.map((credit) => {
+            data.map((credit, index) => {
               return (
                 <tr key={credit.id}>
-                  <td>1</td>
-                  <td>S1034</td>
-                  <td>John</td>
-                  <td>Doe</td>
-                  <td>Calle de monte toro, 30</td>
-                  <td>Samayac</td>
-                  <td>Suchitepéquez</td>
-                  <td>Pendiente pre-validación</td>
+                  <td>{index + 1}</td>
+                  <td>{credit.id}</td>
+                  <td>{credit?.client.name}</td>
+                  <td>{credit?.client.surname}</td>
+                  <td>{credit?.client.residence_address}</td>
+                  <td>{credit?.client.residence_municipality}</td>
+                  <td>{credit?.client.department_of_residence}</td>
+                  <td>{credit.status}</td>
                   <td>
                     <Button.Ripple
                       className="btn-icon"
