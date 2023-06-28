@@ -50,7 +50,7 @@ const PreValidaciónCrédito = () => {
         loading: "Loading",
         success: (data) => {
           fetchData();
-          return `Updated Status`;
+          return `Succesfully updated status`;
         },
         error: (err) => {
           return `ERROR: ${formatMessage(err)}`;
