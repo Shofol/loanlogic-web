@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import api from "../../../@core/api/api";
+import { Link } from "react-router-dom";
 
 const ValidaciónCrédito = () => {
   const navigate = useNavigate();
@@ -74,7 +75,13 @@ const ValidaciónCrédito = () => {
             data.length > 0 &&
             data.map((credit, index) => {
               return (
-                <tr key={credit.id}>
+                <tr
+                  key={credit.id}
+                  className="clickable-row"
+                  onClick={() => {
+                    navigate(`/créditos/visualizar-solicitud/${credit.id}`);
+                  }}
+                >
                   <td>{index + 1}</td>
                   <td>{credit.id}</td>
                   <td>{credit?.client.name}</td>
@@ -88,8 +95,9 @@ const ValidaciónCrédito = () => {
                       className="btn-icon"
                       outline
                       color="primary"
-                      onClick={() => {
+                      onClick={(e) => {
                         navigate(`/créditos/validation/${credit.id}`);
+                        e.stopPropagation();
                       }}
                     >
                       <Edit size={16} />

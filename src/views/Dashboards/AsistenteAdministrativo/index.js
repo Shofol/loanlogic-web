@@ -87,7 +87,7 @@ const AsistenteAdministrativo = () => {
         <ValidaciónDatos />
       </Card>
 
-      <Card className="my-2 p-2">
+      {/* <Card className="my-2 p-2">
         <ValidaciónCrédito />
       </Card>
 
@@ -97,7 +97,7 @@ const AsistenteAdministrativo = () => {
 
       <Card className="my-2 p-2">
         <MoraPorAgente />
-      </Card>
+      </Card> */}
     </div>
   );
 };
