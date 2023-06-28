@@ -4,6 +4,9 @@ const ConfigForm = lazy(() => import("../../views/Productos/ConfigForm"));
 const GoalConfiguration = lazy(() =>
   import("../../views/Productos/GoalConfiguration")
 );
+const ProductosLista = lazy(() =>
+  import("../../views/Productos/ProductosLista")
+);
 
 const ProductosRoutes = [
   {
@@ -11,8 +14,16 @@ const ProductosRoutes = [
     element: <ConfigForm />
   },
   {
+    path: "/productos/config/:id",
+    element: <ConfigForm />
+  },
+  {
     path: "/productos/goal-config",
     element: <GoalConfiguration />
+  },
+  {
+    path: "/productos/lista",
+    element: <ProductosLista />
   }
 ];
 

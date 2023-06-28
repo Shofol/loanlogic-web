@@ -11,10 +11,6 @@ const FotoGarantía = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // ** Function to handle Pagination
   const handlePagination = (page) => {
     setCurrentPage(page.selected + 1);

@@ -193,6 +193,12 @@ export default [
         title: "Configurar metas",
         icon: <Circle size={20} />,
         navLink: "/productos/goal-config"
+      },
+      {
+        id: "productList",
+        title: "Productos Lista",
+        icon: <Circle size={20} />,
+        navLink: "/productos/lista"
       }
     ]
   },
