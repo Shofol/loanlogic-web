@@ -40,8 +40,8 @@ const PreValidaciónDirección = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
-  const handleAction = async (action, id) => {
-    const response = await api.put(`tasks/address-validation/${id}`, {
+  const handleAction = (action, id) => {
+    const response = api.put(`tasks/address-validation/${id}`, {
       status: action === "accept" ? true : false
     });
 
@@ -50,8 +50,8 @@ const PreValidaciónDirección = () => {
       {
         loading: "Loading",
         success: (data) => {
-          resetForm();
-          return `${data.data.message}`;
+          fetchData();
+          return `Successfully updated stats`;
         },
         error: (err) => {
           return `ERROR: ${formatMessage(err)}`;
