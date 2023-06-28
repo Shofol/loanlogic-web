@@ -3,7 +3,7 @@ import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { Card, CardTitle, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import PreValidaciónDirección from "./preValidaciónDirección";
+import PreValidaciónDirección from "../GestorDeCobros/preValidaciónDirección";
 import ValidaciónCrédito from "./validaciónCrédito";
 import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
 import "./supervisorOficina.scss";

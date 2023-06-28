@@ -11,9 +11,57 @@ import {
 } from "reactstrap";
 import { Globe } from "react-feather";
 import { useNavigate } from "react-router-dom";
+import ReactPaginate from "react-paginate";
+import { useEffect, useState } from "react";
+import api from "../../../@core/api/api";
+import { toast } from "react-hot-toast";
+import { formatMessage } from "../../../utility/functions/formatMessage";
 
 const PreValidaciónDirección = () => {
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [data, setData] = useState(null);
+
+  // ** Function to handle Pagination
+  const handlePagination = (page) => {
+    setCurrentPage(page.selected + 1);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
+
+  const fetchData = async () => {
+    const response = await api.get(
+      `tasks/address-validation?page=${currentPage}&pageSize=10`
+    );
+    setData(response.data.data);
+    setTotalPages(response.data.pagination.totalPages);
+  };
+
+  const handleAction = async (action, id) => {
+    const response = await api.put(`tasks/address-validation/${id}`, {
+      status: action === "accept" ? true : false
+    });
+
+    toast.promise(
+      response,
+      {
+        loading: "Loading",
+        success: (data) => {
+          resetForm();
+          return `${data.data.message}`;
+        },
+        error: (err) => {
+          return `ERROR: ${formatMessage(err)}`;
+        }
+      },
+      {
+        style: { minWidth: "250px", fontWeight: "bold" }
+      }
+    );
+  };
 
   return (
     <>
@@ -48,26 +96,64 @@ const PreValidaciónDirección = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>S1034</td>
-            <td>John</td>
-            <td>Doe</td>
-            <td>Calle de monte toro, 30</td>
-            <td>Samayac</td>
-            <td>Suchitepéquez</td>
-            <td>Pendiente pre-validación</td>
-            <td className="d-flex gap-1" width={"150px"}>
-              <Button.Ripple className="btn-icon" outline color="danger">
-                <Check size={16} />
-              </Button.Ripple>
-              <Button.Ripple className="btn-icon" outline color="danger">
-                <X size={16} />
-              </Button.Ripple>
-            </td>
-          </tr>
+          {data &&
+            data.map((data, index) => {
+              return (
+                <tr key={data.id}>
+                  <td>{index + 1}</td>
+                  <td>{data.id}</td>
+                  <td>{data?.client.name}</td>
+                  <td>{data?.client.surname}</td>
+                  <td>{data?.client.residence_address}</td>
+                  <td>{data?.client.residence_municipality}</td>
+                  <td>{data?.client.department_of_residence}</td>
+                  <td>{data.status}</td>
+                  <td className="d-flex gap-1" width={"150px"}>
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="danger"
+                      onClick={() => handleAction("accept", data.id)}
+                    >
+                      <Check size={16} />
+                    </Button.Ripple>
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="danger"
+                      onClick={() => handleAction("reject", data.id)}
+                    >
+                      <X size={16} />
+                    </Button.Ripple>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </Table>
+
+      <div className="d-flex justify-content-center my-1">
+        <ReactPaginate
+          nextLabel=""
+          breakLabel="..."
+          previousLabel=""
+          pageRangeDisplayed={2}
+          forcePage={currentPage - 1}
+          marginPagesDisplayed={2}
+          activeClassName="active"
+          pageClassName="page-item"
+          breakClassName="page-item"
+          nextLinkClassName="page-link"
+          pageLinkClassName="page-link"
+          breakLinkClassName="page-link"
+          previousLinkClassName="page-link"
+          nextClassName="page-item next-item"
+          previousClassName="page-item prev-item"
+          pageCount={totalPages}
+          onPageChange={(page) => handlePagination(page)}
+          containerClassName="pagination react-paginate separated-pagination pagination-sm justify-content-end pe-1 mt-1"
+        />
+      </div>
     </>
   );
 };
