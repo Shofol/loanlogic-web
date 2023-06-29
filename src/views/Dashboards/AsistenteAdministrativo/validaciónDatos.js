@@ -75,7 +75,13 @@ const ValidaciónDatos = () => {
             data.length > 0 &&
             data.map((data, index) => {
               return (
-                <tr key={data.id}>
+                <tr
+                  key={data.id}
+                  className="clickable-row"
+                  onClick={() => {
+                    navigate(`/créditos/visualizar-solicitud/${data.id}`);
+                  }}
+                >
                   <td>{index + 1}</td>
                   <td>{data.id}</td>
                   <td>{data?.client.name}</td>
@@ -84,7 +90,7 @@ const ValidaciónDatos = () => {
                   <td>{data?.client.residence_municipality}</td>
                   <td>{data?.client.department_of_residence}</td>
                   <td>{data.status}</td>
-                  <td className="d-flex gap-1" width={"150px"}>
+                  <td className="d-flex gap-1" style={{ width: "150px" }}>
                     <Button.Ripple className="btn-icon" outline color="danger">
                       <Check size={16} />
                     </Button.Ripple>
