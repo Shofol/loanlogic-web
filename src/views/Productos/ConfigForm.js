@@ -139,7 +139,7 @@ const ConfigForm = () => {
             //   return errors;
             // }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-              const response = product
+              const response = id
                 ? API.put(`product/${id}`, values)
                 : API.post("product", values);
               toast.promise(
@@ -148,7 +148,7 @@ const ConfigForm = () => {
                   loading: "Loading",
                   success: (data) => {
                     resetForm();
-                    return `Successfully saved ${data.name}`;
+                    return `${data.data.message}`;
                   },
                   error: (err) => {
                     return `ERROR: ${formatMessage(err)}`;
@@ -265,7 +265,10 @@ const ConfigForm = () => {
                         })[0]
                       }
                       onChange={(option) =>
-                        setFieldValue("guarantee_type", option.value)
+                        setFieldValue(
+                          "guarantee_type",
+                          option.map((option) => option.value)
+                        )
                       }
                       name="guarantee_type"
                     />
