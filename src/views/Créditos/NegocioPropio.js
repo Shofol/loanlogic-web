@@ -32,7 +32,7 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
         <Formik
           initialValues={{
             business_name: "",
-            start_date: "",
+            start_date: new Date(),
             nit5: "",
             monthly_sales: "",
             monthly_expenses5: "",
@@ -96,14 +96,14 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                   <Flatpickr
                     id="hf-picker"
                     className="form-control"
-                    defaultValue={new Date().toDateString()}
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("start_date", dateStr);
                     }}
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
-                      dateFormat: "Y-m-d"
+                      dateFormat: "Y-m-d",
+                      defaultDate: new Date()
                     }}
                   />
                   <ErrorMessage

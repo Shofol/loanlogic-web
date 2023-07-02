@@ -55,7 +55,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
             residence_address: "",
             residence_municipality: "",
             department_of_residence: "",
-            birth_date: "",
+            birth_date: new Date(),
             profession: "",
             civil_status: "",
             sex: "",
@@ -67,9 +67,9 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
             if (!values.surname) {
               errors.surname = requiredMsg;
             }
-            if (!values.second_name) {
-              errors.second_name = requiredMsg;
-            }
+            // if (!values.second_name) {
+            //   errors.second_name = requiredMsg;
+            // }
             if (!values.second_surname) {
               errors.second_surname = requiredMsg;
             }
@@ -181,7 +181,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                 </Col>
                 <Col sm="3">
                   <Label className="form-label" for="second_name">
-                    Si la respuesta es sí, indicar las instituciones y mont
+                    Segundo nombre
                     <span className="text-danger">*</span>
                   </Label>
                   <Input
@@ -191,11 +191,11 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     placeholder="Segundo nombre"
                     tag={Field}
                   />
-                  <ErrorMessage
+                  {/* <ErrorMessage
                     component="div"
                     name="second_name"
                     className="text-danger"
-                  />
+                  /> */}
                 </Col>
               </Row>
 
@@ -331,14 +331,14 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                   <Flatpickr
                     id="hf-picker"
                     className="form-control"
-                    defaultValue={new Date().toDateString()}
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("birth_date", dateStr);
                     }}
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
-                      dateFormat: "Y-m-d"
+                      dateFormat: "Y-m-d",
+                      defaultDate: new Date()
                     }}
                   />
                   <ErrorMessage

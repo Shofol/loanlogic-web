@@ -20,7 +20,7 @@ import { Info } from "react-feather";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../@core/api/api";
 import {
   guaranteeTypes,
@@ -30,6 +30,7 @@ import {
 } from "../../configs/data";
 
 const VisualizarSolicitud = () => {
+  const navigate = useNavigate();
   const [rangeValue, setRangeValue] = useState(50);
   let { id } = useParams();
   const wantCredit = [
@@ -57,8 +58,15 @@ const VisualizarSolicitud = () => {
           <CardTitle tag="h4" className="mb-1">
             Solicitud Núm. {data?.id}
           </CardTitle>
-          <CardSubtitle tag="h5">
-            {data?.client.name.toUpperCase()}
+          <CardSubtitle
+            tag="h5"
+            className="cursor-pointer link text-primary link-underline-primary"
+            onClick={() => {
+              navigate(`/clientes/${data.client_id}`);
+            }}
+          >
+            {`${data?.client.name.toUpperCase()} ` +
+              `${data?.client.surname.toUpperCase()}`}
             {/* : Q1000 - 28D */}
           </CardSubtitle>
           <CardSubtitle className="mt-1" tag="h4">

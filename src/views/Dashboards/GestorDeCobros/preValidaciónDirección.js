@@ -99,7 +99,13 @@ const PreValidaciónDirección = () => {
           {data &&
             data.map((data, index) => {
               return (
-                <tr key={data.id}>
+                <tr
+                  key={data.id}
+                  className="clickable-row"
+                  onClick={() => {
+                    navigate(`/créditos/visualizar-solicitud/${data.id}`);
+                  }}
+                >
                   <td>{index + 1}</td>
                   <td>{data.id}</td>
                   <td>{data?.client.name}</td>

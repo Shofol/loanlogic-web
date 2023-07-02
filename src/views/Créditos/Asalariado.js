@@ -30,7 +30,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
         <Formik
           initialValues={{
             company_name: "",
-            entry_date: "",
+            entry_date: new Date(),
             position: "",
             monthly_income: "",
             monthly_expenses: "",
@@ -119,11 +119,11 @@ const Asalariado = ({ stepper, onSubmit }) => {
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("entry_date", dateStr);
                     }}
-                    defaultValue={new Date().toDateString()}
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
-                      dateFormat: "Y-m-d"
+                      dateFormat: "Y-m-d",
+                      defaultDate: new Date()
                     }}
                   />
                   <ErrorMessage

@@ -99,7 +99,13 @@ const PreValidaciónCrédito = () => {
             data.length > 0 &&
             data.map((credit, index) => {
               return (
-                <tr key={credit.id}>
+                <tr
+                  key={credit.id}
+                  className="clickable-row"
+                  onClick={() => {
+                    navigate(`/créditos/visualizar-solicitud/${credit.id}`);
+                  }}
+                >
                   <td>{index + 1}</td>
                   <td>{credit.id}</td>
                   <td>{credit?.client.name}</td>

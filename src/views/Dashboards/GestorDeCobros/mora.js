@@ -48,7 +48,12 @@ const Mora = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr
+            className="clickable-row"
+            onClick={() => {
+              navigate("/clientes/5 ");
+            }}
+          >
             <td>1</td>
             <td>S1034</td>
             <td>John</td>

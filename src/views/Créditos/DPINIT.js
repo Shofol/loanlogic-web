@@ -5,16 +5,12 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardSubtitle,
   CardTitle,
   Col,
   Form,
   Input,
-  InputGroup,
-  InputGroupText,
   Label,
-  Row,
-  UncontrolledTooltip
+  Row
 } from "reactstrap";
 import "./Créditos.scss";
 import { ArrowLeft, ArrowRight, Info } from "react-feather";
@@ -46,7 +42,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
             place_of_birth_region: "",
             neighborhood_city: "",
             neighborhood_region: "",
-            expiration_date: "",
+            expiration_date: new Date(),
             photos_of_the_dpi: "",
             nit: "",
             is_have_credit: "",
@@ -81,7 +77,10 @@ const DPINIT = ({ stepper, onSubmit }) => {
             if (!values.is_have_credit) {
               errors.is_have_credit = requiredMsg;
             }
-            if (!values.credit_institutions_and_amount) {
+            if (
+              values.is_have_credit === "yes" &&
+              !values.credit_institutions_and_amount
+            ) {
               errors.credit_institutions_and_amount = requiredMsg;
             }
             if (
@@ -197,11 +196,12 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("expiration_date", dateStr);
                     }}
-                    defaultValue={new Date().toDateString()}
+                    name="expiration_date"
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
-                      dateFormat: "Y-m-d"
+                      dateFormat: "Y-m-d",
+                      defaultDate: new Date()
                     }}
                   />
                   <ErrorMessage

@@ -65,7 +65,13 @@ const FotoGarantía = () => {
             data.length > 0 &&
             data.map((guarantee, index) => {
               return (
-                <tr key={guarantee.id}>
+                <tr
+                  key={guarantee.id}
+                  className="clickable-row"
+                  onClick={() => {
+                    navigate("/créditos/solicitud-crédito");
+                  }}
+                >
                   <td>{index + 1}</td>
                   <td>{guarantee.id}</td>
                   <td>{guarantee?.client.name}</td>

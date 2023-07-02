@@ -68,7 +68,8 @@ const Solicitudes = () => {
       params = params + `&${pair[0]}=${pair[1]}`;
     });
     const response = await API.get(
-      `credit-application?page=${currentPage}&pageSize=10` + params
+      `credit-application?page=${currentPage}&pageSize=10&sortOrder=DESC` +
+        params
     );
     setData([...response.data.data]);
     setTotalPages(response.data.pagination.totalPages);
@@ -290,6 +291,18 @@ const Solicitudes = () => {
                       className="table-filter"
                     />
                   </th>
+
+                  <th>
+                    <span>Fecha petición</span>
+                    <Input
+                      type="text"
+                      name="fechaPetición"
+                      id="fechaPetición"
+                      placeholder="Fecha petición"
+                      className="table-filter"
+                    />
+                  </th>
+
                   <th>
                     <span>Estado</span>
                     <Input
@@ -320,6 +333,7 @@ const Solicitudes = () => {
                         <td></td>
                         <td>{app.client.residence_municipality}</td>
                         <td>{app.client.department_of_residence}</td>
+                        <td>{new Date(app.createdAt).toLocaleDateString()}</td>
                         <td>{app.status}</td>
                         <td
                           className="d-flex gap-1"
