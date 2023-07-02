@@ -113,7 +113,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`f_references_name_and_surname${ref}`}
                       >
-                        Nombre y apellidos*
+                        Nombre y apellidos<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"
@@ -134,7 +134,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`f_references_relationship${ref}`}
                       >
-                        Parentesco*
+                        Parentesco<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"
@@ -155,7 +155,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`f_references_work_phone${ref}`}
                       >
-                        Teléfono trabajo*
+                        Teléfono trabajo<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"
@@ -171,7 +171,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`f_references_cell_phone${ref}`}
                       >
-                        Celular*
+                        Celular<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"
@@ -201,7 +201,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`p_references_name_and_surname${ref}`}
                       >
-                        Nombre y apellidos*
+                        Nombre y apellidos<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"
@@ -222,7 +222,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`p_references_relationship${ref}`}
                       >
-                        Parentesco*
+                        Parentesco<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"
@@ -243,7 +243,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`p_references_work_phone${ref}`}
                       >
-                        Teléfono trabajo*
+                        Teléfono trabajo<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"
@@ -258,7 +258,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                         className="form-label"
                         for={`p_references_cell_phone${ref}`}
                       >
-                        Celular*
+                        Celular<span className="text-danger">*</span>
                       </Label>
                       <Input
                         type="text"

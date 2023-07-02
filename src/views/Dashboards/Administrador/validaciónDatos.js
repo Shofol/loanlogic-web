@@ -58,10 +58,20 @@ const ValidaciónDatos = () => {
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
             <td className="d-flex gap-1" width={"150px"}>
-              <Button.Ripple className="btn-icon" outline color="danger">
+              <Button.Ripple
+                className="btn-icon"
+                outline
+                color="danger"
+                onClick={() => handleAction("accept", data.id)}
+              >
                 <Check size={16} />
               </Button.Ripple>
-              <Button.Ripple className="btn-icon" outline color="danger">
+              <Button.Ripple
+                className="btn-icon"
+                outline
+                color="danger"
+                onClick={() => handleAction("reject", data.id)}
+              >
                 <X size={16} />
               </Button.Ripple>
             </td>

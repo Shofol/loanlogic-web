@@ -41,7 +41,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
       <CardBody>
         <Formik
           initialValues={{
-            loan_payment_method: "",
+            // loan_payment_method: "",
             loan_payment_time: "",
             credit_amount: "500",
             credit_destination: "",
@@ -51,10 +51,10 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
           }}
           validate={(values) => {
             const errors = {};
-            if (!values.loan_payment_method) {
-              errors.loan_payment_method =
-                "Se requiere el método de pago del préstamo";
-            }
+            // if (!values.loan_payment_method) {
+            //   errors.loan_payment_method =
+            //     "Se requiere el método de pago del préstamo";
+            // }
 
             if (!values.loan_payment_time) {
               errors.loan_payment_time =
@@ -100,7 +100,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
         >
           {({ handleSubmit, setFieldValue, resetForm }) => (
             <Form onSubmit={handleSubmit}>
-              <p htmlFor="loan_payment_method">
+              {/* <p htmlFor="loan_payment_method">
                 Método de pago del préstamo
                 <span className="text-danger">*</span>
               </p>
@@ -132,7 +132,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                 component="div"
                 name="loan_payment_method"
                 className="text-danger"
-              />
+              /> */}
 
               <p htmlFor="loan_payment_time" className="mt-2">
                 ¿Cómo quieres pagar tu préstamo?

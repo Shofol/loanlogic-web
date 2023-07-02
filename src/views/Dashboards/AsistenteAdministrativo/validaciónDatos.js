@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import api from "../../../@core/api/api";
+import { toast } from "react-hot-toast";
 
 const ValidaciónDatos = () => {
   const navigate = useNavigate();
@@ -36,6 +37,29 @@ const ValidaciónDatos = () => {
     );
     setData(response.data.data);
     setTotalPages(response.data.pagination.totalPages);
+  };
+
+  const handleAction = (action, id) => {
+    const response = api.put(`tasks/data-validation/${id}`, {
+      status: action === "accept" ? true : false
+    });
+
+    toast.promise(
+      response,
+      {
+        loading: "Loading",
+        success: (data) => {
+          fetchData();
+          return `Successfully updated status`;
+        },
+        error: (err) => {
+          return `ERROR: ${formatMessage(err)}`;
+        }
+      },
+      {
+        style: { minWidth: "250px", fontWeight: "bold" }
+      }
+    );
   };
 
   return (
@@ -90,11 +114,27 @@ const ValidaciónDatos = () => {
                   <td>{data?.client.residence_municipality}</td>
                   <td>{data?.client.department_of_residence}</td>
                   <td>{data.status}</td>
-                  <td className="d-flex gap-1" style={{ width: "150px" }}>
-                    <Button.Ripple className="btn-icon" outline color="danger">
+                  <td className="d-flex gap-1" width={"150px"}>
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="danger"
+                      onClick={(e) => {
+                        handleAction("accept", data.id);
+                        e.stopPropagation();
+                      }}
+                    >
                       <Check size={16} />
                     </Button.Ripple>
-                    <Button.Ripple className="btn-icon" outline color="danger">
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="danger"
+                      onClick={(e) => {
+                        handleAction("reject", data.id);
+                        e.stopPropagation();
+                      }}
+                    >
                       <X size={16} />
                     </Button.Ripple>
                   </td>

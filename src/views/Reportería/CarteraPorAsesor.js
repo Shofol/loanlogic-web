@@ -23,6 +23,7 @@ import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 import "./Reportería.scss";
 import { Download } from "react-feather";
+import api from "../../@core/api/api";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -62,6 +63,25 @@ const CarteraPorAsesor = () => {
     gridRef.current.api.deselectAll();
   }, []);
 
+  const [agency, setAgency] = useState(null);
+  const [gestors, setGestors] = useState([]);
+
+  useEffect(() => {
+    if (agency) {
+      fetchGestorData();
+    }
+  }, [agency]);
+
+  const fetchGestorData = async () => {
+    const response = await api.get(`/user?agency=${agency}&role=agent`);
+    setGestors(
+      response.data.data.map((gestor) => ({
+        label: gestor.name,
+        value: gestor.name
+      }))
+    );
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -75,11 +95,15 @@ const CarteraPorAsesor = () => {
             <Select
               isClearable={false}
               theme={selectThemeColors}
-              isMulti
+              // isMulti
               name="colors"
               options={agenciasValues}
               className="react-select"
               classNamePrefix="select"
+              onChange={
+                (option) => setAgency(option.value)
+                // setAgencies(option.map((option) => option.value))
+              }
             />
           </Col>
 
@@ -90,7 +114,7 @@ const CarteraPorAsesor = () => {
               theme={selectThemeColors}
               isMulti
               name="colors"
-              options={agenciasValues}
+              options={gestors}
               className="react-select"
               classNamePrefix="select"
             />
