@@ -3,37 +3,3 @@ td {
   white-space: nowrap;
   width: 500px;
 }
-
-.table-filter {
-  font-size: 12px;
-  margin-top: 0.5rem;
-  min-width: 100px;
-}
-
-.example-thumb {
-  background: #25c76e;
-  color: white;
-  border-radius: 50%;
-  top: -10px;
-  width: 30px;
-  height: 30px;
-  font-size: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.example-track {
-  background: #25c76e;
-  height: 7px;
-  border-radius: 5px;
-}
-
-.example-track.example-track-1 {
-  background: #66f1a5;
-}
-
-// .horizontal-slider {
-//   height: 20px;
-// }

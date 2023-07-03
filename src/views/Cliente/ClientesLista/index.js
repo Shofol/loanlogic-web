@@ -18,7 +18,6 @@ import { selectThemeColors } from "@utils";
 import { agenciasValues } from "../../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
-import "../../Créditos/Créditos.scss";
 import ReactPaginate from "react-paginate";
 import { Search } from "react-feather";
 import API from "../../../@core/api/api";
