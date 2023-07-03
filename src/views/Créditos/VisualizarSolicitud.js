@@ -17,9 +17,6 @@ import {
 } from "reactstrap";
 import "./Créditos.scss";
 import { Info } from "react-feather";
-import Select from "react-select";
-import { selectThemeColors } from "@utils";
-import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../@core/api/api";
 import {

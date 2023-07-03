@@ -19,10 +19,10 @@ import { Save, RefreshCw, Edit, Check, X, Search } from "react-feather";
 import { agenciasValues } from "../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
-// import "../Créditos/Créditos.scss";
 import ReactPaginate from "react-paginate";
 import API from "../../@core/api/api";
 import { useNavigate } from "react-router-dom";
+import "./Solicitudes.scss";
 
 const Solicitudes = () => {
   const navigate = useNavigate();
