@@ -22,6 +22,7 @@ const InputPasswordToggle = forwardRef((props, ref) => {
     iconSize,
     inputClassName,
     invalid,
+    onChange,
     ...rest
   } = props;
 
@@ -49,21 +50,24 @@ const InputPasswordToggle = forwardRef((props, ref) => {
       <InputGroup
         className={classnames({
           [className]: className,
-          "is-invalid": invalid,
+          "is-invalid": invalid
         })}
       >
         <Input
           ref={ref}
           invalid={invalid}
+          onChange={(e) => {
+            onChange(e.target.value);
+          }}
           type={inputVisibility === false ? "password" : "text"}
           placeholder={placeholder ? placeholder : "············"}
           className={classnames({
-            [inputClassName]: inputClassName,
+            [inputClassName]: inputClassName
           })}
           /*eslint-disable */
           {...(label && htmlFor
             ? {
-                id: htmlFor,
+                id: htmlFor
               }
             : {})}
           {...rest}
@@ -103,10 +107,10 @@ InputPasswordToggle.propTypes = {
     if (props[propName] && props["label"] === "undefined") {
       throw new Error("label prop is required when htmlFor prop is present");
     }
-  },
+  }
 };
 
 // ** Default Props
 InputPasswordToggle.defaultProps = {
-  visible: false,
+  visible: false
 };
