@@ -61,20 +61,12 @@ export default [
     navLink: "/solicitudes"
   },
 
-  {
-    id: "cobranza",
-    title: "Cobranza",
-    icon: <Layers size={20} />,
-    navLink: "/cobranza"
-    // children: [
-    //   {
-    //     id: "debtCollection",
-    //     title: "Debt Collection",
-    //     icon: <Circle size={20} />,
-    //     navLink: "/cobranza/debtCollection"
-    //   }
-    // ]
-  },
+  // {
+  //   id: "cobranza",
+  //   title: "Cobranza",
+  //   icon: <Layers size={20} />,
+  //   navLink: "/cobranza"
+  // },
 
   {
     id: "desembolso",

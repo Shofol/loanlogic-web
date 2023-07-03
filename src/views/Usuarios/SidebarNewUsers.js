@@ -11,7 +11,7 @@ import { selectThemeColors } from "@utils";
 import Select from "react-select";
 import classnames from "classnames";
 import Flatpickr from "react-flatpickr";
-import { Field, Formik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
 
 // ** Reactstrap Imports
 import { Button, Label, FormText, Form, Input } from "reactstrap";
@@ -19,6 +19,7 @@ import { agenciasValues } from "../../configs/data";
 import { RefreshCw, Save } from "react-feather";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
+import { formatMessage } from "../../utility/functions/formatMessage";
 
 const defaultValues = {
   email: "",
@@ -30,19 +31,33 @@ const defaultValues = {
 };
 
 const roles = [
-  { label: "Gestor comercial", value: "agent" },
-  { label: "Agente de cobranza", value: "collection-agent" },
-  { label: "Supervisor oficina", value: "supervisor" },
-  { label: "Asistente administrativo", value: "assistante" },
-  { label: "Director ventas", value: "sales-director" },
-  { label: "Director cobranza", value: "collection-director" },
-  { label: "Cartera y contabilidad", value: "accounting" },
-  { label: "Administrador", value: "administrator" }
+  { label: "Gestor comercial", value: "Gestor comercial" },
+  { label: "Agente de cobranza", value: "Agente de cobranza" },
+  { label: "Supervisor oficina", value: "Supervisor oficina" },
+  { label: "Asistente administrativo", value: "Asistente administrativo" },
+  { label: "Director ventas", value: "Director ventas" },
+  { label: "Director cobranza", value: "Director cobranza" },
+  { label: "Cartera y contabilidad", value: "Cartera y contabilidad" },
+  { label: "Administrador", value: "Administrador" }
 ];
-
 const estadoValues = [
   { label: "ACTIVO", value: "active" },
   { label: "DESHABILITADO", value: "disabled" }
+];
+
+const categoríaValues = [
+  {
+    label: "Novato",
+    value: "Novato"
+  },
+  {
+    label: "Intermedio",
+    value: "Intermedio"
+  },
+  {
+    label: "Experto",
+    value: "Experto"
+  }
 ];
 
 const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
@@ -78,21 +93,50 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           agency: "",
           email: "",
           phone: "",
-          date_of_birth: "",
-          is_active: ""
+          date_of_birth: new Date(),
+          is_active: "",
+          password: "",
+          category: "",
+          start_date: new Date()
         }}
-        // validate={(values) => {
-        //   const errors = {};
-        //   if (!values.email) {
-        //     errors.email = "Required";
-        //   } else if (
-        //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        //   ) {
-        //     errors.email = "Invalid email address";
-        //   }
-        //   return errors;
-        // }}
+        validate={(values) => {
+          const requiredMsg = "Esto es requerido";
+          const errors = {};
+          if (!values.email) {
+            errors.email = requiredMsg;
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = "Invalid email address";
+          }
+          if (!values.name) {
+            errors.name = requiredMsg;
+          }
+          if (!values.role) {
+            errors.role = requiredMsg;
+          }
+          if (!values.agency) {
+            errors.agency = requiredMsg;
+          }
+          if (!values.phone) {
+            errors.phone = requiredMsg;
+          }
+          if (!values.is_active) {
+            errors.is_active = requiredMsg;
+          }
+          if (!values.password) {
+            errors.password = requiredMsg;
+          }
+          if (
+            values.role === "Agente de cobranza" ||
+            (values.role === "Gestor comercial" && !values.category)
+          ) {
+            errors.category = requiredMsg;
+          }
+          return errors;
+        }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
+          values.family_name = "s";
           const response = API.post("/user/register", values);
           toast.promise(
             response,
@@ -136,8 +180,13 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 name="name"
                 type="text"
                 placeholder="John Doe"
-                invalid={errors.fullName && true}
+                // invalid={errors.fullName && true}
                 tag={Field}
+              />
+              <ErrorMessage
+                component="div"
+                name="name"
+                className="text-danger"
               />
             </div>
 
@@ -150,11 +199,32 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 classNamePrefix="select"
                 options={roles}
                 theme={selectThemeColors}
-                // className={classnames("react-select", {
-                //   "is-invalid": data !== null && data.country === null,
-                // })}
                 name="role"
                 onChange={(option) => setFieldValue("role", option.value)}
+              />
+              <ErrorMessage
+                component="div"
+                name="role"
+                className="text-danger"
+              />
+            </div>
+
+            <div className="mb-1">
+              <Label className="form-label" for="country">
+                Categoría
+              </Label>
+              <Select
+                isClearable={false}
+                classNamePrefix="select"
+                options={categoríaValues}
+                theme={selectThemeColors}
+                name="category"
+                onChange={(option) => setFieldValue("category", option.value)}
+              />
+              <ErrorMessage
+                component="div"
+                name="category"
+                className="text-danger"
               />
             </div>
 
@@ -170,6 +240,11 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 name="agency"
                 onChange={(option) => setFieldValue("agency", option.value)}
               />
+              <ErrorMessage
+                component="div"
+                name="agency"
+                className="text-danger"
+              />
             </div>
 
             <div className="mb-1">
@@ -181,7 +256,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 type="email"
                 id="userEmail"
                 placeholder="john.doe@example.com"
-                invalid={errors.email && true}
+                // invalid={errors.email && true}
                 name="email"
                 tag={Field}
               />
@@ -189,6 +264,33 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
               <FormText color="muted">
                 You can use letters, numbers & periods
               </FormText>
+
+              <ErrorMessage
+                component="div"
+                name="email"
+                className="text-danger"
+              />
+            </div>
+
+            <div className="mb-1">
+              <Label className="form-label" for="userEmail">
+                Password <span className="text-danger">*</span>
+              </Label>
+
+              <Input
+                type="password"
+                id="password"
+                // invalid={errors.password && true}
+                name="password"
+                placeholder="*******"
+                tag={Field}
+              />
+
+              <ErrorMessage
+                component="div"
+                name="password"
+                className="text-danger"
+              />
             </div>
 
             <div className="mb-1">
@@ -198,9 +300,14 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
               <Input
                 id="phone"
                 placeholder="502-222-222"
-                invalid={errors.phone && true}
+                // invalid={errors.phone && true}
                 name="phone"
                 tag={Field}
+              />
+              <ErrorMessage
+                component="div"
+                name="phone"
+                className="text-danger"
               />
             </div>
 
@@ -219,7 +326,8 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "d/m/Y"
+                  dateFormat: "d/m/Y",
+                  defaultDate: new Date()
                 }}
               />
             </div>
@@ -239,7 +347,8 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 options={{
                   altInput: true,
                   altFormat: "F j, Y",
-                  dateFormat: "d/m/Y"
+                  dateFormat: "d/m/Y",
+                  defaultDate: new Date()
                 }}
               />
             </div>
@@ -260,6 +369,11 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                     option.value === estadoValues[0].value ? true : false
                   )
                 }
+              />
+              <ErrorMessage
+                component="div"
+                name="is_active"
+                className="text-danger"
               />
             </div>
 

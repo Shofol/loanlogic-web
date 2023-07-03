@@ -4,7 +4,7 @@ const Cobranza = lazy(() => import("../../views/Cobranza"));
 
 const CobranzaRoutes = [
   {
-    path: "/cobranza",
+    path: "/cobranza/:id",
     element: <Cobranza />
   }
 ];
