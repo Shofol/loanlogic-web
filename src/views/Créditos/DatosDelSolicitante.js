@@ -182,7 +182,6 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                 <Col sm="3">
                   <Label className="form-label" for="second_name">
                     Segundo nombre
-                    <span className="text-danger">*</span>
                   </Label>
                   <Input
                     type="text"
