@@ -30,14 +30,14 @@ const defaultValues = {
 };
 
 const roles = [
-  { label: "Gestor comercial", value: "agent" },
-  { label: "Agente de cobranza", value: "collection-agent" },
-  { label: "Supervisor oficina", value: "supervisor" },
-  { label: "Asistente administrativo", value: "assistante" },
-  { label: "Director ventas", value: "sales-director" },
-  { label: "Director cobranza", value: "collection-director" },
-  { label: "Cartera y contabilidad", value: "accounting" },
-  { label: "Administrador", value: "administrator" }
+  { label: "Gestor comercial", value: "AGENT" },
+  { label: "Gestor de cobros", value: "COLLECTION-MANAGER" },
+  { label: "Supervisor oficina", value: "SUPERVISOR" },
+  { label: "Asistente administrativo", value: "ASSISTANT" },
+  { label: "Director ventas", value: "SALES-DIRECTOR" },
+  { label: "Director cobranza", value: "COLLECTION-DIRECTOR" },
+  { label: "Cartera y contabilidad", value: "ACCOUNTING" },
+  { label: "Administrador", value: "ADMIN" }
 ];
 
 const estadoValues = [
