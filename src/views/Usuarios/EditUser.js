@@ -40,9 +40,9 @@ import { toast } from "react-hot-toast";
 
 const roles = [
   { label: "Gestor comercial", value: "agent" },
-  { label: "Agente de cobranza", value: "collection-agent" },
+  { label: "Gestor de cobros", value: "collection-manager" },
   { label: "Supervisor oficina", value: "supervisor" },
-  { label: "Asistente administrativo", value: "assistante" },
+  { label: "Asistente administrativo", value: "assistant" },
   { label: "Director ventas", value: "sales-director" },
   { label: "Director cobranza", value: "collection-director" },
   { label: "Cartera y contabilidad", value: "accounting" },
