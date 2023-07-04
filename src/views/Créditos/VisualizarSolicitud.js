@@ -72,7 +72,7 @@ const VisualizarSolicitud = () => {
         </CardHeader>
         {data && (
           <CardBody>
-            <p htmlFor="loan_payment_method">
+            {/* <p htmlFor="loan_payment_method">
               Método de pago del préstamo
               <span className="text-danger"></span>
             </p>
@@ -96,7 +96,7 @@ const VisualizarSolicitud = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
 
             <p htmlFor="loan_payment_time">¿Cómo quieres pagar tu préstamo?</p>
             <div className="d-flex">
