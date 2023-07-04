@@ -6,6 +6,7 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 import PreValidaciónDirección from "./preValidaciónDirección";
 import PreValidaciónCrédito from "./preValidaciónCrédito";
 import Mora from "./mora";
+import Recuperación from "../Stats/Recuperación";
 
 const GestorDeCobros = () => {
   const { colors } = useContext(ThemeColors);
@@ -34,14 +35,7 @@ const GestorDeCobros = () => {
         </Col>
 
         <Col lg="3" md="6" xs="12">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="RECUPERACIÓN"
-            subTitle="(sin incluir avances)"
-            text="24.000 Q / 200.000 Q"
-            height="200"
-            color={colors.warning.main}
-          />
+          <Recuperación height={"200"} />
         </Col>
 
         {/* <Col lg="2" md="6" xs="12">

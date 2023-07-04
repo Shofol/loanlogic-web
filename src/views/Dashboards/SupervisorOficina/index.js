@@ -8,6 +8,8 @@ import ValidaciónCrédito from "./validaciónCrédito";
 import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
 import "./supervisorOficina.scss";
 import MoraPorAgente from "./MoraPorAgente";
+import Desembolso from "../Stats/Desembolso";
+import Recuperación from "../Stats/Recuperación";
 
 const SupervisorOficina = () => {
   const { colors } = useContext(ThemeColors);
@@ -40,7 +42,8 @@ const SupervisorOficina = () => {
         </Col>
 
         <Col lg="2" md="6" xs="12" className="statColumn">
-          <OverviewCircle
+          <Desembolso />
+          {/* <OverviewCircle
             data={{ completed: 80, inProgress: 20 }}
             title="DESEMBOLSO"
             text="24.000 Q / 200.000 Q"
@@ -48,20 +51,11 @@ const SupervisorOficina = () => {
             fontSize="2rem"
             smallTitle={true}
             color={colors.danger.main}
-          />
+          /> */}
         </Col>
 
         <Col lg="2" md="6" xs="12" className="statColumn">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="RECUPERACIÓN"
-            subTitle="(sin incluir avances)"
-            text="24.000 Q / 200.000 Q"
-            height="150"
-            fontSize="2rem"
-            smallTitle={true}
-            color={colors.warning.main}
-          />
+          <Recuperación height={"150"} fontSize={"2rem"} smallTitle={true} />
         </Col>
 
         <Col className="statColumn">

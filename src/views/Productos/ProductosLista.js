@@ -58,7 +58,7 @@ const ProductosLista = () => {
                   >
                     <td>{index + 1}</td>
                     <td>{product.id}</td>
-                    <td>{product.product_name}</td>
+                    <td className="nowrap">{product.product_name}</td>
                     <td>{product.product_code}</td>
                     <td>{product.frequency}</td>
                     <td>{product.duration}</td>
