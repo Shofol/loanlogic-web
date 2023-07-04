@@ -23,6 +23,7 @@ import ReactPaginate from "react-paginate";
 import API from "../../@core/api/api";
 import { useNavigate } from "react-router-dom";
 import "./Solicitudes.scss";
+import StatusTag from "../../@core/components/statusTag";
 
 const Solicitudes = () => {
   const navigate = useNavigate();
@@ -334,7 +335,9 @@ const Solicitudes = () => {
                         <td>{app.client.residence_municipality}</td>
                         <td>{app.client.department_of_residence}</td>
                         <td>{new Date(app.createdAt).toLocaleDateString()}</td>
-                        <td>{app.status}</td>
+                        <td>
+                          <StatusTag status={app.status} />
+                        </td>
                         <td
                           className="d-flex gap-1"
                           style={{ maxWidth: "150px" }}

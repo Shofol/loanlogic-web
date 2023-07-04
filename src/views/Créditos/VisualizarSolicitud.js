@@ -673,7 +673,9 @@ const VisualizarSolicitud = () => {
                 type="text"
                 name="entry_date"
                 id="entry_date"
-                defaultValue={new Date(data?.client.entry_date).toDateString()}
+                defaultValue={
+                  data ? new Date(data?.client.entry_date).toDateString() : null
+                }
                 placeholder="Fecha de ingreo"
               />
             </Col>
@@ -826,7 +828,10 @@ const VisualizarSolicitud = () => {
                 type="text"
                 name="start_date"
                 id="start_date"
-                defaultValue={new Date(data?.client.start_date).toDateString()}
+                // defaultValue={new Date(data?.client.start_date).toDateString()}
+                defaultValue={
+                  data ? new Date(data?.client.start_date).toDateString() : null
+                }
                 placeholder="Fecha de inicio"
               />
             </Col>
