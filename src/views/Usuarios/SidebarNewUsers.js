@@ -65,8 +65,8 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
   const [data, setData] = useState(null);
   const [plan, setPlan] = useState("basic");
   const [role, setRole] = useState("subscriber");
-  const [picker, setPicker] = useState(new Date());
-  const [startDatepicker, setStartDatePicker] = useState(new Date());
+  const [picker, setPicker] = useState(null);
+  const [startDatepicker, setStartDatePicker] = useState(null);
 
   // const handleSidebarClosed = () => {
   //   for (const key in defaultValues) {
@@ -125,7 +125,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           if (!values.phone) {
             errors.phone = requiredMsg;
           }
-          if (!values.is_active) {
+          if (values.is_active === "") {
             errors.is_active = requiredMsg;
           }
           if (!values.password) {
