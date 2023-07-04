@@ -40,10 +40,12 @@ const UserDropdown = () => {
         className="nav-link dropdown-user-link"
         onClick={(e) => e.preventDefault()}
       >
-        <div className="user-nav d-sm-flex d-none">
-          <span className="user-name fw-bold">{`${user.name} ${user.family_name}`}</span>
-          <span className="user-status">{user.role}</span>
-        </div>
+        {user && (
+          <div className="user-nav d-sm-flex d-none">
+            <span className="user-name fw-bold">{`${user.name} ${user.family_name}`}</span>
+            <span className="user-status">{user.role}</span>
+          </div>
+        )}
         <Avatar
           img={defaultAvatar}
           imgHeight="40"
