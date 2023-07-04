@@ -48,15 +48,15 @@ const estadoValues = [
 const categoríaValues = [
   {
     label: "Novato",
-    value: "Novato"
+    value: "NOVATO"
   },
   {
     label: "Intermedio",
-    value: "Intermedio"
+    value: "INTERMEDIO"
   },
   {
     label: "Experto",
-    value: "Experto"
+    value: "EXPERTO"
   }
 ];
 
@@ -89,6 +89,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
       <Formik
         initialValues={{
           name: "",
+          family_name: "",
           role: "",
           agency: "",
           email: "",
@@ -111,6 +112,9 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           }
           if (!values.name) {
             errors.name = requiredMsg;
+          }
+          if (!values.family_name) {
+            errors.family_name = requiredMsg;
           }
           if (!values.role) {
             errors.role = requiredMsg;
@@ -179,13 +183,33 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 id="nombre"
                 name="name"
                 type="text"
-                placeholder="John Doe"
+                placeholder="John"
                 // invalid={errors.fullName && true}
                 tag={Field}
               />
               <ErrorMessage
                 component="div"
                 name="name"
+                className="text-danger"
+              />
+            </div>
+
+            <div className="mb-1">
+              <Label className="form-label" for="apellido">
+                Apellido <span className="text-danger">*</span>
+              </Label>
+
+              <Input
+                id="apellido"
+                name="family_name"
+                type="text"
+                placeholder="Doe"
+                // invalid={errors.fullName && true}
+                tag={Field}
+              />
+              <ErrorMessage
+                component="div"
+                name="family_name"
                 className="text-danger"
               />
             </div>
