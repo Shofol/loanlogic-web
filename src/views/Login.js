@@ -66,10 +66,10 @@ const Login = () => {
         >
           <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12">
             <CardTitle tag="h2" className="fw-bold mb-1">
-              Welcome to Gestiona! 👋
+              ¡Bienvenido a Gestiona! 👋
             </CardTitle>
             <CardText className="mb-2">
-              Please sign-in to your account and start the adventure
+              Por favor, utilice su email y contraseña para conectarse
             </CardText>
 
             <Formik
@@ -147,10 +147,10 @@ const Login = () => {
                   <div className="mb-1">
                     <div className="d-flex justify-content-between">
                       <Label className="form-label" for="login-password">
-                        Password
+                        Contraseña
                       </Label>
                       <Link to="/forgot-password">
-                        <small>Forgot Password?</small>
+                        <small>¿Ha olvidado su contraseña?</small>
                       </Link>
                     </div>
                     <InputPasswordToggle
@@ -169,21 +169,16 @@ const Login = () => {
                   <div className="form-check mb-1">
                     <Input type="checkbox" id="remember-me" />
                     <Label className="form-check-label" for="remember-me">
-                      Remember Me
+                      Recuérdame
                     </Label>
                   </div>
                   <Button type="submit" to="/" color="primary" block>
-                    Sign in
+                    Conectarse
                   </Button>
                 </Form>
               )}
             </Formik>
-            <p className="text-center mt-2">
-              <span className="me-25">New on our platform?</span>
-              <Link to="/register">
-                <span>Create an account</span>
-              </Link>
-            </p>
+  
             {/* <div className="divider my-2">
               <div className="divider-text">or</div>
             </div>
