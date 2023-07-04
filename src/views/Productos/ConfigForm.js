@@ -95,7 +95,7 @@ const ConfigForm = () => {
     frequency: product ? product.frequency : "",
     duration: product ? product.duration : "",
     duration_frequency: product ? product.duration_frequency : "",
-    guarantee_type: product ? product.guarantee_type : "",
+    guarantee_type: product ? product.guarantee_type : [],
     minimum_amount: product ? product.minimum_amount : "",
     maximum_amount: product ? product.maximum_amount : "",
     maximum_supervisor_range: product ? product.maximum_supervisor_range : "",
@@ -111,9 +111,29 @@ const ConfigForm = () => {
   };
 
   const mapAgecnyValue = () => {
-    return product.agencies.map((agency) => {
-      agenciasValues.filter((ag) => ag.value === agency)[0];
+    let filterdData = [];
+    product.agencies.map((agency) => {
+      filterdData = [
+        ...filterdData,
+        agenciasValues.filter((freq) => {
+          return freq.value === agency;
+        })[0]
+      ];
     });
+    return filterdData;
+  };
+
+  const returnGuaranteetypeValues = (product) => {
+    let filterdData = [];
+    product.guarantee_type.map((product) => {
+      filterdData = [
+        ...filterdData,
+        tipoDeGarantiaOptions.filter((freq) => {
+          return freq.value === product;
+        })[0]
+      ];
+    });
+    return filterdData;
   };
 
   return (
@@ -259,11 +279,7 @@ const ConfigForm = () => {
                       // defaultValue={tipoDeGarantiaOptions[0]}
                       options={tipoDeGarantiaOptions}
                       isClearable={false}
-                      defaultValue={
-                        tipoDeGarantiaOptions.filter((freq) => {
-                          return freq.value === product.guarantee_type;
-                        })[0]
-                      }
+                      defaultValue={returnGuaranteetypeValues(product)}
                       onChange={(option) =>
                         setFieldValue(
                           "guarantee_type",
