@@ -46,17 +46,17 @@ const estadoValues = [
 const EditUser = ({ showModal, user, onClose }) => {
   // ** States
   const [show, setShow] = useState(false);
-  const [picker, setPicker] = useState(new Date());
-  const [startDatepicker, setStartDatePicker] = useState(new Date());
+  // const [picker, setPicker] = useState(new Date());
+  // const [startDatepicker, setStartDatePicker] = useState(new Date());
 
   // const [user, setUser] = useState(selectedUser);
 
-  useEffect(() => {
-    if (user) {
-      setPicker(new Date(user.date_of_birth));
-      setStartDatePicker(new Date(user.start_date));
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     // setPicker(new Date(user.date_of_birth));
+  //     // setStartDatePicker(new Date(user.start_date));
+  //   }
+  // }, [user]);
 
   const initialValues = {
     name: user ? user.name : "",
@@ -64,8 +64,8 @@ const EditUser = ({ showModal, user, onClose }) => {
     agency: user ? user.agency : "",
     email: user ? user.email : "",
     phone: user ? user.phone : "",
-    date_of_birth: user ? user.date_of_birth : "",
-    start_date: user ? user.start_date : "",
+    date_of_birth: user ? user.date_of_birth : new Date(),
+    start_date: user ? user.start_date : new Date(),
     is_active: user ? user.is_active : ""
   };
 
@@ -210,7 +210,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                             : null
                         }
                         onChange={(option) =>
-                          setFieldValue("agent", option.value)
+                          setFieldValue("agency", option.value)
                         }
                       />
                     </div>
@@ -258,7 +258,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                         Fecha nacimiento
                       </Label>
                       <Flatpickr
-                        value={picker}
+                        defaultValue={user.date_of_birth}
                         id="hf-picker"
                         className="form-control bg-white"
                         onChange={(dateStr, instance) => {
@@ -280,7 +280,8 @@ const EditUser = ({ showModal, user, onClose }) => {
                         Fecha de ingreso
                       </Label>
                       <Flatpickr
-                        value={startDatepicker}
+                        // value={startDatepicker}
+                        defaultValue={user.start_date}
                         id="hf-picker"
                         className="form-control bg-white"
                         onChange={(dateStr, instance) => {
