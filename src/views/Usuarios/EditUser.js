@@ -24,7 +24,7 @@ import {
 import Select from "react-select";
 import { User, Check, X } from "react-feather";
 import { useForm, Controller } from "react-hook-form";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues, roles } from "../../configs/data";
 import { RefreshCw, Save } from "react-feather";
 import { Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
@@ -37,17 +37,6 @@ import "@styles/react/libs/react-select/_react-select.scss";
 
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
-
-const roles = [
-  { label: "Gestor comercial", value: "AGENT" },
-  { label: "Gestor de cobros", value: "COLLECTION-MANAGER" },
-  { label: "Supervisor oficina", value: "SUPERVISOR" },
-  { label: "Asistente administrativo", value: "ASSISTANT" },
-  { label: "Director ventas", value: "SALES-DIRECTOR" },
-  { label: "Director cobranza", value: "COLLECTION-DIRECTOR" },
-  { label: "Cartera y contabilidad", value: "ACCOUNTING" },
-  { label: "Administrador", value: "ADMIN" }
-];
 
 const estadoValues = [
   { label: "ACTIVO", value: "active" },
@@ -321,8 +310,8 @@ const EditUser = ({ showModal, user, onClose }) => {
                         defaultValue={
                           user
                             ? user.is_active
-                              ? estadoValues[0].value
-                              : estadoValues[1].value
+                              ? estadoValues[0]
+                              : estadoValues[1]
                             : null
                         }
                         onChange={(option) =>

@@ -857,3 +857,14 @@ export const wantCredit = [
   { label: "Sí", value: "yes" },
   { label: "No", value: "no" }
 ];
+
+export const roles = [
+  { label: "Gestor comercial", value: "AGENT" },
+  { label: "Gestor de cobros", value: "COLLECTION-MANAGER" },
+  { label: "Supervisor oficina", value: "SUPERVISOR" },
+  { label: "Asistente administrativo", value: "ASSISTANT" },
+  { label: "Director ventas", value: "SALES-DIRECTOR" },
+  { label: "Director cobranza", value: "COLLECTION-DIRECTOR" },
+  { label: "Cartera y contabilidad", value: "ACCOUNTING" },
+  { label: "Administrador", value: "ADMIN" }
+];

@@ -99,6 +99,11 @@ const Login = () => {
                     loading: "Loading",
                     success: (data) => {
                       localStorage.setItem("gesToken", data.data.token);
+                      localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.data.data)
+                      );
+
                       resetForm();
                       navigate("/");
                       return `Succesfully Logged In`;
@@ -178,7 +183,7 @@ const Login = () => {
                 </Form>
               )}
             </Formik>
-  
+
             {/* <div className="divider my-2">
               <div className="divider-text">or</div>
             </div>

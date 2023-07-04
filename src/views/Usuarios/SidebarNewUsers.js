@@ -15,7 +15,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 
 // ** Reactstrap Imports
 import { Button, Label, FormText, Form, Input } from "reactstrap";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues, roles } from "../../configs/data";
 import { RefreshCw, Save } from "react-feather";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
@@ -30,16 +30,6 @@ const defaultValues = {
   country: null
 };
 
-const roles = [
-  { label: "Gestor comercial", value: "AGENT" },
-  { label: "Gestor de cobros", value: "COLLECTION-MANAGER" },
-  { label: "Supervisor oficina", value: "SUPERVISOR" },
-  { label: "Asistente administrativo", value: "ASSISTANT" },
-  { label: "Director ventas", value: "SALES-DIRECTOR" },
-  { label: "Director cobranza", value: "COLLECTION-DIRECTOR" },
-  { label: "Cartera y contabilidad", value: "ACCOUNTING" },
-  { label: "Administrador", value: "ADMIN" }
-];
 const estadoValues = [
   { label: "ACTIVO", value: "active" },
   { label: "DESHABILITADO", value: "disabled" }

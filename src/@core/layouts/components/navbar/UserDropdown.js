@@ -30,6 +30,8 @@ import defaultAvatar from "@src/assets/images/portrait/small/avatar-s-11.jpg";
 const UserDropdown = () => {
   const navigate = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
       <DropdownToggle
@@ -39,8 +41,8 @@ const UserDropdown = () => {
         onClick={(e) => e.preventDefault()}
       >
         <div className="user-nav d-sm-flex d-none">
-          <span className="user-name fw-bold">John Doe</span>
-          <span className="user-status">Admin</span>
+          <span className="user-name fw-bold">{`${user.name} ${user.family_name}`}</span>
+          <span className="user-status">{user.role}</span>
         </div>
         <Avatar
           img={defaultAvatar}
