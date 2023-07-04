@@ -1,5 +1,5 @@
 // ** React Imports
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // ** Custom Components
 import Avatar from "@components/avatar";
@@ -13,7 +13,7 @@ import {
   Settings,
   CreditCard,
   HelpCircle,
-  Power,
+  Power
 } from "react-feather";
 
 // ** Reactstrap Imports
@@ -21,13 +21,15 @@ import {
   UncontrolledDropdown,
   DropdownMenu,
   DropdownToggle,
-  DropdownItem,
+  DropdownItem
 } from "reactstrap";
 
 // ** Default Avatar Image
 import defaultAvatar from "@src/assets/images/portrait/small/avatar-s-11.jpg";
 
 const UserDropdown = () => {
+  const navigate = useNavigate();
+
   return (
     <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
       <DropdownToggle
@@ -81,7 +83,12 @@ const UserDropdown = () => {
           <HelpCircle size={14} className="me-75" />
           <span className="align-middle">FAQ</span>
         </DropdownItem>
-        <DropdownItem tag={Link} to="/login">
+        <DropdownItem
+          onClick={() => {
+            localStorage.removeItem("gesToken");
+            navigate("/login");
+          }}
+        >
           <Power size={14} className="me-75" />
           <span className="align-middle">Logout</span>
         </DropdownItem>

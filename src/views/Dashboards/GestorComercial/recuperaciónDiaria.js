@@ -44,7 +44,7 @@ const RecuperaciónDiaria = () => {
             <th>Municipio</th>
             <th>Departamento</th>
             <th>Estado</th>
-            <th>Pre-validar</th>
+            <th>COBRAR</th>
           </tr>
         </thead>
         <tbody>
@@ -62,35 +62,27 @@ const RecuperaciónDiaria = () => {
             <td>Samayac</td>
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
-            <td className="d-flex gap-1" width={"150px"}>
+            <td>
+              <Button.Ripple
+                className="btn-icon"
+                outline
+                color="primary"
+                onClick={(e) => {
+                  // navigate(`/créditos/garantía/${guarantee.id}`);
+                  navigate(`/cobranza/1`);
+                  e.stopPropagation();
+                }}
+              >
+                <Edit size={16} />
+              </Button.Ripple>
+            </td>
+            {/* <td className="d-flex gap-1" width={"150px"}>
               <Button.Ripple className="btn-icon" outline color="danger">
                 <Check size={16} />
               </Button.Ripple>
               <Button.Ripple className="btn-icon" outline color="danger">
                 <X size={16} />
               </Button.Ripple>
-            </td>
-            {/* <td>
-              <UncontrolledDropdown>
-                <DropdownToggle
-                  className="icon-btn hide-arrow"
-                  color="transparent"
-                  size="sm"
-                  caret
-                >
-                  <MoreVertical size={15} />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Edit className="me-50" size={15} />{" "}
-                    <span className="align-middle">Edit</span>
-                  </DropdownItem>
-                  <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-                    <Trash className="me-50" size={15} />{" "}
-                    <span className="align-middle">Delete</span>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
             </td> */}
           </tr>
         </tbody>

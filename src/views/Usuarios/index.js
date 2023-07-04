@@ -14,19 +14,19 @@ import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";
 
 const Usuarios = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [picker, setPicker] = useState(new Date().toLocaleDateString());
   const [previousMonth, setPreviousMonth] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [agent, setAgent] = useState(null);
   const [users, setUsers] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [user, setUser] = useState(null);
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
-    setCurrentPage(page.selected);
+    setCurrentPage(page.selected + 1);
   };
 
   // ** Function to toggle sidebar
@@ -137,13 +137,13 @@ const Usuarios = () => {
                 return (
                   <tr key={user.id}>
                     <td>{index + 1}</td>
-                    <td>{user.name}</td>
-                    <td>{user.role}</td>
+                    <td className="nowrap">{user.name}</td>
+                    <td className="nowrap">{user.role}</td>
                     <td>{user.agency}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
-                    <td>{user.date_of_birth}</td>
-                    <td>{user.createdAt}</td>
+                    <td>{new Date(user.date_of_birth).toLocaleDateString()}</td>
+                    <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                     {/* <td>Q 950</td> */}
                     <td>
                       <Button.Ripple
@@ -188,7 +188,7 @@ const Usuarios = () => {
           breakLabel="..."
           previousLabel=""
           pageRangeDisplayed={2}
-          forcePage={currentPage}
+          forcePage={currentPage - 1}
           marginPagesDisplayed={2}
           activeClassName="active"
           pageClassName="page-item"
