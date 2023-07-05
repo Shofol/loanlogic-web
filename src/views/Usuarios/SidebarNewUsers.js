@@ -138,7 +138,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
               loading: "Loading",
               success: (data) => {
                 resetForm();
-                console.log(data);
+                toggleSidebar();
                 return `${data.data.message}`;
               },
               error: (err) => {

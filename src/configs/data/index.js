@@ -831,6 +831,44 @@ export const roles = [
   { label: "Administrador", value: "ADMIN" }
 ];
 
+export const guaranteeTypes = [
+  {
+    title: "Garantía fiduciaria",
+    value: "FIDUCIARIA",
+    tip: "Firma contrato"
+  },
+  {
+    title: "Prenda",
+    value: "PRENDARIA",
+    tip: "El cliente la puede seguir utilizando"
+  },
+  {
+    title: "Cheque",
+    value: "CHEQUE",
+    tip: "Entrega como garantia en la agencia"
+  },
+  {
+    title: "Mobiliaria",
+    value: "MOBILIARIA",
+    tip: "Registro formal ante el registro mercantil, pero el cliente puede seguir utilizando"
+  },
+  {
+    title: "Hipotecaria",
+    value: "HIPOTECARIA",
+    tip: "Se crea un gravamen sobre la propiedad"
+  },
+  {
+    title: "Compra - venta;",
+    value: "COMPRA_VENTA",
+    tip: "Si no me pagas, me quedo con la casa para venderla"
+  },
+  {
+    title: "Empeño",
+    value: "EMPEÑO",
+    tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo"
+  }
+];
+
 export const tipoDeGarantiaOptions = [
   { value: "FIDUCIARIA", label: "Fiduciaria (firma contrato)" },
   {

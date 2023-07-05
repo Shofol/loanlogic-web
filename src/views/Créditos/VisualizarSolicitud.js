@@ -20,7 +20,7 @@ import { Info } from "react-feather";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../@core/api/api";
 import {
-  tipoDeGarantiaOptions,
+  guaranteeTypes,
   loanPaymentMethods,
   paymentMethods,
   professions
@@ -171,7 +171,7 @@ const VisualizarSolicitud = () => {
               pertinentes)
             </p>
 
-            {tipoDeGarantiaOptions.map((guarntee) => {
+            {guaranteeTypes.map((guarntee) => {
               return (
                 <div
                   key={guarntee.value}
