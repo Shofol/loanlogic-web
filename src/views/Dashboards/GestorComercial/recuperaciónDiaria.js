@@ -77,10 +77,10 @@ const RecuperaciónDiaria = () => {
             data.map((pdData, index) => {
               return (
                 <tr
-                  key={pdData.id}
+                  key={pdData.client.dpi_number}
                   className="clickable-row"
                   onClick={() => {
-                    navigate(`/clientes/6`);
+                    navigate(`/clientes/${pdData.id}`);
                   }}
                 >
                   <td>{index + 1}</td>

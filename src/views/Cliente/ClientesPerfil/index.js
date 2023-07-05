@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Card,
@@ -14,10 +14,21 @@ import {
 import image from "../../../assets/images/portrait/small/avatar-s-11.jpg";
 import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
+import api from "../../../@core/api/api";
 
 const ClientesPerfil = () => {
   let { id } = useParams();
   const { colors } = useContext(ThemeColors);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
+  const fetchData = async () => {
+    const response = await api.get(`client/${id}`);
+    setData(response.data.data);
+  };
 
   return (
     <Card>
@@ -27,11 +38,38 @@ const ClientesPerfil = () => {
       <CardBody>
         <Row>
           <Col md="2">
-            <p className="fw-bold fs-5">John Doe Hernández</p>
-            <p className="mb-0">DPI: 123</p>
-            <p>NIT: 123</p>
-            <img src={image} width="200px" height="100px" className="mb-2" />
-            <img src={image} width="200px" height="100px" />
+            <p className="fw-bold fs-5">
+              {data?.name} {data?.surname}
+            </p>
+            <p className="mb-0">DPI: {data?.dpi_number}</p>
+            <p>NIT: {data?.nit}</p>
+            {data &&
+              data.photos_of_bills.map((bill) => {
+                return (
+                  <img
+                    key={bill}
+                    src={bill}
+                    width="200px"
+                    height="200px"
+                    className="mb-2 border"
+                  />
+                );
+              })}
+
+            {data &&
+              data.photos_of_the_dpi.map((dpi) => {
+                return (
+                  <img
+                    key={dpi}
+                    src={dpi}
+                    width="200px"
+                    height="200px"
+                    className="mb-2 border"
+                  />
+                );
+              })}
+
+            {/* <img src={image} width="200px" height="100px" /> */}
           </Col>
           <Col md="6" className="px-4">
             <Row>
@@ -44,6 +82,8 @@ const ClientesPerfil = () => {
                   name="Celular"
                   id="Celular"
                   placeholder="Celular"
+                  disabled
+                  defaultValue={data?.phone_number}
                   // tag={Field}
                 />
               </Col>
@@ -57,6 +97,9 @@ const ClientesPerfil = () => {
                   name="Email"
                   id="Email"
                   placeholder="Email"
+                  disabled
+                  defaultValue={data?.email}
+
                   // tag={Field}
                 />
               </Col>
@@ -70,6 +113,8 @@ const ClientesPerfil = () => {
                   name="Dirección de residencia*"
                   id="Dirección de residencia*"
                   placeholder="Dirección de residencia*"
+                  disabled
+                  defaultValue={data?.residence_address}
                   // tag={Field}
                 />
               </Col>
@@ -83,6 +128,9 @@ const ClientesPerfil = () => {
                   name="Municipio de residencia*"
                   id="Municipio de residencia*"
                   placeholder="Municipio de residencia*"
+                  disabled
+                  defaultValue={data?.residence_municipality}
+
                   // tag={Field}
                 />
               </Col>
@@ -96,6 +144,9 @@ const ClientesPerfil = () => {
                   name="Departamento"
                   id="Departamento"
                   placeholder="Departamento"
+                  disabled
+                  defaultValue={data?.department_of_residence}
+
                   // tag={Field}
                 />
               </Col>
@@ -109,6 +160,9 @@ const ClientesPerfil = () => {
                   name="Fecha de nacimiento*"
                   id="Fecha de nacimiento*"
                   placeholder="Fecha de nacimiento*"
+                  disabled
+                  defaultValue={data?.birth_date}
+
                   // tag={Field}
                 />
               </Col>
@@ -122,6 +176,9 @@ const ClientesPerfil = () => {
                   name="Nacionalidad"
                   id="Nacionalidad"
                   placeholder="Nacionalidad"
+                  disabled
+                  defaultValue={data?.nationality}
+
                   // tag={Field}
                 />
               </Col>
@@ -135,6 +192,9 @@ const ClientesPerfil = () => {
                   name="Sexo"
                   id="Sexo"
                   placeholder="Sexo"
+                  disabled
+                  defaultValue={data?.sex}
+
                   // tag={Field}
                 />
               </Col>
