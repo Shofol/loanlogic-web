@@ -34,6 +34,7 @@ const RecuperaciónDiaria = () => {
     const response = await api.get(
       `/debt/collection/pending?page=${currentPage}&pageSize=10`
     );
+    console.log(response.data.data);
     setData(response.data.data);
     setTotalPages(response.data.pagination.totalPages);
   };
@@ -60,49 +61,55 @@ const RecuperaciónDiaria = () => {
         <thead>
           <tr>
             <th>Sl. No</th>
-            <th>Num. Solicitud</th>
+            {/* <th>Num. Solicitud</th> */}
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Dirección</th>
             <th>Municipio</th>
             <th>Departamento</th>
-            <th>Estado</th>
+            {/* <th>Estado</th> */}
             <th>COBRAR</th>
           </tr>
         </thead>
         <tbody>
-          {data && data.length > 0 && (
-            <tr
-              key={data.id}
-              className="clickable-row"
-              onClick={() => {
-                navigate(`/clientes/6`);
-              }}
-            >
-              <td>1</td>
-              <td>S1034</td>
-              <td>John</td>
-              <td>Doe</td>
-              <td>Calle de monte toro, 30</td>
-              <td>Samayac</td>
-              <td>Suchitepéquez</td>
-              <td>Pendiente pre-validación</td>
-              <td>
-                <Button.Ripple
-                  className="btn-icon"
-                  outline
-                  color="primary"
-                  onClick={(e) => {
-                    // navigate(`/créditos/garantía/${guarantee.id}`);
-                    navigate(`/cobranza/1`);
-                    e.stopPropagation();
+          {data &&
+            data.length > 0 &&
+            data.map((pdData, index) => {
+              return (
+                <tr
+                  key={pdData.id}
+                  className="clickable-row"
+                  onClick={() => {
+                    navigate(`/clientes/6`);
                   }}
                 >
-                  <Edit size={16} />
-                </Button.Ripple>
-              </td>
-            </tr>
-          )}
+                  <td>{index + 1}</td>
+                  {/* <td>S1034</td> */}
+                  <td>{pdData?.client.name}</td>
+                  <td>{pdData?.client.surname}</td>
+                  <td>{pdData?.client.residence_address}</td>
+                  <td>{pdData?.client.residence_municipality}</td>
+                  <td>{pdData?.client.residence_address}</td>
+                  {/* <td> 
+                    <StatusTag status={pdData?}/>
+                  </td> */}
+                  <td>
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="primary"
+                      onClick={(e) => {
+                        // navigate(`/créditos/garantía/${guarantee.id}`);
+                        navigate(`/cobranza/1`);
+                        e.stopPropagation();
+                      }}
+                    >
+                      <Edit size={16} />
+                    </Button.Ripple>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </Table>
 

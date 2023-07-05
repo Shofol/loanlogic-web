@@ -29,6 +29,16 @@ const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await api.get(`credit/portfolio/agent`);
+    console.log(response.data.data);
+    setRowData([...response.data.data]);
+  };
+
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
     {
@@ -53,9 +63,9 @@ const CarteraPorAsesor = () => {
     //   .then((result) => result.json())
     //   .then((rowData) => setRowData(rowData));
     // console.log(rowData);
-    const data = portfolioData;
+    // const data = portfolioData;
     setColumnDefs(portfolioData.columns);
-    setRowData(portfolioData.rows);
+    // setRowData(portfolioData.rows);
   }, []);
 
   // Example using Grid's API
