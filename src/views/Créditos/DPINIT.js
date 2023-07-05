@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactSlider from "react-slider";
 import {
   Button,
@@ -28,6 +28,8 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 
 const DPINIT = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
+  const munRef = useRef(null);
+  const neMunRef = useRef(null);
 
   return (
     <div>
@@ -146,6 +148,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     name="place_of_birth_city"
                     id="place_of_birth_city"
                     onChange={(option) => {
+                      munRef.current.clearValue();
                       setMunicipalities(
                         municipalitiesValues.filter(
                           (muni) => muni.department === option.value
@@ -166,6 +169,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     Municipio
                   </Label>
                   <Select
+                    ref={munRef}
                     theme={selectThemeColors}
                     className="react-select"
                     classNamePrefix="select"
@@ -174,7 +178,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     id="place_of_birth_region"
                     name="place_of_birth_region"
                     onChange={(option) =>
-                      setFieldValue("place_of_birth_region", option.value)
+                      setFieldValue("place_of_birth_region", option?.value)
                     }
                   />
                   <ErrorMessage
@@ -228,6 +232,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     name="neighborhood_city"
                     id="neighborhood_city"
                     onChange={(option) => {
+                      neMunRef.current.clearValue();
                       setMunicipalities(
                         municipalitiesValues.filter(
                           (muni) => muni.department === option.value
@@ -248,6 +253,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     Municipio
                   </Label>
                   <Select
+                    ref={neMunRef}
                     theme={selectThemeColors}
                     className="react-select"
                     classNamePrefix="select"
@@ -256,7 +262,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     id="neighborhood_region"
                     name="neighborhood_region"
                     onChange={(option) =>
-                      setFieldValue("neighborhood_region", option.value)
+                      setFieldValue("neighborhood_region", option?.value)
                     }
                   />
                   <ErrorMessage

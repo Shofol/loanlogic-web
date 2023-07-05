@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactSlider from "react-slider";
 import {
   Button,
@@ -35,6 +35,7 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 
 const DatosDelSolicitante = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
+  const munRef = useRef();
 
   return (
     <div>
@@ -286,6 +287,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     name="department_of_residence"
                     id="department_of_residence"
                     onChange={(option) => {
+                      munRef.current.clearValue();
                       setMunicipalities(
                         municipalitiesValues.filter(
                           (muni) => muni.department === option.value
@@ -307,6 +309,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     <span className="text-danger">*</span>
                   </Label>
                   <Select
+                    ref={munRef}
                     theme={selectThemeColors}
                     className="react-select"
                     classNamePrefix="select"
@@ -314,7 +317,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     isClearable={false}
                     name="residence_municipality"
                     onChange={(option) =>
-                      setFieldValue("residence_municipality", option.value)
+                      setFieldValue("residence_municipality", option?.value)
                     }
                   />
                   <ErrorMessage

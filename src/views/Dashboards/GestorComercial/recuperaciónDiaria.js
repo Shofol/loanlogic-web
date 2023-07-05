@@ -100,7 +100,7 @@ const RecuperaciónDiaria = () => {
                       color="primary"
                       onClick={(e) => {
                         // navigate(`/créditos/garantía/${guarantee.id}`);
-                        navigate(`/cobranza/1`);
+                        navigate(`/cobranza/${pdData.debt_collections.id}`);
                         e.stopPropagation();
                       }}
                     >

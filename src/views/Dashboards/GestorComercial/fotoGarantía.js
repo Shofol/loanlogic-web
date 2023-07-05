@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../@core/api/api";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import StatusTag from "../../../@core/components/statusTag";
 
 const FotoGarantía = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const FotoGarantía = () => {
                   key={guarantee.id}
                   className="clickable-row"
                   onClick={() => {
-                    navigate("/créditos/solicitud-crédito");
+                    navigate(`/créditos/visualizar-solicitud/${guarantee.id}`);
                   }}
                 >
                   <td>{index + 1}</td>
@@ -79,7 +80,9 @@ const FotoGarantía = () => {
                   <td>{guarantee?.client.residence_address}</td>
                   <td>{guarantee?.client.residence_municipality}</td>
                   <td>{guarantee?.client.department_of_residence}</td>
-                  <td>{guarantee.status}</td>
+                  <td>
+                    <StatusTag status={guarantee.status} />
+                  </td>
                   <td>
                     <Button.Ripple
                       className="btn-icon"
