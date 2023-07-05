@@ -771,44 +771,6 @@ export const municipalitiesValues = [
   }
 ];
 
-export const guaranteeTypes = [
-  {
-    title: "Garantía fiduciaria",
-    value: "FIDUCIARYGUARANTEE",
-    tip: "Firma contrato"
-  },
-  {
-    title: "Prenda",
-    value: "GARMENT",
-    tip: "El cliente la puede seguir utilizando"
-  },
-  {
-    title: "Cheque",
-    value: "CHEQUE",
-    tip: "Entrega como garantia en la agencia"
-  },
-  {
-    title: "Mobiliaria",
-    value: "FURNITURE",
-    tip: "Registro formal ante el registro mercantil, pero el cliente puede seguir utilizando"
-  },
-  {
-    title: "Hipotecaria",
-    value: "MORTGAGE",
-    tip: "Se crea un gravamen sobre la propiedad"
-  },
-  {
-    title: "Compra - venta;",
-    value: "BUYANDSELL",
-    tip: "Si no me pagas, me quedo con la casa para venderla"
-  },
-  {
-    title: "Empeño",
-    value: "ENDEAVOR",
-    tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo"
-  }
-];
-
 export const paymentMethods = [
   { value: "DAILY", label: "Diario" },
   { value: "WEEKLY", label: "Semanal" },
@@ -867,4 +829,31 @@ export const roles = [
   { label: "Director cobranza", value: "COLLECTION-DIRECTOR" },
   { label: "Cartera y contabilidad", value: "ACCOUNTING" },
   { label: "Administrador", value: "ADMIN" }
+];
+
+export const tipoDeGarantiaOptions = [
+  { value: "FIDUCIARIA", label: "Fiduciaria (firma contrato)" },
+  {
+    value: "PRENDARIA",
+    label: "Prendaria (el cliente la puede seguir utilizando)"
+  },
+  { value: "CHEQUE", label: "Cheque (entrega como garantia en la agencia)" },
+  {
+    value: "MOBILIARIA",
+    label:
+      "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
+  },
+  {
+    value: "HIPOTECARIA",
+    label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
+  },
+  {
+    value: "COMPRA_VENTA",
+    label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
+  },
+  {
+    value: "EMPEÑO",
+    label:
+      "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
+  }
 ];

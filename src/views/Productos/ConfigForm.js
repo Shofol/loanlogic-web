@@ -17,7 +17,7 @@ import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import RangeList from "../../@core/components/rangeList";
 import { Save, RefreshCw } from "react-feather";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues, tipoDeGarantiaOptions } from "../../configs/data";
 import { Field, Formik } from "formik";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
@@ -58,33 +58,6 @@ const ConfigForm = () => {
     // { value: "CATORCENAS", label: "Catorcenas" },
     // { value: "QUINCENAS", label: "Quincenas" },
     { value: "MONTHS", label: "Meses" }
-  ];
-
-  const tipoDeGarantiaOptions = [
-    { value: "FIDUCIARIA", label: "Fiduciaria (firma contrato)" },
-    {
-      value: "PRENDARIA",
-      label: "Prendaria (el cliente la puede seguir utilizando)"
-    },
-    { value: "CHEQUE", label: "Cheque (entrega como garantia en la agencia)" },
-    {
-      value: "MOBILIARIA",
-      label:
-        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
-    },
-    {
-      value: "HIPOTECARIA",
-      label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
-    },
-    {
-      value: "COMPRA_VENTA",
-      label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
-    },
-    {
-      value: "EMPEÑO",
-      label:
-        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
-    }
   ];
 
   const paísOptions = [{ value: "QUENTZAL", label: "Guatemala - Quetzal" }];

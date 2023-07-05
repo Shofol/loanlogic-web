@@ -20,7 +20,7 @@ import { Info } from "react-feather";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../@core/api/api";
 import {
-  guaranteeTypes,
+  tipoDeGarantiaOptions,
   loanPaymentMethods,
   paymentMethods,
   professions
@@ -171,7 +171,7 @@ const VisualizarSolicitud = () => {
               pertinentes)
             </p>
 
-            {guaranteeTypes.map((guarntee) => {
+            {tipoDeGarantiaOptions.map((guarntee) => {
               return (
                 <div
                   key={guarntee.value}
@@ -456,19 +456,20 @@ const VisualizarSolicitud = () => {
               </p>
             </Col>
             <Col md="9" className="d-flex align-items-center gap-2">
-              {data?.client.photos_of_bills.map((src) => {
-                return (
-                  <div key={src} className="border img-box">
-                    <img
-                      className="boxed-image"
-                      src={src}
-                      alt={"item.name"}
-                      width="80px"
-                      height="80px"
-                    />
-                  </div>
-                );
-              })}
+              {data &&
+                data?.client.photos_of_bills.map((src) => {
+                  return (
+                    <div key={src} className="border img-box">
+                      <img
+                        className="boxed-image"
+                        src={src}
+                        alt={"item.name"}
+                        width="80px"
+                        height="80px"
+                      />
+                    </div>
+                  );
+                })}
             </Col>
           </Row>
         </CardBody>
@@ -579,19 +580,20 @@ const VisualizarSolicitud = () => {
               <p className="mt-2">Foto ambos lados del DPI</p>
             </Col>
             <Col md="9" className="d-flex align-items-center gap-2">
-              {data?.client.photos_of_the_dpi.map((src) => {
-                return (
-                  <div key={src} className="border img-box">
-                    <img
-                      className="boxed-image"
-                      src={src}
-                      alt={"item.name"}
-                      width="80px"
-                      height="80px"
-                    />
-                  </div>
-                );
-              })}
+              {data &&
+                data?.client.photos_of_the_dpi.map((src) => {
+                  return (
+                    <div key={src} className="border img-box">
+                      <img
+                        className="boxed-image"
+                        src={src}
+                        alt={"item.name"}
+                        width="80px"
+                        height="80px"
+                      />
+                    </div>
+                  );
+                })}
             </Col>
           </Row>
 
@@ -674,7 +676,9 @@ const VisualizarSolicitud = () => {
                 name="entry_date"
                 id="entry_date"
                 defaultValue={
-                  data ? new Date(data?.client.entry_date).toDateString() : null
+                  data
+                    ? new Date(data?.client.entry_date).toLocaleDateString()
+                    : null
                 }
                 placeholder="Fecha de ingreo"
               />
@@ -830,7 +834,9 @@ const VisualizarSolicitud = () => {
                 id="start_date"
                 // defaultValue={new Date(data?.client.start_date).toDateString()}
                 defaultValue={
-                  data ? new Date(data?.client.start_date).toDateString() : null
+                  data
+                    ? new Date(data?.client.start_date).toLocaleDateString()
+                    : null
                 }
                 placeholder="Fecha de inicio"
               />

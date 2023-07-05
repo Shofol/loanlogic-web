@@ -18,7 +18,7 @@ import "./Créditos.scss";
 import { ArrowRight, Info } from "react-feather";
 import { ErrorMessage, Field, Formik } from "formik";
 import {
-  guaranteeTypes,
+  tipoDeGarantiaOptions,
   loanPaymentMethods,
   paymentMethods,
   professions
@@ -242,7 +242,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                 pertinentes)<span className="text-danger">*</span>
               </p>
 
-              {guaranteeTypes.map((gurrentee_items) => {
+              {tipoDeGarantiaOptions.map((gurrentee_items) => {
                 return (
                   <div
                     key={gurrentee_items.value}

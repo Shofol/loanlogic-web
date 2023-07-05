@@ -21,35 +21,10 @@ import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
 import { useParams } from "react-router-dom";
+import { tipoDeGarantiaOptions } from "../../configs/data";
 
 const Garantía = () => {
   const { id } = useParams();
-  const tipoGarantíaValues = [
-    { value: "fiduciaria", label: "Fiduciaria (firma contrato)" },
-    {
-      value: "prendaria",
-      label: "Prendaria (el cliente la puede seguir utilizando)"
-    },
-    { value: "cheque", label: "Cheque (entrega como garantia en la agencia)" },
-    {
-      value: "mobiliaria",
-      label:
-        "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
-    },
-    {
-      value: "hipotecaria",
-      label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
-    },
-    {
-      value: "compraVenta",
-      label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
-    },
-    {
-      value: "empeño",
-      label:
-        "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
-    }
-  ];
 
   return (
     <Card>
@@ -131,8 +106,7 @@ const Garantía = () => {
                     theme={selectThemeColors}
                     className="react-select"
                     classNamePrefix="select"
-                    // defaultValue={tipoGarantíaValues[0]}
-                    options={tipoGarantíaValues}
+                    options={tipoDeGarantiaOptions}
                     isClearable={false}
                     name="guarantee_item"
                     onChange={(option) =>
