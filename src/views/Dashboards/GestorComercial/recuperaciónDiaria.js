@@ -80,7 +80,7 @@ const RecuperaciónDiaria = () => {
                   key={pdData.client.dpi_number}
                   className="clickable-row"
                   onClick={() => {
-                    navigate(`/clientes/${pdData.id}`);
+                    navigate(`/clientes/${pdData.client.id}`);
                   }}
                 >
                   <td>{index + 1}</td>
