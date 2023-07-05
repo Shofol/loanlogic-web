@@ -19,7 +19,7 @@ const Cobranza = () => {
   const submit = () => {
     const values = {
       payment_made: payment_made,
-      application_id: 1
+      application_id: id
     };
     const response = API.post("/debt/collection", values);
 
