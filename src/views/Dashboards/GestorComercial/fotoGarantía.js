@@ -88,11 +88,9 @@ const FotoGarantía = () => {
                       className="btn-icon"
                       outline
                       color="primary"
-                      onClick={() => {
-                        // navigate(`/créditos/garantía/${guarantee.id}`);
-                        navigate(
-                          `/créditos/visualizar-solicitud/${guarantee.id}`
-                        );
+                      onClick={(e) => {
+                        navigate(`/créditos/garantía/${guarantee.id}`);
+                        e.stopPropagation();
                       }}
                     >
                       <Edit size={16} />

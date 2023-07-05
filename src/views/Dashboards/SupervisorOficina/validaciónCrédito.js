@@ -14,6 +14,7 @@ import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import api from "../../../@core/api/api";
 import { Link } from "react-router-dom";
+import StatusTag from "../../../@core/components/statusTag";
 
 const ValidaciónCrédito = () => {
   const navigate = useNavigate();
@@ -89,7 +90,9 @@ const ValidaciónCrédito = () => {
                   <td>{credit?.client.residence_address}</td>
                   <td>{credit?.client.residence_municipality}</td>
                   <td>{credit?.client.department_of_residence}</td>
-                  <td>{credit.status}</td>
+                  <td>
+                    <StatusTag status={credit.status} />
+                  </td>
                   <td>
                     <Button.Ripple
                       className="btn-icon"

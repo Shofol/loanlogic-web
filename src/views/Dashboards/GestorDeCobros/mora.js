@@ -62,7 +62,11 @@ const Mora = () => {
             <td>Samayac</td>
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
-            <td className="d-flex gap-1" width={"150px"}>
+            <td
+              className="d-flex gap-1"
+              width={"150px"}
+              style={{ width: "150px" }}
+            >
               <Button.Ripple className="btn-icon" outline color="danger">
                 <Check size={16} />
               </Button.Ripple>

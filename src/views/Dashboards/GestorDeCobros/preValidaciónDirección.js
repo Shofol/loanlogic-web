@@ -41,7 +41,8 @@ const PreValidaciónDirección = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
-  const handleAction = (action, id) => {
+  const handleAction = (e, action, id) => {
+    e.stopPropagation();
     const response = api.put(`tasks/address-validation/${id}`, {
       status: action === "accept" ? true : false
     });
@@ -118,12 +119,16 @@ const PreValidaciónDirección = () => {
                   <td>
                     <StatusTag status={data.status} />
                   </td>
-                  <td className="d-flex gap-1" width={"150px"}>
+                  <td
+                    className="d-flex gap-1"
+                    width={"150px"}
+                    style={{ width: "150px" }}
+                  >
                     <Button.Ripple
                       className="btn-icon"
                       outline
                       color="danger"
-                      onClick={() => handleAction("accept", data.id)}
+                      onClick={(e) => handleAction(e, "accept", data.id)}
                     >
                       <Check size={16} />
                     </Button.Ripple>
@@ -131,7 +136,7 @@ const PreValidaciónDirección = () => {
                       className="btn-icon"
                       outline
                       color="danger"
-                      onClick={() => handleAction("reject", data.id)}
+                      onClick={(e) => handleAction(e, "reject", data.id)}
                     >
                       <X size={16} />
                     </Button.Ripple>

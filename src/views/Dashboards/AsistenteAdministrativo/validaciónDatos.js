@@ -15,6 +15,7 @@ import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import api from "../../../@core/api/api";
 import { toast } from "react-hot-toast";
+import StatusTag from "../../../@core/components/statusTag";
 
 const ValidaciónDatos = () => {
   const navigate = useNavigate();
@@ -113,8 +114,14 @@ const ValidaciónDatos = () => {
                   <td>{data?.client.residence_address}</td>
                   <td>{data?.client.residence_municipality}</td>
                   <td>{data?.client.department_of_residence}</td>
-                  <td>{data.status}</td>
-                  <td className="d-flex gap-1" width={"150px"}>
+                  <td>
+                    <StatusTag status={data.status} />
+                  </td>
+                  <td
+                    className="d-flex gap-1"
+                    width={"150px"}
+                    style={{ width: "150px" }}
+                  >
                     <Button.Ripple
                       className="btn-icon"
                       outline

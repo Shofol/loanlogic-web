@@ -5,8 +5,6 @@ const StatusTag = ({ status }) => {
   const [color, setColor] = useState("primary");
 
   useEffect(() => {
-    console.log(status);
-    console.log(status.includes("ERROR"));
     if (status.includes("PENDING")) {
       setColor("warning");
     } else if (status.includes("ACCEPTED")) {

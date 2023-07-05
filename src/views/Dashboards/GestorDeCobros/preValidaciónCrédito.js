@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import api from "../../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../../utility/functions/formatMessage";
+import StatusTag from "../../../@core/components/statusTag";
 
 const PreValidaciónCrédito = () => {
   const navigate = useNavigate();
@@ -39,7 +40,8 @@ const PreValidaciónCrédito = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
-  const handleAction = (action, id) => {
+  const handleAction = (e, action, id) => {
+    e.stopPropagation();
     const response = api.put(`tasks/credit-prevalidation/${id}`, {
       status: action === "accept" ? true : false
     });
@@ -113,13 +115,19 @@ const PreValidaciónCrédito = () => {
                   <td>{credit?.client.residence_address}</td>
                   <td>{credit?.client.residence_municipality}</td>
                   <td>{credit?.client.department_of_residence}</td>
-                  <td>{credit.status}</td>
-                  <td className="d-flex gap-1" width={"150px"}>
+                  <td>
+                    <StatusTag status={credit.status} />
+                  </td>
+                  <td
+                    className="d-flex gap-1"
+                    style={{ width: "150px" }}
+                    width={"150px"}
+                  >
                     <Button.Ripple
                       className="btn-icon"
                       outline
                       color="danger"
-                      onClick={() => handleAction("accept", credit.id)}
+                      onClick={(e) => handleAction(e, "accept", credit.id)}
                     >
                       <Check size={16} />
                     </Button.Ripple>
@@ -127,23 +135,11 @@ const PreValidaciónCrédito = () => {
                       className="btn-icon"
                       outline
                       color="danger"
-                      onClick={() => handleAction("reject", credit.id)}
+                      onClick={(e) => handleAction(e, "reject", credit.id)}
                     >
                       <X size={16} />
                     </Button.Ripple>
                   </td>
-                  {/* <td>
-                    <Button.Ripple
-                      className="btn-icon"
-                      outline
-                      color="primary"
-                      onClick={() => {
-                        navigate(`/créditos/validation/${credit.id}`);
-                      }}
-                    >
-                      <Edit size={16} />
-                    </Button.Ripple>
-                  </td> */}
                 </tr>
               );
             })}
