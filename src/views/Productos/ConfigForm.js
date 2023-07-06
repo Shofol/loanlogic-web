@@ -332,7 +332,7 @@ const ConfigForm = () => {
                   </Col>
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="credit_interest">
-                      Interés crédito (IVA includo)
+                      Interés crédito mensual (IVA includo)
                     </Label>
                     <InputGroup>
                       <Input

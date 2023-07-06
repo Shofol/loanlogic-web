@@ -185,13 +185,13 @@ const ClientesPerfil = () => {
 
               <Col md="6" className="mb-1">
                 <Label className="form-label" for="Sexo">
-                  Sexo
+                  Género
                 </Label>
                 <Input
                   type="text"
                   name="Sexo"
                   id="Sexo"
-                  placeholder="Sexo"
+                  placeholder="Género"
                   disabled
                   defaultValue={data?.sex}
 
