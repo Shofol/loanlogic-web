@@ -16,11 +16,12 @@ import {
 import { Save, RefreshCw, Info } from "react-feather";
 import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
-import { Formik, Field } from "formik";
+import { Formik, Field, ErrorMessage } from "formik";
 import API from "../../@core/api/api";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
-const ConfigForm = () => {
+const ValidationForm = () => {
   const [dirección, setDirección] = useState("");
   const [garantía, setGarantía] = useState([]);
 
@@ -55,35 +56,63 @@ const ConfigForm = () => {
       <CardBody>
         <Formik
           initialValues={{
-            business_type: "",
-            address_approved: false,
-            inventory: "",
-            observations: "",
-            payment_day: "",
-            guarantee_approved: false,
-            comment: "",
+            business_type: null,
+            address_approved: null,
+            inventory: null,
+            observations: [],
+            payment_day: null,
+            guarantee_approved: null,
+            comment: null,
             evidences: [],
             work_documents: [],
-            credit_approval: false
+            credit_approval: null
           }}
-          // validate={(values) => {
-          //   const errors = {};
-          //   if (!values.email) {
-          //     errors.email = "Required";
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          //   ) {
-          //     errors.email = "Invalid email address";
-          //   }
-          //   return errors;
-          // }}
+          validate={(values) => {
+            const errors = {};
+            const requiredMsg = "Esto es requerido";
+
+            if (!values.business_type) {
+              errors.business_type = requiredMsg;
+            }
+            if (values.address_approved === null) {
+              errors.address_approved = requiredMsg;
+            }
+            if (!values.inventory) {
+              errors.inventory = requiredMsg;
+            }
+            if (values.observations.length === 0) {
+              errors.observations = requiredMsg;
+            }
+            if (!values.payment_day) {
+              errors.payment_day = requiredMsg;
+            }
+            if (values.guarantee_approved === null) {
+              errors.guarantee_approved = requiredMsg;
+            }
+            if (values.comment === null) {
+              errors.comment = requiredMsg;
+            }
+            if (values.credit_approval === null) {
+              errors.credit_approval = requiredMsg;
+            }
+            return errors;
+          }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            // console.log(values);
-            // setTimeout(() => {
-            //   console.log(JSON.stringify(values, null, 2));
-            //   setSubmitting(false);
-            // }, 400);
-            const response = API.post(`credit/validation/${id}`, values);
+            const form = new FormData();
+
+            Object.entries(values).map((pair) => {
+              if (pair[0] === "evidences" || pair[0] === "work_documents") {
+                values[`${pair[0]}`].map((file) => {
+                  form.append(`${pair[0]}`, file);
+                });
+              } else if (pair[0] === "observations") {
+                form.append(`${pair[0]}`, JSON.stringify(pair[1]));
+              } else {
+                form.append(pair[0], pair[1]);
+              }
+            });
+
+            const response = API.post(`credit/validation/${id}`, form);
             toast.promise(
               response,
               {
@@ -118,7 +147,9 @@ const ConfigForm = () => {
               <dl>
                 <Row>
                   <Col sm="2">
-                    <dt>Tipo de negocio</dt>
+                    <dt>
+                      Tipo de negocio <span className="text-danger">*</span>
+                    </dt>
                   </Col>
                   <Col sm="4">
                     <Input
@@ -128,13 +159,20 @@ const ConfigForm = () => {
                       placeholder="Tipo de negocio"
                       tag={Field}
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="business_type"
+                      className="text-danger"
+                    />
                   </Col>
                 </Row>
               </dl>
               <dl>
                 <Row>
                   <Col sm="2">
-                    <dt>Dirección*</dt>
+                    <dt>
+                      Dirección<span className="text-danger">*</span>
+                    </dt>
                   </Col>
                   <Col sm="9">
                     <dd>{dirección}</dd>
@@ -176,13 +214,20 @@ const ConfigForm = () => {
                         </Label>
                       </div>
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="address_approved"
+                      className="text-danger"
+                    />
                   </Col>
                 </Row>
               </dl>
               <dl>
                 <Row>
                   <Col sm="2">
-                    <dt>Inventario</dt>
+                    <dt>
+                      Inventario<span className="text-danger">*</span>
+                    </dt>
                   </Col>
                   <Col sm="4">
                     <Input
@@ -192,13 +237,20 @@ const ConfigForm = () => {
                       placeholder="Inventario"
                       tag={Field}
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="inventory"
+                      className="text-danger"
+                    />
                   </Col>
                 </Row>
               </dl>
               <dl>
                 <Row>
                   <Col sm="2">
-                    <dt>Día de pago</dt>
+                    <dt>
+                      Día de pago<span className="text-danger">*</span>
+                    </dt>
                   </Col>
                   <Col sm="4">
                     <Input
@@ -208,6 +260,11 @@ const ConfigForm = () => {
                       placeholder="Día de pago"
                       tag={Field}
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="payment_day"
+                      className="text-danger"
+                    />
                   </Col>
                 </Row>
               </dl>
@@ -215,7 +272,9 @@ const ConfigForm = () => {
               <dl>
                 <Row>
                   <Col sm="2">
-                    <dt>Garantía*</dt>
+                    <dt>
+                      Garantía<span className="text-danger">*</span>
+                    </dt>
                   </Col>
                   <Col sm="9">
                     <dd>
@@ -272,6 +331,11 @@ const ConfigForm = () => {
                         </Label>
                       </div>
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="guarantee_approved"
+                      className="text-danger"
+                    />
                   </Col>
                 </Row>
               </dl>
@@ -279,7 +343,9 @@ const ConfigForm = () => {
               <dl>
                 <Row>
                   <Col sm="2">
-                    <dt>Observaste*</dt>
+                    <dt>
+                      Observaste<span className="text-danger">*</span>
+                    </dt>
                   </Col>
                   <Col sm="9">
                     <div className="form-check form-check-inline">
@@ -288,7 +354,19 @@ const ConfigForm = () => {
                         id="vidriosRotos"
                         name="observations"
                         value="vidriosRotos"
-                        tag={Field}
+                        // tag={Field}
+                        onChange={(e) => {
+                          setFieldValue(
+                            "observations",
+                            e.target.checked === true
+                              ? [...values.observations, e.target.value]
+                              : [
+                                  ...values.observations.filter(
+                                    (ob) => ob !== e.target.value
+                                  )
+                                ]
+                          );
+                        }}
                       />
                       <Label
                         for="vidriosRotos"
@@ -313,7 +391,19 @@ const ConfigForm = () => {
                         id="postes"
                         name="observations"
                         value="postes"
-                        tag={Field}
+                        // tag={Field}
+                        onChange={(e) => {
+                          setFieldValue(
+                            "observations",
+                            e.target.checked === true
+                              ? [...values.observations, e.target.value]
+                              : [
+                                  ...values.observations.filter(
+                                    (ob) => ob !== e.target.value
+                                  )
+                                ]
+                          );
+                        }}
                       />
                       <Label
                         for="postes"
@@ -338,7 +428,19 @@ const ConfigForm = () => {
                         id="malasReferencias"
                         name="observations"
                         value="malasReferencias"
-                        tag={Field}
+                        // tag={Field}
+                        onChange={(e) => {
+                          setFieldValue(
+                            "observations",
+                            e.target.checked === true
+                              ? [...values.observations, e.target.value]
+                              : [
+                                  ...values.observations.filter(
+                                    (ob) => ob !== e.target.value
+                                  )
+                                ]
+                          );
+                        }}
                       />
                       <Label
                         for="malasReferencias"
@@ -356,6 +458,11 @@ const ConfigForm = () => {
                         en los comentarios
                       </UncontrolledTooltip>
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="observations"
+                      className="text-danger"
+                    />
                   </Col>
                 </Row>
               </dl>
@@ -378,7 +485,7 @@ const ConfigForm = () => {
               <Row>
                 <Col sm="2">
                   <p className="fw-bold">
-                    Documentos que acrediten donde trabaja*
+                    Documentos que acrediten donde trabaja
                   </p>
                 </Col>
                 <Col sm="4">
@@ -391,7 +498,9 @@ const ConfigForm = () => {
 
               <Row>
                 <Col sm="2">
-                  <p className="fw-bold">Analizar riesgo</p>
+                  <p className="fw-bold">
+                    Analizar riesgo<span className="text-danger">*</span>
+                  </p>
                 </Col>
                 <Col sm="4">
                   <div>
@@ -412,12 +521,19 @@ const ConfigForm = () => {
                       // className={classnames({ "text-danger": value.length > 20 })}
                     />
                   </div>
+                  <ErrorMessage
+                    component="div"
+                    name="comment"
+                    className="text-danger"
+                  />
                 </Col>
               </Row>
 
               <Row className="mt-2">
                 <Col sm="2">
-                  <p className="fw-bold">Aceptar crédito*</p>
+                  <p className="fw-bold">
+                    Aceptar crédito<span className="text-danger">*</span>
+                  </p>
                 </Col>
                 <Col sm="4 d-flex gap-3">
                   <div className="form-check">
@@ -439,10 +555,10 @@ const ConfigForm = () => {
                     <Input
                       type="radio"
                       id="rechazar"
-                      name="aceptarCrédito"
+                      name="credit_approval"
                       onChange={(e) => {
                         if (e.currentTarget.value === "on") {
-                          setFieldValue("aceptarCrédito", "rechazada");
+                          setFieldValue("credit_approval", false);
                         }
                       }}
                     />
@@ -451,6 +567,11 @@ const ConfigForm = () => {
                     </Label>
                   </div>
                 </Col>
+                <ErrorMessage
+                  component="div"
+                  name="credit_approval"
+                  className="text-danger"
+                />
               </Row>
 
               <Row>
@@ -484,4 +605,4 @@ const ConfigForm = () => {
     </Card>
   );
 };
-export default ConfigForm;
+export default ValidationForm;

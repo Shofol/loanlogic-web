@@ -9,6 +9,7 @@ import LayoutWrapper from "@src/@core/layouts/components/layout-wrapper";
 
 // ** Route Components
 import PublicRoute from "@components/routes/PublicRoute";
+import PrivateRoute from "@components/routes/PrivateRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
@@ -63,7 +64,9 @@ const Routes = [
     path: "/login",
     element: <Login />,
     meta: {
-      layout: "blank"
+      layout: "blank",
+      publicRoute: true
+      // restricted: true
     }
   },
   {
@@ -125,11 +128,12 @@ const MergeLayoutRoutes = (layout, defaultLayout) => {
         ((route.meta === undefined || route.meta.layout === undefined) &&
           defaultLayout === layout)
       ) {
-        const RouteTag = PublicRoute;
+        let RouteTag = PrivateRoute;
 
         // ** Check for public or private route
         if (route.meta) {
           route.meta.layout === "blank" ? (isBlank = true) : (isBlank = false);
+          RouteTag = route.meta.publicRoute ? PublicRoute : PrivateRoute;
         }
         if (route.element) {
           const Wrapper =

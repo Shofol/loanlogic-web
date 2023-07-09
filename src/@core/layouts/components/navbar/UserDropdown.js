@@ -90,6 +90,7 @@ const UserDropdown = () => {
         <DropdownItem
           onClick={() => {
             localStorage.removeItem("gesToken");
+            localStorage.removeItem("user");
             navigate("/login");
           }}
         >

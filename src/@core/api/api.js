@@ -6,7 +6,8 @@ const tokenStr = localStorage.getItem("gesToken")
   : null;
 
 const api = axios.create({
-  baseURL: `http://testing.api.alchilazo.com.gt/api/`,
+  baseURL: "https://api.alchilazo.com.gt/api/",
+  // baseURL: `https://testing.api.alchilazo.com.gt/api/`,
   headers: {
     Authorization: `Bearer ${tokenStr}`
   }
