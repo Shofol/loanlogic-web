@@ -123,7 +123,7 @@ const VisualizarSolicitud = () => {
             <Row className="mt-2">
               <Col md="4">
                 <p className="mb-0">
-                  Monto deseado del crédito: de 500 en n500Q
+                  Monto deseado del crédito: de 500 en 500Q
                 </p>
               </Col>
               <Col md="8" className="align-items-center d-flex">
