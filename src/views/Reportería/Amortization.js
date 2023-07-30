@@ -26,7 +26,7 @@ const Amortization = () => {
 
   const fetchData = async () => {
     const response = await api.get(
-      `/credit/18`
+      `/credit/28`
       // page=${currentPage}&pageSize=10
     );
     setData(response.data.data);

@@ -28,6 +28,17 @@ import api from "../../@core/api/api";
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
+  const [agency, setAgency] = useState(null);
+  const [gestors, setGestors] = useState([]);
+  const weekDays = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+  ];
 
   useEffect(() => {
     fetchData();
@@ -35,17 +46,53 @@ const CarteraPorAsesor = () => {
 
   const fetchData = async () => {
     const response = await api.get(`credit/portfolio/agent`);
-    console.log(response.data.data);
-    setRowData([...response.data.data]);
+    const data = response.data.data;
+    const modData = data.map((item) => {
+      let updatedData = {
+        cliente: `${item.client.name} ${item.client.surname}`,
+        telefono: item.client.phone_number,
+        monto: item.credit.requested_amount,
+        fechaInicial: item.credit.disbursement_date,
+        fechaFinal: item.credit.lastPayment,
+        plazo: item.credit.duration,
+        plan: item.credit.payment_frequency,
+        cuota: item.credit.installment_amount,
+        interés: item.credit.interest,
+        "k+i": item.credit.ki,
+        saldo: item.credit.total_remaining_amount,
+        pagos: item.credit.total_paid_amount
+      };
+
+      data.map((item) => {
+        item.debt_collections.map((debt) => {
+          updatedData[`${debt.payment_date}`] = debt.payment_made;
+        });
+      });
+      console.log(updatedData);
+      return updatedData;
+    });
+
+    let newColumns = [];
+    data.map((item) => {
+      item.debt_collections.map((debt) => {
+        newColumns = [
+          ...newColumns,
+          {
+            headerName: `${weekDays[new Date(debt.payment_date).getDay()]}`,
+            children: [{ field: debt.payment_date, width: 120 }]
+          }
+        ];
+      });
+    });
+
+    setColumnDefs([...portfolioData.columns, ...newColumns]);
+    // [...response.data.data]
+    console.log(modData);
+    setRowData(modData);
   };
 
   // Each Column Definition results in one Column.
-  const [columnDefs, setColumnDefs] = useState([
-    {
-      headerName: "Details",
-      children: [{ field: "make" }, { field: "model" }, { field: "price" }]
-    }
-  ]);
+  const [columnDefs, setColumnDefs] = useState([]);
 
   // DefaultColDef sets props common to all Columns
   const defaultColDef = useMemo(() => ({
@@ -56,25 +103,6 @@ const CarteraPorAsesor = () => {
   const cellClickedListener = useCallback((event) => {
     console.log("cellClicked", event);
   }, []);
-
-  // Example load data from server
-  useEffect(() => {
-    // fetch("https://www.ag-grid.com/example-assets/row-data.json")
-    //   .then((result) => result.json())
-    //   .then((rowData) => setRowData(rowData));
-    // console.log(rowData);
-    // const data = portfolioData;
-    setColumnDefs(portfolioData.columns);
-    // setRowData(portfolioData.rows);
-  }, []);
-
-  // Example using Grid's API
-  const buttonListener = useCallback((e) => {
-    gridRef.current.api.deselectAll();
-  }, []);
-
-  const [agency, setAgency] = useState(null);
-  const [gestors, setGestors] = useState([]);
 
   useEffect(() => {
     if (agency) {
