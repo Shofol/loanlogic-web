@@ -17,8 +17,31 @@ const Desembolso = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await API.get(`/debt/collection/${90}`);
+    const response = await API.get(`/debt/collection/${id}`);
     setData(response.data.data);
+  };
+
+  const submit = () => {
+    // const values = {
+    //   payment_made: payment_made
+    // };
+    const response = API.put(`/credit/disbursement/${id}`);
+
+    toast.promise(
+      response,
+      {
+        loading: "Loading",
+        success: (data) => {
+          return `${data.data.message}`;
+        },
+        error: (err) => {
+          return `ERROR: ${formatMessage(err)}`;
+        }
+      },
+      {
+        style: { minWidth: "250px", fontWeight: "bold" }
+      }
+    );
   };
 
   return (
@@ -39,26 +62,40 @@ const Desembolso = () => {
           <hr />
           <Row>
             <Col sm="12" md="6">
-              <p className="mb-0">Fecha crédito: 30-01-2023</p>
+              <p className="mb-0">
+                {" "}
+                Fecha crédito: {data?.credit.disbursement_date}
+              </p>
             </Col>
             <Col sm="12" md="6">
-              <p className="mb-0 fw-bold">Monto solicitado: 1000Q</p>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm="12" md="6">
-              <p className="mb-0">Crédito: 28D</p>
-            </Col>
-            <Col sm="12" md="6">
-              <p className="mb-0 fw-bold">Capital crédito: 1400Q</p>
+              <p className="mb-0 fw-bold">
+                {" "}
+                Monto solicitado: {data?.credit.requested_amount}Q
+              </p>
             </Col>
           </Row>
           <Row>
             <Col sm="12" md="6">
-              <p className="mb-0">Cuota crédito: 50Q</p>
+              <p className="mb-0">Crédito: {data?.credit.product_name}</p>
             </Col>
             <Col sm="12" md="6">
-              <p className="mb-0 fw-bold">Total adeudado: 1505Q</p>
+              <p className="mb-0 fw-bold">
+                {" "}
+                Capital crédito: {data?.credit.disbursement_amount}Q
+              </p>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm="12" md="6">
+              <p className="mb-0">
+                {" "}
+                Cuota crédito: {data?.debt_collection.credit_fee}Q
+              </p>
+            </Col>
+            <Col sm="12" md="6">
+              <p className="mb-0 fw-bold">
+                Total adeudado: {data?.credit.total_amount}Q
+              </p>
             </Col>
           </Row>
         </div>
@@ -69,38 +106,50 @@ const Desembolso = () => {
           <Row>
             <Col sm="6" className="mb-sm-2 mb-md-0 pe-md-4">
               <div className="border rounded">
-                <OverviewCircle
-                  data={{ completed: 80, inProgress: 20 }}
-                  title="Crédito pendiente"
-                  text="505 Q / 1505 Q"
-                  height="150"
-                  fontSize="2rem"
-                  fixedHeight={false}
-                  color={colors.success.main}
-                  bottom={20}
-                />
+                {data && (
+                  <OverviewCircle
+                    data={{
+                      completed: Math.round(
+                        (data?.debt_collection.total_paid_amount /
+                          data?.credit.total_amount) *
+                          100
+                      )
+                    }}
+                    title="Crédito pendiente"
+                    text={`${data?.debt_collection.total_paid_amount} Q / ${data?.credit.total_amount} Q`}
+                    height="150"
+                    fontSize="2rem"
+                    fixedHeight={false}
+                    color={colors.success.main}
+                    bottom={20}
+                  />
+                )}
               </div>
             </Col>
             <Col sm="12" md="6">
               <div className="mb-0 d-flex">
                 <p className="acc-desembolso-title">Fecha Desembolso</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">12-02-2023</p>
+                <p className="mb-0 ms-1">
+                  {data?.debt_collection.payment_date}
+                </p>
               </div>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Total adeudado</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">50Q</p>
+                <p className="mb-0 ms-1">{data?.credit.total_amount}Q</p>
               </div>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Gastos administrativos</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">50q</p>
+                <p className="mb-0 ms-1">
+                  {data?.credit.administrative_expenses}q
+                </p>
               </div>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Asistencias</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">5Q</p>
+                <p className="mb-0 ms-1">{data?.credit.assistance_expenses}Q</p>
               </div>
 
               <div className="mb-0 d-flex fw-bold">
@@ -108,29 +157,14 @@ const Desembolso = () => {
                   Descuento días adelantado
                 </p>
                 <span>:</span>
-                <p className="mb-0 ms-1"> -100 Q</p>
+                <p className="mb-0 ms-1"> {data?.credit.holidays_discount} Q</p>
               </div>
               <hr></hr>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Total desembolso</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">105Q</p>
+                <p className="mb-0 ms-1">{data?.credit.disbursement_amount}Q</p>
               </div>
-              {/* <hr></hr>
-
-              <Row className="d-flex align-items-center fw-bold mb-sm-2">
-                <Col md="6" className="pe-0">
-                  <p className="mb-0">Desembolso realizado</p>
-                </Col>
-                <Col className="px-0" md="6">
-                  <Input
-                    type="text"
-                    name="desembolsoRealizado"
-                    id="desembolsoRealizado"
-                    placeholder="Desembolso realizado"
-                  />
-                </Col>
-              </Row> */}
             </Col>
           </Row>
           <hr className="mb-0"></hr>
@@ -138,10 +172,12 @@ const Desembolso = () => {
           <Row>
             <Col md="5">
               <h5 className="fw-bold mb-0 mt-1 ps-0">
-                Capital e intereses amortizado: 505Q
+                Capital e intereses amortizado:{" "}
+                {data?.debt_collection.total_paid_amount}Q
               </h5>
               <h5 className="fw-bold mb-0 ps-0">
-                Capital e interés pendiente: 1000Q
+                Capital e interés pendiente:{" "}
+                {data?.debt_collection.total_pending_amount}Q
               </h5>
             </Col>
 
@@ -153,7 +189,7 @@ const Desembolso = () => {
                       className="me-1"
                       color="primary"
                       type="submit"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={submit}
                     >
                       <Save size={16} />
                       <span className="align-middle mx-25">
