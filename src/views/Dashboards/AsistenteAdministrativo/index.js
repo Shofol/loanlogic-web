@@ -10,6 +10,8 @@ import "./asistenteAdministrativo.scss";
 import MoraPorAgente from "./MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";
 import Recuperación from "../Stats/Recuperación";
+import MoraStat from "../Stats/Mora";
+import Colocacion from "../Stats/Colocacion";
 
 const AsistenteAdministrativo = () => {
   const { colors } = useContext(ThemeColors);
@@ -18,27 +20,11 @@ const AsistenteAdministrativo = () => {
     <div>
       <Row>
         <Col lg="2" md="6" xs="12" className="statColumn">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="MORA"
-            text="24.000 Q / 200.000 Q"
-            height="150"
-            fontSize="2rem"
-            smallTitle={true}
-            color={colors.primary.main}
-          />
+          <MoraStat height={"150"} fontSize={"2rem"} smallTitle={true} />
         </Col>
 
         <Col lg="2" md="6" xs="12" className="statColumn">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="COLOCACIÓN"
-            text="24.000 Q / 200.000 Q"
-            height="150"
-            fontSize="2rem"
-            smallTitle={true}
-            color={colors.info.main}
-          />
+          <Colocacion height={"150"} fontSize={"2rem"} smallTitle={true} />
         </Col>
 
         <Col lg="2" md="6" xs="12" className="statColumn">

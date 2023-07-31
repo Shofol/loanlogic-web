@@ -3,7 +3,7 @@ import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import api from "../../../@core/api/api";
 
-const Desembolso = () => {
+const Colocacion = ({ height, fontSize, smallTitle = false }) => {
   const { colors } = useContext(ThemeColors);
   const [data, setData] = useState(null);
   const [completedResult, setCompletedResult] = useState(0);
@@ -13,7 +13,7 @@ const Desembolso = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await api.get(`/stats/disbursement`);
+    const response = await api.get(`/stats/colocacion`);
     setData(response.data.data);
   };
 
@@ -21,7 +21,7 @@ const Desembolso = () => {
     if (data) {
       setCompletedResult(
         data.total > 0
-          ? Math.round((+data.total_collected / +data.total) * 100)
+          ? Math.round((+data.dailyGoal / +data.totalRequestedAmount) * 100)
           : 0
       );
     }
@@ -31,15 +31,17 @@ const Desembolso = () => {
     <>
       <OverviewCircle
         data={{ completed: completedResult }}
-        title="DESEMBOLSO"
-        text={data ? `${data.total_disbursement} Q / ${data.total} Q` : null}
-        height="150"
-        fontSize="2rem"
-        smallTitle={true}
-        color={colors.danger.main}
+        title="Colocacion"
+        text={
+          data ? `${data.dailyGoal} Q / ${data.totalRequestedAmount} Q` : null
+        }
+        height={height}
+        fontSize={fontSize}
+        smallTitle={smallTitle}
+        color={colors.info.main}
       />
     </>
   );
 };
 
-export default Desembolso;
+export default Colocacion;

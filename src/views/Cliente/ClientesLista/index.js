@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
-import { agenciasValues } from "../../../configs/data";
+import { agenciasValues, estadoOptions } from "../../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import ReactPaginate from "react-paginate";
@@ -25,19 +25,6 @@ import { useNavigate } from "react-router-dom";
 
 const ClientesLista = () => {
   const navigate = useNavigate();
-
-  const estadoOptions = [
-    { value: "all", label: "TODOS" },
-    { value: "pending-pre-validation", label: "PENDIENTE PRE-VALIDACIÓN" },
-    {
-      value: "pending-address-validation",
-      label: "PENDIENTE VALIDACIÓN DIRECCIÓN"
-    },
-    { value: "pending-approval", label: "PENDIENTE APROBACIÓN" },
-    { value: "accepted", label: "ACEPTADO" },
-    { value: "cancelled", label: "CANCELADO" }
-  ];
-
   // ** States
   const today = new Date();
   let prevDay = new Date();

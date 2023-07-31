@@ -7,6 +7,9 @@ import PreValidaciónDirección from "./preValidaciónDirección";
 import PreValidaciónCrédito from "./preValidaciónCrédito";
 import Mora from "./mora";
 import Recuperación from "../Stats/Recuperación";
+import RecuperaciónDiaria from "../GestorComercial/recuperaciónDiaria";
+import MoraStat from "../Stats/Mora";
+import Colocacion from "../Stats/Colocacion";
 
 const GestorDeCobros = () => {
   const { colors } = useContext(ThemeColors);
@@ -15,39 +18,16 @@ const GestorDeCobros = () => {
     <div>
       <Row>
         <Col lg="3" md="6" xs="12">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="MORA"
-            text="24.000 Q / 200.000 Q"
-            height="200"
-            color={colors.primary.main}
-          />
+          <MoraStat height={"200"} />
         </Col>
 
         <Col lg="3" md="6" xs="12">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="COLOCACIÓN"
-            text="24.000 Q / 200.000 Q"
-            height="200"
-            color={colors.info.main}
-          />
+          <Colocacion height={"200"} />
         </Col>
 
         <Col lg="3" md="6" xs="12">
           <Recuperación height={"200"} />
         </Col>
-
-        {/* <Col lg="2" md="6" xs="12">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="COLOCACIÓN"
-            text="24.000 Q / 200.000 Q"
-            height="150"
-            fontSize="2rem"
-            color={colors.info.main}
-          />
-        </Col> */}
 
         <Col>
           <Card className="h-100">
@@ -68,7 +48,12 @@ const GestorDeCobros = () => {
           </Card>
         </Col>
       </Row>
+
       <Card className="my-2 p-2">
+        <RecuperaciónDiaria />
+      </Card>
+
+      {/* <Card className="my-2 p-2">
         <PreValidaciónDirección />
       </Card>
 
@@ -78,7 +63,7 @@ const GestorDeCobros = () => {
 
       <Card className="my-2 p-2">
         <Mora />
-      </Card>
+      </Card> */}
     </div>
   );
 };

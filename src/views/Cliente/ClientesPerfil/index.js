@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -21,13 +21,25 @@ const ClientesPerfil = () => {
   const { colors } = useContext(ThemeColors);
   const [data, setData] = useState(null);
 
+  const navigate = useNavigate();
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
+  const [history, setHistory] = useState(null);
+
+  // ** Function to handle Pagination
+  // const handlePagination = (page) => {
+  //   setCurrentPage(page.selected + 1);
+  // };
+
   useEffect(() => {
     fetchData();
   }, [id]);
 
   const fetchData = async () => {
     const response = await api.get(`client/${id}`);
+    const history = await api.get(`credit/client/${id}`);
     setData(response.data.data);
+    setHistory(history.data.data);
   };
 
   return (
@@ -260,28 +272,30 @@ const ClientesPerfil = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>Q 950</td>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>Q 950</td>
-              <td>John Doe</td>
-              <td>Q 950</td>
-              <td>Q 950</td>
-            </tr>
+            {history &&
+              history.length > 0 &&
+              history.map((item, index) => {
+                return (
+                  <tr
+                    key={item.id}
+                    className="clickable-row"
+                    onClick={(e) => {
+                      navigate(`/reportería/amortization/${item.id}`);
+                    }}
+                  >
+                    <td>{index + 1}</td>
+                    <td>{`${item.client.name} ${item.client.surname}`}</td>
+                    <td>Q 950</td>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>Q 950</td>
+                    <td>John Doe</td>
+                    <td>Q 950</td>
+                    <td>Q 950</td>
+                  </tr>
+                );
+              })}
           </tbody>
-          {/* <tfoot>
-            <tr>
-              <th colSpan={2}>Total</th>
-              <td>1000</td>
-              <td>1000</td>
-              <td>1000</td>
-
-              <td>1000</td>
-            </tr>
-          </tfoot> */}
         </Table>
       </CardBody>
     </Card>

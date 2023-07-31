@@ -94,12 +94,12 @@ export default [
         icon: <Circle size={20} />,
         navLink: "/reportería/cartera-asesor"
       },
-      {
-        id: "amortization",
-        title: "Amortization Table",
-        icon: <Circle size={20} />,
-        navLink: "/reportería/amortization"
-      },
+      // {
+      //   id: "amortization",
+      //   title: "Amortization Table",
+      //   icon: <Circle size={20} />,
+      //   navLink: "/reportería/amortization"
+      // },
       {
         id: "carteraConsolidada",
         title: "Cartera Consolidada",

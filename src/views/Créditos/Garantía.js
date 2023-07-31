@@ -16,7 +16,7 @@ import { Save, RefreshCw } from "react-feather";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 import { selectThemeColors } from "@utils";
 import Select from "react-select";
-import { Formik, Field } from "formik";
+import { Formik, Field, ErrorMessage } from "formik";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
@@ -41,17 +41,21 @@ const Garantía = () => {
             serial_number: "",
             photo: []
           }}
-          // validate={(values) => {
-          //   const errors = {};
-          //   if (!values.email) {
-          //     errors.email = "Required";
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          //   ) {
-          //     errors.email = "Invalid email address";
-          //   }
-          //   return errors;
-          // }}
+          validate={(values) => {
+            const errors = {};
+            const requiredMsg = "Esto es requerido";
+
+            if (!values.guarantee_item) {
+              errors.guarantee_item = requiredMsg;
+            }
+            if (!values.description) {
+              errors.description = requiredMsg;
+            }
+            if (values.photo.length === 0) {
+              errors.photo = requiredMsg;
+            }
+            return errors;
+          }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const form = new FormData();
 
@@ -101,7 +105,9 @@ const Garantía = () => {
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col sm="12" md="6" className="mb-1">
-                  <Label className="form-label">Tipo garantía*</Label>
+                  <Label className="form-label">
+                    Tipo garantía<span className="text-danger">*</span>
+                  </Label>
                   <Select
                     theme={selectThemeColors}
                     className="react-select"
@@ -113,9 +119,16 @@ const Garantía = () => {
                       setFieldValue("guarantee_item", option.value)
                     }
                   />
+                  <ErrorMessage
+                    component="div"
+                    name="guarantee_item"
+                    className="text-danger"
+                  />
                 </Col>
                 <Col sm="6">
-                  <Label className="form-label">Descripción*</Label>
+                  <Label className="form-label">
+                    Descripción<span className="text-danger">*</span>
+                  </Label>
                   <Input
                     type="textarea"
                     name="description"
@@ -124,6 +137,11 @@ const Garantía = () => {
                     onBlur={(e) => {
                       setFieldValue("description", e.target.value);
                     }}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="description"
+                    className="text-danger"
                   />
                 </Col>
               </Row>
@@ -154,12 +172,19 @@ const Garantía = () => {
 
               <Row className="mt-2">
                 <Col sm="6">
-                  <p className="fs-6">Foto de la garantía*</p>
+                  <p className="fs-6">
+                    Foto de la garantía<span className="text-danger">*</span>
+                  </p>
                   <FileUploaderMultiple
                     setFieldValue={setFieldValue}
                     fieldName="photo"
                   />
                 </Col>
+                <ErrorMessage
+                  component="div"
+                  name="photo"
+                  className="text-danger"
+                />
               </Row>
 
               <Row>

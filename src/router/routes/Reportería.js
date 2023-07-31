@@ -35,7 +35,7 @@ const ReporteríaRoutes = [
     element: <CarteraPorAsesor />
   },
   {
-    path: "/reportería/amortization",
+    path: "/reportería/amortization/:id",
     element: <Amortization />
   },
   {

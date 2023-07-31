@@ -1,12 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, Row, Col, Input, Label, Button } from "reactstrap";
 import "../Cobranza/cobranza.scss";
 import OverviewCircle from "../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { Printer, Save } from "react-feather";
+import { useParams } from "react-router-dom";
+import API from "../../@core/api/api";
 
 const Desembolso = () => {
   const { colors } = useContext(ThemeColors);
+  const { id } = useParams();
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await API.get(`/credit/disbursement/${90}`);
+    setData(response.data.data);
+  };
 
   return (
     <div id="section-to-print">

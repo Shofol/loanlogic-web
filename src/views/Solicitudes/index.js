@@ -16,7 +16,7 @@ import {
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import { Save, RefreshCw, Edit, Check, X, Search } from "react-feather";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues, estadoOptions } from "../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import ReactPaginate from "react-paginate";
@@ -27,19 +27,6 @@ import StatusTag from "../../@core/components/statusTag";
 
 const Solicitudes = () => {
   const navigate = useNavigate();
-
-  const estadoOptions = [
-    { value: "all", label: "TODOS" },
-    { value: "pending-pre-validation", label: "PENDIENTE PRE-VALIDACIÓN" },
-    {
-      value: "pending-address-validation",
-      label: "PENDIENTE VALIDACIÓN DIRECCIÓN"
-    },
-    { value: "pending-approval", label: "PENDIENTE APROBACIÓN" },
-    { value: "accepted", label: "ACEPTADO" },
-    { value: "cancelled", label: "CANCELADO" }
-  ];
-
   const [picker, setPicker] = useState(null);
   // ** States
   const [currentPage, setCurrentPage] = useState(1);

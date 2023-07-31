@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card, Col, Row, Table } from "reactstrap";
 import "./Reportería.scss";
 import { Download } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import api from "../../@core/api/api";
@@ -14,6 +14,7 @@ const Amortization = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalValue, setTotalValue] = useState(null);
+  let { id } = useParams();
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -26,7 +27,7 @@ const Amortization = () => {
 
   const fetchData = async () => {
     const response = await api.get(
-      `/credit/28`
+      `/credit/${id}`
       // page=${currentPage}&pageSize=10
     );
     setData(response.data.data);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Card, Row, Col, Input, Label, Button } from "reactstrap";
 import "./cobranza.scss";
 import OverviewCircle from "../../@core/components/stats/OverviewCircle";
@@ -15,6 +15,16 @@ const Cobranza = () => {
   const { id } = useParams();
   const [payment_made, setPayment_made] = useState("");
   const options = { numeral: true };
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await API.get(`/debt/collection/${id}`);
+    setData(response.data.data);
+  };
 
   const submit = () => {
     const values = {
@@ -44,9 +54,12 @@ const Cobranza = () => {
     <div id="section-to-print">
       <Card className="p-2">
         <div className="contentWidth mx-auto">
-          <h4>John Doe Hernández</h4>
+          {JSON.stringify(data)}
+          <h4>
+            {data?.client.name} {data?.client.surname}
+          </h4>
           <p className="mb-0">
-            <strong>DPI:</strong> 2330 5563 0103
+            <strong>DPI:</strong> {data?.client.dpi_number}
           </p>
           <p className="mb-0">
             <strong>Crédito núm:</strong> D0020830000001

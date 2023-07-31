@@ -6,6 +6,8 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 import RecuperaciónDiaria from "./recuperaciónDiaria";
 import FotoGarantía from "./fotoGarantía";
 import Recuperación from "../Stats/Recuperación";
+import MoraStat from "../Stats/Mora";
+import Colocacion from "../Stats/Colocacion";
 
 const GestorComercial = () => {
   const { colors } = useContext(ThemeColors);
@@ -14,23 +16,11 @@ const GestorComercial = () => {
     <div>
       <Row>
         <Col lg="3" md="6" xs="12">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="MORA"
-            text="24.000 Q / 200.000 Q"
-            height="200"
-            color={colors.primary.main}
-          />
+          <MoraStat height={"200"} />
         </Col>
 
         <Col lg="3" md="6" xs="12">
-          <OverviewCircle
-            data={{ completed: 80, inProgress: 20 }}
-            title="COLOCACIÓN"
-            text="24.000 Q / 200.000 Q"
-            height="200"
-            color={colors.info.main}
-          />
+          <Colocacion height={"200"} />
         </Col>
 
         <Col lg="3" md="6" xs="12">
