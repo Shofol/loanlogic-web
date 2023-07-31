@@ -28,10 +28,9 @@ const Cobranza = () => {
 
   const submit = () => {
     const values = {
-      payment_made: payment_made,
-      application_id: id
+      payment_made: payment_made
     };
-    const response = API.put("/debt/collection", values);
+    const response = API.put(`/debt/collection/${id}`, values);
 
     toast.promise(
       response,
