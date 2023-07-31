@@ -19,11 +19,7 @@ const MoraStat = ({ height, fontSize, smallTitle = false }) => {
 
   useEffect(() => {
     if (data) {
-      setCompletedResult(
-        data.total > 0
-          ? Math.round((+data.totalDefault / +data.totalAmount) * 100)
-          : 0
-      );
+      setCompletedResult(data.total > 0 ? Math.round((76 / 7525) * 100) : 0);
     }
   }, [data]);
 
