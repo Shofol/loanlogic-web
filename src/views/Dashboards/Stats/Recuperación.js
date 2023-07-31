@@ -20,7 +20,7 @@ const Recuperación = ({ height, fontSize, smallTitle = false }) => {
   useEffect(() => {
     if (data) {
       setCompletedResult(
-        data.total > 0
+        +data.total > 0
           ? Math.round((+data.total_collected / +data.total) * 100)
           : 0
       );

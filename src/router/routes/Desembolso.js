@@ -4,7 +4,7 @@ const Desembolso = lazy(() => import("../../views/Desembolso"));
 
 const DesembolsoRoutes = [
   {
-    path: "/desembolso",
+    path: "/desembolso/:id",
     element: <Desembolso />
   }
 ];

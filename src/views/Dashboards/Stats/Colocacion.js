@@ -20,7 +20,7 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
   useEffect(() => {
     if (data) {
       setCompletedResult(
-        data.total > 0
+        +data.totalRequestedAmount > 0
           ? Math.round((+data.dailyGoal / +data.totalRequestedAmount) * 100)
           : 0
       );

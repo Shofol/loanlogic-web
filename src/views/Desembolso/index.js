@@ -17,7 +17,7 @@ const Desembolso = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await API.get(`/credit/disbursement/${90}`);
+    const response = await API.get(`/debt/collection/${90}`);
     setData(response.data.data);
   };
 
@@ -25,12 +25,16 @@ const Desembolso = () => {
     <div id="section-to-print">
       <Card className="p-2">
         <div className="contentWidth mx-auto">
-          <h4>John Doe Hernández</h4>
+          <h4>
+            {" "}
+            {data?.client.name} {data?.client.surname}{" "}
+            {data?.client.second_surname}
+          </h4>
           <p className="mb-0">
-            <strong>DPI:</strong> 2330 5563 0103
+            <strong>DPI:</strong> {data?.client.dpi_number}
           </p>
           <p className="mb-0">
-            <strong>Crédito núm:</strong> D0020830000001
+            <strong>Crédito núm:</strong> {data?.credit.id}
           </p>
           <hr />
           <Row>

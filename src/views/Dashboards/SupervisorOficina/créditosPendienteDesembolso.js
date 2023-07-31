@@ -1,19 +1,12 @@
 import { MoreVertical, Edit, Trash, Check, X } from "react-feather";
-import {
-  Table,
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  Row,
-  Col,
-  Button
-} from "reactstrap";
+import { Table, Row, Col, Button } from "reactstrap";
 import { Globe } from "react-feather";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const CréditosPendienteDesembolso = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState(null);
 
   return (
     <>
@@ -62,7 +55,23 @@ const CréditosPendienteDesembolso = () => {
             <td>Samayac</td>
             <td>Suchitepéquez</td>
             <td>Pendiente pre-validación</td>
-            <td
+
+            <td>
+              <Button.Ripple
+                className="btn-icon"
+                outline
+                color="primary"
+                onClick={(e) => {
+                  // navigate(`/créditos/garantía/${guarantee.id}`);
+                  navigate(`/desembolso/${data?.id}`);
+                  e.stopPropagation();
+                }}
+              >
+                <Edit size={16} />
+              </Button.Ripple>
+            </td>
+
+            {/* <td
               className="d-flex gap-1"
               width={"150px"}
               style={{ width: "150px" }}
@@ -73,7 +82,7 @@ const CréditosPendienteDesembolso = () => {
               <Button.Ripple className="btn-icon" outline color="danger">
                 <X size={16} />
               </Button.Ripple>
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </Table>

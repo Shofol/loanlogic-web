@@ -62,18 +62,11 @@ export default [
   },
 
   // {
-  //   id: "cobranza",
-  //   title: "Cobranza",
-  //   icon: <Layers size={20} />,
-  //   navLink: "/cobranza"
+  //   id: "desembolso",
+  //   title: "Desembolso",
+  //   icon: <CreditCard size={20} />,
+  //   navLink: "/desembolso"
   // },
-
-  {
-    id: "desembolso",
-    title: "Desembolso",
-    icon: <CreditCard size={20} />,
-    navLink: "/desembolso"
-  },
 
   {
     id: "clientes",
@@ -94,12 +87,6 @@ export default [
         icon: <Circle size={20} />,
         navLink: "/reportería/cartera-asesor"
       },
-      // {
-      //   id: "amortization",
-      //   title: "Amortization Table",
-      //   icon: <Circle size={20} />,
-      //   navLink: "/reportería/amortization"
-      // },
       {
         id: "carteraConsolidada",
         title: "Cartera Consolidada",
