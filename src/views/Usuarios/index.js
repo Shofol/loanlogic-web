@@ -29,6 +29,10 @@ const Usuarios = () => {
     setCurrentPage(page.selected + 1);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
+
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -58,9 +62,9 @@ const Usuarios = () => {
     }
   }, [agent]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = async () => {
     const response = await API.get(
@@ -139,7 +143,7 @@ const Usuarios = () => {
                     <td>{index + 1}</td>
                     <td className="nowrap">{user.name}</td>
                     <td className="nowrap">{user.role}</td>
-                    <td>{user.agency}</td>
+                    <td>{user?.agency?.join(", ")}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
                     <td>{new Date(user.date_of_birth).toLocaleDateString()}</td>

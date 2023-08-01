@@ -225,7 +225,7 @@ const ClientesPerfil = () => {
                 bottom={20}
               />
             </div>
-            <Row className="mt-2 px-md-1">
+            {/* <Row className="mt-2 px-md-1">
               <Col
                 md="4"
                 className="d-flex flex-column justify-content-end bg-primary-subtle"
@@ -247,7 +247,7 @@ const ClientesPerfil = () => {
                 <p className="fw-bold">SEMÁFORO</p>
                 <p className="fs-3 fw-bold">F</p>
               </Col>
-            </Row>
+            </Row> */}
           </Col>
         </Row>
         <Input

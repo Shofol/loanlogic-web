@@ -251,8 +251,14 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 classNamePrefix="select"
                 options={agenciasValues}
                 theme={selectThemeColors}
+                isMulti
                 name="agency"
-                onChange={(option) => setFieldValue("agency", option.value)}
+                onChange={(option) =>
+                  setFieldValue(
+                    "agency",
+                    option.map((option) => option.value)
+                  )
+                }
               />
               <ErrorMessage
                 component="div"

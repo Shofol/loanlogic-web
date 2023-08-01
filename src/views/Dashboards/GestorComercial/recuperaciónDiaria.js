@@ -60,7 +60,8 @@ const RecuperaciónDiaria = () => {
       <Table responsive>
         <thead>
           <tr>
-            <th>Sl. No</th>
+            <th>Núm. Crédito</th>
+            {/* <th>Sl. No</th> */}
             {/* <th>Num. Solicitud</th> */}
             <th>Nombre</th>
             <th>Apellidos</th>
@@ -83,7 +84,7 @@ const RecuperaciónDiaria = () => {
                     navigate(`/clientes/${pdData.client.id}`);
                   }}
                 >
-                  <td>{index + 1}</td>
+                  <td>{pdData?.credit.id}</td>
                   {/* <td>S1034</td> */}
                   <td>{pdData?.client.name}</td>
                   <td>{pdData?.client.surname}</td>

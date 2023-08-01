@@ -69,6 +69,17 @@ const EditUser = ({ showModal, user, onClose }) => {
     is_active: user ? user.is_active : ""
   };
 
+  const getAgencyValue = (agency) => {
+    let values = [];
+    agency.map((item) => {
+      values = [
+        ...values,
+        agenciasValues.filter((agen) => agen.value === item)[0]
+      ];
+    });
+    return values;
+  };
+
   useEffect(() => {
     setShow(showModal);
   }, [showModal]);
@@ -202,15 +213,18 @@ const EditUser = ({ showModal, user, onClose }) => {
                         options={agenciasValues}
                         theme={selectThemeColors}
                         name="agency"
+                        isMulti
                         defaultValue={
-                          user
-                            ? agenciasValues.filter(
-                                (agency) => agency.value === user.agency
-                              )[0]
+                          user && user.agency
+                            ? getAgencyValue(user.agency)
                             : null
                         }
                         onChange={(option) =>
-                          setFieldValue("agency", option.value)
+                          // setFieldValue("agency", option.value)
+                          setFieldValue(
+                            "agency",
+                            option.map((option) => option.value)
+                          )
                         }
                       />
                     </div>

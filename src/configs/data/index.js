@@ -29,15 +29,29 @@ export const portfolioData = {
 };
 
 export const estadoOptions = [
-  { value: "ALL", label: "TODOS" },
-  { value: "PENDING-PRED-VALIDATION", label: "PENDIENTE PRE-VALIDACIÓN" },
+  { label: "ACEPTADO", value: "ACCEPTED" },
+  { label: "PENDIENTE ASIGNACIÓN", value: "PENDING_ASSIGNMENT" },
+  { label: "PENDIENTE GARANTÍA", value: "PENDING_GUARANTY" },
   {
-    value: "PENDING-ADDRESS-VALIDATION",
-    label: "PENDIENTE VALIDACIÓN DIRECCIÓN"
+    label: "PENDIENTE VALIDACIÓN DIRECCIÓN",
+    value: "PENDING_ADDRESS_VALIDATION"
   },
-  { value: "PENDING-APPROVAL", label: "PENDIENTE APROBACIÓN" },
-  { value: "ACCEPTED", label: "ACEPTADO" },
-  { value: "CANCELLED", label: "CANCELADO" }
+  { label: "PENDIENTE VALIDACIÓN DATOS", value: "PENDING_DATA_VALIDATION" },
+  { label: "PENDIENTE VALIDACIÓN", value: "PENDING_VALIDATION" },
+
+  { label: "RECHAZADO REGION", value: "REFUSED_REGION" },
+  { label: "RECHAZADO DIRECCIÓN", value: "REFUSED_LOCATION_NOT_COVERED" },
+  {
+    label: "RECHAZADO INFORMACIÓN INCORRECTA",
+    value: "REFUSED_INCORRECT_DATA"
+  },
+  { label: "RECHAZADO CRITERIOS", value: "REFUSED_CRITERIA" },
+  { label: "RECHAZADO VALIDACIÓN", value: "REFUSED_VALIDATION" },
+  {
+    label: "RECHAZADO PRODUCTO NO ENCONTRADO",
+    value: "REFUSED_PRODUCT_NOT_FOUND"
+  },
+  { label: "ERROR CONFIGURACION PRODUCTO", value: "ERROR_PRODUCT_MATCH" }
 ];
 
 export const nationalities = [
