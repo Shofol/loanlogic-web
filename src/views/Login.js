@@ -30,7 +30,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 import "@styles/react/pages/page-authentication.scss";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../utility/functions/formatMessage";
-import api from "../@core/api/api";
+import unApi from "../@core/api/unApi";
 
 const Login = () => {
   const { skin } = useSkin();
@@ -92,7 +92,7 @@ const Login = () => {
                 return errors;
               }}
               onSubmit={(values, { setSubmitting, resetForm }) => {
-                const response = api.post("/user/login", values);
+                const response = unApi.post("/user/login", values);
                 toast.promise(
                   response,
                   {

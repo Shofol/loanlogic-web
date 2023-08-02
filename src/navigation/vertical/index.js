@@ -25,31 +25,36 @@ export default [
         id: "gestorComercial",
         title: "Gestor comercial",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/gestorComercial"
+        navLink: "/dashboard/gestorComercial",
+        role: "AGENT"
       },
       {
         id: "gestorDeCobros",
         title: "Gestor de Cobros",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/gestorDeCobros"
+        navLink: "/dashboard/gestorDeCobros",
+        role: "COLLECTION-MANAGER"
       },
       {
         id: "supervisorOficina",
         title: "Supervisor Oficina",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/supervisorOficina"
+        navLink: "/dashboard/supervisorOficina",
+        role: "SUPERVISOR"
       },
       {
         id: "asistenteAdministrativo",
         title: "Asis. Administrativo",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/asistenteAdministrativo"
+        navLink: "/dashboard/asistenteAdministrativo",
+        role: "ASSISTANT"
       },
       {
         id: "Administrador",
         title: "Administrador",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/administrador"
+        navLink: "/dashboard/administrador",
+        role: "SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, ADMIN"
       }
     ]
   },

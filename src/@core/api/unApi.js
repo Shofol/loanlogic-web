@@ -2,18 +2,11 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { baseURL } from "./config";
 
-const tokenStr = localStorage.getItem("gesToken")
-  ? localStorage.getItem("gesToken")
-  : null;
-
-const api = axios.create({
-  baseURL: baseURL,
-  headers: {
-    Authorization: `Bearer ${tokenStr}`
-  }
+const unApi = axios.create({
+  baseURL: baseURL
 });
 
-api.interceptors.response.use(
+unApi.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
@@ -27,4 +20,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default unApi;

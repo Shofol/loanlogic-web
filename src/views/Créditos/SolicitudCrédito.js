@@ -31,6 +31,7 @@ const SolicitudCrédito = () => {
   const [valueToSubmit, setValueToSubmit] = useState({});
   const [occupation, setOccupation] = useState(null);
   const [willSkip5, setWillSkip5] = useState(false);
+  const [isLastForm, setIsLastForm] = useState(false);
 
   const handleSubmitForm = () => {
     const form = new FormData();
@@ -70,6 +71,12 @@ const SolicitudCrédito = () => {
   useEffect(() => {
     localStorage.setItem("occupation", occupation);
   }, [occupation]);
+
+  useEffect(() => {
+    if (isLastForm) {
+      handleSubmitForm();
+    }
+  }, [valueToSubmit]);
 
   const steps = [
     {
@@ -155,8 +162,10 @@ const SolicitudCrédito = () => {
         <Referencias
           stepper={stepper}
           onSubmit={(value) => {
-            setValueToSubmit({ ...valueToSubmit, ...value });
-            handleSubmitForm();
+            setIsLastForm(true);
+            setTimeout(() => {
+              setValueToSubmit({ ...valueToSubmit, ...value });
+            }, 100);
           }}
         />
       )

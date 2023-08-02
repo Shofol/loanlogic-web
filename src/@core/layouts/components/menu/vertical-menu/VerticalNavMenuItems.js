@@ -5,11 +5,25 @@ import VerticalNavMenuSectionHeader from "./VerticalNavMenuSectionHeader";
 
 // ** Utils
 import {
-  resolveVerticalNavMenuItemComponent as resolveNavItemComponent,
-  canViewMenuGroup
+  resolveVerticalNavMenuItemComponent as resolveNavItemComponent
+  // canViewMenuGroup
 } from "@layouts/utils";
+import { useEffect, useState } from "react";
 
 const VerticalMenuNavItems = (props) => {
+  const [items, setItems] = useState([]);
+  const [user, setUser] = useState();
+  useEffect(() => {
+    getUser();
+    const tempItems = [...props.items];
+    setItems(tempItems);
+  }, []);
+
+  const getUser = () => {
+    const newUser = JSON.parse(localStorage.getItem("user"));
+    setUser(newUser);
+  };
+
   // ** Components Object
   const Components = {
     VerticalNavMenuLink,
@@ -18,12 +32,29 @@ const VerticalMenuNavItems = (props) => {
   };
 
   // ** Render Nav Menu Items
-  const RenderNavItems = props.items.map((item, index) => {
+  const RenderNavItems = items.map((item, index) => {
     const TagName = Components[resolveNavItemComponent(item)];
-    if (item.children) {
+    const tempItem = { ...item };
+    // checking the role to show/hide items in group
+    if (tempItem.children) {
+      // console.log(item.children);
+      if (user) {
+        tempItem.children = tempItem.children.filter((child) => {
+          // skipping items which doesn't have specific role mentioned
+          if (child.role) {
+            if (child.role.includes(user.role)) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
+        });
+      }
       return (
         // canViewMenuGroup(item) && (
-        <TagName item={item} index={index} key={item.id} {...props} />
+        <TagName item={tempItem} index={index} key={item.id} {...props} />
         // )
       );
     }
