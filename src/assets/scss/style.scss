@@ -68,3 +68,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .nowrap {
   white-space: nowrap;
 }
+
+.dark-ph::-webkit-input-placeholder {
+  color: #6d6b7b;
+}
