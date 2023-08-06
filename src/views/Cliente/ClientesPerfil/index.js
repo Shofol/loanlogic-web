@@ -15,6 +15,7 @@ import image from "../../../assets/images/portrait/small/avatar-s-11.jpg";
 import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import api from "../../../@core/api/api";
+import StatusTag from "../../../@core/components/statusTag";
 
 const ClientesPerfil = () => {
   let { id } = useParams();
@@ -37,7 +38,7 @@ const ClientesPerfil = () => {
 
   const fetchData = async () => {
     const response = await api.get(`client/${id}`);
-    const history = await api.get(`credit/client/${id}`);
+    const history = await api.get(`credit-application/client/${id}`);
     setData(response.data.data);
     setHistory(history.data.data);
   };
@@ -270,7 +271,7 @@ const ClientesPerfil = () => {
               <th>Crédito</th>
               <th>Estado Crédito</th>
               <th>Devolución %</th>
-              <th>Núm Retrasos</th>
+              {/* <th>Núm Retrasos</th> */}
             </tr>
           </thead>
           <tbody>
@@ -286,14 +287,29 @@ const ClientesPerfil = () => {
                     }}
                   >
                     <td>{index + 1}</td>
-                    <td>{`${item.client.name} ${item.client.surname}`}</td>
-                    <td>Q 950</td>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>Q 950</td>
-                    <td>John Doe</td>
-                    <td>Q 950</td>
-                    <td>Q 950</td>
+                    <td
+                      style={{ whiteSpace: "nowrap" }}
+                    >{`${item.client.name} ${item.client.surname} ${item.client.second_surname}`}</td>
+                    <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                    <td>{item.id}</td>
+                    <td>
+                      <StatusTag status={item.status} />
+                    </td>
+                    <td>{item.credit_amount}</td>
+                    <td>
+                      {" "}
+                      <StatusTag status={item.credit.status} />
+                    </td>
+                    <td>
+                      {item.credit.total_amount > 0
+                        ? Math.round(
+                            +item.credit.total_paid_amount /
+                              +item.credit.total_amount /
+                              100
+                          )
+                        : 0}
+                    </td>
+                    {/* <td>Q 950</td> */}
                   </tr>
                 );
               })}
