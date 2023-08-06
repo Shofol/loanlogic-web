@@ -30,6 +30,8 @@ const CarteraPorAsesor = () => {
   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
   const [agency, setAgency] = useState(null);
   const [gestors, setGestors] = useState([]);
+  const [agent, setAgent] = useState(null);
+
   const weekDays = [
     "Domingo",
     "Lunes",
@@ -44,8 +46,16 @@ const CarteraPorAsesor = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [agency, agent]);
+
   const fetchData = async () => {
-    const response = await api.get(`credit/portfolio/agent`);
+    const response = await api.get(
+      `credit/portfolio/agent` +
+        `${agency ? `?agency=${agency}` : ""}` +
+        `${agent ? `&agent=${agent}` : ""}`
+    );
     const data = response.data.data;
     const modData = data.map((item) => {
       let updatedData = {
@@ -68,7 +78,6 @@ const CarteraPorAsesor = () => {
           updatedData[`${debt.payment_date}`] = debt.payment_made;
         });
       });
-      console.log(updatedData);
       return updatedData;
     });
 
@@ -87,7 +96,6 @@ const CarteraPorAsesor = () => {
 
     setColumnDefs([...portfolioData.columns, ...newColumns]);
     // [...response.data.data]
-    console.log(modData);
     setRowData(modData);
   };
 
@@ -115,7 +123,7 @@ const CarteraPorAsesor = () => {
     setGestors(
       response.data.data.map((gestor) => ({
         label: gestor.name,
-        value: gestor.name
+        value: gestor.id
       }))
     );
   };
@@ -150,11 +158,15 @@ const CarteraPorAsesor = () => {
             <Select
               isClearable={false}
               theme={selectThemeColors}
-              isMulti
+              // isMulti
               name="colors"
               options={gestors}
               className="react-select"
               classNamePrefix="select"
+              onChange={
+                (option) => setAgent(option.value)
+                // setAgencies(option.map((option) => option.value))
+              }
             />
           </Col>
         </Row>
