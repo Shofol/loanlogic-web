@@ -22,7 +22,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 
-const Referencias = ({ stepper, onSubmit }) => {
+const Referencias = ({ stepper, onSubmit, onPrevious }) => {
   const [referenciasPersonales, setReferenciasPersonales] = useState(["", "2"]);
   const [referenciasFamiliares, setReferenciasFamiliares] = useState(["", "2"]);
 
@@ -283,6 +283,7 @@ const Referencias = ({ stepper, onSubmit }) => {
                   className="btn-prev me-1"
                   outline
                   onClick={() => {
+                    onPrevious();
                     const occupation = localStorage.getItem("occupation");
                     if (occupation === "SALARIED") {
                       stepper.to(4);

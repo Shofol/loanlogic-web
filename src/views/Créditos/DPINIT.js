@@ -30,7 +30,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef(null);
   const neMunRef = useRef(null);
-  const [isNITRequired, setIsNITRequired] = useState(false);
+  const [isNITRequired, setIsNITRequired] = useState(true);
 
   return (
     <div>

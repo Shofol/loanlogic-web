@@ -161,6 +161,9 @@ const SolicitudCrédito = () => {
       content: (
         <Referencias
           stepper={stepper}
+          onPrevious={() => {
+            setIsLastForm(false);
+          }}
           onSubmit={(value) => {
             setIsLastForm(true);
             setTimeout(() => {
