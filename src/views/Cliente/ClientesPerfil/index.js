@@ -56,6 +56,7 @@ const ClientesPerfil = () => {
             <p className="mb-0">DPI: {data?.dpi_number}</p>
             <p>NIT: {data?.nit}</p>
             {data &&
+              data.photos_of_bills &&
               data.photos_of_bills.map((bill) => {
                 return (
                   <img
@@ -69,6 +70,7 @@ const ClientesPerfil = () => {
               })}
 
             {data &&
+              data.photos_of_the_dpi &&
               data.photos_of_the_dpi.map((dpi) => {
                 return (
                   <img
