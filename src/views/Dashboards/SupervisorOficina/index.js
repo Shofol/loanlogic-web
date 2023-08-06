@@ -7,7 +7,7 @@ import PreValidaciónDirección from "../GestorDeCobros/preValidaciónDirección
 import ValidaciónCrédito from "./validaciónCrédito";
 import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
 import "./supervisorOficina.scss";
-import MoraPorAgente from "./MoraPorAgente";
+import MoraPorAgente from "../Stats/MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";
 import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";

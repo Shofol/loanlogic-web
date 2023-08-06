@@ -15,51 +15,8 @@ import DataTable from "react-data-table-component";
 
 // ** Styles
 import "@styles/react/libs/tables/react-dataTable-component.scss";
-
-const projectsArr = [
-  {
-    progress: 60,
-    progressColor: "info",
-    agente: "Juan",
-    subTitle: "Perez"
-  },
-  {
-    progress: 15,
-    progressColor: "danger",
-    agente: "Juan",
-    subTitle: "Perez"
-  },
-  {
-    progress: 70,
-    progressColor: "success",
-    agente: "Juan",
-    subTitle: "Perez"
-  },
-  {
-    progress: 80,
-    progressColor: "warning",
-    agente: "Juan",
-    subTitle: "Perez"
-  },
-  {
-    progress: 50,
-    progressColor: "danger",
-    agente: "Juan",
-    subTitle: "Perez"
-  },
-  {
-    progress: 99,
-    progressColor: "warning",
-    agente: "Juan",
-    subTitle: "Perez"
-  },
-  {
-    progress: 15,
-    progressColor: "danger",
-    agente: "Juan",
-    subTitle: "Perez"
-  }
-];
+import { useEffect, useState } from "react";
+import api from "../../../@core/api/api";
 
 export const columns = [
   {
@@ -93,6 +50,45 @@ export const columns = [
 ];
 
 const MoraPorAgente = () => {
+  const [data, setData] = useState(null);
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await api.get(`stats/default_breakdown`);
+    setData(response.data.data);
+  };
+
+  useEffect(() => {
+    if (data) {
+      setRows(
+        data.map((item) => {
+          return {
+            progress: item.default_percentage,
+            progressColor: returnColor(item.default_percentage),
+            agente: `${item.user.name}`,
+            subTitle: `${item.user.family_name}`
+          };
+        })
+      );
+    }
+  }, [data]);
+
+  const returnColor = (value) => {
+    if (value < 25) {
+      return "danger";
+    } else if (value >= 25 && value <= 50) {
+      return "warning";
+    } else if (value >= 50 && value <= 75) {
+      return "info";
+    } else {
+      return "success";
+    }
+  };
+
   return (
     <Card>
       <div className="d-flex justify-content-between align-items-center">
@@ -124,7 +120,7 @@ const MoraPorAgente = () => {
           noHeader
           responsive
           columns={columns}
-          data={projectsArr}
+          data={rows}
           className="react-dataTable"
           sortIcon={<ChevronDown size={10} />}
         />
