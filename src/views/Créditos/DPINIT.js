@@ -30,6 +30,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef(null);
   const neMunRef = useRef(null);
+  const [isNITRequired, setIsNITRequired] = useState(false);
 
   return (
     <div>
@@ -73,7 +74,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
             if (!values.expiration_date) {
               errors.expiration_date = requiredMsg;
             }
-            if (!values.nit) {
+            if (isNITRequired && !values.nit) {
               errors.nit = requiredMsg;
             }
             if (!values.is_have_credit) {
@@ -292,9 +293,9 @@ const DPINIT = ({ stepper, onSubmit }) => {
               </Row>
 
               <Row className="mt-4 d-flex align-items-end">
-                <Col sm="3">
+                <Col sm="2">
                   <Label className="form-label" for="nit">
-                    NIT<span className="text-danger">*</span>
+                    NIT{isNITRequired && <span className="text-danger">*</span>}
                   </Label>
                   <Input
                     type="text"
@@ -309,7 +310,21 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     className="text-danger"
                   />
                 </Col>
-                <Col sm="5">
+
+                <Col sm="2" className="d-flex align-items-center">
+                  <Input
+                    type="checkbox"
+                    checked={isNITRequired}
+                    onChange={(e) => {
+                      setIsNITRequired(!isNITRequired);
+                    }}
+                  />
+                  <Label className="form-check-label ms-1" for="terms">
+                    No tengo NIT
+                  </Label>
+                </Col>
+
+                <Col sm="4">
                   <Label className="form-label" for="assistance_expenses">
                     Tiene crédito con alguna institución financiera o con
                     personas individuales?<span className="text-danger">*</span>
