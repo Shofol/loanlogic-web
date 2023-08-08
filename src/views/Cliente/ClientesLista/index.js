@@ -250,14 +250,14 @@ const ClientesLista = () => {
               </thead>
               <tbody>
                 {data.length > 0 &&
-                  data.map((client) => {
+                  data.map((client, index) => {
                     return (
                       <tr
                         key={client.id}
                         onClick={() => navigate(`/clientes/${client.id}`)}
                         className="clickable-row"
                       >
-                        <td>1</td>
+                        <td>{index + 1}</td>
                         <td>{client.id}</td>
                         <td>{client.name}</td>
                         <td>{client.surname}</td>

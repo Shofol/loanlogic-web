@@ -260,7 +260,7 @@ const ClientesPerfil = () => {
         ></Input>
 
         <h4>Historial</h4>
-        <Table className="mt-2">
+        <Table className="mt-2" responsive>
           <thead>
             <tr>
               <th>No.</th>
@@ -280,7 +280,7 @@ const ClientesPerfil = () => {
               history.map((item, index) => {
                 return (
                   <tr
-                    key={item.id}
+                    key={index + 1}
                     className="clickable-row"
                     onClick={(e) => {
                       navigate(`/reportería/amortization/${item.id}`);

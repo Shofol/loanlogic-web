@@ -5,16 +5,18 @@ const StatusTag = ({ status }) => {
   const [color, setColor] = useState("primary");
 
   useEffect(() => {
-    if (status.includes("PENDING")) {
-      setColor("warning");
-    } else if (status.includes("ACCEPTED")) {
-      setColor("success");
-    } else if (status.includes("REFUSED")) {
-      setColor("dark");
-    } else if (status.includes("ERROR")) {
-      setColor("danger");
-    } else {
-      setColor("info");
+    if (status) {
+      if (status.includes("PENDING")) {
+        setColor("warning");
+      } else if (status.includes("ACCEPTED")) {
+        setColor("success");
+      } else if (status.includes("REFUSED")) {
+        setColor("dark");
+      } else if (status.includes("ERROR")) {
+        setColor("danger");
+      } else {
+        setColor("info");
+      }
     }
   }, [status]);
 
