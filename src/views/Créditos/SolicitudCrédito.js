@@ -35,9 +35,9 @@ const SolicitudCrédito = () => {
 
   const handleSubmitForm = () => {
     const form = new FormData();
-
     let values = { ...valueToSubmit };
     values.created_from = "DASHBOARD";
+    values.userId = JSON.parse(localStorage.getItem("user")).id;
     Object.entries(values).map((pair) => {
       if (pair[0] === "photos_of_bills" || pair[0] === "photos_of_the_dpi") {
         values[`${pair[0]}`].map((file) => {
