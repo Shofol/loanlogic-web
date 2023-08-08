@@ -29,11 +29,14 @@ import {
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import Guarantee from "./Guarantee";
 import CreditValidation from "./CreditValidation";
+import ImageModal from "../../@core/components/imageModal/imageModal";
 
 const VisualizarSolicitud = () => {
   const [active, setActive] = useState("1");
   const [guarantee, setGuarantee] = useState(null);
   const [validationData, setValidationData] = useState(null);
+  const [zoomed, setZoomed] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState(null);
 
   const toggle = (tab) => {
     if (active !== tab) {
@@ -552,17 +555,32 @@ const VisualizarSolicitud = () => {
                   {data &&
                     data?.client.photos_of_bills.map((src) => {
                       return (
-                        <div key={src} className="border img-box">
+                        <div
+                          key={src}
+                          className="border img-box cursor-pointer"
+                        >
                           <img
                             className="boxed-image"
                             src={src}
                             alt={"item.name"}
                             width="80px"
                             height="80px"
+                            onClick={(e) => {
+                              setZoomed(true);
+                              setZoomedImage(src);
+                            }}
                           />
                         </div>
                       );
                     })}
+
+                  <ImageModal
+                    image={zoomedImage}
+                    isOpen={zoomed}
+                    closeZoom={(e) => {
+                      setZoomed(false);
+                    }}
+                  />
                 </Col>
               </Row>
             </CardBody>
@@ -678,7 +696,11 @@ const VisualizarSolicitud = () => {
                       return (
                         <div key={src} className="border img-box">
                           <img
-                            className="boxed-image"
+                            onClick={(e) => {
+                              setZoomed(true);
+                              setZoomedImage(src);
+                            }}
+                            className="boxed-image cursor-pointer"
                             src={src}
                             alt={"item.name"}
                             width="80px"

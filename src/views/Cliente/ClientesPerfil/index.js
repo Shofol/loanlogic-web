@@ -16,11 +16,14 @@ import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import api from "../../../@core/api/api";
 import StatusTag from "../../../@core/components/statusTag";
+import ImageModal from "../../../@core/components/imageModal/imageModal";
 
 const ClientesPerfil = () => {
   let { id } = useParams();
   const { colors } = useContext(ThemeColors);
   const [data, setData] = useState(null);
+  const [zoomed, setZoomed] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState(null);
 
   const navigate = useNavigate();
   // const [currentPage, setCurrentPage] = useState(1);
@@ -56,6 +59,13 @@ const ClientesPerfil = () => {
             </p>
             <p className="mb-0">DPI: {data?.dpi_number}</p>
             <p>NIT: {data?.nit}</p>
+            <ImageModal
+              image={zoomedImage}
+              isOpen={zoomed}
+              closeZoom={(e) => {
+                setZoomed(false);
+              }}
+            />
             {data &&
               data.photos_of_bills &&
               data.photos_of_bills.map((bill) => {
@@ -64,8 +74,12 @@ const ClientesPerfil = () => {
                     key={bill}
                     src={bill}
                     width="200px"
-                    height="200px"
-                    className="mb-2 border"
+                    // height="200px"
+                    className="mb-2 border cursor-pointer"
+                    onClick={(e) => {
+                      setZoomed(true);
+                      setZoomedImage(bill);
+                    }}
                   />
                 );
               })}
@@ -78,8 +92,12 @@ const ClientesPerfil = () => {
                     key={dpi}
                     src={dpi}
                     width="200px"
-                    height="200px"
-                    className="mb-2 border"
+                    // height="200px"
+                    className="mb-2 border cursor-pointer"
+                    onClick={(e) => {
+                      setZoomed(true);
+                      setZoomedImage(dpi);
+                    }}
                   />
                 );
               })}

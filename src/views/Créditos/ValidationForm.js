@@ -20,10 +20,13 @@ import { Formik, Field, ErrorMessage } from "formik";
 import API from "../../@core/api/api";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import ImageModal from "../../@core/components/imageModal/imageModal";
 
 const ValidationForm = () => {
   const [dirección, setDirección] = useState("");
   const [garantía, setGarantía] = useState([]);
+  const [zoomed, setZoomed] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState(null);
 
   useEffect(() => {
     fetchApplication();
@@ -284,14 +287,25 @@ const ValidationForm = () => {
                           return (
                             <img
                               key={photo}
-                              className="img-fluid"
+                              className="img-fluid cursor-pointer"
                               src={photo}
                               alt={"Garantía photo"}
-                              width="100px"
-                              height="100px"
+                              width="300px"
+                              // height="100px"
+                              onClick={(e) => {
+                                setZoomed(true);
+                                setZoomedImage(photo);
+                              }}
                             />
                           );
                         })}
+                      <ImageModal
+                        image={zoomedImage}
+                        isOpen={zoomed}
+                        closeZoom={(e) => {
+                          setZoomed(false);
+                        }}
+                      />
                     </dd>
                     <div className="d-flex my-1">
                       <div className="form-check mb-sm-2 mb-md-0 me-md-3">

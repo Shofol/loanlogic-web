@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardBody, CardTitle, Col, Input, Label, Row } from "reactstrap";
+import ImageModal from "../../@core/components/imageModal/imageModal";
 
 const Guarantee = ({ guarantee }) => {
+  const [zoomed, setZoomed] = useState(false);
   return (
     <Card className="p-2">
       <CardTitle className="text-center">Garantía</CardTitle>
       <CardBody>
         <Row>
           <Col sm="3">
-            <img src={guarantee?.photo} width="200px" className="mb-2 border" />
+            <img
+              src={guarantee?.photo}
+              width="200px"
+              className="mb-2 border cursor-pointer"
+              onClick={(e) => setZoomed(true)}
+            />
+            <ImageModal
+              image={guarantee?.photo}
+              isOpen={zoomed}
+              closeZoom={(e) => {
+                setZoomed(false);
+              }}
+            />
           </Col>
           <Col sm="8">
             <Row>
