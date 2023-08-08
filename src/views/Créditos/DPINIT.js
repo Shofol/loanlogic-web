@@ -30,7 +30,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef(null);
   const neMunRef = useRef(null);
-  const [isNITRequired, setIsNITRequired] = useState(true);
+  const [isNITNotRequired, setIsNITNotRequired] = useState(false);
 
   return (
     <div>
@@ -74,7 +74,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
             if (!values.expiration_date) {
               errors.expiration_date = requiredMsg;
             }
-            if (isNITRequired && !values.nit) {
+            if (!isNITNotRequired && !values.nit) {
               errors.nit = requiredMsg;
             }
             if (!values.is_have_credit) {
@@ -295,7 +295,10 @@ const DPINIT = ({ stepper, onSubmit }) => {
               <Row className="mt-4 d-flex align-items-end">
                 <Col sm="2">
                   <Label className="form-label" for="nit">
-                    NIT{isNITRequired && <span className="text-danger">*</span>}
+                    NIT
+                    {!isNITNotRequired && (
+                      <span className="text-danger">*</span>
+                    )}
                   </Label>
                   <Input
                     type="text"
@@ -314,9 +317,9 @@ const DPINIT = ({ stepper, onSubmit }) => {
                 <Col sm="2" className="d-flex align-items-center">
                   <Input
                     type="checkbox"
-                    checked={isNITRequired}
+                    checked={isNITNotRequired}
                     onChange={(e) => {
-                      setIsNITRequired(!isNITRequired);
+                      setIsNITNotRequired(!isNITNotRequired);
                     }}
                   />
                   <Label className="form-check-label ms-1" for="terms">
