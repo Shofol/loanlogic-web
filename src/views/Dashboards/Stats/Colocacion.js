@@ -20,8 +20,8 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
   useEffect(() => {
     if (data) {
       setCompletedResult(
-        +data.totalRequestedAmount > 0
-          ? Math.round((+data.dailyGoal / +data.totalRequestedAmount) * 100)
+        +data.dailyGoal > 0
+          ? Math.round((+data.totalRequestedAmount / +data.dailyGoal) * 100)
           : 0
       );
     }
@@ -33,7 +33,7 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
         data={{ completed: completedResult }}
         title="Colocacion"
         text={
-          data ? `${data.dailyGoal} Q / ${data.totalRequestedAmount} Q` : null
+          data ? `${data.totalRequestedAmount} Q / ${data.dailyGoal} Q` : null
         }
         height={height}
         fontSize={fontSize}
