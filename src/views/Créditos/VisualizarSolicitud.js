@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactSlider from "react-slider";
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -51,7 +52,23 @@ const VisualizarSolicitud = () => {
   return (
     <>
       <Card>
-        <CardHeader className="d-flex flex-column">
+        <CardHeader className="d-flex flex-column relative">
+          {data && data.pdf && (
+            <Button
+              color="success"
+              className="btn-sm position-absolute"
+              style={{ top: "20px", right: "20px" }}
+            >
+              <a
+                className="text-white"
+                target="_blank"
+                href={data.pdf}
+                download={`${data?.client.name}_${data?.id}`}
+              >
+                Descargar Como PDF
+              </a>
+            </Button>
+          )}
           <CardTitle tag="h4" className="mb-1">
             Solicitud Núm. {data?.id}
           </CardTitle>
