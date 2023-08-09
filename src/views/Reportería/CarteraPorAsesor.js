@@ -73,26 +73,34 @@ const CarteraPorAsesor = () => {
         pagos: item.credit.total_paid_amount
       };
 
-      data.map((item) => {
-        item.debt_collections.map((debt) => {
-          updatedData[`${debt.payment_date}`] = debt.payment_made;
-        });
+      item.debt_collections.map((debt, index) => {
+        updatedData[`${debt.payment_date}`] = debt.payment_made;
       });
+      // });
       return updatedData;
     });
 
     let newColumns = [];
+    let dates = [];
     data.map((item) => {
       item.debt_collections.map((debt) => {
-        newColumns = [
-          ...newColumns,
-          {
-            headerName: `${weekDays[new Date(debt.payment_date).getDay()]}`,
-            children: [{ field: debt.payment_date, width: 120 }]
-          }
-        ];
+        if (!(dates.filter((date) => date === debt.payment_date).length > 0)) {
+          dates = [...dates, debt.payment_date];
+          newColumns = [
+            ...newColumns,
+            {
+              headerName: `${weekDays[new Date(debt.payment_date).getDay()]}`,
+              children: [{ field: debt.payment_date, width: 120 }],
+              date: debt.payment_date
+            }
+          ];
+        }
       });
     });
+
+    newColumns = newColumns.sort(
+      (prev, next) => new Date(prev.date) - new Date(next.date)
+    );
 
     setColumnDefs([...portfolioData.columns, ...newColumns]);
     // [...response.data.data]
