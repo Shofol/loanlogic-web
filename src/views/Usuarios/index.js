@@ -71,8 +71,10 @@ const Usuarios = () => {
   const fetchData = async () => {
     const response = await API.get(
       agent && agent.length > 0
-        ? `user?agency=${agent.join(",")}&page=${currentPage}&pageSize=12`
-        : `user?page=${currentPage}&pageSize=12`
+        ? `user?agency=${agent.join(
+            ","
+          )}&page=${currentPage}&pageSize=12&sortOrder=ASC&sortField=createdAt`
+        : `user?page=${currentPage}&pageSize=12&sortOrder=ASC&sortField=createdAt`
     );
     setUsers([...response.data.data]);
     setTotalPages(response.data.pagination.totalPages);
@@ -125,7 +127,7 @@ const Usuarios = () => {
       <Table className="mt-4" responsive>
         <thead>
           <tr>
-            <th>No.</th>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Rol</th>
             <th>Agencia</th>
@@ -142,7 +144,7 @@ const Usuarios = () => {
             ? users.map((user, index) => {
                 return (
                   <tr key={user.id}>
-                    <td>{index + 1}</td>
+                    <td>{user.id}</td>
                     <td className="nowrap">{user.name}</td>
                     <td className="nowrap">{user.role}</td>
                     <td>{user?.agency?.join(", ")}</td>
