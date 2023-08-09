@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   handleMenuCollapsed,
   handleContentWidth,
-  handleMenuHidden,
+  handleMenuHidden
 } from "@store/layout";
 
 // ** Third Party Components
@@ -39,6 +39,7 @@ import { useNavbarColor } from "@hooks/useNavbarColor";
 // ** Styles
 import "@styles/base/core/menu/menu-types/vertical-menu.scss";
 import "@styles/base/core/menu/menu-types/vertical-overlay-menu.scss";
+import { UserProvider } from "../../utility/context/User";
 
 const VerticalLayout = (props) => {
   // ** Props
@@ -105,14 +106,14 @@ const VerticalLayout = (props) => {
   const footerClasses = {
     static: "footer-static",
     sticky: "footer-fixed",
-    hidden: "footer-hidden",
+    hidden: "footer-hidden"
   };
 
   const navbarWrapperClasses = {
     floating: "navbar-floating",
     sticky: "navbar-sticky",
     static: "navbar-static",
-    hidden: "navbar-hidden",
+    hidden: "navbar-hidden"
   };
 
   const navbarClasses = {
@@ -120,7 +121,7 @@ const VerticalLayout = (props) => {
       contentWidth === "boxed" ? "floating-nav container-xxl" : "floating-nav",
     sticky: "fixed-top",
     static: "navbar-static-top",
-    hidden: "d-none",
+    hidden: "d-none"
   };
 
   const bgColorCondition =
@@ -130,124 +131,128 @@ const VerticalLayout = (props) => {
     return null;
   }
   return (
-    <div
-      className={classnames(
-        `wrapper vertical-layout ${
-          navbarWrapperClasses[navbarType] || "navbar-floating"
-        } ${footerClasses[footerType] || "footer-static"}`,
-        {
-          // Modern Menu
-          "vertical-menu-modern": windowWidth >= 1200,
-          "menu-collapsed": menuCollapsed && windowWidth >= 1200,
-          "menu-expanded": !menuCollapsed && windowWidth > 1200,
-
-          // Overlay Menu
-          "vertical-overlay-menu": windowWidth < 1200,
-          "menu-hide": !menuVisibility && windowWidth < 1200,
-          "menu-open": menuVisibility && windowWidth < 1200,
-        }
-      )}
-      {...(isHidden ? { "data-col": "1-column" } : {})}
-    >
-      {!isHidden ? (
-        <SidebarComponent
-          skin={skin}
-          menu={menu}
-          menuData={menuData}
-          menuCollapsed={menuCollapsed}
-          menuVisibility={menuVisibility}
-          setMenuCollapsed={setMenuCollapsed}
-          setMenuVisibility={setMenuVisibility}
-        />
-      ) : null}
-
-      <Navbar
-        expand="lg"
-        container={false}
-        light={skin !== "dark"}
-        dark={skin === "dark" || bgColorCondition}
-        color={bgColorCondition ? navbarColor : undefined}
-        className={classnames(
-          `header-navbar navbar align-items-center ${
-            navbarClasses[navbarType] || "floating-nav"
-          } navbar-shadow`
-        )}
-      >
-        <div className="navbar-container d-flex content">
-          {navbar ? (
-            navbar({ skin, setSkin, setMenuVisibility })
-          ) : (
-            <NavbarComponent
-              setMenuVisibility={setMenuVisibility}
-              skin={skin}
-              setSkin={setSkin}
-            />
-          )}
-        </div>
-      </Navbar>
-      {children}
-
-      {/* Vertical Nav Menu Overlay */}
+    <UserProvider>
       <div
-        className={classnames("sidenav-overlay", {
-          show: menuVisibility,
-        })}
-        onClick={() => setMenuVisibility(false)}
-      ></div>
-      {/* Vertical Nav Menu Overlay */}
-
-      {themeConfig.layout.customizer === true ? (
-        <Customizer
-          skin={skin}
-          isRtl={isRtl}
-          layout={layout}
-          setSkin={setSkin}
-          setIsRtl={setIsRtl}
-          isHidden={isHidden}
-          setLayout={setLayout}
-          footerType={footerType}
-          navbarType={navbarType}
-          setIsHidden={setIsHidden}
-          themeConfig={themeConfig}
-          navbarColor={navbarColor}
-          contentWidth={contentWidth}
-          setFooterType={setFooterType}
-          setNavbarType={setNavbarType}
-          setLastLayout={setLastLayout}
-          menuCollapsed={menuCollapsed}
-          setNavbarColor={setNavbarColor}
-          setContentWidth={setContentWidth}
-          setMenuCollapsed={setMenuCollapsed}
-        />
-      ) : null}
-      <footer
         className={classnames(
-          `footer footer-light ${footerClasses[footerType] || "footer-static"}`,
+          `wrapper vertical-layout ${
+            navbarWrapperClasses[navbarType] || "navbar-floating"
+          } ${footerClasses[footerType] || "footer-static"}`,
           {
-            "d-none": footerType === "hidden",
+            // Modern Menu
+            "vertical-menu-modern": windowWidth >= 1200,
+            "menu-collapsed": menuCollapsed && windowWidth >= 1200,
+            "menu-expanded": !menuCollapsed && windowWidth > 1200,
+
+            // Overlay Menu
+            "vertical-overlay-menu": windowWidth < 1200,
+            "menu-hide": !menuVisibility && windowWidth < 1200,
+            "menu-open": menuVisibility && windowWidth < 1200
           }
         )}
+        {...(isHidden ? { "data-col": "1-column" } : {})}
       >
-        {footer ? (
-          footer
-        ) : (
-          <FooterComponent
-            footerType={footerType}
-            footerClasses={footerClasses}
+        {!isHidden ? (
+          <SidebarComponent
+            skin={skin}
+            menu={menu}
+            menuData={menuData}
+            menuCollapsed={menuCollapsed}
+            menuVisibility={menuVisibility}
+            setMenuCollapsed={setMenuCollapsed}
+            setMenuVisibility={setMenuVisibility}
           />
-        )}
-      </footer>
+        ) : null}
 
-      {themeConfig.layout.scrollTop === true ? (
-        <div className="scroll-to-top">
-          <ScrollToTop showOffset={300} className="scroll-top d-block">
-            <Button className="btn-icon" color="primary">
-              <ArrowUp size={14} />
-            </Button>
-          </ScrollToTop>
-        </div>
-      ) : null}
-    </div>
+        <Navbar
+          expand="lg"
+          container={false}
+          light={skin !== "dark"}
+          dark={skin === "dark" || bgColorCondition}
+          color={bgColorCondition ? navbarColor : undefined}
+          className={classnames(
+            `header-navbar navbar align-items-center ${
+              navbarClasses[navbarType] || "floating-nav"
+            } navbar-shadow`
+          )}
+        >
+          <div className="navbar-container d-flex content">
+            {navbar ? (
+              navbar({ skin, setSkin, setMenuVisibility })
+            ) : (
+              <NavbarComponent
+                setMenuVisibility={setMenuVisibility}
+                skin={skin}
+                setSkin={setSkin}
+              />
+            )}
+          </div>
+        </Navbar>
+        {children}
+
+        {/* Vertical Nav Menu Overlay */}
+        <div
+          className={classnames("sidenav-overlay", {
+            show: menuVisibility
+          })}
+          onClick={() => setMenuVisibility(false)}
+        ></div>
+        {/* Vertical Nav Menu Overlay */}
+
+        {themeConfig.layout.customizer === true ? (
+          <Customizer
+            skin={skin}
+            isRtl={isRtl}
+            layout={layout}
+            setSkin={setSkin}
+            setIsRtl={setIsRtl}
+            isHidden={isHidden}
+            setLayout={setLayout}
+            footerType={footerType}
+            navbarType={navbarType}
+            setIsHidden={setIsHidden}
+            themeConfig={themeConfig}
+            navbarColor={navbarColor}
+            contentWidth={contentWidth}
+            setFooterType={setFooterType}
+            setNavbarType={setNavbarType}
+            setLastLayout={setLastLayout}
+            menuCollapsed={menuCollapsed}
+            setNavbarColor={setNavbarColor}
+            setContentWidth={setContentWidth}
+            setMenuCollapsed={setMenuCollapsed}
+          />
+        ) : null}
+        <footer
+          className={classnames(
+            `footer footer-light ${
+              footerClasses[footerType] || "footer-static"
+            }`,
+            {
+              "d-none": footerType === "hidden"
+            }
+          )}
+        >
+          {footer ? (
+            footer
+          ) : (
+            <FooterComponent
+              footerType={footerType}
+              footerClasses={footerClasses}
+            />
+          )}
+        </footer>
+
+        {themeConfig.layout.scrollTop === true ? (
+          <div className="scroll-to-top">
+            <ScrollToTop showOffset={300} className="scroll-top d-block">
+              <Button className="btn-icon" color="primary">
+                <ArrowUp size={14} />
+              </Button>
+            </ScrollToTop>
+          </div>
+        ) : null}
+      </div>
+    </UserProvider>
   );
 };
 

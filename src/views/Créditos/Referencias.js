@@ -23,8 +23,14 @@ import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 
 const Referencias = ({ stepper, onSubmit, onPrevious }) => {
-  const [referenciasPersonales, setReferenciasPersonales] = useState(["", "2"]);
-  const [referenciasFamiliares, setReferenciasFamiliares] = useState(["", "2"]);
+  const [referenciasPersonales, setReferenciasPersonales] = useState([
+    "",
+    "_2"
+  ]);
+  const [referenciasFamiliares, setReferenciasFamiliares] = useState([
+    "",
+    "_2"
+  ]);
 
   return (
     <div>
@@ -44,14 +50,14 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
             p_references_relationship: "",
             p_references_work_phone: "",
             p_references_cell_phone: "",
-            f_references_name_and_surname2: "",
-            f_references_relationship2: "",
-            f_references_work_phone2: "",
-            f_references_cell_phone2: "",
-            p_references_name_and_surname2: "",
-            p_references_relationship2: "",
-            p_references_work_phone2: "",
-            p_references_cell_phone2: ""
+            f_references_name_and_surname_2: "",
+            f_references_relationship_2: "",
+            f_references_work_phone_2: "",
+            f_references_cell_phone_2: "",
+            p_references_name_and_surname_2: "",
+            p_references_relationship_2: "",
+            p_references_work_phone_2: "",
+            p_references_cell_phone_2: ""
           }}
           validate={(values) => {
             const errors = {};
@@ -76,23 +82,23 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
               errors.p_references_cell_phone = requiredMsg;
             }
 
-            if (!values.f_references_name_and_surname2) {
-              errors.f_references_name_and_surname2 = requiredMsg;
+            if (!values.f_references_name_and_surname_2) {
+              errors.f_references_name_and_surname_2 = requiredMsg;
             }
-            if (!values.f_references_relationship2) {
-              errors.f_references_relationship2 = requiredMsg;
+            if (!values.f_references_relationship_2) {
+              errors.f_references_relationship_2 = requiredMsg;
             }
-            if (!values.f_references_cell_phone2) {
-              errors.f_references_cell_phone2 = requiredMsg;
+            if (!values.f_references_cell_phone_2) {
+              errors.f_references_cell_phone_2 = requiredMsg;
             }
-            if (!values.p_references_name_and_surname2) {
-              errors.p_references_name_and_surname2 = requiredMsg;
+            if (!values.p_references_name_and_surname_2) {
+              errors.p_references_name_and_surname_2 = requiredMsg;
             }
-            if (!values.p_references_relationship2) {
-              errors.p_references_relationship2 = requiredMsg;
+            if (!values.p_references_relationship_2) {
+              errors.p_references_relationship_2 = requiredMsg;
             }
-            if (!values.p_references_cell_phone2) {
-              errors.p_references_cell_phone2 = requiredMsg;
+            if (!values.p_references_cell_phone_2) {
+              errors.p_references_cell_phone_2 = requiredMsg;
             }
 
             return errors;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
@@ -12,6 +12,7 @@ import SidebarNewUsers from "./SidebarNewUsers";
 import EditUser from "./EditUser";
 import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";
+import { UserContext } from "../../utility/context/User";
 
 const Usuarios = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +24,7 @@ const Usuarios = () => {
   const [users, setUsers] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [user, setUser] = useState(null);
+  const currentUser = useContext(UserContext).user;
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -87,7 +89,7 @@ const Usuarios = () => {
             theme={selectThemeColors}
             isMulti
             name="colors"
-            options={agenciasValues}
+            options={currentUser.agency}
             className="react-select"
             classNamePrefix="select"
             onChange={(options) => {

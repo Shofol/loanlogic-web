@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
@@ -8,10 +8,12 @@ import Select from "react-select";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
+import { UserContext } from "../../utility/context/User";
 
 const CommonReport = ({ title }) => {
   const [picker, setPicker] = useState(new Date().toLocaleDateString());
   const [previousMonth, setPreviousMonth] = useState("");
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     setMonth();
@@ -39,7 +41,7 @@ const CommonReport = ({ title }) => {
             theme={selectThemeColors}
             isMulti
             name="colors"
-            options={agenciasValues}
+            options={user.agency}
             className="react-select"
             classNamePrefix="select"
           />

@@ -15,7 +15,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 
 // ** Reactstrap Imports
 import { Button, Label, FormText, Form, Input } from "reactstrap";
-import { agenciasValues, roles } from "../../configs/data";
+import { agenciasValues, categoríaValues, roles } from "../../configs/data";
 import { RefreshCw, Save } from "react-feather";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
@@ -33,21 +33,6 @@ const defaultValues = {
 const estadoValues = [
   { label: "ACTIVO", value: "active" },
   { label: "DESHABILITADO", value: "disabled" }
-];
-
-const categoríaValues = [
-  {
-    label: "Novato",
-    value: "NOVATO"
-  },
-  {
-    label: "Intermedio",
-    value: "INTERMEDIO"
-  },
-  {
-    label: "Experto",
-    value: "EXPERTO"
-  }
 ];
 
 const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
@@ -130,7 +115,6 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          values.family_name = "s";
           const response = API.post("/user/register", values);
           toast.promise(
             response,
@@ -194,7 +178,6 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 name="family_name"
                 type="text"
                 placeholder="Doe"
-                // invalid={errors.fullName && true}
                 tag={Field}
               />
               <ErrorMessage

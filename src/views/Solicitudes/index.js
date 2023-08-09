@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // ** Reactstrap Imports
 import {
   Row,
@@ -24,8 +24,11 @@ import API from "../../@core/api/api";
 import { useNavigate } from "react-router-dom";
 import "./Solicitudes.scss";
 import StatusTag from "../../@core/components/statusTag";
+import { UserContext } from "../../utility/context/User";
 
 const Solicitudes = () => {
+  const { user } = useContext(UserContext);
+  console.log(user);
   const navigate = useNavigate();
   const [picker, setPicker] = useState(null);
   // ** States
@@ -56,7 +59,7 @@ const Solicitudes = () => {
       params = params + `&${pair[0]}=${pair[1]}`;
     });
     const response = await API.get(
-      `credit-application?page=${currentPage}&pageSize=10&sortOrder=DESC` +
+      `credit-application?page=${currentPage}&pageSize=10&sortOrder=DESC&sortField=createdAt` +
         params
     );
     setData([...response.data.data]);
@@ -134,7 +137,7 @@ const Solicitudes = () => {
                 theme={selectThemeColors}
                 isMulti
                 name="colors"
-                options={agenciasValues}
+                options={user.agency}
                 className="react-select"
                 classNamePrefix="select"
                 onChange={(option) =>
@@ -250,7 +253,7 @@ const Solicitudes = () => {
                     />
                   </th>
                   <th>
-                    <span>Tipo crédito</span>
+                    <span>Producto</span>
                     <Input
                       type="text"
                       name="productoNombre"
@@ -318,7 +321,7 @@ const Solicitudes = () => {
                         <td>{app.client.name}</td>
                         <td>{app.client.surname}</td>
                         <td>{app.credit_amount}</td>
-                        <td></td>
+                        <td>{app.product_id}</td>
                         <td>{app.client.residence_municipality}</td>
                         <td>{app.client.department_of_residence}</td>
                         <td>{new Date(app.createdAt).toLocaleDateString()}</td>

@@ -30,6 +30,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import Guarantee from "./Guarantee";
 import CreditValidation from "./CreditValidation";
 import ImageModal from "../../@core/components/imageModal/imageModal";
+import StatusTag from "../../@core/components/statusTag";
 
 const VisualizarSolicitud = () => {
   const [active, setActive] = useState("1");
@@ -155,6 +156,9 @@ const VisualizarSolicitud = () => {
               <CardSubtitle className="mt-1" tag="h4">
                 Solicitud crédito
               </CardSubtitle>
+              <div className="mt-1">
+                <StatusTag status={data?.status} />
+              </div>
             </CardHeader>
             {data && (
               <CardBody>

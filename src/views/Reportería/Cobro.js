@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Card, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
@@ -8,9 +8,11 @@ import Select from "react-select";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
+import { UserContext } from "../../utility/context/User";
 
 const Cobro = () => {
   const [picker, setPicker] = useState(new Date().toLocaleDateString());
+  const { user } = useContext(UserContext);
 
   return (
     <Card className="p-2">
@@ -22,7 +24,7 @@ const Cobro = () => {
             theme={selectThemeColors}
             isMulti
             name="colors"
-            options={agenciasValues}
+            options={user.agency}
             className="react-select"
             classNamePrefix="select"
           />

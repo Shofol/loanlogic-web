@@ -9,7 +9,6 @@ import {
   Label
 } from "reactstrap";
 import AsesoresForm from "../Reportería/AsesoresForm";
-import { agenciasValues } from "../../configs/data";
 import api from "../../@core/api/api";
 import { Save } from "react-feather";
 import { toast } from "react-hot-toast";

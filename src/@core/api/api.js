@@ -2,15 +2,19 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { baseURL } from "./config";
 
-const tokenStr = localStorage.getItem("gesToken")
-  ? localStorage.getItem("gesToken")
-  : null;
-
 const api = axios.create({
-  baseURL: baseURL,
-  headers: {
-    Authorization: `Bearer ${tokenStr}`
-  }
+  baseURL: baseURL
+  // headers: {
+  //   Authorization: `Bearer ${tokenStr}`
+  // }
+});
+
+api.interceptors.request.use(function (config) {
+  const tokenStr = localStorage.getItem("gesToken")
+    ? localStorage.getItem("gesToken")
+    : null;
+  config.headers["Authorization"] = `Bearer ${tokenStr}`;
+  return config;
 });
 
 api.interceptors.response.use(

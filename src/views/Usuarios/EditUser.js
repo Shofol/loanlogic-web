@@ -24,9 +24,9 @@ import {
 import Select from "react-select";
 import { User, Check, X } from "react-feather";
 import { useForm, Controller } from "react-hook-form";
-import { agenciasValues, roles } from "../../configs/data";
+import { agenciasValues, categoríaValues, roles } from "../../configs/data";
 import { RefreshCw, Save } from "react-feather";
-import { Field, Formik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
 
 // ** Utils
@@ -46,24 +46,14 @@ const estadoValues = [
 const EditUser = ({ showModal, user, onClose }) => {
   // ** States
   const [show, setShow] = useState(false);
-  // const [picker, setPicker] = useState(new Date());
-  // const [startDatepicker, setStartDatePicker] = useState(new Date());
-
-  // const [user, setUser] = useState(selectedUser);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     // setPicker(new Date(user.date_of_birth));
-  //     // setStartDatePicker(new Date(user.start_date));
-  //   }
-  // }, [user]);
-
   const initialValues = {
     name: user ? user.name : "",
+    family_name: user ? user.family_name : "",
     role: user ? user.role : "",
     agency: user ? user.agency : "",
     email: user ? user.email : "",
     phone: user ? user.phone : "",
+    category: user ? user.category : "",
     date_of_birth: user ? user.date_of_birth : new Date(),
     start_date: user ? user.start_date : new Date(),
     is_active: user ? user.is_active : ""
@@ -108,17 +98,42 @@ const EditUser = ({ showModal, user, onClose }) => {
           </div>
           <Formik
             initialValues={initialValues}
-            // validate={(values) => {
-            //   const errors = {};
-            //   if (!values.email) {
-            //     errors.email = "Required";
-            //   } else if (
-            //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            //   ) {
-            //     errors.email = "Invalid email address";
-            //   }
-            //   return errors;
-            // }}
+            validate={(values) => {
+              const requiredMsg = "Esto es requerido";
+              const errors = {};
+              if (!values.email) {
+                errors.email = requiredMsg;
+              } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+              ) {
+                errors.email = "Invalid email address";
+              }
+              if (!values.name) {
+                errors.name = requiredMsg;
+              }
+              if (!values.family_name) {
+                errors.family_name = requiredMsg;
+              }
+              if (!values.role) {
+                errors.role = requiredMsg;
+              }
+              if (!values.agency) {
+                errors.agency = requiredMsg;
+              }
+              if (!values.phone) {
+                errors.phone = requiredMsg;
+              }
+              if (values.is_active === "") {
+                errors.is_active = requiredMsg;
+              }
+              if (
+                values.role === "Agente de cobranza" ||
+                (values.role === "Gestor comercial" && !values.category)
+              ) {
+                errors.category = requiredMsg;
+              }
+              return errors;
+            }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               const response = API.put(`user/${user.id}`, values);
               toast.promise(
@@ -172,11 +187,37 @@ const EditUser = ({ showModal, user, onClose }) => {
                         tag={Field}
                       />
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="name"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col md="6">
                     <div className="mb-1">
-                      <Label className="form-label" for="country">
+                      <Label className="form-label" for="apellido">
+                        Apellido <span className="text-danger">*</span>
+                      </Label>
+
+                      <Input
+                        id="apellido"
+                        name="family_name"
+                        type="text"
+                        placeholder="Doe"
+                        tag={Field}
+                      />
+                      <ErrorMessage
+                        component="div"
+                        name="family_name"
+                        className="text-danger"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col md="6">
+                    <div className="mb-1">
+                      <Label className="form-label" for="role">
                         Rol <span className="text-danger">*</span>
                       </Label>
                       <Select
@@ -191,13 +232,46 @@ const EditUser = ({ showModal, user, onClose }) => {
                               )[0]
                             : null
                         }
-                        // className={classnames("react-select", {
-                        //   "is-invalid": data !== null && data.country === null,
-                        // })}
                         name="role"
+                        id="role"
                         onChange={(option) =>
                           setFieldValue("role", option.value)
                         }
+                      />
+                    </div>
+                    <ErrorMessage
+                      component="div"
+                      name="role"
+                      className="text-danger"
+                    />
+                  </Col>
+
+                  <Col md="6">
+                    <div className="mb-1">
+                      <Label className="form-label" for="country">
+                        Categoría
+                      </Label>
+                      <Select
+                        isClearable={false}
+                        classNamePrefix="select"
+                        options={categoríaValues}
+                        defaultValue={
+                          user
+                            ? categoríaValues.filter(
+                                (category) => category.value === user.category
+                              )[0]
+                            : null
+                        }
+                        theme={selectThemeColors}
+                        name="category"
+                        onChange={(option) =>
+                          setFieldValue("category", option.value)
+                        }
+                      />
+                      <ErrorMessage
+                        component="div"
+                        name="category"
+                        className="text-danger"
                       />
                     </div>
                   </Col>
@@ -228,6 +302,11 @@ const EditUser = ({ showModal, user, onClose }) => {
                         }
                       />
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="agency"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col md="6">
@@ -249,6 +328,11 @@ const EditUser = ({ showModal, user, onClose }) => {
                         You can use letters, numbers & periods
                       </FormText>
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="email"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col md="6">
@@ -264,6 +348,11 @@ const EditUser = ({ showModal, user, onClose }) => {
                         tag={Field}
                       />
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="phone"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col md="6">
@@ -286,6 +375,11 @@ const EditUser = ({ showModal, user, onClose }) => {
                         }}
                       />
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="date_of_birth"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col md="6">
@@ -309,6 +403,11 @@ const EditUser = ({ showModal, user, onClose }) => {
                         }}
                       />
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="start_date"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col md="6">
@@ -339,6 +438,11 @@ const EditUser = ({ showModal, user, onClose }) => {
                         }
                       />
                     </div>
+                    <ErrorMessage
+                      component="div"
+                      name="is_active"
+                      className="text-danger"
+                    />
                   </Col>
                 </Row>
 

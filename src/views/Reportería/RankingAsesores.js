@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
@@ -10,9 +10,11 @@ import "./Reportería.scss";
 import { Download } from "react-feather";
 import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import "flatpickr/dist/plugins/monthSelect/style.css";
+import { UserContext } from "../../utility/context/User";
 
 const RankingAsesores = ({ title }) => {
   const [picker, setPicker] = useState(new Date());
+  const { user } = useContext(UserContext);
   // const [previousMonth, setPreviousMonth] = useState("");
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const RankingAsesores = ({ title }) => {
             theme={selectThemeColors}
             isMulti
             name="colors"
-            options={agenciasValues}
+            options={user.agency}
             className="react-select"
             classNamePrefix="select"
           />

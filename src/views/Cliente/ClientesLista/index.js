@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // ** Reactstrap Imports
 import {
   Row,
@@ -22,8 +22,10 @@ import ReactPaginate from "react-paginate";
 import { Search } from "react-feather";
 import API from "../../../@core/api/api";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../utility/context/User";
 
 const ClientesLista = () => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   // ** States
   const today = new Date();
@@ -91,7 +93,7 @@ const ClientesLista = () => {
                 theme={selectThemeColors}
                 isMulti
                 name="colors"
-                options={agenciasValues}
+                options={user.agency}
                 className="react-select"
                 classNamePrefix="select"
                 onChange={(option) =>

@@ -709,3 +709,18 @@ export const tipoDeGarantiaOptions = [
       "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
   }
 ];
+
+export const categoríaValues = [
+  {
+    label: "Novato",
+    value: "NOVATO"
+  },
+  {
+    label: "Intermedio",
+    value: "INTERMEDIO"
+  },
+  {
+    label: "Experto",
+    value: "EXPERTO"
+  }
+];

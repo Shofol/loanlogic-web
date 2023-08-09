@@ -3,7 +3,8 @@ import React, {
   useRef,
   useEffect,
   useMemo,
-  useCallback
+  useCallback,
+  useContext
 } from "react";
 import {
   Button,
@@ -24,6 +25,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
 import "./Reportería.scss";
 import { Download } from "react-feather";
 import api from "../../@core/api/api";
+import { UserContext } from "../../utility/context/User";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -31,6 +33,7 @@ const CarteraPorAsesor = () => {
   const [agency, setAgency] = useState(null);
   const [gestors, setGestors] = useState([]);
   const [agent, setAgent] = useState(null);
+  const { user } = useContext(UserContext);
 
   const weekDays = [
     "Domingo",
@@ -151,7 +154,7 @@ const CarteraPorAsesor = () => {
               theme={selectThemeColors}
               // isMulti
               name="colors"
-              options={agenciasValues}
+              options={user.agency}
               className="react-select"
               classNamePrefix="select"
               onChange={
