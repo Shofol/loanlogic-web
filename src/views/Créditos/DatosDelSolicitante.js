@@ -56,7 +56,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
             residence_address: "",
             residence_municipality: "",
             department_of_residence: "",
-            birth_date: new Date(),
+            birth_date: null,
             profession: "",
             civil_status: "",
             sex: "",
@@ -339,8 +339,8 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
-                      dateFormat: "Y-m-d",
-                      defaultDate: new Date()
+                      dateFormat: "Y-m-d"
+                      // defaultDate: null
                     }}
                   />
                   <ErrorMessage

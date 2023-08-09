@@ -45,7 +45,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
             place_of_birth_region: "",
             neighborhood_city: "",
             neighborhood_region: "",
-            expiration_date: new Date(),
+            expiration_date: null,
             photos_of_the_dpi: "",
             nit: "",
             is_have_credit: "",
@@ -205,8 +205,8 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     options={{
                       altInput: true,
                       altFormat: "F j, Y",
-                      dateFormat: "Y-m-d",
-                      defaultDate: new Date()
+                      dateFormat: "Y-m-d"
+                      // defaultDate: new Date()
                     }}
                   />
                   <ErrorMessage
