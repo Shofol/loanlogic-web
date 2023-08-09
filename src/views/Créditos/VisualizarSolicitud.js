@@ -1114,16 +1114,16 @@ const VisualizarSolicitud = () => {
                 <Col sm="3">
                   <Label
                     className="form-label"
-                    for="f_references_name_and_surname2"
+                    for="f_references_name_and_surname_2"
                   >
                     Nombre y apellidos
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="f_references_name_and_surname2"
-                    id="f_references_name_and_surname2"
-                    defaultValue={data?.client.f_references_name_and_surname2}
+                    name="f_references_name_and_surname_2"
+                    id="f_references_name_and_surname_2"
+                    defaultValue={data?.client.f_references_name_and_surname_2}
                     placeholder="Nombre y apellidos"
                   />
                 </Col>
@@ -1131,44 +1131,44 @@ const VisualizarSolicitud = () => {
                 <Col sm="3">
                   <Label
                     className="form-label"
-                    for="f_references_relationship2"
+                    for="f_references_relationship_2"
                   >
                     Parentesco
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="f_references_relationship2"
-                    id="f_references_relationship2"
-                    defaultValue={data?.client.f_references_relationship2}
+                    name="f_references_relationship_2"
+                    id="f_references_relationship_2"
+                    defaultValue={data?.client.f_references_relationship_2}
                     placeholder="Parentesco"
                   />
                 </Col>
 
                 <Col sm="3">
-                  <Label className="form-label" for="f_references_work_phone2">
+                  <Label className="form-label" for="f_references_work_phone_2">
                     Teléfono trabajo
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="f_references_work_phone2"
-                    id="f_references_work_phone2"
-                    defaultValue={data?.client.f_references_work_phone2}
+                    name="f_references_work_phone_2"
+                    id="f_references_work_phone_2"
+                    defaultValue={data?.client.f_references_work_phone_2}
                     placeholder="Teléfono trabajo"
                   />
                 </Col>
 
                 <Col sm="3">
-                  <Label className="form-label" for="f_references_cell_phone2">
+                  <Label className="form-label" for="f_references_cell_phone_2">
                     Celular
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="f_references_cell_phone2"
-                    id="f_references_cell_phone2"
-                    defaultValue={data?.client.f_references_cell_phone2}
+                    name="f_references_cell_phone_2"
+                    id="f_references_cell_phone_2"
+                    defaultValue={data?.client.f_references_cell_phone_2}
                     placeholder="Celular"
                   />
                 </Col>
@@ -1240,16 +1240,16 @@ const VisualizarSolicitud = () => {
                 <Col sm="3">
                   <Label
                     className="form-label"
-                    for="p_references_name_and_surname2"
+                    for="p_references_name_and_surname_2"
                   >
                     Nombre y apellidos
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="p_references_name_and_surname2"
-                    id="p_references_name_and_surname2"
-                    defaultValue={data?.client.p_references_name_and_surname2}
+                    name="p_references_name_and_surname_2"
+                    id="p_references_name_and_surname_2"
+                    defaultValue={data?.client.p_references_name_and_surname_2}
                     placeholder="Nombre y apellidos"
                   />
                 </Col>
@@ -1257,43 +1257,43 @@ const VisualizarSolicitud = () => {
                 <Col sm="3">
                   <Label
                     className="form-label"
-                    for="p_references_relationship2"
+                    for="p_references_relationship_2"
                   >
                     Parentesco
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="p_references_relationship2"
-                    id="p_references_relationship2"
-                    defaultValue={data?.client.p_references_relationship2}
+                    name="p_references_relationship_2"
+                    id="p_references_relationship_2"
+                    defaultValue={data?.client.p_references_relationship_2}
                     placeholder="Parentesco"
                   />
                 </Col>
 
                 <Col sm="3">
-                  <Label className="form-label" for="p_references_work_phone2">
+                  <Label className="form-label" for="p_references_work_phone_2">
                     Teléfono trabajo
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="p_references_work_phone2"
-                    id="p_references_work_phone2"
-                    defaultValue={data?.client.p_references_work_phone2}
+                    name="p_references_work_phone_2"
+                    id="p_references_work_phone_2"
+                    defaultValue={data?.client.p_references_work_phone_2}
                     placeholder="Teléfono trabajo"
                   />
                 </Col>
                 <Col sm="3">
-                  <Label className="form-label" for="p_references_cell_phone2">
+                  <Label className="form-label" for="p_references_cell_phone_2">
                     Celular
                   </Label>
                   <Input
                     disabled
                     type="text"
-                    name="p_references_cell_phone2"
-                    id="p_references_cell_phone2"
-                    defaultValue={data?.client.p_references_cell_phone2}
+                    name="p_references_cell_phone_2"
+                    id="p_references_cell_phone_2"
+                    defaultValue={data?.client.p_references_cell_phone_2}
                     placeholder="Celular"
                   />
                 </Col>
