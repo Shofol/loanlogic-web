@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -19,8 +19,14 @@ import { ArrowLeft, ArrowRight } from "react-feather";
 import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
+import Select from "react-select";
+import { selectThemeColors } from "@utils";
+import { departments, municipalitiesValues } from "../../configs/data";
 
 const Asalariado = ({ stepper, onSubmit }) => {
+  const [municipalities, setMunicipalities] = useState([]);
+  const munRef = useRef();
+
   return (
     <div>
       <CardHeader>
@@ -37,6 +43,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
             date_and_number_of_income: "",
             immediate_boss_name: "",
             work_address: "",
+            work_department: "",
             work_municipality: "",
             work_phone: ""
           }}
@@ -70,6 +77,9 @@ const Asalariado = ({ stepper, onSubmit }) => {
             }
             if (!values.work_phone) {
               errors.work_phone = requiredMsg;
+            }
+            if (!values.work_department) {
+              errors.work_department = requiredMsg;
             }
             if (!values.work_municipality) {
               errors.work_municipality = requiredMsg;
@@ -254,6 +264,59 @@ const Asalariado = ({ stepper, onSubmit }) => {
 
               <Row className="mt-1">
                 <Col sm="3" className="mt-1">
+                  <Label className="form-label" for="work_department">
+                    Departamento del trabajo
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={departments}
+                    isClearable={false}
+                    name="work_department"
+                    id="work_department"
+                    onChange={(option) => {
+                      munRef.current.clearValue();
+                      setMunicipalities(
+                        municipalitiesValues.filter(
+                          (muni) => muni.department === option.value
+                        )[0].municipalities
+                      );
+                      setFieldValue("work_department", option.value);
+                    }}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="work_department"
+                    className="text-danger"
+                  />
+                </Col>
+
+                <Col sm="3" className="mt-1">
+                  <Label className="form-label" for="work_municipality">
+                    Municipio del trabajo
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    ref={munRef}
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={municipalities}
+                    isClearable={false}
+                    name="work_municipality"
+                    onChange={(option) =>
+                      setFieldValue("work_municipality", option?.value)
+                    }
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="work_municipality"
+                    className="text-danger"
+                  />
+                </Col>
+                {/* <Col sm="3" className="mt-1">
                   <Label className="form-label" for="work_municipality">
                     Municipio del trabajo<span className="text-danger">*</span>
                   </Label>
@@ -269,7 +332,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
                     name="work_municipality"
                     className="text-danger"
                   />
-                </Col>
+                </Col> */}
 
                 <Col sm="3" className="mt-1">
                   <Label className="form-label" for="work_phone">

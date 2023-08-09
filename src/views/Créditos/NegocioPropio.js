@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactSlider from "react-slider";
 import {
   Button,
@@ -21,8 +21,14 @@ import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
+import Select from "react-select";
+import { selectThemeColors } from "@utils";
+import { departments, municipalitiesValues } from "../../configs/data";
 
 const NegocioPropio = ({ stepper, onSubmit }) => {
+  const [municipalities, setMunicipalities] = useState([]);
+  const munRef = useRef();
+
   return (
     <div>
       <CardHeader>
@@ -37,6 +43,8 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
             monthly_sales: "",
             monthly_expenses5: "",
             business_address: "",
+            business_municipality: "",
+            business_department: "",
             business_phone: ""
           }}
           validate={(values) => {
@@ -55,6 +63,12 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
             }
             if (!values.business_address) {
               errors.business_address = requiredMsg;
+            }
+            if (!values.business_municipality) {
+              errors.business_municipality = requiredMsg;
+            }
+            if (!values.business_department) {
+              errors.business_department = requiredMsg;
             }
             if (!values.business_phone) {
               errors.business_phone = requiredMsg;
@@ -179,6 +193,60 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                   <ErrorMessage
                     component="div"
                     name="business_address"
+                    className="text-danger"
+                  />
+                </Col>
+
+                <Col sm="3" className="mt-1">
+                  <Label className="form-label" for="business_department">
+                    Departamento del negocio
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={departments}
+                    isClearable={false}
+                    name="business_department"
+                    id="business_department"
+                    onChange={(option) => {
+                      munRef.current.clearValue();
+                      setMunicipalities(
+                        municipalitiesValues.filter(
+                          (muni) => muni.department === option.value
+                        )[0].municipalities
+                      );
+                      setFieldValue("business_department", option.value);
+                    }}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="business_department"
+                    className="text-danger"
+                  />
+                </Col>
+
+                <Col sm="3" className="mt-1">
+                  <Label className="form-label" for="business_municipality">
+                    Municipio del negocio
+                    <span className="text-danger">*</span>
+                  </Label>
+                  <Select
+                    ref={munRef}
+                    theme={selectThemeColors}
+                    className="react-select"
+                    classNamePrefix="select"
+                    options={municipalities}
+                    isClearable={false}
+                    name="business_municipality"
+                    onChange={(option) =>
+                      setFieldValue("business_municipality", option?.value)
+                    }
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="business_municipality"
                     className="text-danger"
                   />
                 </Col>
