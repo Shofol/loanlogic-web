@@ -55,7 +55,7 @@ const ClientesLista = () => {
       params = params + `&${pair[0]}=${pair[1]}`;
     });
     const response = await API.get(
-      `client?page=${currentPage}&pageSize=1` + params
+      `client?page=${currentPage}&pageSize=10` + params
     );
     setData([...response.data.data]);
     setQueryParams({});
