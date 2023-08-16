@@ -280,7 +280,7 @@ const ClientesLista = () => {
                 breakLabel="..."
                 previousLabel=""
                 pageRangeDisplayed={2}
-                forcePage={currentPage}
+                forcePage={currentPage - 1}
                 marginPagesDisplayed={2}
                 activeClassName="active"
                 pageClassName="page-item"
