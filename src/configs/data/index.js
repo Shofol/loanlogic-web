@@ -226,7 +226,7 @@ export const municipalitiesValues = [
   {
     department: "Guatemala",
     municipalities: [
-      { label: "Ciudad de Guatemala City", value: "Ciudad de Guatemala" },
+      { label: "Ciudad de Guatemala", value: "Ciudad de Guatemala" },
       { label: "Amatitlán", value: "Amatitlán" },
       { label: "Chinautla", value: "Chinautla" },
       { label: "Chuarrancho", value: "Chuarrancho" },
