@@ -10,6 +10,7 @@ import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const CommonReport = ({ title }) => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
@@ -61,6 +62,7 @@ const CommonReport = ({ title }) => {
               setPicker(dateStr);
             }}
             options={{
+              locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
               dateFormat: "d/m/Y"
