@@ -310,7 +310,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
               <Input
                 id="phone"
                 placeholder="502-222-222"
-                type="text"
+                type="number"
                 // invalid={errors.phone && true}
                 name="phone"
                 tag={Field}
