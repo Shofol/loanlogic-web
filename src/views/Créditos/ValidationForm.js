@@ -252,7 +252,7 @@ const ValidationForm = () => {
                 <Row>
                   <Col sm="2">
                     <dt>
-                      Día de pago<span className="text-danger">*</span>
+                      Modalidad de pago<span className="text-danger">*</span>
                     </dt>
                   </Col>
                   <Col sm="4">
@@ -260,7 +260,7 @@ const ValidationForm = () => {
                       type="text"
                       name="payment_day"
                       id="payment_day"
-                      placeholder="Día de pago"
+                      placeholder="Modalidad de pago"
                       tag={Field}
                     />
                     <ErrorMessage
@@ -358,7 +358,7 @@ const ValidationForm = () => {
                 <Row>
                   <Col sm="2">
                     <dt>
-                      Observaste<span className="text-danger">*</span>
+                      Observaciones<span className="text-danger">*</span>
                     </dt>
                   </Col>
                   <Col sm="9">
@@ -484,8 +484,7 @@ const ValidationForm = () => {
               <Row>
                 <Col sm="2">
                   <p className="fw-bold">
-                    Evidencias <br />
-                    (fotos de la casa, poste más cercano)
+                    Fotos de la casa
                   </p>
                 </Col>
                 <Col sm="4">
@@ -499,7 +498,7 @@ const ValidationForm = () => {
               <Row>
                 <Col sm="2">
                   <p className="fw-bold">
-                    Documentos que acrediten donde trabaja
+                    Fotos del negocio
                   </p>
                 </Col>
                 <Col sm="4">
