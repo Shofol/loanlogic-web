@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Card, CardBody, CardTitle, Col, Input, Label, Row } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Col,
+  Form,
+  Input,
+  Label,
+  Row
+} from "reactstrap";
 import ImageModal from "../../@core/components/imageModal/imageModal";
 
 const Guarantee = ({ guarantee }) => {
@@ -8,7 +17,86 @@ const Guarantee = ({ guarantee }) => {
     <Card className="p-2">
       <CardTitle className="text-center">Garantía</CardTitle>
       <CardBody>
-        <Row>
+        <Form>
+          <Row>
+            <Col sm="12" md="6" className="mb-1">
+              <Label className="form-label">
+                Tipo garantía<span className="text-danger">*</span>
+              </Label>
+              <Input
+                type="text"
+                name="guarantee_item"
+                id="guarantee_item"
+                placeholder="Tipo garantía"
+                defaultValue={guarantee?.guarantee_item}
+                disabled
+              />
+            </Col>
+            <Col sm="6">
+              <Label className="form-label">
+                Descripción<span className="text-danger">*</span>
+              </Label>
+              <Input
+                type="textarea"
+                name="description"
+                id="description"
+                placeholder="Descripción"
+                defaultValue={guarantee?.description}
+                disabled
+              />
+            </Col>
+          </Row>
+
+          <Row className="mt-1">
+            <Col sm="6">
+              <Label className="form-label">Modelo</Label>
+              <Input
+                type="text"
+                name="model"
+                id="model"
+                placeholder="Modelo"
+                defaultValue={guarantee?.model}
+                disabled
+              />
+            </Col>
+
+            <Col sm="6">
+              <Label className="form-label">Número de série</Label>
+              <Input
+                type="text"
+                name="serial_number"
+                id="serial_number"
+                placeholder="Número de série"
+                defaultValue={guarantee?.serial_number}
+                disabled
+              />
+            </Col>
+          </Row>
+
+          <Row className="mt-2">
+            <Col sm="6">
+              <p className="fs-6">
+                Foto de la garantía<span className="text-danger">*</span>
+              </p>
+              {/* <Col sm="3"> */}
+              <img
+                src={guarantee?.photo}
+                width="200px"
+                className="mb-2 border cursor-pointer"
+                onClick={(e) => setZoomed(true)}
+              />
+              <ImageModal
+                image={guarantee?.photo}
+                isOpen={zoomed}
+                closeZoom={(e) => {
+                  setZoomed(false);
+                }}
+              />
+              {/* </Col> */}
+            </Col>
+          </Row>
+        </Form>
+        {/* <Row>
           <Col sm="3">
             <img
               src={guarantee?.photo}
@@ -123,7 +211,7 @@ const Guarantee = ({ guarantee }) => {
               </Col>
             </Row>
           </Col>
-        </Row>
+        </Row> */}
       </CardBody>
     </Card>
   );
