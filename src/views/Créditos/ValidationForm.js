@@ -62,6 +62,7 @@ const ValidationForm = () => {
             business_type: null,
             address_approved: null,
             inventory: null,
+            comment_observations: null,
             observations: [],
             payment_day: null,
             guarantee_approved: null,
@@ -83,9 +84,9 @@ const ValidationForm = () => {
             if (!values.inventory) {
               errors.inventory = requiredMsg;
             }
-            if (values.observations.length === 0) {
-              errors.observations = requiredMsg;
-            }
+            // if (values.observations.length === 0) {
+            //   errors.observations = requiredMsg;
+            // }
             if (!values.payment_day) {
               errors.payment_day = requiredMsg;
             }
@@ -358,7 +359,8 @@ const ValidationForm = () => {
                 <Row>
                   <Col sm="2">
                     <dt>
-                      Observaciones<span className="text-danger">*</span>
+                      Observaciones
+                      {/* <span className="text-danger">*</span> */}
                     </dt>
                   </Col>
                   <Col sm="9">
@@ -481,11 +483,31 @@ const ValidationForm = () => {
                 </Row>
               </dl>
 
+              <dl>
+                <Row>
+                  <Col sm="2">
+                    <dt>Comentarios observaciones</dt>
+                  </Col>
+                  <Col sm="4">
+                    <Input
+                      type="text"
+                      name="comment_observations"
+                      id="comment_observations"
+                      placeholder="Comentarios observaciones"
+                      tag={Field}
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="comment_observations"
+                      className="text-danger"
+                    />
+                  </Col>
+                </Row>
+              </dl>
+
               <Row>
                 <Col sm="2">
-                  <p className="fw-bold">
-                    Fotos de la casa
-                  </p>
+                  <p className="fw-bold">Fotos de la casa</p>
                 </Col>
                 <Col sm="4">
                   <FileUploaderMultiple
@@ -497,9 +519,7 @@ const ValidationForm = () => {
 
               <Row>
                 <Col sm="2">
-                  <p className="fw-bold">
-                    Fotos del negocio
-                  </p>
+                  <p className="fw-bold">Fotos del negocio</p>
                 </Col>
                 <Col sm="4">
                   <FileUploaderMultiple
