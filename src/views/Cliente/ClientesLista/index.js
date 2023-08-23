@@ -23,13 +23,16 @@ import { Search } from "react-feather";
 import API from "../../../@core/api/api";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../utility/context/User";
+import { convertDateWithTimeZone } from "../../../utility/Utils";
+import { Spanish } from "flatpickr/dist/l10n/es.js";
 
 const ClientesLista = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   // ** States
-  const today = new Date();
-  let prevDay = new Date();
+  const date = convertDateWithTimeZone(new Date());
+  const today = new Date(date);
+  let prevDay = new Date(date);
   prevDay = new Date(prevDay.setDate(prevDay.getDate() - 7));
   const [desdePicker, setDesdePicker] = useState(prevDay);
   const [hastaPicker, setHastaPicker] = useState(today);
@@ -128,6 +131,7 @@ const ClientesLista = () => {
                   setDesdePicker(dateStr);
                 }}
                 options={{
+                  locale: Spanish,
                   altInput: true,
                   altFormat: "F j, Y",
                   dateFormat: "Y-m-d"
@@ -146,6 +150,7 @@ const ClientesLista = () => {
                   setHastaPicker(dateStr)
                 }
                 options={{
+                  locale: Spanish,
                   altInput: true,
                   altFormat: "F j, Y",
                   dateFormat: "Y-m-d"

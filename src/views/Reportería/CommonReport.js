@@ -9,9 +9,10 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
+import { getConvertDateWithTimeZone } from "../../utility/Utils";
 
 const CommonReport = ({ title }) => {
-  const [picker, setPicker] = useState(new Date().toLocaleDateString());
+  const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const [previousMonth, setPreviousMonth] = useState("");
   const { user } = useContext(UserContext);
 

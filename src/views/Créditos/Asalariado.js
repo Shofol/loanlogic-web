@@ -22,6 +22,7 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import { departments, municipalitiesValues } from "../../configs/data";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const Asalariado = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
@@ -130,6 +131,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
                       setFieldValue("entry_date", dateStr);
                     }}
                     options={{
+                      locale: Spanish,
                       altInput: true,
                       altFormat: "F j, Y",
                       dateFormat: "Y-m-d",

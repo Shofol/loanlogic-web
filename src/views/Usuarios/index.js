@@ -13,10 +13,11 @@ import EditUser from "./EditUser";
 import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";
 import { UserContext } from "../../utility/context/User";
+import { getConvertDateWithTimeZone } from "../../utility/Utils";
 
 const Usuarios = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [picker, setPicker] = useState(new Date().toLocaleDateString());
+  const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const [previousMonth, setPreviousMonth] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -150,8 +151,14 @@ const Usuarios = () => {
                     <td>{user?.agency?.join(", ")}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
-                    <td>{new Date(user.date_of_birth).toLocaleDateString()}</td>
-                    <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                    <td>
+                      {user
+                        ? getConvertDateWithTimeZone(user.date_of_birth)
+                        : null}
+                    </td>
+                    <td>
+                      {user ? getConvertDateWithTimeZone(user.createdAt) : null}
+                    </td>
                     {/* <td>Q 950</td> */}
                     <td>
                       <Button.Ripple

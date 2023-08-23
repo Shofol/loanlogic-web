@@ -17,6 +17,7 @@ import { ThemeColors } from "@src/utility/context/ThemeColors";
 import api from "../../../@core/api/api";
 import StatusTag from "../../../@core/components/statusTag";
 import ImageModal from "../../../@core/components/imageModal/imageModal";
+import { getConvertDateWithTimeZone } from "../../../utility/Utils";
 
 const ClientesPerfil = () => {
   let { id } = useParams();
@@ -194,7 +195,9 @@ const ClientesPerfil = () => {
                   id="Fecha de nacimiento*"
                   placeholder="Fecha de nacimiento*"
                   disabled
-                  defaultValue={data?.birth_date}
+                  defaultValue={
+                    data ? getConvertDateWithTimeZone(data?.birth_date) : null
+                  }
 
                   // tag={Field}
                 />
@@ -308,7 +311,7 @@ const ClientesPerfil = () => {
                     <td
                       style={{ whiteSpace: "nowrap" }}
                     >{`${item.client.name} ${item.client.surname} ${item.client.second_surname}`}</td>
-                    <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                    <td>{getConvertDateWithTimeZone(item.createdAt)}</td>
                     <td>{item.id}</td>
                     <td>
                       <StatusTag status={item.status} />

@@ -22,6 +22,20 @@ const isToday = (date) => {
   );
 };
 
+const defaultTimeZone = "America/Guatemala";
+
+export const convertDateWithTimeZone = (date) => {
+  return date.toLocaleDateString("en-US", {
+    timeZone: defaultTimeZone
+  });
+};
+
+export const getConvertDateWithTimeZone = (date) => {
+  return new Date(date).toLocaleDateString({
+    timeZone: defaultTimeZone
+  });
+};
+
 /**
  ** Format and return date in Humanize format
  ** Intl docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/format

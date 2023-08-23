@@ -128,7 +128,9 @@ const Amortization = () => {
             <Col sm="12" md="6">
               <p className="mb-0">
                 Fecha crédito:{" "}
-                {new Date(data?.credit.createdAt).toLocaleDateString()}
+                {data
+                  ? getConvertDateWithTimeZone(data?.credit.createdAt)
+                  : null}
               </p>
             </Col>
             <Col sm="12" md="6">

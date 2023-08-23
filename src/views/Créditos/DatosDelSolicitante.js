@@ -32,6 +32,7 @@ import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploa
 import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const DatosDelSolicitante = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
@@ -337,6 +338,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                       setFieldValue("birth_date", dateStr);
                     }}
                     options={{
+                      locale: Spanish,
                       altInput: true,
                       altFormat: "F j, Y",
                       dateFormat: "Y-m-d"

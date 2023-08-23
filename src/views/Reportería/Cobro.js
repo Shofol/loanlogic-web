@@ -9,9 +9,11 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
+import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const Cobro = () => {
-  const [picker, setPicker] = useState(new Date().toLocaleDateString());
+  const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
 
   return (
@@ -40,6 +42,7 @@ const Cobro = () => {
             className="form-control"
             onChange={(selectedDates, dateStr, instance) => setPicker(dateStr)}
             options={{
+              locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
               dateFormat: "d/m/Y"

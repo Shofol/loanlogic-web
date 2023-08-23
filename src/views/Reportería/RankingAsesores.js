@@ -11,9 +11,15 @@ import { Download } from "react-feather";
 import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import "flatpickr/dist/plugins/monthSelect/style.css";
 import { UserContext } from "../../utility/context/User";
+import { Spanish } from "flatpickr/dist/l10n/es";
+import {
+  convertDateWithTimeZone,
+  getConvertDateWithTimeZone
+} from "../../utility/Utils";
 
 const RankingAsesores = ({ title }) => {
-  const [picker, setPicker] = useState(new Date());
+  const date = convertDateWithTimeZone(new Date());
+  const [picker, setPicker] = useState(new Date(date));
   const { user } = useContext(UserContext);
   // const [previousMonth, setPreviousMonth] = useState("");
 
@@ -63,6 +69,7 @@ const RankingAsesores = ({ title }) => {
               setPicker(dateStr);
             }}
             options={{
+              locale: Spanish,
               static: true,
               altInput: true,
               // altFormat: "F, Y",
@@ -85,7 +92,7 @@ const RankingAsesores = ({ title }) => {
             <th>No.</th>
             <th>Oficina</th>
             <th>Asesor</th>
-            <th>{picker.toLocaleDateString()}</th>
+            <th>{getConvertDateWithTimeZone(picker)}</th>
             <th>Meta</th>
             <th>% Efectividad</th>
             <th>Diferencia</th>

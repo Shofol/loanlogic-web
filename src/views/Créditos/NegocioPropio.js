@@ -24,6 +24,7 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import { departments, municipalitiesValues } from "../../configs/data";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const NegocioPropio = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
@@ -114,6 +115,7 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                       setFieldValue("start_date", dateStr);
                     }}
                     options={{
+                      locale: Spanish,
                       altInput: true,
                       altFormat: "F j, Y",
                       dateFormat: "Y-m-d",

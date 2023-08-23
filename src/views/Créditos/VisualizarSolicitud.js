@@ -31,6 +31,7 @@ import Guarantee from "./Guarantee";
 import CreditValidation from "./CreditValidation";
 import ImageModal from "../../@core/components/imageModal/imageModal";
 import StatusTag from "../../@core/components/statusTag";
+import { getConvertDateWithTimeZone } from "../../utility/Utils";
 
 const VisualizarSolicitud = () => {
   const [active, setActive] = useState("1");
@@ -485,9 +486,11 @@ const VisualizarSolicitud = () => {
                     name="birth_date"
                     id="birth_date"
                     placeholder="Fecha de nacimiento"
-                    defaultValue={new Date(
-                      data?.client.birth_date
-                    ).toDateString()}
+                    defaultValue={
+                      data
+                        ? getConvertDateWithTimeZone(data?.client.birth_date)
+                        : null
+                    }
                   />
                 </Col>
                 <Col sm="3">
@@ -654,9 +657,13 @@ const VisualizarSolicitud = () => {
                     name="expiration_date"
                     id="expiration_date"
                     placeholder="Fecha vencimiento"
-                    defaultValue={new Date(
-                      data?.client.expiration_date
-                    ).toDateString()}
+                    defaultValue={
+                      data
+                        ? getConvertDateWithTimeZone(
+                            data?.client.expiration_date
+                          )
+                        : null
+                    }
                   />
                 </Col>
                 <Col sm="3" className="mt-2 d-flex justify-content-end">
@@ -796,7 +803,7 @@ const VisualizarSolicitud = () => {
                     id="entry_date"
                     defaultValue={
                       data
-                        ? new Date(data?.client.entry_date).toLocaleDateString()
+                        ? getConvertDateWithTimeZone(data?.client.entry_date)
                         : null
                     }
                     placeholder="Fecha de ingreo"
@@ -951,10 +958,9 @@ const VisualizarSolicitud = () => {
                     type="text"
                     name="start_date"
                     id="start_date"
-                    // defaultValue={new Date(data?.client.start_date).toDateString()}
                     defaultValue={
                       data
-                        ? new Date(data?.client.start_date).toLocaleDateString()
+                        ? getConvertDateWithTimeZone(data?.client.start_date)
                         : null
                     }
                     placeholder="Fecha de inicio"

@@ -25,6 +25,11 @@ import { useNavigate } from "react-router-dom";
 import "./Solicitudes.scss";
 import StatusTag from "../../@core/components/statusTag";
 import { UserContext } from "../../utility/context/User";
+import {
+  convertDateWithTimeZone,
+  getConvertDateWithTimeZone
+} from "../../utility/Utils";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const Solicitudes = () => {
   const { user } = useContext(UserContext);
@@ -37,8 +42,9 @@ const Solicitudes = () => {
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
   const [status, setStatus] = useState([]);
-  const today = new Date();
-  let prevDay = new Date();
+  const date = convertDateWithTimeZone(new Date());
+  const today = new Date(date);
+  let prevDay = new Date(date);
   prevDay = new Date(prevDay.setDate(prevDay.getDate() - 7));
   const [desdePicker, setDesdePicker] = useState(prevDay);
   const [hastaPicker, setHastaPicker] = useState(today);
@@ -172,6 +178,7 @@ const Solicitudes = () => {
                   setDesdePicker(dateStr);
                 }}
                 options={{
+                  locale: Spanish,
                   altInput: true,
                   altFormat: "F j, Y",
                   dateFormat: "Y-m-d"
@@ -190,6 +197,7 @@ const Solicitudes = () => {
                   setHastaPicker(dateStr)
                 }
                 options={{
+                  locale: Spanish,
                   altInput: true,
                   altFormat: "F j, Y",
                   dateFormat: "Y-m-d"
@@ -324,7 +332,7 @@ const Solicitudes = () => {
                         <td>{app.product_id}</td>
                         <td>{app.client.residence_municipality}</td>
                         <td>{app.client.department_of_residence}</td>
-                        <td>{new Date(app.createdAt).toLocaleDateString()}</td>
+                        <td>{getConvertDateWithTimeZone(app.createdAt)}</td>
                         <td>
                           <StatusTag status={app.status} />
                         </td>

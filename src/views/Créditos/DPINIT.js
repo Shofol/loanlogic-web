@@ -25,6 +25,7 @@ import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploa
 import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const DPINIT = ({ stepper, onSubmit }) => {
   const [municipalities, setMunicipalities] = useState([]);
@@ -203,6 +204,7 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     }}
                     name="expiration_date"
                     options={{
+                      locale: Spanish,
                       altInput: true,
                       altFormat: "F j, Y",
                       dateFormat: "Y-m-d"

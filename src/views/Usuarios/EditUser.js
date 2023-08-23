@@ -37,6 +37,8 @@ import "@styles/react/libs/react-select/_react-select.scss";
 
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
+import { convertDateWithTimeZone } from "../../utility/Utils";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const estadoValues = [
   { label: "ACTIVO", value: "active" },
@@ -46,6 +48,7 @@ const estadoValues = [
 const EditUser = ({ showModal, user, onClose }) => {
   // ** States
   const [show, setShow] = useState(false);
+  const date = convertDateWithTimeZone(new Date());
   const initialValues = {
     name: user ? user.name : "",
     family_name: user ? user.family_name : "",
@@ -54,8 +57,8 @@ const EditUser = ({ showModal, user, onClose }) => {
     email: user ? user.email : "",
     phone: user ? user.phone : "",
     category: user ? user.category : "",
-    date_of_birth: user ? user.date_of_birth : new Date(),
-    start_date: user ? user.start_date : new Date(),
+    date_of_birth: user ? user.date_of_birth : new Date(date),
+    start_date: user ? user.start_date : new Date(date),
     is_active: user ? user.is_active : ""
   };
 
@@ -369,6 +372,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                           setFieldValue("date_of_birth", dateStr);
                         }}
                         options={{
+                          locale: Spanish,
                           altInput: true,
                           altFormat: "F j, Y",
                           dateFormat: "d/m/Y"
@@ -397,6 +401,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                           setFieldValue("start_date", dateStr[0]);
                         }}
                         options={{
+                          locale: Spanish,
                           altInput: true,
                           altFormat: "F j, Y",
                           dateFormat: "d/m/Y"

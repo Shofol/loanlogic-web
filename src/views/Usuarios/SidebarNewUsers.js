@@ -20,6 +20,8 @@ import { RefreshCw, Save } from "react-feather";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
+import { convertDateWithTimeZone } from "../../utility/Utils";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const defaultValues = {
   email: "",
@@ -42,7 +44,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
   const [role, setRole] = useState("subscriber");
   const [picker, setPicker] = useState(null);
   const [startDatepicker, setStartDatePicker] = useState(null);
-
+  const date = convertDateWithTimeZone(new Date());
   // const handleSidebarClosed = () => {
   //   for (const key in defaultValues) {
   //     setValue(key, "");
@@ -69,11 +71,11 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           agency: "",
           email: "",
           phone: "",
-          date_of_birth: new Date(),
+          date_of_birth: new Date(date),
           is_active: "",
           password: "",
           category: "",
-          start_date: new Date()
+          start_date: new Date(date)
         }}
         validate={(values) => {
           const requiredMsg = "Esto es requerido";
@@ -327,10 +329,11 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                   setFieldValue("date_of_birth", dateStr[0]);
                 }}
                 options={{
+                  locale: Spanish,
                   altInput: true,
                   altFormat: "F j, Y",
                   dateFormat: "d/m/Y",
-                  defaultDate: new Date()
+                  defaultDate: new Date(convertDateWithTimeZone(new Date()))
                 }}
               />
             </div>
@@ -348,10 +351,11 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                   setFieldValue("start_date", dateStr[0]);
                 }}
                 options={{
+                  locale: Spanish,
                   altInput: true,
                   altFormat: "F j, Y",
                   dateFormat: "d/m/Y",
-                  defaultDate: new Date()
+                  defaultDate: new Date(convertDateWithTimeZone(new Date()))
                 }}
               />
             </div>

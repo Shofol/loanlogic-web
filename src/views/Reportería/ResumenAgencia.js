@@ -8,9 +8,12 @@ import Select from "react-select";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
+import { convertDateWithTimeZone } from "../../utility/Utils";
+import { Spanish } from "flatpickr/dist/l10n/es";
 
 const ResumenAgencia = () => {
-  const [picker, setPicker] = useState(new Date());
+  const date = convertDateWithTimeZone(new Date());
+  const [picker, setPicker] = useState(new Date(date));
 
   return (
     <Card className="p-2">
@@ -39,6 +42,7 @@ const ResumenAgencia = () => {
             className="form-control bg-white"
             onChange={(selectedDates, dateStr, instance) => setPicker(dateStr)}
             options={{
+              locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
               dateFormat: "d/m/Y"
