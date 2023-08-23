@@ -66,6 +66,8 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";
+            const invalidNumber = "Numero de telefono invalido";
+
             if (!values.surname) {
               errors.surname = requiredMsg;
             }
@@ -83,6 +85,18 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
             }
             if (!values.landline_phone_number) {
               errors.landline_phone_number = requiredMsg;
+            }
+            if (
+              values.phone_number &&
+              values.phone_number.toString().length > 8
+            ) {
+              errors.phone_number = invalidNumber;
+            }
+            if (
+              values.landline_phone_number &&
+              values.landline_phone_number.toString().length > 8
+            ) {
+              errors.landline_phone_number = invalidNumber;
             }
             if (!values.email) {
               errors.email = requiredMsg;
@@ -206,7 +220,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     Número de celular <span className="text-danger">*</span>
                   </Label>
                   <Input
-                    type="text"
+                    type="number"
                     name="phone_number"
                     id="phone_number"
                     placeholder="Número de celular"
@@ -224,7 +238,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                     <span className="text-danger">*</span>
                   </Label>
                   <Input
-                    type="text"
+                    type="number"
                     name="landline_phone_number"
                     id="landline_phone_number"
                     placeholder="Número de teléfono fijo"

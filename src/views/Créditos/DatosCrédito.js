@@ -77,10 +77,10 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                 "Se requiere mínimo 5 caracteres";
             }
 
-            if (!values.reason_for_credit_request) {
-              errors.reason_for_credit_request =
-                "Se requiere el motivo solicitud del crédito";
-            }
+            // if (!values.reason_for_credit_request) {
+            //   errors.reason_for_credit_request =
+            //     "Se requiere el motivo solicitud del crédito";
+            // }
             if (
               !values.gurrentee_items ||
               values.gurrentee_items.length === 0
@@ -215,7 +215,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                     className="text-danger"
                   />
                 </Col>
-
+                {/* 
                 <Col md="2" className="mt-3">
                   <p className="mb-0">
                     Motivo solicitud del crédito
@@ -234,7 +234,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                     name="reason_for_credit_request"
                     className="text-danger"
                   />
-                </Col>
+                </Col> */}
               </Row>
 
               <p className="mt-4">
@@ -253,6 +253,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                       id={gurrentee_items.value}
                       name="gurrentee_items"
                       value={gurrentee_items.value}
+                      disabled={gurrentee_items.disabled}
                       tag={Field}
                       // checked={true}
                     />

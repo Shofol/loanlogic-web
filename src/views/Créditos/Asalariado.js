@@ -51,6 +51,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";
+            const invalidNumber = "Numero de telefono invalido";
 
             if (!values.company_name) {
               errors.company_name = requiredMsg;
@@ -78,6 +79,9 @@ const Asalariado = ({ stepper, onSubmit }) => {
             }
             if (!values.work_phone) {
               errors.work_phone = requiredMsg;
+            }
+            if (values.work_phone && values.work_phone.toString().length > 8) {
+              errors.work_phone = invalidNumber;
             }
             if (!values.work_department) {
               errors.work_department = requiredMsg;
@@ -341,7 +345,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
                     Teléfono del trabajo<span className="text-danger">*</span>
                   </Label>
                   <Input
-                    type="text"
+                    type="number"
                     name="work_phone"
                     id="work_phone"
                     placeholder="Teléfono del trabajo"

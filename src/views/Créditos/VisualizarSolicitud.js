@@ -250,7 +250,7 @@ const VisualizarSolicitud = () => {
                     />
                   </Col>
 
-                  <Col md="2" className="mt-3">
+                  {/* <Col md="2" className="mt-3">
                     <p className="mb-0">Motivo solicitud del crédito</p>
                   </Col>
                   <Col md="4" className="mt-3">
@@ -259,7 +259,7 @@ const VisualizarSolicitud = () => {
                       type="textarea"
                       defaultValue={data.reason_for_credit_request}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
 
                 <p className="mt-2">

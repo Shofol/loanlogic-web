@@ -103,6 +103,8 @@ const EditUser = ({ showModal, user, onClose }) => {
             initialValues={initialValues}
             validate={(values) => {
               const requiredMsg = "Esto es requerido";
+              const invalidNumber = "Numero de telefono invalido";
+
               const errors = {};
               if (!values.email) {
                 errors.email = requiredMsg;
@@ -125,6 +127,9 @@ const EditUser = ({ showModal, user, onClose }) => {
               }
               if (!values.phone) {
                 errors.phone = requiredMsg;
+              }
+              if (values.phone && values.phone.toString().length > 8) {
+                errors.phone = invalidNumber;
               }
               if (values.is_active === "") {
                 errors.is_active = requiredMsg;
@@ -344,6 +349,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                         Num. Celular <span className="text-danger">*</span>
                       </Label>
                       <Input
+                        type="number"
                         id="phone"
                         placeholder="502-222-222"
                         invalid={errors.phone && true}

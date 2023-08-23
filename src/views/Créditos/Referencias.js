@@ -62,6 +62,7 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";
+            const invalidNumber = "Numero de telefono invalido";
 
             if (!values.f_references_name_and_surname) {
               errors.f_references_name_and_surname = requiredMsg;
@@ -72,6 +73,18 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
             if (!values.f_references_cell_phone) {
               errors.f_references_cell_phone = requiredMsg;
             }
+            if (
+              values.f_references_cell_phone &&
+              values.f_references_cell_phone.toString().length > 8
+            ) {
+              errors.f_references_cell_phone = invalidNumber;
+            }
+            if (
+              values.f_references_work_phone &&
+              values.f_references_work_phone.toString().length > 8
+            ) {
+              errors.f_references_work_phone = invalidNumber;
+            }
             if (!values.p_references_name_and_surname) {
               errors.p_references_name_and_surname = requiredMsg;
             }
@@ -81,7 +94,18 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
             if (!values.p_references_cell_phone) {
               errors.p_references_cell_phone = requiredMsg;
             }
-
+            if (
+              values.p_references_cell_phone &&
+              values.p_references_cell_phone.toString().length > 8
+            ) {
+              errors.p_references_cell_phone = invalidNumber;
+            }
+            if (
+              values.p_references_work_phone &&
+              values.p_references_work_phone.toString().length > 8
+            ) {
+              errors.p_references_work_phone = invalidNumber;
+            }
             if (!values.f_references_name_and_surname_2) {
               errors.f_references_name_and_surname_2 = requiredMsg;
             }
@@ -91,6 +115,18 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
             if (!values.f_references_cell_phone_2) {
               errors.f_references_cell_phone_2 = requiredMsg;
             }
+            if (
+              values.f_references_cell_phone_2 &&
+              values.f_references_cell_phone_2.toString().length > 8
+            ) {
+              errors.f_references_cell_phone_2 = invalidNumber;
+            }
+            if (
+              values.f_references_work_phone_2 &&
+              values.f_references_work_phone_2.toString().length > 8
+            ) {
+              errors.f_references_work_phone_2 = invalidNumber;
+            }
             if (!values.p_references_name_and_surname_2) {
               errors.p_references_name_and_surname_2 = requiredMsg;
             }
@@ -99,6 +135,18 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
             }
             if (!values.p_references_cell_phone_2) {
               errors.p_references_cell_phone_2 = requiredMsg;
+            }
+            if (
+              values.p_references_cell_phone_2 &&
+              values.p_references_cell_phone_2.toString().length > 8
+            ) {
+              errors.p_references_cell_phone_2 = invalidNumber;
+            }
+            if (
+              values.f_references_work_phone_2 &&
+              values.f_references_work_phone_2.toString().length > 8
+            ) {
+              errors.f_references_work_phone_2 = invalidNumber;
             }
 
             return errors;
@@ -164,11 +212,16 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
                         Teléfono trabajo<span className="text-danger">*</span>
                       </Label>
                       <Input
-                        type="text"
+                        type="number"
                         name={`f_references_work_phone${ref}`}
                         id={`f_references_work_phone${ref}`}
                         placeholder="Teléfono trabajo"
                         tag={Field}
+                      />
+                      <ErrorMessage
+                        component="div"
+                        name={`f_references_work_phone${ref}`}
+                        className="text-danger"
                       />
                     </Col>
 
@@ -180,7 +233,7 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
                         Celular<span className="text-danger">*</span>
                       </Label>
                       <Input
-                        type="text"
+                        type="number"
                         name={`f_references_cell_phone${ref}`}
                         id={`f_references_cell_phone${ref}`}
                         placeholder="Celular"
@@ -252,11 +305,16 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
                         Teléfono trabajo<span className="text-danger">*</span>
                       </Label>
                       <Input
-                        type="text"
+                        type="number"
                         name={`p_references_work_phone${ref}`}
                         id={`p_references_work_phone${ref}`}
                         placeholder="Teléfono trabajo"
                         tag={Field}
+                      />
+                      <ErrorMessage
+                        component="div"
+                        name={`p_references_work_phone${ref}`}
+                        className="text-danger"
                       />
                     </Col>
                     <Col sm="3" className="mt-1">
@@ -267,7 +325,7 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
                         Celular<span className="text-danger">*</span>
                       </Label>
                       <Input
-                        type="text"
+                        type="number"
                         name={`p_references_cell_phone${ref}`}
                         id={`p_references_cell_phone${ref}`}
                         placeholder="Celular"

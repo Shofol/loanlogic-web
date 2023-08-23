@@ -674,12 +674,14 @@ export const guaranteeTypes = [
   {
     title: "Compra - venta;",
     value: "COMPRA_VENTA",
-    tip: "Si no me pagas, me quedo con la casa para venderla"
+    tip: "Si no me pagas, me quedo con la casa para venderla",
+    disabled: true
   },
   {
     title: "Empeño",
     value: "EMPEÑO",
-    tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo"
+    tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo",
+    disabled: true
   }
 ];
 

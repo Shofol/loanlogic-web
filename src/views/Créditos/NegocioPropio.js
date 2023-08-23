@@ -51,11 +51,11 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";
+            const invalidNumber = "Numero de telefono invalido";
 
             if (!values.business_name) {
               errors.business_name = requiredMsg;
             }
-
             if (!values.start_date) {
               errors.start_date = requiredMsg;
             }
@@ -73,6 +73,12 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
             }
             if (!values.business_phone) {
               errors.business_phone = requiredMsg;
+            }
+            if (
+              values.business_phone &&
+              values.business_phone.toString().length > 8
+            ) {
+              errors.business_phone = invalidNumber;
             }
 
             return errors;
@@ -258,7 +264,7 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                     Teléfono del negocio<span className="text-danger">*</span>
                   </Label>
                   <Input
-                    type="text"
+                    type="number"
                     name="business_phone"
                     id="business_phone"
                     placeholder="Teléfono del negocio"

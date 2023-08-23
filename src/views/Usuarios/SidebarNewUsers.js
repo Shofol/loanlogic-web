@@ -79,6 +79,8 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
         }}
         validate={(values) => {
           const requiredMsg = "Esto es requerido";
+          const invalidNumber = "Numero de telefono invalido";
+
           const errors = {};
           if (!values.email) {
             errors.email = requiredMsg;
@@ -101,6 +103,9 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           }
           if (!values.phone) {
             errors.phone = requiredMsg;
+          }
+          if (values.phone && values.phone.toString().length > 8) {
+            errors.phone = invalidNumber;
           }
           if (values.is_active === "") {
             errors.is_active = requiredMsg;
@@ -305,6 +310,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
               <Input
                 id="phone"
                 placeholder="502-222-222"
+                type="text"
                 // invalid={errors.phone && true}
                 name="phone"
                 tag={Field}
