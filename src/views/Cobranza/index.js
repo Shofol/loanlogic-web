@@ -37,6 +37,8 @@ const Cobranza = () => {
       {
         loading: "Loading",
         success: (data) => {
+          setData(data.data.data);
+
           return `${data.data.message}`;
         },
         error: (err) => {
@@ -177,14 +179,6 @@ const Cobranza = () => {
                     value={payment_made}
                     onChange={(e) => setPayment_made(e.target.value)}
                   />
-                  {/* <Input
-                    type="text"
-                    name="pagoRealizado"
-                    id="productoNombre"
-                    placeholder="Pago realizado"
-                    value={payment_made}
-                    onChange={(e) => setPayment_made(e.target.value)}
-                  /> */}
                 </Col>
               </Row>
             </Col>

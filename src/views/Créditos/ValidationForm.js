@@ -20,14 +20,11 @@ import { Formik, Field, ErrorMessage } from "formik";
 import API from "../../@core/api/api";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import ImageModal from "../../@core/components/imageModal/imageModal";
+import FileListViewer from "../../@core/components/fileListViewer";
 
 const ValidationForm = () => {
   const [dirección, setDirección] = useState("");
   const [garantía, setGarantía] = useState([]);
-  const [zoomed, setZoomed] = useState(false);
-  const [zoomedImage, setZoomedImage] = useState(null);
-
   useEffect(() => {
     fetchApplication();
   }, []);
@@ -282,31 +279,11 @@ const ValidationForm = () => {
                   </Col>
                   <Col sm="9">
                     <dd>
-                      {garantía &&
-                        garantía.length > 0 &&
-                        garantía.map((photo) => {
-                          return (
-                            <img
-                              key={photo}
-                              className="img-fluid cursor-pointer"
-                              src={photo}
-                              alt={"Garantía photo"}
-                              width="300px"
-                              // height="100px"
-                              onClick={(e) => {
-                                setZoomed(true);
-                                setZoomedImage(photo);
-                              }}
-                            />
-                          );
-                        })}
-                      <ImageModal
-                        image={zoomedImage}
-                        isOpen={zoomed}
-                        closeZoom={(e) => {
-                          setZoomed(false);
-                        }}
-                      />
+                      {garantía && garantía.length > 0 && (
+                        <div className="d-flex">
+                          <FileListViewer file={garantía} />
+                        </div>
+                      )}
                     </dd>
                     <div className="d-flex my-1">
                       <div className="form-check mb-sm-2 mb-md-0 me-md-3">

@@ -29,16 +29,14 @@ import {
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import Guarantee from "./Guarantee";
 import CreditValidation from "./CreditValidation";
-import ImageModal from "../../@core/components/imageModal/imageModal";
 import StatusTag from "../../@core/components/statusTag";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import FileListViewer from "../../@core/components/fileListViewer";
 
 const VisualizarSolicitud = () => {
   const [active, setActive] = useState("1");
   const [guarantee, setGuarantee] = useState(null);
   const [validationData, setValidationData] = useState(null);
-  const [zoomed, setZoomed] = useState(false);
-  const [zoomedImage, setZoomedImage] = useState(null);
 
   const toggle = (tab) => {
     if (active !== tab) {
@@ -559,35 +557,9 @@ const VisualizarSolicitud = () => {
                   </p>
                 </Col>
                 <Col md="9" className="d-flex align-items-center gap-2">
-                  {data &&
-                    data?.client.photos_of_bills.map((src) => {
-                      return (
-                        <div
-                          key={src}
-                          className="border img-box cursor-pointer"
-                        >
-                          <img
-                            className="boxed-image"
-                            src={src}
-                            alt={"item.name"}
-                            width="80px"
-                            height="80px"
-                            onClick={(e) => {
-                              setZoomed(true);
-                              setZoomedImage(src);
-                            }}
-                          />
-                        </div>
-                      );
-                    })}
-
-                  <ImageModal
-                    image={zoomedImage}
-                    isOpen={zoomed}
-                    closeZoom={(e) => {
-                      setZoomed(false);
-                    }}
-                  />
+                  {data && (
+                    <FileListViewer file={data?.client.photos_of_bills} />
+                  )}
                 </Col>
               </Row>
             </CardBody>
@@ -702,24 +674,9 @@ const VisualizarSolicitud = () => {
                   <p className="mt-2">Foto ambos lados del DPI</p>
                 </Col>
                 <Col md="9" className="d-flex align-items-center gap-2">
-                  {data &&
-                    data?.client.photos_of_the_dpi.map((src) => {
-                      return (
-                        <div key={src} className="border img-box">
-                          <img
-                            onClick={(e) => {
-                              setZoomed(true);
-                              setZoomedImage(src);
-                            }}
-                            className="boxed-image cursor-pointer"
-                            src={src}
-                            alt={"item.name"}
-                            width="80px"
-                            height="80px"
-                          />
-                        </div>
-                      );
-                    })}
+                  {data && (
+                    <FileListViewer file={data?.client.photos_of_the_dpi} />
+                  )}
                 </Col>
               </Row>
 

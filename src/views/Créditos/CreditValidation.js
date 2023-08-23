@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardTitle, Col, Input, Label, Row } from "reactstrap";
-import ImageModal from "../../@core/components/imageModal/imageModal";
+import FileListViewer from "../../@core/components/fileListViewer";
 
 const CreditValidation = ({ validation }) => {
-  const [zoomed, setZoomed] = useState(false);
-  const [zoomedImage, setZoomedImage] = useState(null);
-
   return (
     <Card className="p-2">
       <CardTitle className="text-center">Validación de crédito</CardTitle>
@@ -130,19 +127,11 @@ const CreditValidation = ({ validation }) => {
             <Col sm="12">
               <Label className="form-label">Evidences</Label>
               <br />
-              {validation.evidences.map((evidence) => {
-                return (
-                  <img
-                    src={evidence}
-                    width="400px"
-                    className="mb-2 border cursor-pointer"
-                    onClick={(e) => {
-                      setZoomed(true);
-                      setZoomedImage(evidence);
-                    }}
-                  />
-                );
-              })}
+              {
+                <div className="d-flex">
+                  <FileListViewer file={validation.evidences} />
+                </div>
+              }
             </Col>
           )}
 
@@ -151,29 +140,13 @@ const CreditValidation = ({ validation }) => {
               <Col sm="12">
                 <Label className="form-label">Work documents</Label>
                 <br />
-                {validation.work_documents.map((document) => {
-                  return (
-                    <img
-                      src={document}
-                      width="400px"
-                      className="mb-2 border cursor-pointer"
-                      onClick={(e) => {
-                        setZoomed(true);
-                        setZoomedImage(document);
-                      }}
-                    />
-                  );
-                })}
+                {
+                  <div className="d-flex">
+                    <FileListViewer file={validation.work_documents} />
+                  </div>
+                }
               </Col>
             )}
-
-          <ImageModal
-            image={zoomedImage}
-            isOpen={zoomed}
-            closeZoom={(e) => {
-              setZoomed(false);
-            }}
-          />
         </Row>
       </CardBody>
     </Card>

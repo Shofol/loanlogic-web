@@ -11,20 +11,17 @@ import {
   Row,
   Table
 } from "reactstrap";
-import image from "../../../assets/images/portrait/small/avatar-s-11.jpg";
 import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import api from "../../../@core/api/api";
 import StatusTag from "../../../@core/components/statusTag";
-import ImageModal from "../../../@core/components/imageModal/imageModal";
 import { getConvertDateWithTimeZone } from "../../../utility/Utils";
+import FileListViewer from "../../../@core/components/fileListViewer";
 
 const ClientesPerfil = () => {
   let { id } = useParams();
   const { colors } = useContext(ThemeColors);
   const [data, setData] = useState(null);
-  const [zoomed, setZoomed] = useState(false);
-  const [zoomedImage, setZoomedImage] = useState(null);
 
   const navigate = useNavigate();
   // const [currentPage, setCurrentPage] = useState(1);
@@ -60,50 +57,13 @@ const ClientesPerfil = () => {
             </p>
             <p className="mb-0">DPI: {data?.dpi_number}</p>
             <p>NIT: {data?.nit}</p>
-            <ImageModal
-              image={zoomedImage}
-              isOpen={zoomed}
-              closeZoom={(e) => {
-                setZoomed(false);
-              }}
-            />
-            {data &&
-              data.photos_of_bills &&
-              data.photos_of_bills.map((bill) => {
-                return (
-                  <img
-                    key={bill}
-                    src={bill}
-                    width="200px"
-                    // height="200px"
-                    className="mb-2 border cursor-pointer"
-                    onClick={(e) => {
-                      setZoomed(true);
-                      setZoomedImage(bill);
-                    }}
-                  />
-                );
-              })}
+            {data && data.photos_of_bills && (
+              <FileListViewer file={data.photos_of_bills} />
+            )}
 
-            {data &&
-              data.photos_of_the_dpi &&
-              data.photos_of_the_dpi.map((dpi) => {
-                return (
-                  <img
-                    key={dpi}
-                    src={dpi}
-                    width="200px"
-                    // height="200px"
-                    className="mb-2 border cursor-pointer"
-                    onClick={(e) => {
-                      setZoomed(true);
-                      setZoomedImage(dpi);
-                    }}
-                  />
-                );
-              })}
-
-            {/* <img src={image} width="200px" height="100px" /> */}
+            {data && data.photos_of_the_dpi && (
+              <FileListViewer file={data.photos_of_the_dpi} />
+            )}
           </Col>
           <Col md="6" className="px-4">
             <Row>
