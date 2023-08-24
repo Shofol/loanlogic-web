@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues, spanishMonths } from "../../configs/data";
 import { selectThemeColors } from "@utils";
 import Select from "react-select";
 // ** Styles
@@ -110,7 +110,7 @@ const CommonReport = ({ title }) => {
           <tr>
             <th>No.</th>
             <th>Agencia</th>
-            <th>Cierre {previousMonth}</th>
+            <th>Cierre {spanishMonths[`${previousMonth}`]}</th>
             <th>{picker}</th>
             <th>Diferencia %</th>
             <th>Diferencia Monto</th>

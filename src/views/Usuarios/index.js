@@ -18,7 +18,7 @@ import { getConvertDateWithTimeZone } from "../../utility/Utils";
 const Usuarios = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
-  const [previousMonth, setPreviousMonth] = useState("");
+  // const [previousMonth, setPreviousMonth] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [agent, setAgent] = useState(null);
@@ -39,20 +39,20 @@ const Usuarios = () => {
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  useEffect(() => {
-    setMonth();
-  }, []);
+  // useEffect(() => {
+  //   setMonth();
+  // }, []);
 
-  const handleMonthChange = (date) => {
-    setMonth(date);
-  };
+  // const handleMonthChange = (date) => {
+  //   setMonth(date);
+  // };
 
-  const setMonth = (date = null) => {
-    const current = date ? new Date(date) : new Date();
-    current.setMonth(current.getMonth() - 1);
-    const previousMonth = current.toLocaleString("default", { month: "long" });
-    setPreviousMonth(previousMonth);
-  };
+  // const setMonth = (date = null) => {
+  //   const current = date ? new Date(date) : new Date();
+  //   current.setMonth(current.getMonth() - 1);
+  //   const previousMonth = current.toLocaleString("default", { month: "long" });
+  //   setPreviousMonth(previousMonth);
+  // };
 
   const handleEdit = (user) => {
     setUser(user);
