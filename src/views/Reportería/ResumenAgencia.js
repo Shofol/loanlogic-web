@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
@@ -8,30 +8,35 @@ import Select from "react-select";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
-import { convertDateWithTimeZone } from "../../utility/Utils";
+import {
+  getConvertDateWithTimeZone,
+  formatDateForQuery,
+  calculateTotal
+} from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import api from "../../@core/api/api";
 
 const ResumenAgencia = () => {
-  const date = convertDateWithTimeZone(new Date());
-  const [picker, setPicker] = useState(new Date(date));
+  // const date = convertDateWithTimeZone(new Date());
+  const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, [picker]);
+
+  const fetchData = async () => {
+    const response = await api.get(
+      "reporting/resumen-agency" +
+        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}`
+    );
+    setData(response.data.data);
+  };
 
   return (
     <Card className="p-2">
       <CardTitle>Resumen diario agencia</CardTitle>
       <Row>
-        {/* <Col md="6">
-          <Label className="form-label">Oficina</Label>
-          <Select
-            isClearable={false}
-            theme={selectThemeColors}
-            isMulti
-            name="colors"
-            options={agenciasValues}
-            className="react-select"
-            classNamePrefix="select"
-          />
-        </Col> */}
-
         <Col md="6">
           <Label className="form-label" for="hf-picker">
             Fecha
@@ -40,7 +45,9 @@ const ResumenAgencia = () => {
             value={picker}
             id="hf-picker"
             className="form-control bg-white"
-            onChange={(selectedDates, dateStr, instance) => setPicker(dateStr)}
+            onChange={(selectedDates, dateStr, instance) => {
+              setPicker(dateStr);
+            }}
             options={{
               locale: Spanish,
               altInput: true,
@@ -64,48 +71,36 @@ const ResumenAgencia = () => {
             <th>%</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colSpan={3}>Total</th>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-          </tr>
-        </tfoot>
+        {data && data.length > 0 && (
+          <>
+            <tbody>
+              {data.map((res, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{res?.no}</td>
+                    <td>{res?.agency}</td>
+                    <td>{res?.currentClients}</td>
+                    <td>{res?.newCreditsApplications}</td>
+                    <td>{res?.totalCreditAmount}</td>
+                    <td>{res?.totalRemainingAmount}</td>
+                    <td>{res?.defaultAmount}</td>
+                    <td>{res?.defaultPercentage}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colSpan={3}>Total</th>
+                <td>{calculateTotal(data, "newCreditsApplications")}</td>
+                <td>{calculateTotal(data, "totalCreditAmount")}</td>
+                <td>{calculateTotal(data, "totalRemainingAmount")}</td>
+                <td>{calculateTotal(data, "defaultAmount")}</td>
+                <td>{calculateTotal(data, "defaultPercentage")}</td>
+              </tr>
+            </tfoot>
+          </>
+        )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">

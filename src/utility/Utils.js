@@ -25,6 +25,7 @@ const isToday = (date) => {
 const defaultTimeZone = "America/Guatemala";
 
 export const convertDateWithTimeZone = (date) => {
+  // using "en-US" to format the date as dd/mm/yyyy
   return date.toLocaleDateString("en-US", {
     timeZone: defaultTimeZone
   });
@@ -34,6 +35,23 @@ export const getConvertDateWithTimeZone = (date) => {
   return new Date(date).toLocaleDateString({
     timeZone: defaultTimeZone
   });
+};
+
+export const formatDateForQuery = (date) => {
+  // using "en-CA" to get the format as yyyy-mm-dd which is required in BE
+  const dateParts = date.split("/");
+  return new Date(
+    +dateParts[2],
+    +dateParts[1] - 1,
+    +dateParts[0]
+  ).toLocaleDateString("en-CA");
+};
+
+export const calculateTotal = (arr, key) => {
+  const result = arr.reduce(function (acc, obj) {
+    return acc + obj[`${key}`];
+  }, 0);
+  return typeof result !== "number" ? "-" : result;
 };
 
 /**

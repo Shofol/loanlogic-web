@@ -9,17 +9,48 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
-import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import {
+  getConvertDateWithTimeZone,
+  formatDateForQuery,
+  calculateTotal
+} from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import api from "../../@core/api/api";
 
 const CommonReport = ({ title }) => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const [previousMonth, setPreviousMonth] = useState("");
   const { user } = useContext(UserContext);
+  const [data, setData] = useState(null);
+  const [agency, setAgency] = useState(null);
+
+  let baseUrl = "";
+  if (title === "Mora") {
+    baseUrl = `reporting/mora`;
+  } else if (title === "Asistencias") {
+    baseUrl = `reporting/assistance`;
+  } else if (title === "Papelerías") {
+    baseUrl = `reporting/stationery`;
+  } else if (title === "Cancelaciones anticipadas") {
+    baseUrl = `reporting/advance_payment`;
+  }
 
   useEffect(() => {
     setMonth();
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [agency, picker]);
+
+  const fetchData = async () => {
+    const response = await api.get(
+      baseUrl +
+        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+    );
+    setData(response.data.data);
+  };
 
   const handleMonthChange = (date) => {
     setMonth(date);
@@ -46,6 +77,9 @@ const CommonReport = ({ title }) => {
             options={user.agency}
             className="react-select"
             classNamePrefix="select"
+            onChange={(option) =>
+              setAgency(option.map((option) => option.value))
+            }
           />
         </Col>
 
@@ -82,42 +116,33 @@ const CommonReport = ({ title }) => {
             <th>Diferencia Monto</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colSpan={2}>Total</th>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-
-            <td>1000</td>
-          </tr>
-        </tfoot>
+        {data && data.length > 0 && (
+          <>
+            <tbody>
+              {data.map((res, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{res?.agency}</td>
+                    <td>{res?.lastMonth}</td>
+                    <td>{res?.currentMonth}</td>
+                    <td>{res?.differenceInPercent}</td>
+                    <td>{res?.differenceInAmount}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colSpan={2}>Total</th>
+                <td>{calculateTotal(data, "lastMonth")}</td>
+                <td>{calculateTotal(data, "currentMonth")}</td>
+                <td>{calculateTotal(data, "differenceInPercent")}</td>
+                <td>{calculateTotal(data, "differenceInAmount")}</td>
+              </tr>
+            </tfoot>
+          </>
+        )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">

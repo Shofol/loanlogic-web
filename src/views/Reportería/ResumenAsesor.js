@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
@@ -9,12 +9,32 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
-import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import {
+  getConvertDateWithTimeZone,
+  formatDateForQuery,
+  calculateTotal
+} from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import api from "../../@core/api/api";
 
 const ResumenAsesor = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
+  const [data, setData] = useState(null);
+  const [agency, setAgency] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, [picker, agency]);
+
+  const fetchData = async () => {
+    const response = await api.get(
+      "reporting/resumen-asesor" +
+        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+    );
+    setData(response.data.data);
+  };
 
   return (
     <Card className="p-2">
@@ -30,6 +50,9 @@ const ResumenAsesor = () => {
             options={user.agency}
             className="react-select"
             classNamePrefix="select"
+            onChange={(option) =>
+              setAgency(option.map((option) => option.value))
+            }
           />
         </Col>
 
@@ -66,52 +89,38 @@ const ResumenAsesor = () => {
             <th>%</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colSpan={3}>Total</th>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-          </tr>
-        </tfoot>
+        {data && data.length > 0 && (
+          <>
+            <tbody>
+              {data.map((res, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{res?.no}</td>
+                    <td>{res?.agency}</td>
+                    <td>{res?.user}</td>
+                    <td>{res?.currentClients}</td>
+                    <td>{res?.newCreditsApplications}</td>
+                    <td>{res?.totalCreditAmount}</td>
+                    <td>{res?.totalRemainingAmount}</td>
+                    <td>{res?.defaultAmount}</td>
+                    <td>{res?.defaultPercentage}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colSpan={3}>Total</th>
+                <td>{calculateTotal(data, "currentClients")}</td>
+                <td>{calculateTotal(data, "newCreditsApplications")}</td>
+                <td>{calculateTotal(data, "totalCreditAmount")}</td>
+                <td>{calculateTotal(data, "totalRemainingAmount")}</td>
+                <td>{calculateTotal(data, "defaultAmount")}</td>
+                <td>{calculateTotal(data, "defaultPercentage")}</td>
+              </tr>
+            </tfoot>
+          </>
+        )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">
