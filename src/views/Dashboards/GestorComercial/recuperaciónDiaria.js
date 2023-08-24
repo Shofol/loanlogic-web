@@ -90,7 +90,7 @@ const RecuperaciónDiaria = () => {
                   <td>{pdData?.client.surname}</td>
                   <td>{pdData?.client.residence_address}</td>
                   <td>{pdData?.client.residence_municipality}</td>
-                  <td>{pdData?.client.residence_address}</td>
+                  <td>{pdData?.client.department_of_residence}</td>
                   {/* <td> 
                     <StatusTag status={pdData?}/>
                   </td> */}
