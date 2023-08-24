@@ -1,13 +1,347 @@
 import React, { useState } from "react";
-import { Card, CardBody, CardTitle, Col, Input, Label, Row } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Col,
+  Form,
+  Input,
+  Label,
+  Row,
+  UncontrolledTooltip
+} from "reactstrap";
 import FileListViewer from "../../@core/components/fileListViewer";
+import { Info } from "react-feather";
 
 const CreditValidation = ({ validation }) => {
   return (
     <Card className="p-2">
       <CardTitle className="text-center">Validación de crédito</CardTitle>
       <CardBody>
-        <Row>
+        <Form>
+          <dl>
+            <Row>
+              <Col sm="2">
+                <dt>
+                  Tipo de negocio <span className="text-danger">*</span>
+                </dt>
+              </Col>
+              <Col sm="4">
+                <Input
+                  type="text"
+                  name="business_type"
+                  id="business_type"
+                  placeholder="Tipo de negocio"
+                  defaultValue={validation?.business_type}
+                  disabled
+                />
+              </Col>
+            </Row>
+          </dl>
+          <dl>
+            <Row>
+              <Col sm="2">
+                <dt>
+                  Dirección<span className="text-danger">*</span>
+                </dt>
+              </Col>
+              <Col sm="9">
+                <div className="d-flex">
+                  <div className="form-check mb-sm-2 mb-md-0 me-md-3">
+                    <Input
+                      type="radio"
+                      id="dirección-aceptar"
+                      name="address_approved"
+                      checked={validation?.address_approved === true}
+                      disabled
+                    />
+                    <Label className="form-check-label" for="dirección-aceptar">
+                      Aceptar
+                    </Label>
+                  </div>
+                  <div className="form-check">
+                    <Input
+                      type="radio"
+                      name="address_approved"
+                      id="direcciónRechazar"
+                      checked={validation?.address_approved !== true}
+                      disabled
+                    />
+                    <Label className="form-check-label" for="direcciónRechazar">
+                      Rechazar
+                    </Label>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </dl>
+          <dl>
+            <Row>
+              <Col sm="2">
+                <dt>
+                  Inventario<span className="text-danger">*</span>
+                </dt>
+              </Col>
+              <Col sm="4">
+                <Input
+                  type="text"
+                  name="inventory"
+                  id="inventory"
+                  placeholder="Inventario"
+                  defaultValue={validation?.inventory}
+                  disabled
+                />
+              </Col>
+            </Row>
+          </dl>
+          <dl>
+            <Row>
+              <Col sm="2">
+                <dt>
+                  Modalidad de pago<span className="text-danger">*</span>
+                </dt>
+              </Col>
+              <Col sm="4">
+                <Input
+                  type="text"
+                  name="payment_day"
+                  id="payment_day"
+                  placeholder="Modalidad de pago"
+                  defaultValue={validation?.payment_day}
+                  disabled
+                />
+              </Col>
+            </Row>
+          </dl>
+
+          <dl>
+            <Row>
+              <Col sm="2" className="my-1">
+                <dt>
+                  Garantía<span className="text-danger">*</span>
+                </dt>
+              </Col>
+              <Col sm="9">
+                <div className="d-flex my-1">
+                  <div className="form-check mb-sm-2 mb-md-0 me-md-3">
+                    <Input
+                      type="radio"
+                      id="garantía-aceptar"
+                      name="guarantee_approved"
+                      checked={validation?.guarantee_approved === true}
+                      disabled
+                    />
+                    <Label className="form-check-label" for="garantía-aceptar">
+                      Aceptar
+                    </Label>
+                  </div>
+                  <div className="form-check">
+                    <Input
+                      type="radio"
+                      name="guarantee_approved"
+                      id="garantíaRechazar"
+                      checked={validation?.guarantee_approved !== true}
+                      disabled
+                    />
+                    <Label className="form-check-label" for="garantíaRechazar">
+                      Rechazar
+                    </Label>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </dl>
+
+          <dl>
+            <Row>
+              <Col sm="2">
+                <dt>Observaciones</dt>
+              </Col>
+              <Col sm="9">
+                <div className="form-check form-check-inline">
+                  <Input
+                    type="checkbox"
+                    id="vidriosRotos"
+                    name="observations"
+                    checked={validation?.observations.includes("vidriosRotos")}
+                    disabled
+                  />
+                  <Label
+                    for="vidriosRotos"
+                    className="form-check-label"
+                    style={{ marginRight: ".25rem" }}
+                  >
+                    Vidrios rotos
+                  </Label>
+                  <Info size={16} id="vidriosRotosTooltip" />
+                  <UncontrolledTooltip
+                    placement="top"
+                    target="vidriosRotosTooltip"
+                  >
+                    Verifica si hay cristales rotos en la propiedad y anótalo en
+                    los comentarios
+                  </UncontrolledTooltip>
+                </div>
+
+                <div className="form-check form-check-inline">
+                  <Input
+                    type="checkbox"
+                    id="postes"
+                    name="observations"
+                    checked={validation?.observations.includes("postes")}
+                    disabled
+                  />
+                  <Label
+                    for="postes"
+                    className="form-check-label"
+                    style={{ marginRight: ".25rem" }}
+                  >
+                    Postes
+                  </Label>
+                  <Info size={16} id="postesTooltip" />
+                  <UncontrolledTooltip placement="top" target="postesTooltip">
+                    Verifica si hay postes de impago en la vivienda y anótalo en
+                    los comentarios
+                  </UncontrolledTooltip>
+                </div>
+
+                <div className="form-check form-check-inline">
+                  <Input
+                    type="checkbox"
+                    id="malasReferencias"
+                    name="observations"
+                    checked={validation?.observations.includes(
+                      "malasReferencias"
+                    )}
+                    disabled
+                  />
+                  <Label
+                    for="malasReferencias"
+                    className="form-check-label"
+                    style={{ marginRight: ".25rem" }}
+                  >
+                    Malas referencias vecinos
+                  </Label>
+                  <Info size={16} id="malasReferenciasTooltip" />
+                  <UncontrolledTooltip
+                    placement="top"
+                    target="malasReferenciasTooltip"
+                  >
+                    Habla con los vecinos para pedir referencias y anótalo en
+                    los comentarios
+                  </UncontrolledTooltip>
+                </div>
+              </Col>
+            </Row>
+          </dl>
+
+          <dl>
+            <Row>
+              <Col sm="2">
+                <dt>Comentarios observaciones</dt>
+              </Col>
+              <Col sm="4">
+                <Input
+                  type="text"
+                  name="comment_observations"
+                  id="comment_observations"
+                  placeholder="Comentarios observaciones"
+                  defaultValue={validation?.comment_observations}
+                  disabled
+                />
+              </Col>
+            </Row>
+          </dl>
+
+          <Row>
+            <Col sm="2">
+              <p className="fw-bold">Fotos de la casa</p>
+            </Col>
+            <Col sm="4">
+              {validation &&
+                validation.evidences &&
+                validation.evidences.length > 0 && (
+                  <div className="d-flex">
+                    <FileListViewer file={validation.evidences} />
+                  </div>
+                )}
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm="2">
+              <p className="fw-bold">Fotos del negocio</p>
+            </Col>
+            <Col sm="4">
+              {validation &&
+                validation.work_documents &&
+                validation.work_documents.length > 0 && (
+                  <div className="d-flex">
+                    <FileListViewer file={validation.work_documents} />
+                  </div>
+                )}
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm="2">
+              <p className="fw-bold">
+                Analizar riesgo<span className="text-danger">*</span>
+              </p>
+            </Col>
+            <Col sm="4">
+              <div>
+                <Label className="form-label" for="textarea-counter">
+                  Comentario
+                </Label>
+                <Input
+                  name="comment"
+                  type="textarea"
+                  id="comment"
+                  placeholder="Comentario"
+                  defaultValue={validation?.comment}
+                  disabled
+                />
+              </div>
+            </Col>
+          </Row>
+
+          <Row className="mt-2">
+            <Col sm="2">
+              <p className="fw-bold">
+                Aceptar crédito<span className="text-danger">*</span>
+              </p>
+            </Col>
+            <Col sm="4 d-flex gap-3">
+              <div className="form-check">
+                <Input
+                  type="radio"
+                  id="aceptar-active"
+                  name="credit_approval"
+                  checked={validation?.credit_approval === true}
+                  disabled
+                />
+                <Label className="form-check-label" for="aceptar-active">
+                  Aceptar
+                </Label>
+              </div>
+              <div className="form-check">
+                <Input
+                  type="radio"
+                  id="rechazar"
+                  name="credit_approval"
+                  checked={validation?.credit_approval !== true}
+                  disabled
+                />
+                <Label className="form-check-label" for="rechazar">
+                  Rechazar
+                </Label>
+              </div>
+            </Col>
+          </Row>
+        </Form>
+
+        {/* <Row>
           <Col sm="4" className="mb-1">
             <Label className="form-label" for="id">
               ID
@@ -147,7 +481,7 @@ const CreditValidation = ({ validation }) => {
                 }
               </Col>
             )}
-        </Row>
+        </Row> */}
       </CardBody>
     </Card>
   );
