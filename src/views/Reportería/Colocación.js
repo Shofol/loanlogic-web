@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import { agenciasValues } from "../../configs/data";
@@ -9,12 +9,49 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
-import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import {
+  getConvertDateWithTimeZone,
+  formatDateForQuery,
+  calculateTotal
+} from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import api from "../../@core/api/api";
 
 const Colocación = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
+  const [data, setData] = useState(null);
+  const [agency, setAgency] = useState(null);
+  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [agency, picker, product]);
+
+  const fetchProducts = async () => {
+    const response = await api.get(`product`);
+    setProducts(
+      response.data.data.map((product) => ({
+        label: product.product_name,
+        value: product.id
+      }))
+    );
+  };
+
+  const fetchData = async () => {
+    const response = await api.get(
+      `reporting/colocacion` +
+        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+        `${product ? `&product=${product}` : ""}` +
+        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+    );
+    setData(response.data.data);
+  };
 
   return (
     <Card className="p-2">
@@ -30,6 +67,9 @@ const Colocación = () => {
             options={user.agency}
             className="react-select"
             classNamePrefix="select"
+            onChange={(option) =>
+              setAgency(option.map((option) => option.value))
+            }
           />
         </Col>
 
@@ -56,71 +96,66 @@ const Colocación = () => {
           <Select
             isClearable={false}
             theme={selectThemeColors}
-            isMulti
             name="colors"
-            options={agenciasValues}
+            options={products}
             className="react-select"
             classNamePrefix="select"
+            onChange={(option) => {
+              setProduct(option.value);
+            }}
           />
         </Col>
       </Row>
 
-      <Table className="mt-4">
+      <Table className="mt-4" responsive>
         <thead>
           <tr>
             <th>No.</th>
             <th>Oficina</th>
+            <th>#Solicitudes</th>
             <th>{picker}</th>
-            <th>Colocación al {picker}</th>
+            <th style={{ whiteSpace: "nowrap" }}>Colocación al {picker}</th>
             <th>Meta Diciembre</th>
-            <th>Total Diciembre</th>
+            <th>#Total Diciembre</th>
             <th>% Cumplido</th>
             <th>Diferencia</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colSpan={2}>Total</th>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-          </tr>
-        </tfoot>
+        {data && data.length > 0 && (
+          <>
+            <tbody>
+              {data.map((res, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{res?.no}</td>
+                    <td>{res?.agency}</td>
+                    <td>{res?.todayCreditApplications}</td>
+                    <td>{res?.todayCreditAmount}</td>
+                    <td>{res?.currentMonthCreditAmount}</td>
+                    <td>{res?.currentMonthGoal}</td>
+                    <td>{res?.currentMonthCreditApplications}</td>
+                    <td>{res?.currentMonthPercentage}</td>
+                    <td>{res?.currentMonthDifference}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colSpan={2}>Total</th>
+                <td>{calculateTotal(data, "todayCreditApplications")}</td>
+                <td>{calculateTotal(data, "todayCreditAmount")}</td>
+                <td>{calculateTotal(data, "currentMonthCreditAmount")}</td>
+                <td>{calculateTotal(data, "currentMonthGoal")}</td>
+                <td>
+                  {calculateTotal(data, "currentMonthCreditApplications")}
+                </td>
+                <td>{calculateTotal(data, "currentMonthPercentage")}</td>
+                <td>{calculateTotal(data, "currentMonthDifference")}</td>
+              </tr>
+            </tfoot>
+          </>
+        )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">
