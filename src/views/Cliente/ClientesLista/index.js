@@ -76,8 +76,8 @@ const ClientesLista = () => {
     if (status.length > 0) {
       queryParams.status = status.join(",");
     }
-    queryParams.startDate = new Date(desdePicker).toISOString().split("T")[0];
-    queryParams.endDate = new Date(hastaPicker).toISOString().split("T")[0];
+    queryParams.startDate = new Date(desdePicker).toLocaleDateString("en-CA");
+    queryParams.endDate = new Date(hastaPicker).toLocaleDateString("en-CA");
   };
 
   return (

@@ -39,6 +39,7 @@ import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { convertDateWithTimeZone } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import { formatMessage } from "../../utility/functions/formatMessage";
 
 const estadoValues = [
   { label: "ACTIVO", value: "active" },
@@ -49,6 +50,7 @@ const EditUser = ({ showModal, user, onClose }) => {
   // ** States
   const [show, setShow] = useState(false);
   const date = convertDateWithTimeZone(new Date());
+
   const initialValues = {
     name: user ? user.name : "",
     family_name: user ? user.family_name : "",
@@ -143,6 +145,7 @@ const EditUser = ({ showModal, user, onClose }) => {
               return errors;
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
+              console.log(values);
               const response = API.put(`user/${user.id}`, values);
               toast.promise(
                 response,
@@ -154,7 +157,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                       setShow(false);
                       onClose();
                     }, 100);
-                    return `Successfully saved ${data.name}`;
+                    return `Successfully saved`;
                   },
                   error: (err) => {
                     return `ERROR: ${formatMessage(err)}`;
@@ -370,18 +373,22 @@ const EditUser = ({ showModal, user, onClose }) => {
                         Fecha nacimiento
                       </Label>
                       <Flatpickr
-                        defaultValue={user.date_of_birth}
                         id="hf-picker"
                         className="form-control bg-white"
                         onChange={(dateStr, instance) => {
-                          setPicker(dateStr);
-                          setFieldValue("date_of_birth", dateStr);
+                          setFieldValue(
+                            "date_of_birth",
+                            new Date(dateStr[0]).toLocaleDateString("en-CA")
+                          );
                         }}
                         options={{
                           locale: Spanish,
                           altInput: true,
                           altFormat: "F j, Y",
-                          dateFormat: "d/m/Y"
+                          dateFormat: "d/m/Y",
+                          defaultDate: new Date(
+                            user?.date_of_birth.split("T")[0]
+                          )
                         }}
                       />
                     </div>
@@ -398,19 +405,20 @@ const EditUser = ({ showModal, user, onClose }) => {
                         Fecha de ingreso
                       </Label>
                       <Flatpickr
-                        // value={startDatepicker}
-                        defaultValue={user.start_date}
                         id="hf-picker"
                         className="form-control bg-white"
                         onChange={(dateStr, instance) => {
-                          setStartDatePicker(dateStr);
-                          setFieldValue("start_date", dateStr[0]);
+                          setFieldValue(
+                            "start_date",
+                            new Date(dateStr[0]).toLocaleDateString("en-CA")
+                          );
                         }}
                         options={{
                           locale: Spanish,
                           altInput: true,
                           altFormat: "F j, Y",
-                          dateFormat: "d/m/Y"
+                          dateFormat: "d/m/Y",
+                          defaultDate: new Date(user?.start_date.split("T")[0])
                         }}
                       />
                     </div>

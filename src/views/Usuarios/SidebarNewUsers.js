@@ -331,8 +331,12 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 id="hf-picker"
                 className="form-control"
                 onChange={(dateStr, instance) => {
+                  alert(dateStr);
                   setPicker(dateStr);
-                  setFieldValue("date_of_birth", dateStr[0]);
+                  setFieldValue(
+                    "date_of_birth",
+                    new Date(dateStr[0]).toLocaleDateString("en-CA")
+                  );
                 }}
                 options={{
                   locale: Spanish,
@@ -354,7 +358,10 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 className="form-control bg-white"
                 onChange={(dateStr, instance) => {
                   setStartDatePicker(dateStr);
-                  setFieldValue("start_date", dateStr[0]);
+                  setFieldValue(
+                    "start_date",
+                    new Date(dateStr[0]).toLocaleDateString("en-CA")
+                  );
                 }}
                 options={{
                   locale: Spanish,
