@@ -80,7 +80,7 @@ const ResumenAgencia = () => {
                     <td>{res?.no}</td>
                     <td>{res?.agency}</td>
                     <td>{res?.currentClients}</td>
-                    <td>{res?.newCreditsApplications}</td>
+                    <td>{res?.newCreditApplications}</td>
                     <td>{res?.totalCreditAmount}</td>
                     <td>{res?.totalRemainingAmount}</td>
                     <td>{res?.defaultAmount}</td>
@@ -92,7 +92,7 @@ const ResumenAgencia = () => {
             <tfoot>
               <tr>
                 <th colSpan={3}>Total</th>
-                <td>{calculateTotal(data, "newCreditsApplications")}</td>
+                <td>{calculateTotal(data, "newCreditApplications")}</td>
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
                 <td>{calculateTotal(data, "totalRemainingAmount")}</td>
                 <td>{calculateTotal(data, "defaultAmount")}</td>
