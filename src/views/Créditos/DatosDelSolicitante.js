@@ -98,10 +98,8 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
             ) {
               errors.landline_phone_number = invalidNumber;
             }
-            if (!values.email) {
-              errors.email = requiredMsg;
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            if (
+              values.emai && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
             ) {
               errors.email = "Invalid email address";
             }
@@ -252,7 +250,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit }) => {
                 </Col>
                 <Col sm="3">
                   <Label className="form-label" for="email">
-                    Correo electrónico <span className="text-danger">*</span>
+                    Correo electrónico
                   </Label>
                   <Input
                     type="email"
