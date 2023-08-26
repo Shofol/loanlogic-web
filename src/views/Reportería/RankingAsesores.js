@@ -14,29 +14,51 @@ import { UserContext } from "../../utility/context/User";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import {
   convertDateWithTimeZone,
+  formatDateForQuery,
   getConvertDateWithTimeZone
 } from "../../utility/Utils";
+import api from "../../@core/api/api";
 
 const RankingAsesores = ({ title }) => {
   const date = convertDateWithTimeZone(new Date());
   const [picker, setPicker] = useState(new Date(date));
+  const splitedDate = formatDateForQuery(
+    getConvertDateWithTimeZone(picker)
+  ).split("-");
+  const initialMonth = `${splitedDate[0]}-${splitedDate[1]}`;
+  const [selectedDate, setSelectedDate] = useState(initialMonth);
   const { user } = useContext(UserContext);
-  // const [previousMonth, setPreviousMonth] = useState("");
+  const [data, setData] = useState(null);
+  const [agency, setAgency] = useState(null);
 
   useEffect(() => {
-    // setMonth();
-  }, []);
+    fetchData();
+  }, [selectedDate, agency]);
 
-  // const handleMonthChange = (date) => {
-  //   setMonth(date);
-  // };
+  const fetchData = async () => {
+    const response = await api.get(
+      "reporting/ranking-agents" +
+        `${selectedDate ? `?month=${selectedDate}` : ""}` +
+        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+    );
+    setData(response.data.data);
+  };
 
-  // const setMonth = (date = null) => {
-  //   const current = date ? new Date(date) : new Date();
-  //   current.setMonth(current.getMonth() - 1);
-  //   const previousMonth = current.toLocaleString("default", { month: "long" });
-  //   setPreviousMonth(previousMonth);
-  // };
+  const calculateDate = () => {
+    // checking if the month is greater/equal to today's date
+    if (new Date(selectedDate).getMonth() >= new Date(date).getMonth()) {
+      return getConvertDateWithTimeZone(new Date(date));
+    } else {
+      // setting the date as the last day of the previous month
+      let modifiedDate = new Date(selectedDate);
+      modifiedDate = new Date(
+        modifiedDate.getFullYear(),
+        modifiedDate.getMonth() + 1,
+        0
+      );
+      return getConvertDateWithTimeZone(modifiedDate);
+    }
+  };
 
   return (
     <Card className="p-2">
@@ -52,6 +74,9 @@ const RankingAsesores = ({ title }) => {
             options={user.agency}
             className="react-select"
             classNamePrefix="select"
+            onChange={(option) =>
+              setAgency(option.map((option) => option.value))
+            }
           />
         </Col>
 
@@ -64,20 +89,17 @@ const RankingAsesores = ({ title }) => {
             id="hf-picker"
             className="form-control bg-white"
             onChange={(selectedDates, dateStr, instance) => {
-              console.log(dateStr);
-              // handleMonthChange(selectedDates[0]);
               setPicker(dateStr);
+              setSelectedDate(dateStr);
             }}
             options={{
               locale: Spanish,
               static: true,
               altInput: true,
-              // altFormat: "F, Y",
-              // dateFormat: "m/Y",
               plugins: [
                 new monthSelectPlugin({
                   shorthand: false,
-                  dateFormat: "m/d/Y",
+                  dateFormat: "Y-m",
                   altFormat: "F, Y"
                 })
               ]
@@ -92,33 +114,29 @@ const RankingAsesores = ({ title }) => {
             <th>No.</th>
             <th>Oficina</th>
             <th>Asesor</th>
-            <th>{getConvertDateWithTimeZone(picker)}</th>
+            <th>{calculateDate()}</th>
             <th>Meta</th>
             <th>% Efectividad</th>
             <th>Diferencia</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>Q 950</td>
-          </tr>
+          {data &&
+            data.length > 0 &&
+            data.map((res, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{res?.agency}</td>
+                  <td>{res?.user}</td>
+                  <td>{res?.totalRequestedAmount}</td>
+                  <td>{res?.userGoal}</td>
+                  <td>{res?.percentageEfficiency}</td>
+                  <td>{res?.differenceInAmount}</td>
+                </tr>
+              );
+            })}
         </tbody>
-        {/* <tfoot>
-          <tr>
-            <th colSpan={2}>Total</th>
-            <td>1000</td>
-            <td>1000</td>
-            <td>1000</td>
-
-            <td>1000</td>
-          </tr>
-        </tfoot> */}
       </Table>
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">
