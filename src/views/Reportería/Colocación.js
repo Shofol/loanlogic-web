@@ -31,10 +31,18 @@ const Colocación = () => {
 
   useEffect(() => {
     fetchData();
-  }, [agency, picker, product]);
+  }, [picker, product]);
+
+  useEffect(() => {
+    fetchProducts();
+    fetchData();
+  }, [agency]);
 
   const fetchProducts = async () => {
-    const response = await api.get(`product`);
+    const response = await api.get(
+      `product/list?sortField=id&sortOrder=ASC` +
+        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+    );
     setProducts(
       response.data.data.map((product) => ({
         label: product.product_name,
