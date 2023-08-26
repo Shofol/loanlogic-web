@@ -28,6 +28,9 @@ const ResumenAgencia = lazy(() =>
   import("../../views/Reportería/ResumenAgencia")
 );
 const KPI = lazy(() => import("../../views/Reportería/KPI"));
+const TransaccionesMensuales = lazy(() =>
+  import("../../views/Reportería/TransaccionesMensuales")
+);
 
 const ReporteríaRoutes = [
   {
@@ -77,6 +80,10 @@ const ReporteríaRoutes = [
   {
     path: "/reportería/kpi",
     element: <KPI />
+  },
+  {
+    path: "/reportería/transaccionesMensuales",
+    element: <TransaccionesMensuales />
   },
   { path: "reportería/rankingAsesores", element: <RankingAsesores /> }
 ];

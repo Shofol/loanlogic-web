@@ -157,6 +157,12 @@ export default [
         title: "Ranking Asesores",
         icon: <Circle size={20} />,
         navLink: "reportería/rankingAsesores"
+      },
+      {
+        id: "transaccionesMensuales",
+        title: "Transacciones",
+        icon: <Circle size={20} />,
+        navLink: "reportería/transaccionesMensuales"
       }
     ]
   },
