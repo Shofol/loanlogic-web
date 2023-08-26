@@ -99,7 +99,7 @@ const ResumenAsesor = () => {
                     <td>{res?.agency}</td>
                     <td>{res?.user}</td>
                     <td>{res?.currentClients}</td>
-                    <td>{res?.newCreditsApplications}</td>
+                    <td>{res?.newCreditApplications}</td>
                     <td>{res?.totalCreditAmount}</td>
                     <td>{res?.totalRemainingAmount}</td>
                     <td>{res?.defaultAmount}</td>
@@ -112,7 +112,7 @@ const ResumenAsesor = () => {
               <tr>
                 <th colSpan={3}>Total</th>
                 <td>{calculateTotal(data, "currentClients")}</td>
-                <td>{calculateTotal(data, "newCreditsApplications")}</td>
+                <td>{calculateTotal(data, "newCreditApplications")}</td>
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
                 <td>{calculateTotal(data, "totalRemainingAmount")}</td>
                 <td>{calculateTotal(data, "defaultAmount")}</td>
