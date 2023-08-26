@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import api from "../../@core/api/api";
+import { getConvertDateWithTimeZone } from "../../utility/Utils";
 
 const Amortization = () => {
   const navigate = useNavigate();
