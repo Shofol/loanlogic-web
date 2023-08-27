@@ -103,7 +103,7 @@ const ResumenAsesor = () => {
                     <td>{res?.totalCreditAmount}</td>
                     <td>{res?.totalRemainingAmount}</td>
                     <td>{res?.defaultAmount}</td>
-                    <td>{res?.defaultPercentage}</td>
+                    <td>{parseFloat(res?.defaultPercentage || 0).toFixed(2)} %</td>
                   </tr>
                 );
               })}
@@ -116,7 +116,7 @@ const ResumenAsesor = () => {
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
                 <td>{calculateTotal(data, "totalRemainingAmount")}</td>
                 <td>{calculateTotal(data, "defaultAmount")}</td>
-                <td>{calculateTotal(data, "defaultPercentage")}</td>
+                <td>{parseFloat(calculateTotal(data, "defaultPercentage") || 0).toFixed(2)} %</td>
               </tr>
             </tfoot>
           </>

@@ -142,7 +142,7 @@ const Colocación = () => {
                     <td>{res?.currentMonthCreditAmount}</td>
                     <td>{res?.currentMonthGoal}</td>
                     <td>{res?.currentMonthCreditApplications}</td>
-                    <td>{res?.currentMonthPercentage}</td>
+                    <td>{parseFloat(res?.currentMonthPercentage).toFixed(2)} %</td>
                     <td>{res?.currentMonthDifference}</td>
                   </tr>
                 );
@@ -158,7 +158,7 @@ const Colocación = () => {
                 <td>
                   {calculateTotal(data, "currentMonthCreditApplications")}
                 </td>
-                <td>{calculateTotal(data, "currentMonthPercentage")}</td>
+                <td>{parseFloat(calculateTotal(data, "currentMonthPercentage")).toFixed(2)} %</td>
                 <td>{calculateTotal(data, "currentMonthDifference")}</td>
               </tr>
             </tfoot>
