@@ -741,3 +741,35 @@ export const spanishMonths = {
   November: "Noviembre",
   December: "Diciembre"
 };
+
+export const chartColors = [
+  "#ea5545",
+  "#ef9b20",
+  "#f46a9b",
+  "#7f8c8d",
+  "#edbf33",
+  "#ede15b",
+  "#bdcf32",
+  "#87bc45",
+  "#27aeef",
+  "#b33dc6",
+  "#1abc9c",
+  "#2ecc71",
+  "#3498db",
+  "#9b59b6",
+  "#34495e",
+  "#16a085",
+  "#27ae60",
+  "#2980b9",
+  "#8e44ad",
+  "#2c3e50",
+  "#f1c40f",
+  "#e67e22",
+  "#e74c3c",
+  "#ecf0f1",
+  "#95a5a6",
+  "#f39c12",
+  "#d35400",
+  "#c0392b",
+  "#bdc3c7"
+];

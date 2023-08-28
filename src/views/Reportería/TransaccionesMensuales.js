@@ -10,9 +10,18 @@ import { Spanish } from "flatpickr/dist/l10n/es";
 import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import { Download } from "react-feather";
 import api from "../../@core/api/api";
-import Chart from "react-apexcharts";
-import { ArrowDown } from "react-feather";
-import { ThemeColors } from "@src/utility/context/ThemeColors";
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
+import "@styles/react/libs/charts/recharts.scss";
+import { chartColors } from "../../configs/data";
 
 const TransaccionesMensuales = () => {
   const date = convertDateWithTimeZone(new Date());
@@ -23,9 +32,9 @@ const TransaccionesMensuales = () => {
   const initialMonth = `${splitedDate[0]}-${splitedDate[1]}`;
   const [selectedDate, setSelectedDate] = useState(initialMonth);
   const [data, setData] = useState(null);
-  const { colors } = useContext(ThemeColors);
   const [series, setSeries] = useState([]);
-  const [options, setOptions] = useState({});
+  const [dates, setDates] = useState([]);
+  const [agenciesData, setagenciesData] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -41,104 +50,96 @@ const TransaccionesMensuales = () => {
 
   useEffect(() => {
     if (data) {
-      let updatedCategories = [];
-      Object.keys(data.agencyTransactions).map((key, index) => {
-        if (index === 0) {
-          updatedCategories = Object.keys(data.agencyTransactions[`${key}`]);
-        }
-      });
-      console.log(
-        updatedCategories.sort((prev, next) => {
-          const prevDateParts = prev.split("-");
-          const nextDateParts = next.split("-");
-
-          return (
-            new Date(
-              +prevDateParts[2],
-              +prevDateParts[1] - 1,
-              +prevDateParts[0]
-            ) -
-            new Date(
-              +nextDateParts[2],
-              +nextDateParts[1] - 1,
-              +nextDateParts[0]
-            )
-          );
-        })
-      );
-
-      const updateOptions = {
-        chart: {
-          zoom: {
-            enabled: false
-          },
-          parentHeightOffset: 0,
-          toolbar: {
-            show: false
-          }
-        },
-
-        markers: {
-          strokeWidth: 7,
-          strokeOpacity: 1,
-          strokeColors: ["#fff"],
-          colors: [colors.warning.main]
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: "straight"
-        },
-        colors: [colors.warning.main],
-        grid: {
-          xaxis: {
-            lines: {
-              show: true
+      let updatedSeries = [];
+      Object.keys(data.agencyTransactions).map((key) => {
+        Object.entries(data.agencyTransactions[`${key}`]).map(
+          ([date, value]) => {
+            const filterdData = updatedSeries.filter(
+              (data) => data.name === date
+            )[0];
+            if (filterdData) {
+              filterdData[`${key}`] = value;
+            } else {
+              updatedSeries = [
+                ...updatedSeries,
+                {
+                  name: date,
+                  [key]: value
+                }
+              ];
             }
           }
-        },
-        tooltip: {
-          custom(data) {
-            return `<div class='px-1 py-50'>
-                  <span>${
-                    data.series[data.seriesIndex][data.dataPointIndex]
-                  }%</span>
-                </div>`;
-          }
-        },
-        xaxis: {
-          categories: updatedCategories
-        }
-      };
-
-      setOptions(updateOptions);
-
-      const updatedSeries = Object.keys(data.agencyTransactions).map((key) => ({
-        type: "line",
-        data: Object.values(data.agencyTransactions[`${key}`])
-      }));
-
+        );
+      });
+      updatedSeries.sort((prev, next) => {
+        const prevDateParts = prev.name.split("-");
+        const nextDateParts = next.name.split("-");
+        return sortByDate(prevDateParts, nextDateParts);
+      });
       setSeries(updatedSeries);
+      setDates(updatedSeries.map((element) => element.name));
     }
   }, [data]);
 
-  // ** Chart Options
+  useEffect(() => {
+    if (dates.length > 0) {
+      mapTableData();
+    }
+  }, [dates]);
 
-  // ** Chart Series
+  const mapTableData = () => {
+    const agencies = { ...data.agencyTransactions };
+    Object.keys(agencies).map((key) => {
+      dates.map((date) => {
+        if (!Object.keys(agencies[`${key}`]).includes(date)) {
+          agencies[`${key}`][`${date}`] = null;
+        }
+      });
+    });
+    setagenciesData(agencies);
+  };
 
-  //   [
-  //     {
-  //       type: "line",
-  //       data: [
-  //         280, 200, 220, 180, 270, 250, 70, 90, 200, 150, 160, 100, 150, 100, 50
-  //       ]
-  //     },
-  //     {
-  //       type: "line",
-  //       data: [28, 20, 22, 18, 27, 25, 70, 900, 20, 15, 16, 10, 15, 10, 50]
-  //     }
-  //   ];
+  const getSortedTotal = () => {
+    return Object.keys(data.total)
+      .sort((prev, next) => {
+        const prevDateParts = prev.split("-");
+        const nextDateParts = next.split("-");
+        return sortByDate(prevDateParts, nextDateParts);
+      })
+      .map((key, idx) => {
+        return <td key={idx}>{data.total[`${key}`]}</td>;
+      });
+  };
+
+  const sortByDate = (prevDateParts, nextDateParts) => {
+    return (
+      new Date(+prevDateParts[2], +prevDateParts[1] - 1, +prevDateParts[0]) -
+      new Date(+nextDateParts[2], +nextDateParts[1] - 1, +nextDateParts[0])
+    );
+  };
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload) {
+      return (
+        <div className="recharts-custom-tooltip">
+          <span>{`${payload[0].value} | ${payload[0].payload.name}`}</span>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const renderRows = (agency) => {
+    return Object.entries(agenciesData[`${agency}`])
+      .sort((prev, next) => {
+        const prevDateParts = prev[0].split("-");
+        const nextDateParts = next[0].split("-");
+        return sortByDate(prevDateParts, nextDateParts);
+      })
+      .map(([key, value], idx) => {
+        return <td key={idx}>{value}</td>;
+      });
+  };
 
   return (
     <Card className="p-2">
@@ -173,8 +174,65 @@ const TransaccionesMensuales = () => {
       </Row>
 
       {data && (
-        <Chart options={options} series={series} type="line" height={400} />
+        <div className="recharts-wrapper pt-2">
+          <ResponsiveContainer>
+            <LineChart height={300} data={series}>
+              <CartesianGrid />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip content={CustomTooltip} />
+              {Object.keys(data.agencyTransactions).map((agency, index) => {
+                return (
+                  <Line
+                    key={agency}
+                    dataKey={agency}
+                    connectNulls
+                    stroke={chartColors[index]}
+                    strokeWidth={3}
+                  />
+                );
+              })}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       )}
+
+      <Table className="mt-4" responsive>
+        <thead>
+          <tr>
+            <th>Agencia.</th>
+            {dates &&
+              dates.length > 0 &&
+              dates.map((date) => {
+                return (
+                  <th key={date} style={{ whiteSpace: "nowrap" }}>
+                    {date}
+                  </th>
+                );
+              })}
+          </tr>
+        </thead>
+        {data && (
+          <>
+            <tbody>
+              {Object.keys(agenciesData).map((agency, index) => {
+                return (
+                  <tr key={agency}>
+                    <td>{agency}</td>
+                    {renderRows(agency)}
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Total</th>
+                {getSortedTotal()}
+              </tr>
+            </tfoot>
+          </>
+        )}
+      </Table>
 
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">
