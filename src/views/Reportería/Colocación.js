@@ -34,8 +34,10 @@ const Colocación = () => {
   }, [picker, product]);
 
   useEffect(() => {
-    fetchProducts();
-    fetchData();
+    if (agency) {
+      fetchProducts();
+      fetchData();
+    }
   }, [agency]);
 
   const fetchProducts = async () => {
@@ -142,7 +144,9 @@ const Colocación = () => {
                     <td>{res?.currentMonthCreditAmount}</td>
                     <td>{res?.currentMonthGoal}</td>
                     <td>{res?.currentMonthCreditApplications}</td>
-                    <td>{parseFloat(res?.currentMonthPercentage).toFixed(2)} %</td>
+                    <td>
+                      {parseFloat(res?.currentMonthPercentage).toFixed(2)} %
+                    </td>
                     <td>{res?.currentMonthDifference}</td>
                   </tr>
                 );
@@ -158,7 +162,12 @@ const Colocación = () => {
                 <td>
                   {calculateTotal(data, "currentMonthCreditApplications")}
                 </td>
-                <td>{parseFloat(calculateTotal(data, "currentMonthPercentage")).toFixed(2)} %</td>
+                <td>
+                  {parseFloat(
+                    calculateTotal(data, "currentMonthPercentage")
+                  ).toFixed(2)}{" "}
+                  %
+                </td>
                 <td>{calculateTotal(data, "currentMonthDifference")}</td>
               </tr>
             </tfoot>
