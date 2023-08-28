@@ -131,7 +131,7 @@ const RankingAsesores = ({ title }) => {
                   <td>{res?.user}</td>
                   <td>{res?.totalRequestedAmount}</td>
                   <td>{res?.userGoal}</td>
-                  <td>{res?.percentageEfficiency}</td>
+                  <td>{parseFloat(res?.percentageEfficiency).toFixed(2)} %</td>
                   <td>{res?.differenceInAmount}</td>
                 </tr>
               );

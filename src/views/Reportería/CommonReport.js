@@ -126,7 +126,7 @@ const CommonReport = ({ title }) => {
                     <td>{res?.agency}</td>
                     <td>{res?.lastMonth}</td>
                     <td>{res?.currentMonth}</td>
-                    <td>{res?.differenceInPercent}</td>
+                    <td>{parseFloat(res?.differenceInPercent || 0).toFixed(2)} %</td>
                     <td>{res?.differenceInAmount}</td>
                   </tr>
                 );
@@ -137,7 +137,7 @@ const CommonReport = ({ title }) => {
                 <th colSpan={2}>Total</th>
                 <td>{calculateTotal(data, "lastMonth")}</td>
                 <td>{calculateTotal(data, "currentMonth")}</td>
-                <td>{calculateTotal(data, "differenceInPercent")}</td>
+                <td>{parseFloat(calculateTotal(data, "differenceInPercent") || 0).toFixed(2)} %</td>
                 <td>{calculateTotal(data, "differenceInAmount")}</td>
               </tr>
             </tfoot>
