@@ -139,7 +139,9 @@ const Cobranza = () => {
               <div className="mb-0 d-flex">
                 <p className="acc-title">Cuota crédito</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">{data?.debt_collection.credit_fee} Q</p>
+                <p className="mb-0 ms-1">
+                  {data?.debt_collection.credit_fee} Q
+                </p>
               </div>
               <div className="mb-0 d-flex">
                 <p className="acc-title">Mora</p>
@@ -173,6 +175,7 @@ const Cobranza = () => {
                   <Cleave
                     className="form-control"
                     placeholder="Pago realizado"
+                    disabled={data?.debt_collection.status === "PAID"}
                     options={options}
                     id="pagoRealizado"
                     name="pagoRealizado"
@@ -183,12 +186,10 @@ const Cobranza = () => {
               </Row>
 
               <Row className="d-flex fw-bold mb-sm-2">
-                
                 <div className="mb-0 d-flex">
-                <p className="acc-title">Estado pago</p>
-                <p className="mb-0 ms-1">{data?.debt_collection.status}</p>
-                
-              </div>
+                  <p className="acc-title">Estado pago</p>
+                  <p className="mb-0 ms-1">{data?.debt_collection.status}</p>
+                </div>
               </Row>
             </Col>
           </Row>
@@ -223,6 +224,7 @@ const Cobranza = () => {
                       outline
                       color="secondary"
                       type="reset"
+                      disabled={data?.debt_collection.status === "PENDING"}
                       onClick={() => {
                         window.print();
                       }}

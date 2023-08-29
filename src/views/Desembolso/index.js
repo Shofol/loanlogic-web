@@ -32,6 +32,7 @@ const Desembolso = () => {
       {
         loading: "Loading",
         success: (data) => {
+          setData(data.data.data);
           return `${data.data.message}`;
         },
         error: (err) => {
@@ -200,6 +201,7 @@ const Desembolso = () => {
                       outline
                       color="secondary"
                       type="reset"
+                      disabled={data?.debt_collection.status === "PENDING"}
                       onClick={() => {
                         window.print();
                       }}
