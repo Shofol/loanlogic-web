@@ -235,42 +235,44 @@ const Amortization = () => {
           <tbody>
             {collection &&
               collection.length > 0 &&
-              collection.map((debt) => {
-                return (
-                  <tr key={debt.id}>
-                    <td className="stickyFirstColumn bg-primary-subtle">
-                      {debt.no_of_installment}
-                    </td>
-                    <td className="stickySecondColumn bg-primary-subtle">
-                      {debt.payment_date}
-                    </td>
-                    <td>{debt.payment_made}</td>
-                    <td>{debt.amount_to_pay}</td>
-                    <td>{debt.credit_fee}</td>
-                    <td>{debt.credit_capital}</td>
-                    <td>{debt.credit_interest}</td>
-                    <td>{debt.credit_interest_tax}</td>
-                    <td>{debt.administrative_fee}</td>
-                    <td>{debt.administrative_fee_tax}</td>
-                    <td>{debt.assistance_fee}</td>
-                    <td>{debt.assistance_fee_tax}</td>
-                    <td>{debt.discount_holidays_amount}</td>
-                    <td>{debt.discount_holidays_capital}</td>
-                    <td>{debt.discount_holidays_interest}</td>
-                    <td>{debt.discount_holidays_tax}</td>
-                    <td>{debt.advanced_installment}</td>
-                    <td>{debt.collection_management_fee}</td>
-                    <td>{debt.collection_management_tax}</td>
-                    <td>{debt.default_amount}</td>
-                    <td>{debt.default_interest}</td>
-                    <td>{debt.default_interest_tax}</td>
-                    <td>{debt.total_paid_amount}</td>
-                    <td>{debt.total_pending_amount}</td>
-                    <td>{debt.total_tax}</td>
-                    <td>{debt.status}</td>
-                  </tr>
-                );
-              })}
+              collection
+                .sort((prev, next) => prev.id - next.id)
+                .map((debt) => {
+                  return (
+                    <tr key={debt.id}>
+                      <td className="stickyFirstColumn bg-primary-subtle">
+                        {debt.no_of_installment}
+                      </td>
+                      <td className="stickySecondColumn bg-primary-subtle">
+                        {debt.payment_date}
+                      </td>
+                      <td>{debt.payment_made}</td>
+                      <td>{debt.amount_to_pay}</td>
+                      <td>{debt.credit_fee}</td>
+                      <td>{debt.credit_capital}</td>
+                      <td>{debt.credit_interest}</td>
+                      <td>{debt.credit_interest_tax}</td>
+                      <td>{debt.administrative_fee}</td>
+                      <td>{debt.administrative_fee_tax}</td>
+                      <td>{debt.assistance_fee}</td>
+                      <td>{debt.assistance_fee_tax}</td>
+                      <td>{debt.discount_holidays_amount}</td>
+                      <td>{debt.discount_holidays_capital}</td>
+                      <td>{debt.discount_holidays_interest}</td>
+                      <td>{debt.discount_holidays_tax}</td>
+                      <td>{debt.advanced_installment}</td>
+                      <td>{debt.collection_management_fee}</td>
+                      <td>{debt.collection_management_tax}</td>
+                      <td>{debt.default_amount}</td>
+                      <td>{debt.default_interest}</td>
+                      <td>{debt.default_interest_tax}</td>
+                      <td>{debt.total_paid_amount}</td>
+                      <td>{debt.total_pending_amount}</td>
+                      <td>{debt.total_tax}</td>
+                      <td>{debt.status}</td>
+                    </tr>
+                  );
+                })}
           </tbody>
           {collection && collection.length > 0 && totalValue && (
             <tfoot className="fw-bold">
