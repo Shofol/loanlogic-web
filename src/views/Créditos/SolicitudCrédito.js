@@ -32,6 +32,11 @@ const SolicitudCrédito = () => {
   const [occupation, setOccupation] = useState(null);
   const [willSkip5, setWillSkip5] = useState(false);
   const [isLastForm, setIsLastForm] = useState(false);
+  const [dpiData, setDpiData] = useState(null);
+
+  useEffect(() => {
+    console.log(dpiData);
+  }, [dpiData]);
 
   const handleSubmitForm = () => {
     const form = new FormData();
@@ -96,12 +101,15 @@ const SolicitudCrédito = () => {
       )
     },
     {
-      id: "datos-del-solicitante",
-      title: "Datos del solicitante",
-      icon: <User size={16} />,
+      id: "dpi-nit",
+      title: "DPI/NIT",
+      icon: <FileText size={16} />,
       content: (
-        <DatosDelSolicitante
+        <DPINIT
           stepper={stepper}
+          setDPIData={(value) => {
+            setDpiData(value);
+          }}
           onSubmit={(value) => {
             setValueToSubmit({ ...valueToSubmit, ...value });
           }}
@@ -109,11 +117,12 @@ const SolicitudCrédito = () => {
       )
     },
     {
-      id: "dpi-nit",
-      title: "DPI/NIT",
-      icon: <FileText size={16} />,
+      id: "datos-del-solicitante",
+      title: "Datos del solicitante",
+      icon: <User size={16} />,
       content: (
-        <DPINIT
+        <DatosDelSolicitante
+          data={dpiData}
           stepper={stepper}
           onSubmit={(value) => {
             setValueToSubmit({ ...valueToSubmit, ...value });
@@ -128,6 +137,7 @@ const SolicitudCrédito = () => {
           icon: <Gift size={16} />,
           content: (
             <Asalariado
+              data={dpiData}
               stepper={stepper}
               onSubmit={(value) => {
                 setValueToSubmit({ ...valueToSubmit, ...value });
@@ -144,6 +154,7 @@ const SolicitudCrédito = () => {
           icon: <Briefcase size={16} />,
           content: (
             <NegocioPropio
+              data={dpiData}
               stepper={stepper}
               skipSept5={willSkip5}
               onSubmit={(value) => {
@@ -160,6 +171,7 @@ const SolicitudCrédito = () => {
       icon: <Globe size={16} />,
       content: (
         <Referencias
+          data={dpiData}
           stepper={stepper}
           onPrevious={() => {
             setIsLastForm(false);

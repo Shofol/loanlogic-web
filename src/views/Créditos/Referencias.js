@@ -1,28 +1,21 @@
-import React, { useState } from "react";
-import ReactSlider from "react-slider";
+import React, { useState, useEffect } from "react";
 import {
   Button,
-  Card,
   CardBody,
   CardHeader,
-  CardSubtitle,
   CardTitle,
   Col,
   Form,
   Input,
-  InputGroup,
-  InputGroupText,
   Label,
-  Row,
-  UncontrolledTooltip
+  Row
 } from "reactstrap";
 import "./Créditos.scss";
 import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import { ErrorMessage, Field, Formik } from "formik";
-import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 
-const Referencias = ({ stepper, onSubmit, onPrevious }) => {
+const Referencias = ({ stepper, onSubmit, onPrevious, data }) => {
   const [referenciasPersonales, setReferenciasPersonales] = useState([
     "",
     "_2"
@@ -31,6 +24,41 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
     "",
     "_2"
   ]);
+
+  const mapFormValues = () => {
+    return {
+      f_references_name_and_surname: data
+        ? data.f_references_name_and_surname
+        : "",
+      f_references_relationship: data ? data.f_references_relationship : "",
+      f_references_work_phone: data ? data.f_references_work_phone : "",
+      f_references_cell_phone: data ? data.f_references_cell_phone : "",
+      p_references_name_and_surname: data
+        ? data.p_references_name_and_surname
+        : "",
+      p_references_relationship: data ? data.p_references_relationship : "",
+      p_references_work_phone: data ? data.p_references_work_phone : "",
+      p_references_cell_phone: data ? data.p_references_cell_phone : "",
+      f_references_name_and_surname_2: data
+        ? data.f_references_name_and_surname_2
+        : "",
+      f_references_relationship_2: data ? data.f_references_relationship_2 : "",
+      f_references_work_phone_2: data ? data.f_references_work_phone_2 : "",
+      f_references_cell_phone_2: data ? data.f_references_cell_phone_2 : "",
+      p_references_name_and_surname_2: data
+        ? data.p_references_name_and_surname_2
+        : "",
+      p_references_relationship_2: data ? data.p_references_relationship_2 : "",
+      p_references_work_phone_2: data ? data.p_references_work_phone_2 : "",
+      p_references_cell_phone_2: data ? data.p_references_cell_phone_2 : ""
+    };
+  };
+
+  const [formValues, setFormValues] = useState(mapFormValues());
+
+  useEffect(() => {
+    setFormValues(mapFormValues());
+  }, [data]);
 
   return (
     <div>
@@ -41,24 +69,8 @@ const Referencias = ({ stepper, onSubmit, onPrevious }) => {
       </CardHeader>
       <CardBody>
         <Formik
-          initialValues={{
-            f_references_name_and_surname: "",
-            f_references_relationship: "",
-            f_references_work_phone: "",
-            f_references_cell_phone: "",
-            p_references_name_and_surname: "",
-            p_references_relationship: "",
-            p_references_work_phone: "",
-            p_references_cell_phone: "",
-            f_references_name_and_surname_2: "",
-            f_references_relationship_2: "",
-            f_references_work_phone_2: "",
-            f_references_cell_phone_2: "",
-            p_references_name_and_surname_2: "",
-            p_references_relationship_2: "",
-            p_references_work_phone_2: "",
-            p_references_cell_phone_2: ""
-          }}
+          initialValues={formValues}
+          enableReinitialize
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";

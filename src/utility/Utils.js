@@ -54,6 +54,19 @@ export const calculateTotal = (arr, key) => {
   return typeof result !== "number" ? "-" : result;
 };
 
+export const mapMuniValue = (
+  municipalitiesValues,
+  values,
+  departmentFieldName,
+  muniFieldName
+) => {
+  return municipalitiesValues
+    .filter((muni) => muni.department === values[`${departmentFieldName}`])[0]
+    ?.municipalities.filter(
+      (element) => element.value === values[`${muniFieldName}`]
+    );
+};
+
 /**
  ** Format and return date in Humanize format
  ** Intl docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/format

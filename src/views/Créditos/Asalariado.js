@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -23,10 +23,33 @@ import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import { departments, municipalitiesValues } from "../../configs/data";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import { mapMuniValue } from "../../utility/Utils";
 
-const Asalariado = ({ stepper, onSubmit }) => {
+const Asalariado = ({ stepper, onSubmit, data }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef();
+
+  const mapFormValues = () => {
+    return {
+      company_name: data ? data.company_name : "",
+      entry_date: data ? data.entry_date : new Date(),
+      position: data ? data.position : "",
+      monthly_income: data ? data.monthly_income : "",
+      monthly_expenses: data ? data.monthly_expenses : "",
+      date_and_number_of_income: data ? data.date_and_number_of_income : "",
+      immediate_boss_name: data ? data.immediate_boss_name : "",
+      work_address: data ? data.work_address : "",
+      work_department: data ? data.work_department : "",
+      work_municipality: data ? data.work_municipality : "",
+      work_phone: data ? data.work_phone : ""
+    };
+  };
+
+  const [formValues, setFormValues] = useState(mapFormValues());
+
+  useEffect(() => {
+    setFormValues(mapFormValues());
+  }, [data]);
 
   return (
     <div>
@@ -35,19 +58,8 @@ const Asalariado = ({ stepper, onSubmit }) => {
       </CardHeader>
       <CardBody>
         <Formik
-          initialValues={{
-            company_name: "",
-            entry_date: new Date(),
-            position: "",
-            monthly_income: "",
-            monthly_expenses: "",
-            date_and_number_of_income: "",
-            immediate_boss_name: "",
-            work_address: "",
-            work_department: "",
-            work_municipality: "",
-            work_phone: ""
-          }}
+          initialValues={formValues}
+          enableReinitialize
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";
@@ -102,7 +114,7 @@ const Asalariado = ({ stepper, onSubmit }) => {
             }
           }}
         >
-          {({ handleSubmit, setFieldValue, resetForm }) => (
+          {({ handleSubmit, setFieldValue, resetForm, values }) => (
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col sm="3" className="mt-1">
@@ -282,6 +294,12 @@ const Asalariado = ({ stepper, onSubmit }) => {
                     isClearable={false}
                     name="work_department"
                     id="work_department"
+                    value={
+                      departments.filter(
+                        (department) =>
+                          department.value === values.work_department
+                      )[0]
+                    }
                     onChange={(option) => {
                       munRef.current.clearValue();
                       setMunicipalities(
@@ -312,6 +330,12 @@ const Asalariado = ({ stepper, onSubmit }) => {
                     options={municipalities}
                     isClearable={false}
                     name="work_municipality"
+                    value={mapMuniValue(
+                      municipalitiesValues,
+                      values,
+                      "work_department",
+                      "work_municipality"
+                    )}
                     onChange={(option) =>
                       setFieldValue("work_municipality", option?.value)
                     }

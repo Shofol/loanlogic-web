@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-import ReactSlider from "react-slider";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -25,10 +24,31 @@ import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import { departments, municipalitiesValues } from "../../configs/data";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import { mapMuniValue } from "../../utility/Utils";
 
-const NegocioPropio = ({ stepper, onSubmit }) => {
+const NegocioPropio = ({ stepper, onSubmit, data }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef();
+
+  const mapFormValues = () => {
+    return {
+      business_name: data ? data.business_name : "",
+      start_date: data ? data.start_date : null,
+      nit5: data ? data.nit5 : "",
+      monthly_sales: data ? data.monthly_sales : "",
+      monthly_expenses5: data ? data.monthly_expenses5 : "",
+      business_address: data ? data.business_address : "",
+      business_municipality: data ? data.business_municipality : "",
+      business_department: data ? data.business_department : "",
+      business_phone: data ? data.business_phone : ""
+    };
+  };
+
+  const [formValues, setFormValues] = useState(mapFormValues());
+
+  useEffect(() => {
+    setFormValues(mapFormValues());
+  }, [data]);
 
   return (
     <div>
@@ -37,17 +57,8 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
       </CardHeader>
       <CardBody>
         <Formik
-          initialValues={{
-            business_name: "",
-            start_date: new Date(),
-            nit5: "",
-            monthly_sales: "",
-            monthly_expenses5: "",
-            business_address: "",
-            business_municipality: "",
-            business_department: "",
-            business_phone: ""
-          }}
+          initialValues={formValues}
+          enableReinitialize
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";
@@ -89,7 +100,7 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
             stepper.next();
           }}
         >
-          {({ handleSubmit, setFieldValue, resetForm }) => (
+          {({ handleSubmit, setFieldValue, resetForm, values }) => (
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col sm="3" className="mt-1">
@@ -120,12 +131,15 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("start_date", dateStr);
                     }}
+                    key={values.start_date}
                     options={{
                       locale: Spanish,
                       altInput: true,
                       altFormat: "F j, Y",
                       dateFormat: "Y-m-d",
-                      defaultDate: new Date()
+                      defaultDate: values.start_date
+                        ? new Date(values?.start_date.split("T")[0])
+                        : new Date()
                     }}
                   />
                   <ErrorMessage
@@ -218,6 +232,12 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                     isClearable={false}
                     name="business_department"
                     id="business_department"
+                    value={
+                      departments.filter(
+                        (department) =>
+                          department.value === values.business_department
+                      )[0]
+                    }
                     onChange={(option) => {
                       munRef.current.clearValue();
                       setMunicipalities(
@@ -248,6 +268,12 @@ const NegocioPropio = ({ stepper, onSubmit }) => {
                     options={municipalities}
                     isClearable={false}
                     name="business_municipality"
+                    value={mapMuniValue(
+                      municipalitiesValues,
+                      values,
+                      "business_department",
+                      "business_municipality"
+                    )}
                     onChange={(option) =>
                       setFieldValue("business_municipality", option?.value)
                     }

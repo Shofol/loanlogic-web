@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-import ReactSlider from "react-slider";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -26,12 +25,48 @@ import { ErrorMessage, Field, Formik } from "formik";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import api from "../../@core/api/api";
+import { mapMuniValue } from "../../utility/Utils";
 
-const DPINIT = ({ stepper, onSubmit }) => {
+const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef(null);
   const neMunRef = useRef(null);
   const [isNITNotRequired, setIsNITNotRequired] = useState(false);
+  const [data, setData] = useState(null);
+
+  const fetchDPIData = async (values) => {
+    const response = await api.get(`/client/dpi/${values.dpi_number}`);
+    const tempData = response.data.data;
+    // tempData.photos_of_the_dpi = [];
+    setData(tempData);
+    setDPIData(response.data.data);
+  };
+
+  const mapInitialValues = () => {
+    const initialValues = {
+      dpi_number: data ? data.dpi_number : "",
+      place_of_birth_city: data ? data.place_of_birth_city : "",
+      place_of_birth_region: data ? data.place_of_birth_region : "",
+      neighborhood_city: data ? data.neighborhood_city : "",
+      neighborhood_region: data ? data.neighborhood_region : "",
+      expiration_date: data ? data.expiration_date : null,
+      photos_of_the_dpi: [],
+      nit: data ? data.nit : "",
+      is_have_credit: "",
+      credit_institutions_and_amount: ""
+    };
+    return initialValues;
+  };
+
+  const [formValues, setFormValues] = useState(mapInitialValues());
+
+  useEffect(() => {
+    if (data) {
+      const values = mapInitialValues();
+      setFormValues(values);
+    }
+  }, [data]);
 
   return (
     <div>
@@ -40,18 +75,8 @@ const DPINIT = ({ stepper, onSubmit }) => {
       </CardHeader>
       <CardBody>
         <Formik
-          initialValues={{
-            dpi_number: "",
-            place_of_birth_city: "",
-            place_of_birth_region: "",
-            neighborhood_city: "",
-            neighborhood_region: "",
-            expiration_date: null,
-            photos_of_the_dpi: "",
-            nit: "",
-            is_have_credit: "",
-            credit_institutions_and_amount: ""
-          }}
+          initialValues={formValues}
+          enableReinitialize
           validate={(values) => {
             const errors = {};
             const requiredMsg = "Esto es requerido";
@@ -99,17 +124,10 @@ const DPINIT = ({ stepper, onSubmit }) => {
           onSubmit={(values, { setSubmitting, resetForm }) => {
             onSubmit(values);
             setSubmitting(false);
-            const occupation = localStorage.getItem("occupation");
-            if (occupation === "BUSINESS") {
-              stepper.to(5);
-            } else if (occupation === "NOINCOME") {
-              stepper.to(6);
-            } else {
-              stepper.next();
-            }
+            stepper.next();
           }}
         >
-          {({ handleSubmit, setFieldValue, resetForm }) => (
+          {({ handleSubmit, setFieldValue, resetForm, values }) => (
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col sm="3" className="mt-2">
@@ -122,6 +140,9 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     id="dpi_number"
                     placeholder="Número DPI"
                     tag={Field}
+                    onBlur={() => {
+                      fetchDPIData(values);
+                    }}
                   />
                   <ErrorMessage
                     component="div"
@@ -149,6 +170,12 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     isClearable={false}
                     name="place_of_birth_city"
                     id="place_of_birth_city"
+                    value={
+                      departments.filter(
+                        (department) =>
+                          department.value === values.place_of_birth_city
+                      )[0]
+                    }
                     onChange={(option) => {
                       munRef.current.clearValue();
                       setMunicipalities(
@@ -176,6 +203,12 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     className="react-select"
                     classNamePrefix="select"
                     options={municipalities}
+                    value={mapMuniValue(
+                      municipalitiesValues,
+                      values,
+                      "place_of_birth_city",
+                      "place_of_birth_region"
+                    )}
                     isClearable={false}
                     id="place_of_birth_region"
                     name="place_of_birth_region"
@@ -203,12 +236,15 @@ const DPINIT = ({ stepper, onSubmit }) => {
                       setFieldValue("expiration_date", dateStr);
                     }}
                     name="expiration_date"
+                    key={values.expiration_date}
                     options={{
                       locale: Spanish,
                       altInput: true,
                       altFormat: "F j, Y",
-                      dateFormat: "Y-m-d"
-                      // defaultDate: new Date()
+                      dateFormat: "Y-m-d",
+                      defaultDate: values.expiration_date
+                        ? new Date(values?.expiration_date.split("T")[0])
+                        : null
                     }}
                   />
                   <ErrorMessage
@@ -234,6 +270,12 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     isClearable={false}
                     name="neighborhood_city"
                     id="neighborhood_city"
+                    value={
+                      departments.filter(
+                        (department) =>
+                          department.value === values.neighborhood_city
+                      )[0]
+                    }
                     onChange={(option) => {
                       neMunRef.current.clearValue();
                       setMunicipalities(
@@ -264,6 +306,12 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     isClearable={false}
                     id="neighborhood_region"
                     name="neighborhood_region"
+                    value={mapMuniValue(
+                      municipalitiesValues,
+                      values,
+                      "neighborhood_city",
+                      "neighborhood_region"
+                    )}
                     onChange={(option) =>
                       setFieldValue("neighborhood_region", option?.value)
                     }
@@ -341,6 +389,9 @@ const DPINIT = ({ stepper, onSubmit }) => {
                     options={wantCredit}
                     isClearable={false}
                     name="is_have_credit"
+                    // value={wantCredit.filter(
+                    //   (credit) => credit.value === values.is_have_credit
+                    // )}
                     onChange={(option) =>
                       setFieldValue("is_have_credit", option.value)
                     }
