@@ -18,7 +18,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Legend
 } from "recharts";
 import "@styles/react/libs/charts/recharts.scss";
 import { chartColors } from "../../configs/data";
@@ -174,12 +175,18 @@ const TransaccionesMensuales = () => {
       </Row>
 
       {data && (
-        <div className="recharts-wrapper pt-2">
+        <div className="recharts-wrapper pt-2 mb-2">
+          {data?.totalTransactions && (
+            <CardTitle className="text-center">
+              {data?.totalTransactions} Transacciones
+            </CardTitle>
+          )}
           <ResponsiveContainer>
             <LineChart height={300} data={series}>
               <CartesianGrid />
               <XAxis dataKey="name" />
               <YAxis />
+              <Legend />
               <Tooltip content={CustomTooltip} />
               {Object.keys(data.agencyTransactions).map((agency, index) => {
                 return (
@@ -197,7 +204,7 @@ const TransaccionesMensuales = () => {
         </div>
       )}
 
-      <Table className="mt-4" responsive>
+      <Table className="mt-5" responsive>
         <thead>
           <tr>
             <th>Agencia.</th>
