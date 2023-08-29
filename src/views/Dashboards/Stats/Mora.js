@@ -32,7 +32,7 @@ const MoraStat = ({ height, fontSize, smallTitle = false }) => {
       <OverviewCircle
         data={{ completed: completedResult }}
         title="MORA"
-        text={data ? `${+data.totalDefault} Q / ${+data.totalAmount} Q` : null}
+        text={data ? `${Math.round(data.totalDefault)} Q / ${Math.round(data.totalAmount)} Q` : null}
         height={height}
         fontSize={fontSize}
         smallTitle={smallTitle}

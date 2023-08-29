@@ -228,8 +228,22 @@ const Amortization = () => {
               <th>IVA interés MORA</th>
               <th>Capital e intereses amortizado</th>
               <th>Capital e interés pendiente</th>
-              <th>TOTAL IVA</th>
+              <th>TOTAL IVA PAGO</th>
+              <th>PAGADO Interés Mora con IVA de (10%)</th>
+              <th>PAGADO Interés Mora sin IVA</th>
+              <th>PAGADO IVA Interés Mora</th>
+              <th>PAGADO Mora (incluye Interés + IVA)</th>
+              <th>PAGADO Mora (sin Interés + IVA)</th>
+              <th>PAGADO Gastos de cobranza con IVA</th>
+              <th>PAGADO Gastos de cobranza sin IVA</th>
+              <th>PAGADO IVA Gastos de cobranza</th>
+              <th>PAGADO Interés Crédito con IVA</th>
+              <th>PAGADO Interés Crédito sin IVA</th>
+              <th>PAGADO IVA Interés Crédito</th>
+              <th>PAGADO Capital</th>
+              <th>PAGADO TOTAL IVA HASTA FECHA</th>
               <th>ESTADO</th>
+              <th>Actualizado por usuario</th>
             </tr>
           </thead>
           <tbody>
@@ -267,7 +281,21 @@ const Amortization = () => {
                     <td>{debt.total_paid_amount}</td>
                     <td>{debt.total_pending_amount}</td>
                     <td>{debt.total_tax}</td>
+                    <td>{debt.paid_default_interest_with_tax}</td>
+                    <td>{debt.paid_default_interest}</td>
+                    <td>{debt.paid_default_interest_tax}</td>
+                    <td>{debt.paid_default_amount}</td>
+                    <td>{debt.paid_only_default}</td>
+                    <td>{debt.paid_collection_management_fee}</td>
+                    <td>{debt.paid_collection_management_without_tax}</td>
+                    <td>{debt.paid_collection_management_tax}</td>
+                    <td>{debt.paid_credit_interest_with_tax}</td>
+                    <td>{debt.paid_credit_interest}</td>
+                    <td>{debt.paid_credit_interest_tax}</td>
+                    <td>{debt.paid_credit_capital}</td>
+                    <td>{debt.total_tax_paid}</td>
                     <td>{debt.status}</td>
+                    <td>{debt.updatedBy}</td>
                   </tr>
                 );
               })}

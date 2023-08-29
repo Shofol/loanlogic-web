@@ -32,7 +32,7 @@ const Desembolso = () => {
       <OverviewCircle
         data={{ completed: completedResult }}
         title="DESEMBOLSO"
-        text={data ? `${data.total_disbursement} Q / ${data.total} Q` : null}
+        text={data ? `${Math.round(data.total_disbursement)} Q / ${Math.round(data.total)} Q` : null}
         height="150"
         fontSize="2rem"
         smallTitle={true}
