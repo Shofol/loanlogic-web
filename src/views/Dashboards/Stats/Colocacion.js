@@ -33,7 +33,7 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
         data={{ completed: completedResult }}
         title="Colocacion"
         text={
-          data ? `${data.totalRequestedAmount} Q / ${data.dailyGoal} Q` : null
+          data ? `${Math.round(data.totalRequestedAmount)} Q / ${Math.round(data.dailyGoal)} Q` : null
         }
         height={height}
         fontSize={fontSize}

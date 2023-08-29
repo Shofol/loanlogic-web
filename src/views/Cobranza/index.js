@@ -74,7 +74,7 @@ const Cobranza = () => {
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Monto solicitado: {data?.credit.requested_amount}Q
+                Monto solicitado: {data?.credit.requested_amount} Q
               </p>
             </Col>
           </Row>
@@ -84,19 +84,19 @@ const Cobranza = () => {
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Capital crédito: {data?.credit.disbursement_amount}Q
+                Capital crédito: {data?.credit.disbursement_amount} Q
               </p>
             </Col>
           </Row>
           <Row>
             <Col sm="12" md="6">
               <p className="mb-0">
-                Cuota crédito: {data?.debt_collection.credit_fee}Q
+                Cuota crédito: {data?.debt_collection.credit_fee} Q
               </p>
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Total adeudado: {data?.credit.total_amount}Q
+                Total adeudado: {data?.credit.total_amount} Q
               </p>
             </Col>
           </Row>
@@ -139,20 +139,20 @@ const Cobranza = () => {
               <div className="mb-0 d-flex">
                 <p className="acc-title">Cuota crédito</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">{data?.debt_collection.credit_fee}Q</p>
+                <p className="mb-0 ms-1">{data?.debt_collection.credit_fee} Q</p>
               </div>
               <div className="mb-0 d-flex">
                 <p className="acc-title">Mora</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.default_amount}q
+                  {data?.debt_collection.default_amount} Q
                 </p>
               </div>
               <div className="mb-0 d-flex">
                 <p className="acc-title">Interés mora</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.default_interest}Q
+                  {data?.debt_collection.default_interest} Q
                 </p>
               </div>
               <hr></hr>
@@ -160,7 +160,7 @@ const Cobranza = () => {
                 <p className="acc-title">Monto total</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.amount_to_pay}Q
+                  {data?.debt_collection.amount_to_pay} Q
                 </p>
               </div>
               <hr></hr>
@@ -181,6 +181,15 @@ const Cobranza = () => {
                   />
                 </Col>
               </Row>
+
+              <Row className="d-flex fw-bold mb-sm-2">
+                
+                <div className="mb-0 d-flex">
+                <p className="acc-title">Estado pago</p>
+                <p className="mb-0 ms-1">{data?.debt_collection.status}</p>
+                
+              </div>
+              </Row>
             </Col>
           </Row>
           <hr className="mb-0"></hr>
@@ -189,11 +198,11 @@ const Cobranza = () => {
             <Col md="6">
               <h5 className="fw-bold mb-0 mt-1 ps-0">
                 Capital e intereses amortizado:{" "}
-                {data?.debt_collection.total_paid_amount}Q
+                {data?.debt_collection.total_paid_amount} Q
               </h5>
               <h5 className="fw-bold mb-0 ps-0">
                 Capital e interés pendiente:{" "}
-                {data?.debt_collection.total_pending_amount}Q
+                {data?.debt_collection.total_pending_amount} Q
               </h5>
             </Col>
 
