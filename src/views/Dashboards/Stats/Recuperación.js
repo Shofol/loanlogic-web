@@ -33,7 +33,7 @@ const Recuperación = ({ height, fontSize, smallTitle = false }) => {
         data={{ completed: completedResult }}
         title="RECUPERACIÓN"
         subTitle="(sin incluir avances)"
-        text={data ? `${data.total_collected} Q / ${data.total} Q` : null}
+        text={data ? `${Math.round(data.total_collected)} Q / ${Math.round(data.total)} Q` : null}
         height={height}
         fontSize={fontSize}
         smallTitle={smallTitle}
