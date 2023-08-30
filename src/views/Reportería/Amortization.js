@@ -203,6 +203,7 @@ const Amortization = () => {
         <Table responsive>
           <thead>
             <tr>
+              <th className="stickyFirstColumn">ID PAGO</th>
               <th className="stickyFirstColumn">#Pago</th>
               <th className="stickySecondColumn">Fecha Pago</th>
               <th>Pago realizado</th>
@@ -254,6 +255,9 @@ const Amortization = () => {
                 .map((debt) => {
                   return (
                     <tr key={debt.id}>
+                      <td className="stickyFirstColumn bg-primary-subtle">
+                        {debt.id}
+                      </td>
                       <td className="stickyFirstColumn bg-primary-subtle">
                         {debt.no_of_installment}
                       </td>
