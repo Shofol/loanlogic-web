@@ -160,7 +160,7 @@ const Amortization = () => {
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Capital crédito: {data?.credit.disbursement_amount}Q
+                Capital crédito: {data?.credit.total_credit_amount}Q
               </p>
             </Col>
           </Row>
@@ -283,7 +283,21 @@ const Amortization = () => {
                       <td>{debt.total_paid_amount}</td>
                       <td>{debt.total_pending_amount}</td>
                       <td>{debt.total_tax}</td>
+                      <td>{debt.paid_default_interest_with_tax}</td>
+                      <td>{debt.paid_default_interest}</td>
+                      <td>{debt.paid_default_interest_tax}</td>
+                      <td>{debt.paid_default_amount}</td>
+                      <td>{debt.paid_only_default}</td>
+                      <td>{debt.paid_collection_management_fee}</td>
+                      <td>{debt.paid_collection_management_without_tax}</td>
+                      <td>{debt.paid_collection_management_tax}</td>
+                      <td>{debt.paid_credit_interest_with_tax}</td>
+                      <td>{debt.paid_credit_interest}</td>
+                      <td>{debt.paid_credit_interest_tax}</td>
+                      <td>{debt.paid_credit_capital}</td>
+                      <td>{debt.total_tax_paid}</td>
                       <td>{debt.status}</td>
+                      <td>{debt.updatedBy}</td>
                     </tr>
                   );
                 })}
