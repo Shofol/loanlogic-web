@@ -90,7 +90,7 @@ const Desembolso = () => {
             <Col sm="12" md="6">
               <p className="mb-0">
                 {" "}
-                Cuota crédito: {data?.debt_collection.credit_fee}Q
+                Cuota crédito: {data?.credit.installment_amount}Q
               </p>
             </Col>
             <Col sm="12" md="6">
