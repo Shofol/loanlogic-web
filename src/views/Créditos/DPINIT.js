@@ -407,7 +407,7 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
                     className="form-label"
                     for="credit_institutions_and_amount"
                   >
-                    Si la respuesta es sí, indicar las instituciones y mon{" "}
+                    Si la respuesta es sí, indicar las instituciones y monto{" "}
                     <span className="text-danger">*</span>
                   </Label>
                   <Input

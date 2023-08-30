@@ -379,7 +379,7 @@ const VisualizarSolicitud = () => {
                 </Col>
                 <Col sm="3">
                   <Label className="form-label" for="second_name">
-                    Si la respuesta es sí, indicar las instituciones y mont{" "}
+                    Si la respuesta es sí, indicar las instituciones y monto{" "}
                   </Label>
                   <Input
                     disabled
@@ -714,7 +714,7 @@ const VisualizarSolicitud = () => {
                     className="form-label"
                     for="credit_institutions_and_amount"
                   >
-                    Si la respuesta es sí, indicar las instituciones y mon
+                    Si la respuesta es sí, indicar las instituciones y monto
                   </Label>
                   <Input
                     disabled
