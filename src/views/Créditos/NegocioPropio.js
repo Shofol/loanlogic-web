@@ -70,9 +70,6 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
             if (!values.start_date) {
               errors.start_date = requiredMsg;
             }
-            if (!values.nit5) {
-              errors.nit5 = requiredMsg;
-            }
             if (!values.business_address) {
               errors.business_address = requiredMsg;
             }
@@ -151,7 +148,7 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
 
                 <Col sm="3" className="mt-1">
                   <Label className="form-label" for="nit5">
-                    NIT<span className="text-danger">*</span>
+                    NIT
                   </Label>
                   <Input
                     type="text"
@@ -322,12 +319,12 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                     className="align-middle me-sm-25 me-0"
                   ></ArrowLeft>
                   <span className="align-middle d-sm-inline-block d-none">
-                    Previous
+                    Anterior
                   </span>
                 </Button>
                 <Button type="submit" color="primary" className="btn-next">
                   <span className="align-middle d-sm-inline-block d-none">
-                    Next
+                    Siguiente
                   </span>
                   <ArrowRight
                     size={14}

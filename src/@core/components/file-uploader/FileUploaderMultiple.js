@@ -108,13 +108,13 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
           <input {...getInputProps()} />
           <div className="d-flex align-items-center justify-content-center flex-column">
             <DownloadCloud size={64} />
-            <h5>Drop Files here or click to upload</h5>
+            <h5>Suelte los archivos aquí o haga clic para cargarlos</h5>
             <p className="text-secondary text-center">
-              Drop files here or click{" "}
+                Suelte los archivos aquí o haga clic{" "}
               <a href="/" onClick={(e) => e.preventDefault()}>
-                browse
+                navegar
               </a>{" "}
-              thorough your machine
+                a través de su máquina
             </p>
           </div>
         </div>
@@ -128,10 +128,10 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
                 outline
                 onClick={handleRemoveAllFiles}
               >
-                Remove All
+                Borrar todo
               </Button>
               <Button color="primary" onClick={handleUpload}>
-                Upload Files
+                Subir ficheros
               </Button>
             </div>
           </Fragment>

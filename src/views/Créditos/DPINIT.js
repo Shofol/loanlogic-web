@@ -439,12 +439,12 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
                     className="align-middle me-sm-25 me-0"
                   ></ArrowLeft>
                   <span className="align-middle d-sm-inline-block d-none">
-                    Previous
+                    Anterior
                   </span>
                 </Button>
                 <Button type="submit" color="primary" className="btn-next">
                   <span className="align-middle d-sm-inline-block d-none">
-                    Next
+                    Siguiente
                   </span>
                   <ArrowRight
                     size={14}

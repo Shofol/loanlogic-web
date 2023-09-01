@@ -242,7 +242,6 @@ const Amortization = () => {
               <th>PAGADO Interés Crédito sin IVA</th>
               <th>PAGADO IVA Interés Crédito</th>
               <th>PAGADO Capital</th>
-              <th>PAGADO TOTAL IVA HASTA FECHA</th>
               <th>ESTADO</th>
               <th>Actualizado por usuario</th>
             </tr>
@@ -299,7 +298,6 @@ const Amortization = () => {
                       <td>{debt.paid_credit_interest}</td>
                       <td>{debt.paid_credit_interest_tax}</td>
                       <td>{debt.paid_credit_capital}</td>
-                      <td>{debt.total_tax_paid}</td>
                       <td>{debt.status}</td>
                       <td>{debt.updatedBy}</td>
                     </tr>

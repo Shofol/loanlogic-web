@@ -54,6 +54,7 @@ const UserDropdown = () => {
         />
       </DropdownToggle>
       <DropdownMenu end>
+        {/* 
         <DropdownItem tag={Link} to="/" onClick={(e) => e.preventDefault()}>
           <User size={14} className="me-75" />
           <span className="align-middle">Profile</span>
@@ -87,6 +88,7 @@ const UserDropdown = () => {
           <HelpCircle size={14} className="me-75" />
           <span className="align-middle">FAQ</span>
         </DropdownItem>
+        */} 
         <DropdownItem
           onClick={() => {
             localStorage.removeItem("gesToken");

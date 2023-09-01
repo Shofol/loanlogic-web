@@ -212,7 +212,7 @@ const Solicitudes = () => {
                 onClick={handleSearch}
               >
                 <Search size={14} />
-                <span className="align-middle ms-25">Search</span>
+                <span className="align-middle ms-25">Buscar</span>
               </Button.Ripple>
             </div>
 

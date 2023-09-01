@@ -321,7 +321,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                   // onClick={onSubmit}
                 >
                   <span className="align-middle d-sm-inline-block d-none">
-                    Next
+                    Siguiente
                   </span>
                   <ArrowRight
                     size={14}
