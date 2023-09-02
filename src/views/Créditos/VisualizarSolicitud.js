@@ -134,7 +134,7 @@ const VisualizarSolicitud = () => {
                     href={data.pdf}
                     download={`${data?.client.name}_${data?.id}`}
                   >
-                    Descargar Como PDF
+                    Descargar PAGARÉ
                   </a>
                 </Button>
               )}
