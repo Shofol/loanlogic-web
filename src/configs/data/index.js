@@ -590,7 +590,7 @@ export const paymentMethods = [
   { value: "WEEKLY", label: "Semanal" },
   { value: "BIWEEKLY", label: "Quincenal" },
   { value: "FORTNIGHTLY", label: "Catorcenal" },
-  { value: "END_MONTH", label: "Mensual (fin de mes)" }
+  { value: "MONTHLY", label: "Mensual (fin de mes)" }
 ];
 
 export const professions = [
