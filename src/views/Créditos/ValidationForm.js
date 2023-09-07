@@ -98,7 +98,7 @@ const ValidationForm = () => {
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
             const form = new FormData();
 
             Object.entries(values).map((pair) => {
@@ -113,23 +113,13 @@ const ValidationForm = () => {
               }
             });
 
-            const response = API.post(`credit/validation/${id}`, form);
-            toast.promise(
-              response,
-              {
-                loading: "Loading",
-                success: (data) => {
-                  resetForm();
-                  return `Successfully saved ${data.name}`;
-                },
-                error: (err) => {
-                  return `ERROR: ${formatMessage(err)}`;
-                }
-              },
-              {
-                style: { minWidth: "250px", fontWeight: "bold" }
-              }
-            );
+            try {
+              const response = await API.post(`credit/validation/${id}`, form);
+              resetForm();
+              toast.success(`Successfully saved ${data.name}`);
+            } catch (error) {
+              console.log(error);
+            }
           }}
         >
           {({

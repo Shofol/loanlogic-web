@@ -121,25 +121,15 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           }
           return errors;
         }}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          const response = API.post("/user/register", values);
-          toast.promise(
-            response,
-            {
-              loading: "Loading",
-              success: (data) => {
-                resetForm();
-                toggleSidebar();
-                return `${data.data.message}`;
-              },
-              error: (err) => {
-                return `ERROR: ${formatMessage(err)}`;
-              }
-            },
-            {
-              style: { minWidth: "250px", fontWeight: "bold" }
-            }
-          );
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          try {
+            const response = await API.post("/user/register", values);
+            resetForm();
+            toggleSidebar();
+            toast.success(response.data.message);
+          } catch (error) {
+            console.log(error);
+          }
         }}
       >
         {({

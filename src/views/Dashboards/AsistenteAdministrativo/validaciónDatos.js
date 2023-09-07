@@ -40,27 +40,16 @@ const ValidaciónDatos = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
-  const handleAction = (action, id) => {
-    const response = api.put(`tasks/data-validation/${id}`, {
-      status: action === "accept" ? true : false
-    });
-
-    toast.promise(
-      response,
-      {
-        loading: "Loading",
-        success: (data) => {
-          fetchData();
-          return `Successfully updated status`;
-        },
-        error: (err) => {
-          return `ERROR: ${formatMessage(err)}`;
-        }
-      },
-      {
-        style: { minWidth: "250px", fontWeight: "bold" }
-      }
-    );
+  const handleAction = async (action, id) => {
+    try {
+      const response = await api.put(`tasks/data-validation/${id}`, {
+        status: action === "accept" ? true : false
+      });
+      fetchData();
+      toast.success(`Successfully updated status`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

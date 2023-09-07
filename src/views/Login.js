@@ -91,31 +91,21 @@ const Login = () => {
                 }
                 return errors;
               }}
-              onSubmit={(values, { setSubmitting, resetForm }) => {
-                const response = unApi.post("/user/login", values);
-                toast.promise(
-                  response,
-                  {
-                    loading: "Loading",
-                    success: (data) => {
-                      localStorage.setItem("gesToken", data.data.token);
-                      localStorage.setItem(
-                        "user",
-                        JSON.stringify(data.data.data)
-                      );
+              onSubmit={async (values, { setSubmitting, resetForm }) => {
+                try {
+                  const response = await unApi.post("/user/login", values);
+                  toast.success(`Succesfully Logged In`);
+                  localStorage.setItem("gesToken", response.data.token);
+                  localStorage.setItem(
+                    "user",
+                    JSON.stringify(response.data.data)
+                  );
 
-                      resetForm();
-                      navigate("/");
-                      return `Succesfully Logged In`;
-                    },
-                    error: (err) => {
-                      return `ERROR: ${formatMessage(err)}`;
-                    }
-                  },
-                  {
-                    style: { minWidth: "250px", fontWeight: "bold" }
-                  }
-                );
+                  resetForm();
+                  navigate("/");
+                } catch (error) {
+                  console.log(error);
+                }
               }}
             >
               {({

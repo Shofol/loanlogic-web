@@ -144,29 +144,20 @@ const EditUser = ({ showModal, user, onClose }) => {
               }
               return errors;
             }}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
-              console.log(values);
-              const response = API.put(`user/${user.id}`, values);
-              toast.promise(
-                response,
-                {
-                  loading: "Loading",
-                  success: (data) => {
-                    resetForm();
-                    setTimeout(() => {
-                      setShow(false);
-                      onClose();
-                    }, 100);
-                    return `Successfully saved`;
-                  },
-                  error: (err) => {
-                    return `ERROR: ${formatMessage(err)}`;
-                  }
-                },
-                {
-                  style: { minWidth: "250px", fontWeight: "bold" }
-                }
-              );
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
+              try {
+                const response = await API.put(`user/${user.id}`, values);
+
+                resetForm();
+                setTimeout(() => {
+                  setShow(false);
+                  onClose();
+                }, 100);
+
+                toast.success(`Successfully saved`);
+              } catch (error) {
+                console.log(error);
+              }
             }}
           >
             {({

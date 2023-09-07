@@ -18,7 +18,7 @@ import { selectThemeColors } from "@utils";
 import RangeList from "../../@core/components/rangeList";
 import { Save, RefreshCw } from "react-feather";
 import { agenciasValues, tipoDeGarantiaOptions } from "../../configs/data";
-import { Field, Formik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
@@ -121,37 +121,67 @@ const ConfigForm = () => {
           <Formik
             initialValues={initialValues}
             // enableReinitialize={true}
-            // validate={(values) => {
-            //   const errors = {};
-            //   if (!values.email) {
-            //     errors.email = "Required";
-            //   } else if (
-            //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            //   ) {
-            //     errors.email = "Invalid email address";
-            //   }
-            //   return errors;
-            // }}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
-              const response = id
-                ? API.put(`product/${id}`, values)
-                : API.post("product", values);
-              toast.promise(
-                response,
-                {
-                  loading: "Loading",
-                  success: (data) => {
-                    resetForm();
-                    return `${data.data.message}`;
-                  },
-                  error: (err) => {
-                    return `ERROR: ${formatMessage(err)}`;
-                  }
-                },
-                {
-                  style: { minWidth: "250px", fontWeight: "bold" }
-                }
-              );
+            validate={(values) => {
+              const errors = {};
+              const requiredMsg = "Esto es requerido";
+
+              if (!values.product_name) {
+                errors.product_name = requiredMsg;
+              }
+              if (!values.product_code) {
+                errors.product_code = requiredMsg;
+              }
+              if (values.frequency.length === 0) {
+                errors.frequency = requiredMsg;
+              }
+              if (!values.duration) {
+                errors.duration = requiredMsg;
+              }
+              if (values.duration_frequency.length === 0) {
+                errors.duration_frequency = requiredMsg;
+              }
+              if (!values.minimum_amount) {
+                errors.minimum_amount = requiredMsg;
+              }
+              if (!values.maximum_amount) {
+                errors.maximum_amount = requiredMsg;
+              }
+              if (!values.maximum_supervisor_range) {
+                errors.maximum_supervisor_range = requiredMsg;
+              }
+              if (!values.country) {
+                errors.country = requiredMsg;
+              }
+              if (!values.credit_interest) {
+                errors.credit_interest = requiredMsg;
+              }
+              if (!values.vat) {
+                errors.vat = requiredMsg;
+              }
+              if (!values.late_interest) {
+                errors.late_interest = requiredMsg;
+              }
+              if (!values.management_expenses) {
+                errors.management_expenses = requiredMsg;
+              }
+              if (!values.management_days) {
+                errors.management_days = requiredMsg;
+              }
+              if (!values.assistance_expenses) {
+                errors.assistance_expenses = requiredMsg;
+              }
+              return errors;
+            }}
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
+              try {
+                const response = id
+                  ? await API.put(`product/${id}`, values)
+                  : await API.post("product", values);
+                // resetForm();
+                toast.success(response.data.message);
+              } catch (error) {
+                console.log(error);
+              }
             }}
           >
             {({
@@ -170,7 +200,7 @@ const ConfigForm = () => {
                 <Row>
                   <Col sm="12" md="6" className="mb-1">
                     <Label className="form-label" for="product_name">
-                      Nombre del producto
+                      Nombre del producto<span className="text-danger">*</span>
                     </Label>
                     <Input
                       type="text"
@@ -179,10 +209,15 @@ const ConfigForm = () => {
                       placeholder="Nombre del producto"
                       tag={Field}
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="product_name"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="12" md="6" className="mb-1">
                     <Label className="form-label" for="product_code">
-                      Código del producto
+                      Código del producto<span className="text-danger">*</span>
                     </Label>
                     <Input
                       type="text"
@@ -191,9 +226,17 @@ const ConfigForm = () => {
                       placeholder="Código del producto"
                       tag={Field}
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="product_code"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="12" md="6" className="mb-1">
-                    <Label className="form-label">Periodicidad de cobros</Label>
+                    <Label className="form-label">
+                      Periodicidad de cobros
+                      <span className="text-danger">*</span>
+                    </Label>
                     <Select
                       theme={selectThemeColors}
                       className="react-select"
@@ -211,10 +254,15 @@ const ConfigForm = () => {
                         setFieldValue("frequency", option.value)
                       }
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="frequency"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="6" md="3" className="mb-1">
                     <Label className="form-label" for="duration">
-                      Duración (valor)
+                      Duración (valor)<span className="text-danger">*</span>
                     </Label>
                     <Input
                       type="text"
@@ -223,9 +271,16 @@ const ConfigForm = () => {
                       placeholder="Duración"
                       tag={Field}
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="duration"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="6" md="3" className="mb-1">
-                    <Label className="form-label">Duración (unidad)</Label>
+                    <Label className="form-label">
+                      Duración (unidad)<span className="text-danger">*</span>
+                    </Label>
                     <Select
                       theme={selectThemeColors}
                       className="react-select"
@@ -241,6 +296,11 @@ const ConfigForm = () => {
                       onChange={(option) =>
                         setFieldValue("duration_frequency", option.value)
                       }
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="duration_frequency"
+                      className="text-danger"
                     />
                   </Col>
                   <Col sm="12" md="6" className="mb-1">
@@ -265,7 +325,7 @@ const ConfigForm = () => {
                   </Col>
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="minimum_amount">
-                      Monto mínimo
+                      Monto mínimo<span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -277,10 +337,15 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>Q</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="minimum_amount"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="maximum_amount">
-                      Monto máximo
+                      Monto máximo<span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -292,6 +357,11 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>Q</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="maximum_amount"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="12" md="3" className="mb-1">
                     <Label
@@ -299,6 +369,7 @@ const ConfigForm = () => {
                       for="maximum_supervisor_range"
                     >
                       Rango máximo supervisores
+                      <span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -310,9 +381,16 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>Q</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="maximum_supervisor_range"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="12" md="3" className="mb-1">
-                    <Label className="form-label">País</Label>
+                    <Label className="form-label">
+                      País<span className="text-danger">*</span>
+                    </Label>
                     <Select
                       theme={selectThemeColors}
                       className="react-select"
@@ -330,10 +408,16 @@ const ConfigForm = () => {
                       }
                       name="country"
                     />
+                    <ErrorMessage
+                      component="div"
+                      name="country"
+                      className="text-danger"
+                    />
                   </Col>
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="credit_interest">
                       Interés crédito mensual (IVA includo)
+                      <span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -345,11 +429,16 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>%</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="credit_interest"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="vat">
-                      IVA
+                      IVA<span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -361,11 +450,16 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>%</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="vat"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="late_interest">
-                      Interés moratorio:
+                      Interés moratorio<span className="text-danger">*</span>
                     </Label>
 
                     <InputGroup>
@@ -378,11 +472,17 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>%</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="late_interest"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="management_expenses">
                       Gastos por gestión de cobranza
+                      <span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -394,11 +494,17 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>Q</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="management_expenses"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="management_days">
                       Días Gestión de Cobranza automática
+                      <span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -410,11 +516,16 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>Días</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="management_days"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="assistance_expenses">
-                      Gastos de asistencia
+                      Gastos de asistencia<span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
                       <Input
@@ -426,6 +537,11 @@ const ConfigForm = () => {
                       />
                       <InputGroupText>Q</InputGroupText>
                     </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="assistance_expenses"
+                      className="text-danger"
+                    />
                   </Col>
 
                   <Col className="mb-1" md="3" sm="12">

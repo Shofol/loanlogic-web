@@ -41,28 +41,18 @@ const PreValidaciónDirección = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
-  const handleAction = (e, action, id) => {
+  const handleAction = async (e, action, id) => {
     e.stopPropagation();
-    const response = api.put(`tasks/address-validation/${id}`, {
-      status: action === "accept" ? true : false
-    });
 
-    toast.promise(
-      response,
-      {
-        loading: "Loading",
-        success: (data) => {
-          fetchData();
-          return `Successfully updated stats`;
-        },
-        error: (err) => {
-          return `ERROR: ${formatMessage(err)}`;
-        }
-      },
-      {
-        style: { minWidth: "250px", fontWeight: "bold" }
-      }
-    );
+    try {
+      const response = await api.put(`tasks/address-validation/${id}`, {
+        status: action === "accept" ? true : false
+      });
+      fetchData();
+      toast.success(`Successfully updated stats`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

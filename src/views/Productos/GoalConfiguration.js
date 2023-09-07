@@ -26,23 +26,13 @@ const GoalConfiguration = () => {
     setData(response.data.data);
   };
 
-  const submitData = () => {
-    const response = api.post("/goal", data);
-    toast.promise(
-      response,
-      {
-        loading: "Loading",
-        success: (data) => {
-          return `${data.data.message}`;
-        },
-        error: (err) => {
-          return `ERROR: ${formatMessage(err)}`;
-        }
-      },
-      {
-        style: { minWidth: "250px", fontWeight: "bold" }
-      }
-    );
+  const submitData = async () => {
+    try {
+      const response = await api.post("/goal", data);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -37,25 +37,6 @@ const Cobranza = () => {
     } catch (error) {
       console.log(error);
     }
-
-    // toast.promise(
-    //   response,
-    //   {
-    //     loading: "Loading",
-    //     success: (data) => {
-    //       setData(data.data.data);
-
-    //       return `${data.data.message}`;
-    //     },
-    //     error: (err) => {
-    //       console.log(err);
-    //       // return `ERROR: ${formatMessage(err)}`;
-    //     }
-    //   },
-    //   {
-    //     style: { minWidth: "250px", fontWeight: "bold" }
-    //   }
-    // );
   };
 
   return (

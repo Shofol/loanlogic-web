@@ -38,7 +38,7 @@ const SolicitudCrédito = () => {
     console.log(dpiData);
   }, [dpiData]);
 
-  const handleSubmitForm = () => {
+  const handleSubmitForm = async () => {
     const form = new FormData();
     let values = { ...valueToSubmit };
     values.created_from = "DASHBOARD";
@@ -55,22 +55,12 @@ const SolicitudCrédito = () => {
       }
     });
 
-    const response = api.post("credit-application", form);
-    toast.promise(
-      response,
-      {
-        loading: "Loading",
-        success: (data) => {
-          return `${data.data.message}`;
-        },
-        error: (err) => {
-          return `ERROR: ${formatMessage(err)}`;
-        }
-      },
-      {
-        style: { minWidth: "250px", fontWeight: "bold" }
-      }
-    );
+    try {
+      const response = await api.post("credit-application", form);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

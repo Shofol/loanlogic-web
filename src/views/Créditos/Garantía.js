@@ -56,7 +56,7 @@ const Garantía = () => {
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
             const form = new FormData();
 
             Object.keys(values).map((key) => {
@@ -71,23 +71,13 @@ const Garantía = () => {
 
             form.append("application_id", id);
 
-            const response = API.post("guarantee", form);
-            toast.promise(
-              response,
-              {
-                loading: "Loading",
-                success: (data) => {
-                  resetForm();
-                  return `${data.data.message}`;
-                },
-                error: (err) => {
-                  return `ERROR: ${formatMessage(err)}`;
-                }
-              },
-              {
-                style: { minWidth: "250px", fontWeight: "bold" }
-              }
-            );
+            try {
+              const response = await API.post("guarantee", form);
+              resetForm();
+              toast.success(response.data.message);
+            } catch (error) {
+              console.log(error);
+            }
           }}
         >
           {({

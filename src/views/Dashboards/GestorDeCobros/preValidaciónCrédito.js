@@ -40,28 +40,17 @@ const PreValidaciónCrédito = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
-  const handleAction = (e, action, id) => {
+  const handleAction = async (e, action, id) => {
     e.stopPropagation();
-    const response = api.put(`tasks/credit-prevalidation/${id}`, {
-      status: action === "accept" ? true : false
-    });
-
-    toast.promise(
-      response,
-      {
-        loading: "Loading",
-        success: (data) => {
-          fetchData();
-          return `Succesfully updated status`;
-        },
-        error: (err) => {
-          return `ERROR: ${formatMessage(err)}`;
-        }
-      },
-      {
-        style: { minWidth: "250px", fontWeight: "bold" }
-      }
-    );
+    try {
+      const response = await api.put(`tasks/credit-prevalidation/${id}`, {
+        status: action === "accept" ? true : false
+      });
+      fetchData();
+      toast.success(`Succesfully updated status`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
