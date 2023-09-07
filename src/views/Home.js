@@ -27,7 +27,7 @@ const Home = () => {
     if (user) {
       const dashboardRoute = navigation
         .filter((element) => element.id === "dashboard")[0]
-        .children.filter((child) => child.role === user.role)[0].navLink;
+        .children.filter((child) => child.role.includes(user.role))[0].navLink;
       navigate(dashboardRoute);
     }
   }, [user]);
