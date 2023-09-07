@@ -10,7 +10,10 @@ import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
 import { Spanish } from "flatpickr/dist/l10n/es";
-import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import {
+  getConvertDateWithTimeZone,
+  formatDateForQuery
+} from "../../utility/Utils";
 import api from "../../@core/api/api";
 
 const CarteraConsolidada = () => {
@@ -68,74 +71,91 @@ const CarteraConsolidada = () => {
       </Row>
 
       <Table className="mt-4 consolidadoTable">
-        <thead>
-          <tr>
-            <th colSpan="3" className="bg-secondary-subtle text-center fs-5">
-              Consolidado {picker}
-            </th>
-          </tr>
-          <tr>
-            <th>No.</th>
-            <th>Agente</th>
-            <th>Cuota</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-          </tr>
-        </tbody>
+        {data && (
+          <>
+            <thead>
+              <tr>
+                <th
+                  colSpan="3"
+                  className="bg-secondary-subtle text-center fs-5"
+                >
+                  Consolidado {picker}
+                </th>
+              </tr>
+              <tr>
+                <th>No.</th>
+                <th>Agente</th>
+                <th>Cuota</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.users.map((user) => {
+                return (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>Q {user.totalCollected}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
 
-        <tfoot>
-          <tr>
-            <th colSpan="2">TOTAL PAGOS DEL DÍA</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Devolución de desembolsos</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Colocación del día</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Clientes colocados</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Papelerías</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Asistencias</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Descuentos/Asueto</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">Cancelaciones anticipadas</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-          <tr>
-            <th colSpan="2">TOTAL</th>
-            <td className="bg-body-secondary fw-bold">Q 7,050</td>
-          </tr>
-        </tfoot>
+            <tfoot>
+              <tr>
+                <th colSpan="2">TOTAL PAGOS DEL DÍA</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.totalCollected}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Devolución de desembolsos</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.disbursementReturns}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Colocación del día</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.totalRequestedAmount}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Clientes colocados</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.totalApplications}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Papelerías</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.administartiveFee}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Asistencias</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.assistanceFee}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Descuentos/Asueto</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.discountHoliday}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">Cancelaciones anticipadas</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.advancedInstallment}
+                </td>
+              </tr>
+              <tr>
+                <th colSpan="2">TOTAL</th>
+                <td className="bg-body-secondary fw-bold">Q {data?.total}</td>
+              </tr>
+            </tfoot>
+          </>
+        )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">

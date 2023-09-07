@@ -114,7 +114,7 @@ const Cobro = () => {
                       <th className="custom-header">
                         <span
                           className="bg"
-                          style={{ backgroundColor: chartColorsc[index] }}
+                          style={{ backgroundColor: chartColors[index] }}
                         ></span>
                         <span>Cobro {element.date.agency}</span>
                       </th>
