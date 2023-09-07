@@ -6,6 +6,7 @@ import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { Printer, Save } from "react-feather";
 import { useParams } from "react-router-dom";
 import API from "../../@core/api/api";
+import { toast } from "react-hot-toast";
 
 const Desembolso = () => {
   const { colors } = useContext(ThemeColors);
@@ -21,28 +22,16 @@ const Desembolso = () => {
     setData(response.data.data);
   };
 
-  const submit = () => {
-    // const values = {
-    //   payment_made: payment_made
-    // };
-    const response = API.put(`/credit/disbursement/${id}`);
+  const submit = async () => {
+    try {
+      const response = await API.put(`/credit/disbursement/${id}`);
+      console.log(response.data.data);
+      setData(response.data.data);
 
-    toast.promise(
-      response,
-      {
-        loading: "Loading",
-        success: (data) => {
-          setData(data.data.data);
-          return `${data.data.message}`;
-        },
-        error: (err) => {
-          return `ERROR: ${formatMessage(err)}`;
-        }
-      },
-      {
-        style: { minWidth: "250px", fontWeight: "bold" }
-      }
-    );
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
