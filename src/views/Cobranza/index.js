@@ -26,29 +26,36 @@ const Cobranza = () => {
     setData(response.data.data);
   };
 
-  const submit = () => {
+  const submit = async () => {
     const values = {
       payment_made: payment_made
     };
-    const response = API.put(`/debt/collection/${id}`, values);
+    try {
+      const response = await API.put(`/debt/collection/${id}`, values);
+      setData(response.data.data);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
 
-    toast.promise(
-      response,
-      {
-        loading: "Loading",
-        success: (data) => {
-          setData(data.data.data);
+    // toast.promise(
+    //   response,
+    //   {
+    //     loading: "Loading",
+    //     success: (data) => {
+    //       setData(data.data.data);
 
-          return `${data.data.message}`;
-        },
-        error: (err) => {
-          return `ERROR: ${formatMessage(err)}`;
-        }
-      },
-      {
-        style: { minWidth: "250px", fontWeight: "bold" }
-      }
-    );
+    //       return `${data.data.message}`;
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //       // return `ERROR: ${formatMessage(err)}`;
+    //     }
+    //   },
+    //   {
+    //     style: { minWidth: "250px", fontWeight: "bold" }
+    //   }
+    // );
   };
 
   return (
