@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button, Card, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues, chartColors } from "../../configs/data";
 import { selectThemeColors } from "@utils";
 import Select from "react-select";
 // ** Styles
@@ -9,12 +9,57 @@ import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
-import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import {
+  getConvertDateWithTimeZone,
+  formatDateForQuery
+} from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import api from "../../@core/api/api";
 
 const Cobro = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
+  const [agency, setAgency] = useState(null);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, [agency, picker]);
+
+  const fetchData = async () => {
+    const response = await api.get(
+      `reporting/cobro` +
+        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+        `${agency ? `&agency=${agency}` : ""}`
+    );
+    setData(response.data.data);
+  };
+
+  const calculateDateTotal = () => {
+    const totalEntry = data.filter(
+      (element) => element.date.agency === "TOTAL"
+    )[0];
+    return (
+      +totalEntry.date.payment_made +
+      +totalEntry.date.credit_fee +
+      +totalEntry.date.advanced_installment +
+      +totalEntry.date.administrative_fee +
+      +totalEntry.date.assistance_fee
+    );
+  };
+
+  const calculatTotal = () => {
+    const totalEntry = data.filter(
+      (element) => element.total.agency === "TOTAL"
+    )[0];
+    return (
+      +totalEntry.total.payment_made +
+      +totalEntry.total.credit_fee +
+      +totalEntry.total.advanced_installment +
+      +totalEntry.total.administrative_fee +
+      +totalEntry.total.assistance_fee
+    );
+  };
 
   return (
     <Card className="p-2">
@@ -24,11 +69,11 @@ const Cobro = () => {
           <Select
             isClearable={false}
             theme={selectThemeColors}
-            isMulti
             name="colors"
             options={user.agency}
             className="react-select"
             classNamePrefix="select"
+            onChange={(option) => setAgency(option.value)}
           />
         </Col>
 
@@ -52,184 +97,88 @@ const Cobro = () => {
       </Row>
 
       <Table className="mt-4 consolidadoTable">
-        <thead>
-          <tr>
-            <th>COBRANZA</th>
-            <th>{picker}</th>
-            <th>TOTAL DICIEMBRE</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th className="bg-info-subtle">Cobro Coatepeque</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
+        {data && (
+          <>
+            <thead>
+              <tr>
+                <th>COBRANZA</th>
+                <th>{picker}</th>
+                <th>TOTAL DICIEMBRE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((element, index) => {
+                return (
+                  <>
+                    <tr>
+                      <th className="custom-header">
+                        <span
+                          className="bg"
+                          style={{ backgroundColor: chartColorsc[index] }}
+                        ></span>
+                        <span>Cobro {element.date.agency}</span>
+                      </th>
+                      <td>Q {element.date.payment_made}</td>
+                      <td>Q {element.total.payment_made}</td>
+                    </tr>
 
-          <tr>
-            <th className="bg-info-subtle">Cobro diario Coatepeque</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-info-subtle">Cobro cancelaciones Coatepeque</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-info-subtle">Cobros papelerías Coatepeque</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-info-subtle">Cobros asistencias Coatepeque</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-
-          <tr>
-            <th className="bg-primary-subtle">Cobro Mazatenango</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-primary-subtle">Cobro diario Mazatenango</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-primary-subtle">
-              Cobro cancelaciones Mazatenango
-            </th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-primary-subtle">Cobros papelerías Mazatenango</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-primary-subtle">
-              Cobros asistencias Mazatenango
-            </th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-
-          <tr>
-            <th className="bg-warning-subtle">Cobro Xela</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-warning-subtle">Cobro diario Xela</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-warning-subtle">Cobro cancelaciones Xela</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-warning-subtle">Cobros papelerías Xela</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-warning-subtle">Cobros asistencias Xela</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-danger-subtle">Cobro Cobán</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-danger-subtle">Cobro diario Cobán</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-danger-subtle">Cobro cancelaciones Cobán</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-danger-subtle">Cobros papelerías Cobán</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-danger-subtle">Cobros asistencias Cobán</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-secondary-subtle">Cobro Guatemala</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-secondary-subtle">Cobro diario Guatemala</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-secondary-subtle">
-              Cobro cancelaciones Guatemala
-            </th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-secondary-subtle">Cobros papelerías Guatemala</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-secondary-subtle">
-              Cobros asistencias Guatemala
-            </th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-
-          <tr>
-            <th className="bg-light">Cobro Total</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-light">Cobro diario Total</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-light">Cobro cancelaciones Total</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-light">Cobros papelerías Total</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-          <tr>
-            <th className="bg-light">Cobros asistencias Total</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>Cobros total</th>
-            <td>Q 7,050</td>
-            <td>Q 7,050</td>
-          </tr>
-        </tfoot>
+                    <tr>
+                      <th className="custom-header">
+                        <span
+                          className="bg"
+                          style={{ backgroundColor: chartColors[index] }}
+                        ></span>
+                        <span>Cobro diario {element.date.agency}</span>
+                      </th>
+                      <td>Q {element.date.credit_fee}</td>
+                      <td>Q {element.total.credit_fee}</td>
+                    </tr>
+                    <tr>
+                      <th className="custom-header">
+                        <span
+                          className="bg"
+                          style={{ backgroundColor: chartColors[index] }}
+                        ></span>
+                        <span>Cobro cancelaciones {element.date.agency}</span>
+                      </th>
+                      <td>Q {element.date.advanced_installment}</td>
+                      <td>Q {element.total.advanced_installment}</td>
+                    </tr>
+                    <tr>
+                      <th className="custom-header">
+                        <span
+                          className="bg"
+                          style={{ backgroundColor: chartColors[index] }}
+                        ></span>
+                        <span>Cobros papelerías {element.date.agency}</span>
+                      </th>
+                      <td>Q {element.date.administrative_fee}</td>
+                      <td>Q {element.total.administrative_fee}</td>
+                    </tr>
+                    <tr>
+                      <th className="custom-header">
+                        <span
+                          className="bg"
+                          style={{ backgroundColor: chartColors[index] }}
+                        ></span>
+                        <span>Cobros asistencias {element.date.agency}</span>
+                      </th>
+                      <td>Q {element.date.assistance_fee}</td>
+                      <td>Q {element.total.assistance_fee}</td>
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Cobros total</th>
+                <td>Q {calculateDateTotal()}</td>
+                <td>Q {calculatTotal()}</td>
+              </tr>
+            </tfoot>
+          </>
+        )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
         <Button.Ripple color="primary" type="reset">
