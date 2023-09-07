@@ -96,7 +96,7 @@ const Cobro = () => {
         </Col>
       </Row>
 
-      <Table className="mt-4 consolidadoTable">
+      <Table className="mt-4 consolidadoTable" responsive>
         {data && (
           <>
             <thead>
