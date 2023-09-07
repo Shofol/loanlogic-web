@@ -20,11 +20,12 @@ import { Formik, Field, ErrorMessage } from "formik";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { tipoDeGarantiaOptions } from "../../configs/data";
 
 const Garantía = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   return (
     <Card>
@@ -73,8 +74,8 @@ const Garantía = () => {
 
             try {
               const response = await API.post("guarantee", form);
-              resetForm();
               toast.success(response.data.message);
+              navigate(-1);
             } catch (error) {
               console.log(error);
             }

@@ -21,6 +21,8 @@ import {
   Globe,
   User
 } from "react-feather";
+import { useNavigate } from "react-router-dom";
+import { useRoledRoute } from "../../utility/hooks/useRoledRoute";
 
 const SolicitudCrédito = () => {
   // ** Ref
@@ -33,6 +35,8 @@ const SolicitudCrédito = () => {
   const [willSkip5, setWillSkip5] = useState(false);
   const [isLastForm, setIsLastForm] = useState(false);
   const [dpiData, setDpiData] = useState(null);
+  const navigate = useNavigate();
+  const dashboardRoute = useRoledRoute();
 
   useEffect(() => {
     console.log(dpiData);
@@ -58,6 +62,7 @@ const SolicitudCrédito = () => {
     try {
       const response = await api.post("credit-application", form);
       toast.success(response.data.message);
+      navigate(dashboardRoute);
     } catch (error) {
       console.log(error);
     }

@@ -18,13 +18,15 @@ import image from "../../assets/images/portrait/small/avatar-s-11.jpg";
 import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
 import { Formik, Field, ErrorMessage } from "formik";
 import API from "../../@core/api/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import FileListViewer from "../../@core/components/fileListViewer";
 
 const ValidationForm = () => {
   const [dirección, setDirección] = useState("");
   const [garantía, setGarantía] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchApplication();
   }, []);
@@ -115,8 +117,8 @@ const ValidationForm = () => {
 
             try {
               const response = await API.post(`credit/validation/${id}`, form);
-              resetForm();
-              toast.success(`Successfully saved ${data.name}`);
+              toast.success(`${response.data.message}`);
+              navigate(-1);
             } catch (error) {
               console.log(error);
             }

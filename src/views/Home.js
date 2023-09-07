@@ -1,36 +1,17 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  CardText,
-  CardLink
-} from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import navigation from "@src/navigation/vertical";
+import { useRoledRoute } from "../utility/hooks/useRoledRoute";
 
 const Home = () => {
   const navigate = useNavigate();
-
-  const [user, setUser] = useState();
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  const getUser = () => {
-    const newUser = JSON.parse(localStorage.getItem("user"));
-    setUser(newUser);
-  };
+  const dashboardRoute = useRoledRoute();
 
   useEffect(() => {
-    if (user) {
-      const dashboardRoute = navigation
-        .filter((element) => element.id === "dashboard")[0]
-        .children.filter((child) => child.role.includes(user.role))[0].navLink;
+    if (dashboardRoute) {
       navigate(dashboardRoute);
     }
-  }, [user]);
+  }, [dashboardRoute]);
   return null;
 };
 

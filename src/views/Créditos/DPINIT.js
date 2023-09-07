@@ -36,7 +36,9 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
   const [data, setData] = useState(null);
 
   const fetchDPIData = async (values) => {
-    const response = await api.get(`/client/dpi/${values.dpi_number}`);
+    const response = await api.get(`/client/dpi/${values.dpi_number}`, {
+      data: { showNotFoundError: false }
+    });
     const tempData = response.data.data;
     // tempData.photos_of_the_dpi = [];
     setData(tempData);
