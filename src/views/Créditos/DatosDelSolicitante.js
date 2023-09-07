@@ -516,7 +516,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                     className="align-middle me-sm-25 me-0"
                   ></ArrowLeft>
                   <span className="align-middle d-sm-inline-block d-none">
-                    Previous
+                    Anterior
                   </span>
                 </Button>
                 <Button
@@ -526,7 +526,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                   // onClick={onSubmit}
                 >
                   <span className="align-middle d-sm-inline-block d-none">
-                    Next
+                    Siguiente
                   </span>
                   <ArrowRight
                     size={14}

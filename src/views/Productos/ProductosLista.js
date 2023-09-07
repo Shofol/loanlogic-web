@@ -24,7 +24,7 @@ const ProductosLista = () => {
   }, [currentPage]);
 
   const fetchData = async () => {
-    const response = await API.get(`product?page=${currentPage}&pageSize=10`);
+    const response = await API.get(`product?page=${currentPage}&sortField=id&sortOrder=ASC&pageSize=10`);
     setProducts([...response.data.data]);
     setTotalPages(response.data.pagination.totalPages);
   };
@@ -36,7 +36,7 @@ const ProductosLista = () => {
         <thead>
           <tr>
             <th>No.</th>
-            <th>Num. Solicitud</th>
+            <th>ID Producto</th>
             <th>Nombre del producto</th>
             <th>Código del producto</th>
             <th>Periodicidad de cobros</th>

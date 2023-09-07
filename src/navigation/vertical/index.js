@@ -174,7 +174,7 @@ export default [
     children: [
       {
         id: "productConfig",
-        title: "Configuration",
+        title: "Configurar",
         icon: <Circle size={20} />,
         navLink: "/productos/config"
       },
@@ -186,7 +186,7 @@ export default [
       },
       {
         id: "productList",
-        title: "Productos Lista",
+        title: "Lista productos",
         icon: <Circle size={20} />,
         navLink: "/productos/lista"
       }

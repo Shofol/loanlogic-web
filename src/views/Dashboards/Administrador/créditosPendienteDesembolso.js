@@ -36,7 +36,7 @@ const CréditosPendienteDesembolso = () => {
         <thead>
           <tr>
             <th>Sl. No</th>
-            <th>Num. Solicitud</th>
+            <th>Num. Crédito</th>
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Dirección</th>

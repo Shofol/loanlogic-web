@@ -58,7 +58,7 @@ const ClientesLista = () => {
       params = params + `&${pair[0]}=${pair[1]}`;
     });
     const response = await API.get(
-      `client?page=${currentPage}&pageSize=10` + params
+      `client?page=${currentPage}&sortField=id&sortOrder=ASC&pageSize=10` + params
     );
     setData([...response.data.data]);
     setQueryParams({});
@@ -165,7 +165,7 @@ const ClientesLista = () => {
                 onClick={handleSearch}
               >
                 <Search size={14} />
-                <span className="align-middle ms-25">Search</span>
+                <span className="align-middle ms-25">Buscar</span>
               </Button.Ripple>
             </div>
 
@@ -174,7 +174,7 @@ const ClientesLista = () => {
                 <tr>
                   <th>No.</th>
                   <th>
-                    <span style={{ whiteSpace: "nowrap" }}>Num. Solicitud</span>
+                    <span style={{ whiteSpace: "nowrap" }}>ID Cliente</span>
                     <Input
                       type="text"
                       name="productoNombre"

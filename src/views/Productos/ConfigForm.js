@@ -49,7 +49,7 @@ const ConfigForm = () => {
     { value: "WEEKLY", label: "Semanal" },
     { value: "BIWEEKLY", label: "Quincenal" },
     { value: "FORTNIGHTLY", label: "Catorcenal" },
-    { value: "END_MONTH", label: "Mensual (fin de mes)" }
+    { value: "MONTHLY", label: "Mensual (fin de mes)" }
   ];
 
   const duraciónOptions = [
@@ -77,6 +77,7 @@ const ConfigForm = () => {
     vat: product ? product.vat : "",
     late_interest: product ? product.late_interest : "",
     management_expenses: product ? product.management_expenses : "",
+    management_days: product ? product.management_days : "",
     assistance_expenses: product ? product.assistance_expenses : "",
     agencies: product ? product.agencies : [],
     administrative_expenses: product ? product.administrative_expenses : [],
@@ -392,6 +393,22 @@ const ConfigForm = () => {
                         tag={Field}
                       />
                       <InputGroupText>Q</InputGroupText>
+                    </InputGroup>
+                  </Col>
+
+                  <Col sm="12" md="3" className="mb-1">
+                    <Label className="form-label" for="management_days">
+                      Días Gestión de Cobranza automática
+                    </Label>
+                    <InputGroup>
+                      <Input
+                        type="number"
+                        name="management_days"
+                        id="management_days"
+                        placeholder="90 días"
+                        tag={Field}
+                      />
+                      <InputGroupText>Días</InputGroupText>
                     </InputGroup>
                   </Col>
 

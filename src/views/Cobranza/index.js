@@ -91,7 +91,7 @@ const Cobranza = () => {
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Capital crédito: {data?.credit.disbursement_amount} Q
+                Capital crédito: {data?.credit.total_credit_amount} Q
               </p>
             </Col>
           </Row>

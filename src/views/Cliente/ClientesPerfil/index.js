@@ -263,8 +263,10 @@ const ClientesPerfil = () => {
                   <tr
                     key={index + 1}
                     className="clickable-row"
-                    onClick={(e) => {
-                      navigate(`/reportería/amortization/${item.id}`);
+                    onClick={(e) => { 
+                      (item.credit.id == undefined)
+                      ? navigate(`/créditos/visualizar-solicitud/${item.id}`)
+                      : navigate(`/reportería/amortization/${item.credit.id}`);
                     }}
                   >
                     <td>{index + 1}</td>

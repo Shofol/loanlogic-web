@@ -82,7 +82,7 @@ const Desembolso = () => {
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
                 {" "}
-                Capital crédito: {data?.credit.disbursement_amount}Q
+                Capital crédito: {data?.credit.total_credit_amount}Q
               </p>
             </Col>
           </Row>
@@ -90,7 +90,7 @@ const Desembolso = () => {
             <Col sm="12" md="6">
               <p className="mb-0">
                 {" "}
-                Cuota crédito: {data?.debt_collection.credit_fee}Q
+                Cuota crédito: {data?.credit.installment_amount}Q
               </p>
             </Col>
             <Col sm="12" md="6">

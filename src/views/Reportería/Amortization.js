@@ -143,7 +143,7 @@ const Amortization = () => {
 
           <Row>
             <Col sm="12" md="6">
-              <p className="mb-0">Crédito: 28D</p>
+              <p className="mb-0">Crédito: {data?.credit.product_name}</p>
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
@@ -160,7 +160,7 @@ const Amortization = () => {
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Capital crédito: {data?.credit.disbursement_amount}Q
+                Capital crédito: {data?.credit.total_credit_amount}Q
               </p>
             </Col>
           </Row>
@@ -203,6 +203,7 @@ const Amortization = () => {
         <Table responsive>
           <thead>
             <tr>
+              <th className="stickyFirstColumn">ID PAGO</th>
               <th className="stickyFirstColumn">#Pago</th>
               <th className="stickySecondColumn">Fecha Pago</th>
               <th>Pago realizado</th>
@@ -241,7 +242,6 @@ const Amortization = () => {
               <th>PAGADO Interés Crédito sin IVA</th>
               <th>PAGADO IVA Interés Crédito</th>
               <th>PAGADO Capital</th>
-              <th>PAGADO TOTAL IVA HASTA FECHA</th>
               <th>ESTADO</th>
               <th>Actualizado por usuario</th>
             </tr>
@@ -254,6 +254,9 @@ const Amortization = () => {
                 .map((debt) => {
                   return (
                     <tr key={debt.id}>
+                      <td className="stickyFirstColumn bg-primary-subtle">
+                        {debt.id}
+                      </td>
                       <td className="stickyFirstColumn bg-primary-subtle">
                         {debt.no_of_installment}
                       </td>
@@ -283,7 +286,20 @@ const Amortization = () => {
                       <td>{debt.total_paid_amount}</td>
                       <td>{debt.total_pending_amount}</td>
                       <td>{debt.total_tax}</td>
+                      <td>{debt.paid_default_interest_with_tax}</td>
+                      <td>{debt.paid_default_interest}</td>
+                      <td>{debt.paid_default_interest_tax}</td>
+                      <td>{debt.paid_default_amount}</td>
+                      <td>{debt.paid_only_default}</td>
+                      <td>{debt.paid_collection_management_fee}</td>
+                      <td>{debt.paid_collection_management_without_tax}</td>
+                      <td>{debt.paid_collection_management_tax}</td>
+                      <td>{debt.paid_credit_interest_with_tax}</td>
+                      <td>{debt.paid_credit_interest}</td>
+                      <td>{debt.paid_credit_interest_tax}</td>
+                      <td>{debt.paid_credit_capital}</td>
                       <td>{debt.status}</td>
+                      <td>{debt.updatedBy}</td>
                     </tr>
                   );
                 })}

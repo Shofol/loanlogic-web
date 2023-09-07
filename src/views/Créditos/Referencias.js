@@ -375,12 +375,12 @@ const Referencias = ({ stepper, onSubmit, onPrevious, data }) => {
                     className="align-middle me-sm-25 me-0"
                   ></ArrowLeft>
                   <span className="align-middle d-sm-inline-block d-none">
-                    Previous
+                    Anterior
                   </span>
                 </Button>
                 <Button type="submit" color="primary" className="btn-next">
                   <span className="align-middle d-sm-inline-block d-none">
-                    Submit
+                    Enviar
                   </span>
                   <ArrowRight
                     size={14}
