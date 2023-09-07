@@ -4,54 +4,34 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  CardLink,
+  CardLink
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import navigation from "@src/navigation/vertical";
 
 const Home = () => {
-  return (
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Kick start your project 🚀</CardTitle>
-        </CardHeader>
-        <CardBody>
-          <CardText>All the best for your new project.</CardText>
-          <CardText>
-            Please make sure to read our{" "}
-            <CardLink
-              href="https://pixinvent.com/demo/vuexy-react-admin-dashboard-template/documentation/"
-              target="_blank"
-            >
-              Template Documentation
-            </CardLink>{" "}
-            to understand where to go from here and how to use our template.
-          </CardText>
-        </CardBody>
-      </Card>
+  const navigate = useNavigate();
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Want to integrate JWT? 🔒</CardTitle>
-        </CardHeader>
-        <CardBody>
-          <CardText>
-            We carefully crafted JWT flow so you can implement JWT with ease and
-            with minimum efforts.
-          </CardText>
-          <CardText>
-            Please read our{" "}
-            <CardLink
-              href="https://pixinvent.com/demo/vuexy-react-admin-dashboard-template/documentation/docs/development/auth"
-              target="_blank"
-            >
-              JWT Documentation
-            </CardLink>{" "}
-            to get more out of JWT authentication.
-          </CardText>
-        </CardBody>
-      </Card>
-    </div>
-  );
+  const [user, setUser] = useState();
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = () => {
+    const newUser = JSON.parse(localStorage.getItem("user"));
+    setUser(newUser);
+  };
+
+  useEffect(() => {
+    if (user) {
+      const dashboardRoute = navigation
+        .filter((element) => element.id === "dashboard")[0]
+        .children.filter((child) => child.role === user.role)[0].navLink;
+      navigate(dashboardRoute);
+    }
+  }, [user]);
+  return null;
 };
 
 export default Home;
