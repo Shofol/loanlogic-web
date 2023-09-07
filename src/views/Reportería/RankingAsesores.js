@@ -108,7 +108,7 @@ const RankingAsesores = ({ title }) => {
         </Col>
       </Row>
 
-      <Table className="mt-4">
+      <Table className="mt-4" responsive>
         <thead>
           <tr>
             <th>No.</th>
