@@ -38,10 +38,6 @@ const SolicitudCrédito = () => {
   const navigate = useNavigate();
   const dashboardRoute = useRoledRoute();
 
-  useEffect(() => {
-    console.log(dpiData);
-  }, [dpiData]);
-
   const handleSubmitForm = async () => {
     const form = new FormData();
     let values = { ...valueToSubmit };

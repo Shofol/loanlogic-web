@@ -14,6 +14,7 @@ import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";
 import { UserContext } from "../../utility/context/User";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import { useNavigate } from "react-router-dom";
 
 const Usuarios = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +27,7 @@ const Usuarios = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [user, setUser] = useState(null);
   const currentUser = useContext(UserContext).user;
+  const navigate = useNavigate();
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -39,21 +41,6 @@ const Usuarios = () => {
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  // useEffect(() => {
-  //   setMonth();
-  // }, []);
-
-  // const handleMonthChange = (date) => {
-  //   setMonth(date);
-  // };
-
-  // const setMonth = (date = null) => {
-  //   const current = date ? new Date(date) : new Date();
-  //   current.setMonth(current.getMonth() - 1);
-  //   const previousMonth = current.toLocaleString("default", { month: "long" });
-  //   setPreviousMonth(previousMonth);
-  // };
-
   const handleEdit = (user) => {
     setUser(user);
     setEdit(true);
@@ -64,10 +51,6 @@ const Usuarios = () => {
       fetchData();
     }
   }, [agent]);
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   const fetchData = async () => {
     const response = await API.get(
@@ -106,23 +89,6 @@ const Usuarios = () => {
             <User size={16} />
             <span className="align-middle mx-25">Crear nuevo usuario</span>
           </Button.Ripple>
-          {/* <Label className="form-label" for="hf-picker">
-            Fecha
-          </Label>
-          <Flatpickr
-            value={picker}
-            id="hf-picker"
-            className="form-control"
-            onChange={(selectedDates, dateStr, instance) => {
-              handleMonthChange(selectedDates[0]);
-              setPicker(dateStr);
-            }}
-            options={{
-              altInput: true,
-              altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
-            }}
-          /> */}
         </Col>
       </Row>
       <Table className="mt-4" responsive>
@@ -136,7 +102,6 @@ const Usuarios = () => {
             <th>Num. Celular</th>
             <th>Fecha aniversario</th>
             <th>Fecha creación usuario</th>
-            {/* <th>Estado</th> */}
             <th>Action</th>
           </tr>
         </thead>
@@ -144,7 +109,18 @@ const Usuarios = () => {
           {users.length > 0
             ? users.map((user, index) => {
                 return (
-                  <tr key={user.id}>
+                  <tr
+                    className="clickable-row"
+                    key={user.id}
+                    onClick={() => {
+                      if (
+                        currentUser.role !== "AGENT" ||
+                        currentUser.role !== "COLLECTION-MANAGER"
+                      ) {
+                        navigate(`/reportería/kpi/${user.id}`);
+                      }
+                    }}
+                  >
                     <td>{user.id}</td>
                     <td className="nowrap">{user.name}</td>
                     <td className="nowrap">{user.role}</td>
@@ -159,13 +135,15 @@ const Usuarios = () => {
                     <td>
                       {user ? getConvertDateWithTimeZone(user.createdAt) : null}
                     </td>
-                    {/* <td>Q 950</td> */}
                     <td>
                       <Button.Ripple
                         className="btn-icon"
                         outline
                         color="primary"
-                        onClick={() => handleEdit(user)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEdit(user);
+                        }}
                       >
                         <Edit size={16} />
                       </Button.Ripple>
@@ -174,27 +152,6 @@ const Usuarios = () => {
                 );
               })
             : null}
-          {/* <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>John Doe</td>
-            <td>John Doe</td>
-            <td>John Doe</td>
-            <td>Q 950</td>
-            <td>
-              <Button.Ripple
-                className="btn-icon"
-                outline
-                color="primary"
-                onClick={(user) => handleEdit(user)}
-              >
-                <Edit size={16} />
-              </Button.Ripple>
-            </td>
-          </tr> */}
         </tbody>
       </Table>
       <div className="d-flex justify-content-center my-1">

@@ -150,7 +150,8 @@ export default [
         id: "kpiVisualization",
         title: "KPI visualization",
         icon: <Circle size={20} />,
-        navLink: "/reportería/kpi"
+        navLink: "/reportería/kpi",
+        role: "AGENT, COLLECTION-MANAGER"
       },
       {
         id: "rankingAsesores",

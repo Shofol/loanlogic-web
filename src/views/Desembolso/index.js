@@ -25,7 +25,6 @@ const Desembolso = () => {
   const submit = async () => {
     try {
       const response = await API.put(`/credit/disbursement/${id}`);
-      console.log(response.data.data);
       setData(response.data.data);
 
       toast.success(response.data.message);

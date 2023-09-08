@@ -34,7 +34,6 @@ const RecuperaciónDiaria = () => {
     const response = await api.get(
       `/debt/collection/pending?page=${currentPage}&pageSize=10`
     );
-    console.log(response.data.data);
     setData(response.data.data);
     setTotalPages(response.data.pagination.totalPages);
   };

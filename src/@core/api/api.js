@@ -11,7 +11,6 @@ api.interceptors.request.use(function (config) {
   if (config.method === "get" && config.data) {
     showNotFoundError = config.data.showNotFoundError;
   }
-  // console.log(showNotFoundError);
   const tokenStr = localStorage.getItem("gesToken")
     ? localStorage.getItem("gesToken")
     : null;

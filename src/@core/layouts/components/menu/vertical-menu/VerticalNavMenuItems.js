@@ -37,7 +37,6 @@ const VerticalMenuNavItems = (props) => {
     const tempItem = { ...item };
     // checking the role to show/hide items in group
     if (tempItem.children) {
-      // console.log(item.children);
       if (user) {
         tempItem.children = tempItem.children.filter((child) => {
           // skipping items which doesn't have specific role mentioned

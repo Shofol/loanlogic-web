@@ -82,6 +82,10 @@ const ReporteríaRoutes = [
     element: <KPI />
   },
   {
+    path: "/reportería/kpi/:id",
+    element: <KPI />
+  },
+  {
     path: "/reportería/transaccionesMensuales",
     element: <TransaccionesMensuales />
   },

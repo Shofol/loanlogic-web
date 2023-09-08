@@ -83,9 +83,6 @@ const ValidationForm = () => {
             if (!values.inventory) {
               errors.inventory = requiredMsg;
             }
-            // if (values.observations.length === 0) {
-            //   errors.observations = requiredMsg;
-            // }
             if (!values.payment_day) {
               errors.payment_day = requiredMsg;
             }

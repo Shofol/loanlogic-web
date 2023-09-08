@@ -4,8 +4,6 @@ import { Row, Col, Label, Input, InputGroup, InputGroupText } from "reactstrap";
 const RangeListView = ({ assosLabel, values }) => {
   return (
     <>
-      {/* <p className="mb-0">{label}</p> */}
-
       {values && values.length > 0 && (
         <>
           {values.map((range, index) => {
@@ -22,6 +20,7 @@ const RangeListView = ({ assosLabel, values }) => {
                       id="minimum_range"
                       placeholder="Rango mínimo"
                       disabled
+                      value={range.minimum_range}
                     />
                     <InputGroupText>Q</InputGroupText>
                   </InputGroup>
@@ -38,6 +37,7 @@ const RangeListView = ({ assosLabel, values }) => {
                       id="maximum_range"
                       placeholder="Rango máximo"
                       disabled
+                      value={range.maximum_range}
                     />
                     <InputGroupText>Q</InputGroupText>
                   </InputGroup>
@@ -54,6 +54,7 @@ const RangeListView = ({ assosLabel, values }) => {
                       id={assosLabel}
                       disabled
                       placeholder={assosLabel}
+                      value={range[`${assosLabel.toLowerCase()}`]}
                     />
                     <InputGroupText>Q</InputGroupText>
                   </InputGroup>

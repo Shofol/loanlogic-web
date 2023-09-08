@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -9,179 +9,141 @@ import {
   Progress,
   InputGroup,
   Input,
-  InputGroupText
+  InputGroupText,
+  Label
 } from "reactstrap";
 import OverviewCircle from "../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import Chart from "react-apexcharts";
 import RangeList from "../../@core/components/rangeList";
 import RangeListView from "./RangeListView";
+import { useParams } from "react-router-dom";
+import api from "../../@core/api/api";
+import Select from "react-select";
+import { selectThemeColors } from "@utils";
 
 const KPI = () => {
   const { colors } = useContext(ThemeColors);
+  let { id } = useParams();
+  const [data, setData] = useState(null);
+  const [series, setSeries] = useState(null);
+  const [user, setUser] = useState();
+  const [userId, setUserId] = useState();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = () => {
+    const newUser = JSON.parse(localStorage.getItem("user"));
+    setUser(newUser);
+  };
+
+  useEffect(() => {
+    if (user) {
+      if (user.role !== "AGENT" || user.role !== "COLLECTION-MANAGER") {
+        fetchUsersList();
+      }
+    }
+
+    if (id) {
+      setUserId(id);
+    } else {
+      if (user) {
+        if (user.role === "AGENT" || user.role === "COLLECTION-MANAGER") {
+          setUserId(user.id);
+        }
+      }
+    }
+  }, [id, user]);
+
+  useEffect(() => {
+    if (userId) {
+      fetchData();
+    }
+  }, [userId]);
+
+  const fetchData = async () => {
+    const response = await api.get(`reporting/kpi/${userId}`);
+    setData(response.data.data);
+  };
+
+  const fetchUsersList = async () => {
+    const response = await api.get(`user/list`);
+    setUsers(
+      response.data.data.map((user) => ({ label: user.name, value: user.id }))
+    );
+  };
+
+  useEffect(() => {
+    if (data) {
+      let chartData = [];
+      Object.entries(data.daily_amount).map((pair) => {
+        chartData = [
+          ...chartData,
+          {
+            x: pair[0],
+            y: pair[1]
+          }
+        ];
+      });
+
+      const series = [
+        {
+          name: "Daily Amount",
+          data: chartData
+        }
+      ];
+
+      setSeries(series);
+    }
+  }, [data]);
 
   const options = {
     chart: {
       id: "basic-bar"
-    }
-    // xaxis: {
-    //   categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-    // }
+    },
+    colors: ["#25c76e"]
   };
-  const series = [
-    {
-      name: "series-1",
-      data: [
-        {
-          x: "Jan",
-          y: 90,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Feb",
-          y: 58,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Mar",
-          y: 13,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Apr",
-          y: 23,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "May",
-          y: 43,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Jun",
-          y: 88,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Jul",
-          y: 23,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Aug",
-          y: 63,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Sep",
-          y: 43,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Oct",
-          y: 63,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Nov",
-          y: 63,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        },
-        {
-          x: "Dec",
-          y: 43,
-          goals: [
-            {
-              name: "Expected",
-              value: 52,
-              strokeColor: "#775DD0"
-            }
-          ]
-        }
-      ]
-    }
-  ];
 
-  const values = [
-    { minimum_range: 2, maximum_range: 4, bono: 10 },
-    { minimum_range: 2, maximum_range: 4, bono: 10 },
-    { minimum_range: 2, maximum_range: 4, bono: 10 },
-    { minimum_range: 2, maximum_range: 4, bono: 10 },
-    { minimum_range: 2, maximum_range: 4, bono: 10 }
-  ];
+  const mapBonusValues = (bonuses) => {
+    let values = [];
+    bonuses.map((bonus) => {
+      values = [
+        ...values,
+        {
+          minimum_range: bonus.bonus_minimum_range,
+          maximum_range: bonus.bonus_maximum_range,
+          bono: bonus.bonus_amount
+        }
+      ];
+    });
+    return values;
+  };
 
   return (
     <>
-      {" "}
       <Card className="px-2">
         <CardHeader>
-          <CardTitle>KPI: John Doe</CardTitle>
+          <CardTitle>KPI: {data?.user.name}</CardTitle>
+          {user &&
+            user.role !== "AGENT" &&
+            user.role !== "COLLECTION-MANAGER" && (
+              <Row>
+                <Label className="form-label">Select User</Label>
+                <Select
+                  theme={selectThemeColors}
+                  className="react-select"
+                  classNamePrefix="select"
+                  label="Select User"
+                  options={users}
+                  isClearable={false}
+                  name="users"
+                  onChange={(option) => setUserId(option.value)}
+                />
+              </Row>
+            )}
         </CardHeader>
 
         <CardBody>
@@ -196,7 +158,7 @@ const KPI = () => {
                   id="diario"
                   placeholder="Diario"
                   disabled
-                  value={20}
+                  value={data?.goal.daily}
                 />
                 <InputGroupText>Q</InputGroupText>
               </InputGroup>
@@ -210,7 +172,7 @@ const KPI = () => {
                   id="mensual"
                   placeholder="Mensual"
                   disabled
-                  value={50000}
+                  value={data?.goal.monthly}
                 />
                 <InputGroupText>Q</InputGroupText>
               </InputGroup>
@@ -220,7 +182,9 @@ const KPI = () => {
           <Row>
             <Col md="8">
               <div className="pe-md-2 border rounded">
-                <Chart options={options} series={series} type="bar" />
+                {series && (
+                  <Chart options={options} series={series} type="bar" />
+                )}{" "}
                 <p className="text-center">
                   Gráfico diario: meta vs colocación real
                 </p>
@@ -228,10 +192,10 @@ const KPI = () => {
             </Col>
             <Col md="4" className="border rounded">
               <OverviewCircle
-                data={{ completed: 80, inProgress: 20 }}
+                data={{ completed: data?.percentage_amount }}
                 title="META"
                 subTitle="(sin incluir avances)"
-                text="6.000 Q / 50.000 Q"
+                text={`${data?.total_amount} Q / ${data?.goal.monthly} Q`}
                 height="200"
                 color={colors.warning.main}
               />
@@ -244,31 +208,63 @@ const KPI = () => {
           <CardTitle>Bono por producto:</CardTitle>
         </CardHeader>
 
-        <CardBody>
-          <Row>
-            <Col md="8">
-              <RangeListView assosLabel="Bono" values={values} />
-            </Col>
-            <Col md="4" className="d-flex flex-column border">
-              <OverviewCircle
-                data={{ completed: 80, inProgress: 20 }}
-                title="MORA"
-                text="24.000 Q / 200.000 Q"
-                height="170"
-                fontSize="2rem"
-                smallTitle={true}
-                fixedHeight={false}
-                color={colors.primary.main}
-              />
-              <div className="mb-2 d-flex flex-column">
-                <span>8% MORA</span>
-                <Progress value="8" className="mb-1" />
-                <span>{`Penalización 50% bono por mora > 10%`}</span>
-                <span className="fs-3 fw-bold">Q 800</span>
-              </div>
-            </Col>
-          </Row>
-        </CardBody>
+        {data &&
+          data.products &&
+          data.products.map((product) => {
+            return (
+              <CardBody className="border m-2 p-2" key={product.id}>
+                <Row>
+                  <Col md="8">
+                    <RangeListView
+                      assosLabel="Bono"
+                      values={mapBonusValues(product.bonuses)}
+                    />
+                  </Col>
+                  <Col md="4" className="d-flex flex-column border">
+                    <CardTitle className="text-center pt-2">
+                      Bono: {product.current_product_bonus}
+                    </CardTitle>
+                    <OverviewCircle
+                      data={{ completed: product.next_bonus_percentage }}
+                      title="MORA"
+                      text={`${product.total_requested} Q / ${product.next_bonus_max_range} Q`}
+                      height="150"
+                      fontSize="1.5rem"
+                      smallTitle={true}
+                      fixedHeight={false}
+                      color={colors.primary.main}
+                    />
+                    <div className="mb-2 d-flex flex-column">
+                      <span
+                        className={
+                          +product.current_product_bonus !==
+                          +product.final_bonus
+                            ? "text-danger"
+                            : ""
+                        }
+                      >
+                        {product.default_percentage}% MORA
+                      </span>
+                      <Progress
+                        value="8"
+                        className="mb-1"
+                        color={
+                          +product.current_product_bonus !==
+                          +product.final_bonus
+                            ? "danger"
+                            : ""
+                        }
+                      />
+                      <span>{`Penalización 50% bono por mora > 10%`}</span>
+                      <span className="fs-3 fw-bold">
+                        Q {product.final_bonus}
+                      </span>
+                    </div>
+                  </Col>
+                </Row>
+              </CardBody>
+            );
+          })}
       </Card>
     </>
   );
