@@ -16,6 +16,7 @@ import {
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
+import { CSVLink } from "react-csv";
 
 const ResumenAsesor = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
@@ -103,7 +104,9 @@ const ResumenAsesor = () => {
                     <td>{res?.totalCreditAmount}</td>
                     <td>{res?.totalRemainingAmount}</td>
                     <td>{res?.defaultAmount}</td>
-                    <td>{parseFloat(res?.defaultPercentage || 0).toFixed(2)} %</td>
+                    <td>
+                      {parseFloat(res?.defaultPercentage || 0).toFixed(2)} %
+                    </td>
                   </tr>
                 );
               })}
@@ -116,17 +119,26 @@ const ResumenAsesor = () => {
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
                 <td>{calculateTotal(data, "totalRemainingAmount")}</td>
                 <td>{calculateTotal(data, "defaultAmount")}</td>
-                <td>{parseFloat(calculateTotal(data, "defaultPercentage") || 0).toFixed(2)} %</td>
+                <td>
+                  {parseFloat(
+                    calculateTotal(data, "defaultPercentage") || 0
+                  ).toFixed(2)}{" "}
+                  %
+                </td>
               </tr>
             </tfoot>
           </>
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
+        {data && (
+          <CSVLink data={data}>
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
+        )}
       </div>
     </Card>
   );
