@@ -66,7 +66,7 @@ const RecuperaciónDiaria = () => {
             <th>Apellidos</th>
             <th>Dirección</th>
             <th>Municipio</th>
-            <th>Departamento</th>
+            <th>Monto</th>
             {/* <th>Estado</th> */}
             <th>COBRAR</th>
           </tr>
@@ -89,7 +89,7 @@ const RecuperaciónDiaria = () => {
                   <td>{pdData?.client.surname}</td>
                   <td>{pdData?.client.residence_address}</td>
                   <td>{pdData?.client.residence_municipality}</td>
-                  <td>{pdData?.client.department_of_residence}</td>
+                  <td>{pdData?.debt_collections.amount_to_pay}</td>
                   {/* <td> 
                     <StatusTag status={pdData?}/>
                   </td> */}

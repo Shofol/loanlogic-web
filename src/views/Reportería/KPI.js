@@ -230,10 +230,10 @@ const KPI = () => {
                   </Col>
                   <Col md="4" className="d-flex flex-column border">
                     <CardTitle className="text-center pt-2">
-                      Bono: {product.current_product_bonus}
+                      Bono: Q {product.current_product_bonus}
                     </CardTitle>
                     <OverviewCircle
-                      data={{ completed: product.next_bonus_percentage }}
+                      data={{ completed: product.next_bonus_percentage.toFixed(2) }}
                       title="MORA"
                       text={`${product.total_requested} Q / ${product.next_bonus_max_range} Q`}
                       height="150"
@@ -251,10 +251,10 @@ const KPI = () => {
                             : ""
                         }
                       >
-                        {product.default_percentage}% MORA
+                        {product.default_percentage.toFixed(2)}% MORA
                       </span>
                       <Progress
-                        value="8"
+                        value={product.default_percentage}
                         className="mb-1"
                         color={
                           +product.current_product_bonus !==

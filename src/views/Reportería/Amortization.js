@@ -261,7 +261,7 @@ const Amortization = () => {
                         {debt.no_of_installment}
                       </td>
                       <td className="stickySecondColumn bg-primary-subtle">
-                        {debt.payment_date}
+                        {getConvertDateWithTimeZone(debt.payment_date)}
                       </td>
                       <td>{debt.payment_made}</td>
                       <td>{debt.amount_to_pay}</td>
