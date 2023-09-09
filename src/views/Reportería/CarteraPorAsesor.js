@@ -26,6 +26,7 @@ import "./Reportería.scss";
 import { Download } from "react-feather";
 import api from "../../@core/api/api";
 import { UserContext } from "../../utility/context/User";
+import { CSVLink } from "react-csv";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -34,6 +35,7 @@ const CarteraPorAsesor = () => {
   const [gestors, setGestors] = useState([]);
   const [agent, setAgent] = useState(null);
   const { user } = useContext(UserContext);
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   const weekDays = [
     "Domingo",
@@ -206,10 +208,18 @@ const CarteraPorAsesor = () => {
           </div>
         </div>
         <div className="d-flex justify-content-center mt-2">
-          <Button.Ripple color="primary" type="reset">
-            <Download size={16} />
-            <span className="align-middle mx-25">Descargar CSV</span>
-          </Button.Ripple>
+        {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`cartera-asesor.csv`}
+          >
+        <Button.Ripple color="primary" type="reset">
+          <Download size={16} />
+          <span className="align-middle mx-25">DESCARGAR</span>
+        </Button.Ripple>
+        </CSVLink>
+        )}
         </div>
       </CardBody>
     </Card>

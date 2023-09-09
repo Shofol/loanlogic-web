@@ -16,6 +16,7 @@ import {
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
+import { CSVLink } from "react-csv";
 
 const Colocación = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
@@ -24,6 +25,7 @@ const Colocación = () => {
   const [agency, setAgency] = useState(null);
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -62,6 +64,46 @@ const Colocación = () => {
     );
     setData(response.data.data);
   };
+
+
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "No.", key: "no" },
+    { label: "Oficina", key: "agency" },
+    { label: "#Solicitudes", key: "todayCreditApplications" },
+    { label: picker, key: "todayCreditAmount" },
+    { label: "Colocación al "+picker, key: "currentMonthCreditAmount" },
+    { label: "Meta Diciembre", key: "currentMonthGoal" },
+    { label: "#Total Diciembre", key: "currentMonthCreditApplications" },
+    { label: "% Cumplido", key: "currentMonthPercentage" },
+    { label: "Diferencia", key: "currentMonthDifference" },
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (data) {
+      let modifiedData = [];
+      data.map((element) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            no: element?.no,
+            agency: element?.agency,
+            todayCreditApplications: element?.todayCreditApplications,
+            todayCreditAmount: element?.todayCreditAmount,
+            currentMonthCreditAmount: element?.currentMonthCreditAmount,
+            currentMonthGoal: element?.currentMonthGoal,
+            currentMonthCreditApplications: element?.currentMonthCreditApplications,
+            currentMonthPercentage: parseFloat(element?.currentMonthPercentage).toFixed(2),
+            currentMonthDifference: element?.currentMonthDifference,            
+          }
+        ];
+
+        setDataToDownload(modifiedData);
+      });
+    }
+  }, [data]);
+
 
   return (
     <Card className="p-2">
@@ -119,7 +161,7 @@ const Colocación = () => {
 
       <Table className="mt-4" responsive>
         <thead>
-          <tr>
+          {/*<tr>
             <th>No.</th>
             <th>Oficina</th>
             <th>#Solicitudes</th>
@@ -129,6 +171,11 @@ const Colocación = () => {
             <th>#Total Diciembre</th>
             <th>% Cumplido</th>
             <th>Diferencia</th>
+          </tr>*/}
+          <tr>
+            {headers.map((header) => {
+              return <th key={header.label}>{header.label}</th>;
+            })}
           </tr>
         </thead>
         {data && data.length > 0 && (
@@ -175,10 +222,18 @@ const Colocación = () => {
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
+      {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`colocacion.csv`}
+          >
         <Button.Ripple color="primary" type="reset">
           <Download size={16} />
           <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
+        </Button.Ripple>
+        </CSVLink>
+        )}
       </div>
     </Card>
   );

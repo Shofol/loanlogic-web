@@ -66,7 +66,7 @@ const ResumenAsesor = () => {
             newCreditApplications: element?.newCreditApplications,
             totalCreditAmount: element?.totalCreditAmount,
             totalRemainingAmount: element?.totalRemainingAmount,
-            defaultAmount: element?.defaultAmount,
+            defaultAmount: parseFloat(element?.defaultAmount || 0).toFixed(2),
             defaultPercentage: parseFloat(
               element?.defaultPercentage || 0
             ).toFixed(2)
@@ -138,7 +138,7 @@ const ResumenAsesor = () => {
                     <td>{res?.newCreditApplications}</td>
                     <td>{res?.totalCreditAmount}</td>
                     <td>{res?.totalRemainingAmount}</td>
-                    <td>{res?.defaultAmount}</td>
+                    <td>{parseFloat(res?.defaultAmount || 0).toFixed(2)}</td>
                     <td>
                       {parseFloat(res?.defaultPercentage || 0).toFixed(2)} %
                     </td>
@@ -170,7 +170,7 @@ const ResumenAsesor = () => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`resumenAsesor.csv`}
+            filename={`resumen-asesor.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />

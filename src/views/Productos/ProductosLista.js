@@ -7,12 +7,14 @@ import { Download } from "react-feather";
 import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
+import { CSVLink } from "react-csv";
 
 const ProductosLista = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -29,12 +31,53 @@ const ProductosLista = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
+
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "No.", key: "no" },
+    { label: "ID Producto", key: "id" },
+    { label: "Nombre del producto", key: "product_name" },
+    { label: "Código del producto", key: "product_code" },
+    { label: "Periodicidad de cobros", key: "frequency" },
+    { label: "Duración (valor)", key: "duration" },
+    { label: "Duración (unidad)", key: "duration_frequency" },
+    { label: "Interés crédito (IVA includo)", key: "credit_interest" },
+    { label: "Agencias", key: "agency" },
+
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (products) {
+      let modifiedData = [];
+      products.map((element, index) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            no: index+1,
+            id: element?.id,
+            product_name: element?.product_name,
+            product_code: element?.product_code,
+            frequency: element?.frequency,
+            duration: element?.duration,
+            duration_frequency: element?.duration_frequency,
+            credit_interest: element?.credit_interest,
+            agency: (element?.agencies || []).join(", "),
+            
+          }
+        ];
+
+        setDataToDownload(modifiedData);
+      });
+    }
+  }, [products]);
+
   return (
     <Card className="p-2">
       <CardTitle>Productos</CardTitle>
       <Table className="mt-4" responsive>
         <thead>
-          <tr>
+          {/*<tr>
             <th>No.</th>
             <th>ID Producto</th>
             <th>Nombre del producto</th>
@@ -43,6 +86,11 @@ const ProductosLista = () => {
             <th>Duración (valor)</th>
             <th>Duración (unidad)</th>
             <th>Interés crédito (IVA includo)</th>
+  </tr>*/}
+          <tr>
+            {headers.map((header) => {
+              return <th key={header.label}>{header.label}</th>;
+            })}
           </tr>
         </thead>
         <tbody>
@@ -64,6 +112,7 @@ const ProductosLista = () => {
                     <td>{product.duration}</td>
                     <td>{product.duration_frequency}</td>
                     <td>{product.credit_interest}</td>
+                    <td>{product.agencies.join(", ")}</td>
                   </tr>
                 );
               })
@@ -94,10 +143,18 @@ const ProductosLista = () => {
       </div>
 
       <div className="d-flex justify-content-center mt-2">
+      {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`productos.csv`}
+          >
         <Button.Ripple color="primary" type="reset">
           <Download size={16} />
           <span className="align-middle mx-25">DESCARGAR</span>
         </Button.Ripple>
+        </CSVLink>
+        )}
       </div>
     </Card>
   );
