@@ -66,7 +66,6 @@ const Usuarios = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
-
   // mapping the header of the table and also the csv
   const headers = [
     { label: "ID", key: "id" },
@@ -77,8 +76,7 @@ const Usuarios = () => {
     { label: "Email", key: "email" },
     { label: "Fecha aniversario", key: "date_of_birth" },
     { label: "Fecha creación usuario", key: "createdAt" },
-    { label: "Acción", key: "example" }
-
+    { label: "Acción", key: "example" },
   ];
 
   // mapping the data for downloading csv file
@@ -96,12 +94,11 @@ const Usuarios = () => {
             phone: element?.phone,
             email: element?.email,
             date_of_birth: getConvertDateWithTimeZone(element.date_of_birth),
-            createdAt: getConvertDateWithTimeZone(element.createdAt),            
-          }
+            createdAt: getConvertDateWithTimeZone(element.createdAt),
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+      setDataToDownload(modifiedData);
     }
   }, [users]);
 
@@ -224,17 +221,17 @@ const Usuarios = () => {
       </div>
 
       <div className="d-flex justify-content-center mt-2">
-      {dataToDownload && (
+        {dataToDownload && (
           <CSVLink
             data={dataToDownload}
             headers={headers}
             filename={`usuarios.csv`}
           >
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
         )}
       </div>
       <SidebarNewUsers

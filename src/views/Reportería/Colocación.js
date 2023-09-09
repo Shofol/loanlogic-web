@@ -12,7 +12,7 @@ import { UserContext } from "../../utility/context/User";
 import {
   getConvertDateWithTimeZone,
   formatDateForQuery,
-  calculateTotal
+  calculateTotal,
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
@@ -50,7 +50,7 @@ const Colocación = () => {
     setProducts(
       response.data.data.map((product) => ({
         label: product.product_name,
-        value: product.id
+        value: product.id,
       }))
     );
   };
@@ -65,14 +65,13 @@ const Colocación = () => {
     setData(response.data.data);
   };
 
-
   // mapping the header of the table and also the csv
   const headers = [
     { label: "No.", key: "no" },
     { label: "Oficina", key: "agency" },
     { label: "#Solicitudes", key: "todayCreditApplications" },
     { label: picker, key: "todayCreditAmount" },
-    { label: "Colocación al "+picker, key: "currentMonthCreditAmount" },
+    { label: "Colocación al " + picker, key: "currentMonthCreditAmount" },
     { label: "Meta Diciembre", key: "currentMonthGoal" },
     { label: "#Total Diciembre", key: "currentMonthCreditApplications" },
     { label: "% Cumplido", key: "currentMonthPercentage" },
@@ -93,17 +92,44 @@ const Colocación = () => {
             todayCreditAmount: element?.todayCreditAmount,
             currentMonthCreditAmount: element?.currentMonthCreditAmount,
             currentMonthGoal: element?.currentMonthGoal,
-            currentMonthCreditApplications: element?.currentMonthCreditApplications,
-            currentMonthPercentage: parseFloat(element?.currentMonthPercentage).toFixed(2),
-            currentMonthDifference: element?.currentMonthDifference,            
-          }
+            currentMonthCreditApplications:
+              element?.currentMonthCreditApplications,
+            currentMonthPercentage: parseFloat(
+              element?.currentMonthPercentage
+            ).toFixed(2),
+            currentMonthDifference: element?.currentMonthDifference,
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+
+      const totalRow = {
+        no: "Total",
+        agency: null,
+        todayCreditApplications: calculateTotal(
+          data,
+          "todayCreditApplications"
+        ),
+        todayCreditAmount: calculateTotal(data, "todayCreditAmount"),
+        currentMonthCreditAmount: calculateTotal(
+          data,
+          "currentMonthCreditAmount"
+        ),
+        currentMonthGoal: calculateTotal(data, "currentMonthGoal"),
+        currentMonthCreditApplications: calculateTotal(
+          data,
+          "currentMonthCreditApplications"
+        ),
+        currentMonthPercentage: parseFloat(
+          calculateTotal(data, "currentMonthPercentage")
+        ).toFixed(2),
+        currentMonthDifference: calculateTotal(data, "currentMonthDifference"),
+      };
+
+      modifiedData.push(totalRow);
+
+      setDataToDownload(modifiedData);
     }
   }, [data]);
-
 
   return (
     <Card className="p-2">
@@ -138,7 +164,7 @@ const Colocación = () => {
               locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
+              dateFormat: "d/m/Y",
             }}
           />
         </Col>
@@ -222,17 +248,17 @@ const Colocación = () => {
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
-      {dataToDownload && (
+        {dataToDownload && (
           <CSVLink
             data={dataToDownload}
             headers={headers}
             filename={`colocacion.csv`}
           >
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
         )}
       </div>
     </Card>

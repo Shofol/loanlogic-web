@@ -15,7 +15,7 @@ import { Spanish } from "flatpickr/dist/l10n/es";
 import {
   convertDateWithTimeZone,
   formatDateForQuery,
-  getConvertDateWithTimeZone
+  getConvertDateWithTimeZone,
 } from "../../utility/Utils";
 import api from "../../@core/api/api";
 import { CSVLink } from "react-csv";
@@ -62,7 +62,6 @@ const RankingAsesores = ({ title }) => {
     }
   };
 
-
   // mapping the header of the table and also the csv
   const headers = [
     { label: "No.", key: "no" },
@@ -72,7 +71,6 @@ const RankingAsesores = ({ title }) => {
     { label: "Meta", key: "userGoal" },
     { label: "% Efectividad", key: "percentageEfficiency" },
     { label: "Diferencia", key: "differenceInAmount" },
-
   ];
 
   // mapping the data for downloading csv file
@@ -88,16 +86,16 @@ const RankingAsesores = ({ title }) => {
             user: element?.user,
             totalRequestedAmount: element?.totalRequestedAmount,
             userGoal: element?.userGoal,
-            percentageEfficiency: parseFloat(element?.percentageEfficiency).toFixed(2),
-            differenceInAmount: element?.differenceInAmount,            
-          }
+            percentageEfficiency: parseFloat(
+              element?.percentageEfficiency
+            ).toFixed(2),
+            differenceInAmount: element?.differenceInAmount,
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+      setDataToDownload(modifiedData);
     }
   }, [data]);
-
 
   return (
     <Card className="p-2">
@@ -139,9 +137,9 @@ const RankingAsesores = ({ title }) => {
                 new monthSelectPlugin({
                   shorthand: false,
                   dateFormat: "Y-m",
-                  altFormat: "F, Y"
-                })
-              ]
+                  altFormat: "F, Y",
+                }),
+              ],
             }}
           />
         </Col>
@@ -183,17 +181,17 @@ const RankingAsesores = ({ title }) => {
         </tbody>
       </Table>
       <div className="d-flex justify-content-center mt-2">
-      {dataToDownload && (
+        {dataToDownload && (
           <CSVLink
             data={dataToDownload}
             headers={headers}
             filename={`ranking-asesores.csv`}
           >
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
         )}
       </div>
     </Card>

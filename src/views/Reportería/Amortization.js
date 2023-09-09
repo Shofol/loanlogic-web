@@ -75,7 +75,7 @@ const Amortization = () => {
             total_paid_amount: prev.total_paid_amount + +next.total_paid_amount,
             total_pending_amount:
               prev.total_pending_amount + +next.total_pending_amount,
-            total_tax: prev.total_tax + +next.total_tax
+            total_tax: prev.total_tax + +next.total_tax,
           };
         },
         {
@@ -95,7 +95,7 @@ const Amortization = () => {
           discount_holidays_tax: 0,
           total_paid_amount: 0,
           total_pending_amount: 0,
-          total_tax: 0
+          total_tax: 0,
         }
       )
     );
@@ -109,7 +109,6 @@ const Amortization = () => {
       .toFixed(2);
   };
 
-
   // mapping the header of the table and also the csv
   const headers = [
     { label: "ID PAGO", key: "id" },
@@ -117,7 +116,10 @@ const Amortization = () => {
     { label: "Fecha Pago", key: "payment_date" },
     { label: "Pago realizado", key: "payment_made" },
     { label: "Monto total", key: "amount_to_pay" },
-    { label: "Cuota crédito (capital + interés + IVA incluidos)", key: "credit_fee" },
+    {
+      label: "Cuota crédito (capital + interés + IVA incluidos)",
+      key: "credit_fee",
+    },
     { label: "Cuota (capital)", key: "credit_capital" },
     { label: "Interés", key: "credit_interest" },
 
@@ -131,7 +133,10 @@ const Amortization = () => {
     { label: "Interés días adelantados", key: "discount_holidays_interest" },
     { label: "IVA días adelantados", key: "discount_holidays_tax" },
     { label: "Cuota anticipada", key: "advanced_installment" },
-    { label: "Gastos por gestión de cobranza", key: "collection_management_fee" },
+    {
+      label: "Gastos por gestión de cobranza",
+      key: "collection_management_fee",
+    },
     { label: "IVA gestión cobranza", key: "collection_management_tax" },
     { label: "Mora", key: "default_amount" },
     { label: "Interés mora", key: "default_interest" },
@@ -139,15 +144,33 @@ const Amortization = () => {
     { label: "Capital e intereses amortizado", key: "total_paid_amount" },
     { label: "Capital e interés pendiente", key: "total_pending_amount" },
     { label: "TOTAL IVA PAGO", key: "total_tax" },
-    { label: "PAGADO Interés Mora con IVA de (12%)", key: "paid_default_interest_with_tax" },
+    {
+      label: "PAGADO Interés Mora con IVA de (12%)",
+      key: "paid_default_interest_with_tax",
+    },
     { label: "PAGADO Interés Mora sin IVA", key: "paid_default_interest" },
     { label: "PAGADO IVA Interés Mora", key: "paid_default_interest_tax" },
-    { label: "PAGADO Mora (incluye Interés + IVA)", key: "paid_default_amount" },
+    {
+      label: "PAGADO Mora (incluye Interés + IVA)",
+      key: "paid_default_amount",
+    },
     { label: "PAGADO Mora (sin Interés + IVA)", key: "paid_only_default" },
-    { label: "PAGADO Gastos de cobranza con IVA", key: "paid_collection_management_fee" },
-    { label: "PAGADO Gastos de cobranza sin IVA", key: "paid_collection_management_without_tax" },
-    { label: "PAGADO IVA Gastos de cobranza", key: "paid_collection_management_tax" },
-    { label: "PAGADO Interés Crédito con IVA", key: "paid_credit_interest_with_tax" },
+    {
+      label: "PAGADO Gastos de cobranza con IVA",
+      key: "paid_collection_management_fee",
+    },
+    {
+      label: "PAGADO Gastos de cobranza sin IVA",
+      key: "paid_collection_management_without_tax",
+    },
+    {
+      label: "PAGADO IVA Gastos de cobranza",
+      key: "paid_collection_management_tax",
+    },
+    {
+      label: "PAGADO Interés Crédito con IVA",
+      key: "paid_credit_interest_with_tax",
+    },
     { label: "PAGADO Interés Crédito sin IVA", key: "paid_credit_interest" },
     { label: "PAGADO IVA Interés Crédito", key: "paid_credit_interest_tax" },
     { label: "PAGADO Capital", key: "paid_credit_capital" },
@@ -163,7 +186,6 @@ const Amortization = () => {
         modifiedData = [
           ...modifiedData,
           {
-
             idpago: element?.id,
             no_of_installment: element?.no_of_installment,
             payment_date: element?.payment_date,
@@ -190,30 +212,31 @@ const Amortization = () => {
             total_paid_amount: element?.total_paid_amount,
             total_pending_amount: element?.total_pending_amount,
             total_tax: element?.total_tax,
-            paid_default_interest_with_tax: element?.paid_default_interest_with_tax,
+            paid_default_interest_with_tax:
+              element?.paid_default_interest_with_tax,
             paid_default_interest: element?.paid_default_interest,
             paid_default_interest_tax: element?.paid_default_interest_tax,
-            paid_default_amount: element?.paid_default_amount,            
+            paid_default_amount: element?.paid_default_amount,
             paid_only_default: element?.paid_only_default,
-            paid_collection_management_fee: element?.paid_collection_management_fee,
-            paid_collection_management_without_tax: element?.paid_collection_management_without_tax,
-            paid_collection_management_tax: element?.paid_collection_management_tax,
-            paid_credit_interest_with_tax: element?.paid_credit_interest_with_tax,
+            paid_collection_management_fee:
+              element?.paid_collection_management_fee,
+            paid_collection_management_without_tax:
+              element?.paid_collection_management_without_tax,
+            paid_collection_management_tax:
+              element?.paid_collection_management_tax,
+            paid_credit_interest_with_tax:
+              element?.paid_credit_interest_with_tax,
             paid_credit_interest: element?.paid_credit_interest,
             paid_credit_interest_tax: element?.paid_credit_interest_tax,
             paid_credit_capital: element?.paid_credit_capital,
             status: element?.status,
             updatedBy: element?.updatedBy,
-           
-          }
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+      setDataToDownload(modifiedData);
     }
   }, [data]);
-
-
 
   return (
     <div>
@@ -310,11 +333,11 @@ const Amortization = () => {
       <Card className="p-2">
         <Table responsive>
           <thead>
-          <tr>
-            {headers.map((header) => {
-              return <th key={header.label}>{header.label}</th>;
-            })}
-          </tr>
+            <tr>
+              {headers.map((header) => {
+                return <th key={header.label}>{header.label}</th>;
+              })}
+            </tr>
             {/*<tr>
               <th className="stickyFirstColumn">ID PAGO</th>
               <th className="stickyFirstColumn">#Pago</th>
@@ -474,18 +497,18 @@ const Amortization = () => {
           />
         </div> */}
         <div className="d-flex justify-content-end mt-2">
-        {dataToDownload && (
-          <CSVLink
-            data={dataToDownload}
-            headers={headers}
-            filename={`amortizacion.csv`}
-          >
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
-        )}
+          {dataToDownload && (
+            <CSVLink
+              data={dataToDownload}
+              headers={headers}
+              filename={`amortizacion.csv`}
+            >
+              <Button.Ripple color="primary" type="reset">
+                <Download size={16} />
+                <span className="align-middle mx-25">DESCARGAR</span>
+              </Button.Ripple>
+            </CSVLink>
+          )}
         </div>
       </Card>
     </div>

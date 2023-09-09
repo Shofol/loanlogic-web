@@ -4,13 +4,12 @@ import Flatpickr from "react-flatpickr";
 import {
   convertDateWithTimeZone,
   formatDateForQuery,
-  getConvertDateWithTimeZone
+  getConvertDateWithTimeZone,
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import { Download } from "react-feather";
 import api from "../../@core/api/api";
-import { CSVLink } from "react-csv";
 
 import {
   LineChart,
@@ -20,7 +19,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend
+  Legend,
 } from "recharts";
 import "@styles/react/libs/charts/recharts.scss";
 import { chartColors } from "../../configs/data";
@@ -37,7 +36,6 @@ const TransaccionesMensuales = () => {
   const [series, setSeries] = useState([]);
   const [dates, setDates] = useState([]);
   const [agenciesData, setagenciesData] = useState([]);
-  const [dataToDownload, setDataToDownload] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -67,8 +65,8 @@ const TransaccionesMensuales = () => {
                 ...updatedSeries,
                 {
                   name: date,
-                  [key]: value
-                }
+                  [key]: value,
+                },
               ];
             }
           }
@@ -144,42 +142,6 @@ const TransaccionesMensuales = () => {
       });
   };
 
-
-  // mapping the header of the table and also the csv
-  const headers = [
-    { label: "Agencia.", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-
-  ];
-
-  // mapping the data for downloading csv file
-  useEffect(() => {
-    if (data) {
-      let modifiedData = [];
-      data.map((element) => {
-        modifiedData = [
-          ...modifiedData,
-          {
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-            
-          }
-        ];
-
-        setDataToDownload(modifiedData);
-      });
-    }
-  }, [data]);
-
-
   return (
     <Card className="p-2">
       <CardTitle>Transacciones Mensuales</CardTitle>
@@ -204,9 +166,9 @@ const TransaccionesMensuales = () => {
                 new monthSelectPlugin({
                   shorthand: false,
                   dateFormat: "Y-m",
-                  altFormat: "F, Y"
-                })
-              ]
+                  altFormat: "F, Y",
+                }),
+              ],
             }}
           />
         </Col>
@@ -244,7 +206,7 @@ const TransaccionesMensuales = () => {
 
       <Table className="mt-5" responsive>
         <thead>
-          {/*<tr>
+          <tr>
             <th>Agencia.</th>
             {dates &&
               dates.length > 0 &&
@@ -255,11 +217,6 @@ const TransaccionesMensuales = () => {
                   </th>
                 );
               })}
-          </tr>*/}
-          <tr>
-            {headers.map((header) => {
-              return <th key={header.label}>{header.label}</th>;
-            })}
           </tr>
         </thead>
         {data && (
@@ -285,18 +242,10 @@ const TransaccionesMensuales = () => {
       </Table>
 
       <div className="d-flex justify-content-center mt-2">
-      {dataToDownload && (
-          <CSVLink
-            data={dataToDownload}
-            headers={headers}
-            filename={`example.csv`}
-          >
         <Button.Ripple color="primary" type="reset">
           <Download size={16} />
           <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
-        )}
+        </Button.Ripple>{" "}
       </div>
     </Card>
   );

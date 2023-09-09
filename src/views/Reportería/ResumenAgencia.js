@@ -11,7 +11,7 @@ import { Download } from "react-feather";
 import {
   getConvertDateWithTimeZone,
   formatDateForQuery,
-  calculateTotal
+  calculateTotal,
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
@@ -44,7 +44,7 @@ const ResumenAgencia = () => {
     { label: "Colocación", key: "totalCreditAmount" },
     { label: "Cartera", key: "totalRemainingAmount" },
     { label: "Mora", key: "defaultAmount" },
-    { label: "%", key: "defaultPercentage" }
+    { label: "%", key: "defaultPercentage" },
   ];
 
   // mapping the data for downloading csv file
@@ -61,15 +61,32 @@ const ResumenAgencia = () => {
             newCreditApplications: element?.newCreditApplications,
             totalCreditAmount: element?.totalCreditAmount,
             totalRemainingAmount: element?.totalRemainingAmount,
-            defaultAmount: parseFloat(element?.defaultAmount|| 0).toFixed(2),
+            defaultAmount: parseFloat(element?.defaultAmount || 0).toFixed(2),
             defaultPercentage: parseFloat(
               element?.defaultPercentage || 0
-            ).toFixed(2)
-          }
+            ).toFixed(2),
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+
+      const totalRow = {
+        no: "Total",
+        agency: null,
+        currentClients: null,
+        newCreditApplications: calculateTotal(data, "newCreditApplications"),
+        totalCreditAmount: calculateTotal(data, "totalCreditAmount"),
+        totalRemainingAmount: calculateTotal(data, "totalRemainingAmount"),
+        defaultAmount: parseFloat(
+          calculateTotal(data, "defaultAmount") || 0
+        ).toFixed(2),
+        defaultPercentage: parseFloat(
+          calculateTotal(data, "defaultPercentage") || 0
+        ).toFixed(2),
+      };
+
+      modifiedData.push(totalRow);
+
+      setDataToDownload(modifiedData);
     }
   }, [data]);
 
@@ -92,7 +109,7 @@ const ResumenAgencia = () => {
               locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
+              dateFormat: "d/m/Y",
             }}
           />
         </Col>
@@ -100,7 +117,7 @@ const ResumenAgencia = () => {
 
       <Table className="mt-4" responsive>
         <thead>
-        <tr>
+          <tr>
             {headers.map((header) => {
               return <th key={header.label}>{header.label}</th>;
             })}
@@ -118,8 +135,10 @@ const ResumenAgencia = () => {
                     <td>{res?.newCreditApplications}</td>
                     <td>{res?.totalCreditAmount}</td>
                     <td>{res?.totalRemainingAmount}</td>
-                    <td>{parseFloat(res?.defaultAmount|| 0).toFixed(2)}</td>
-                    <td>{parseFloat(res?.defaultPercentage || 0).toFixed(2)} %</td>
+                    <td>{parseFloat(res?.defaultAmount || 0).toFixed(2)}</td>
+                    <td>
+                      {parseFloat(res?.defaultPercentage || 0).toFixed(2)} %
+                    </td>
                   </tr>
                 );
               })}
@@ -130,25 +149,34 @@ const ResumenAgencia = () => {
                 <td>{calculateTotal(data, "newCreditApplications")}</td>
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
                 <td>{calculateTotal(data, "totalRemainingAmount")}</td>
-                <td>{parseFloat(calculateTotal(data, "defaultAmount")|| 0).toFixed(2)}</td>
-                <td>{parseFloat(calculateTotal(data, "defaultPercentage") || 0).toFixed(2)} %</td>
+                <td>
+                  {parseFloat(
+                    calculateTotal(data, "defaultAmount") || 0
+                  ).toFixed(2)}
+                </td>
+                <td style={{ whiteSpace: "nowrap" }}>
+                  {parseFloat(
+                    calculateTotal(data, "defaultPercentage") || 0
+                  ).toFixed(2)}{" "}
+                  %
+                </td>
               </tr>
             </tfoot>
           </>
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
-      {dataToDownload && (
+        {dataToDownload && (
           <CSVLink
             data={dataToDownload}
             headers={headers}
             filename={`resumen-agencia.csv`}
           >
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
         )}
       </div>
     </Card>

@@ -26,11 +26,12 @@ const ProductosLista = () => {
   }, [currentPage]);
 
   const fetchData = async () => {
-    const response = await API.get(`product?page=${currentPage}&sortField=id&sortOrder=ASC&pageSize=10`);
+    const response = await API.get(
+      `product?page=${currentPage}&sortField=id&sortOrder=ASC&pageSize=10`
+    );
     setProducts([...response.data.data]);
     setTotalPages(response.data.pagination.totalPages);
   };
-
 
   // mapping the header of the table and also the csv
   const headers = [
@@ -43,7 +44,6 @@ const ProductosLista = () => {
     { label: "Duración (unidad)", key: "duration_frequency" },
     { label: "Interés crédito (IVA includo)", key: "credit_interest" },
     { label: "Agencias", key: "agency" },
-
   ];
 
   // mapping the data for downloading csv file
@@ -54,7 +54,7 @@ const ProductosLista = () => {
         modifiedData = [
           ...modifiedData,
           {
-            no: index+1,
+            no: index + 1,
             id: element?.id,
             product_name: element?.product_name,
             product_code: element?.product_code,
@@ -63,12 +63,10 @@ const ProductosLista = () => {
             duration_frequency: element?.duration_frequency,
             credit_interest: element?.credit_interest,
             agency: (element?.agencies || []).join(", "),
-            
-          }
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+      setDataToDownload(modifiedData);
     }
   }, [products]);
 
@@ -143,17 +141,17 @@ const ProductosLista = () => {
       </div>
 
       <div className="d-flex justify-content-center mt-2">
-      {dataToDownload && (
+        {dataToDownload && (
           <CSVLink
             data={dataToDownload}
             headers={headers}
             filename={`productos.csv`}
           >
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
         )}
       </div>
     </Card>

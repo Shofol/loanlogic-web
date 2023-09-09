@@ -12,7 +12,7 @@ import { UserContext } from "../../utility/context/User";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import {
   getConvertDateWithTimeZone,
-  formatDateForQuery
+  formatDateForQuery,
 } from "../../utility/Utils";
 import api from "../../@core/api/api";
 import { CSVLink } from "react-csv";
@@ -37,41 +37,76 @@ const CarteraConsolidada = () => {
     setData(response.data.data);
   };
 
-
-  // mapping the header of the table and also the csv
   const headers = [
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-    { label: "Example", key: "example" },
-
+    { label: "No.", key: "no" },
+    { label: "AGENTE", key: "name" },
+    { label: "CUOTA", key: "totalCollected" },
   ];
 
-  // mapping the data for downloading csv file
   useEffect(() => {
     if (data) {
       let modifiedData = [];
-      data.map((element) => {
+
+      data.users.map((user) => {
         modifiedData = [
           ...modifiedData,
           {
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-            example: element?.example,
-
-          }
+            no: user.id,
+            name: user.name,
+            totalCollected: `Q${user.totalCollected}`,
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+
+      const otherdata = [
+        {
+          no: "TOTAL PAGOS DEL DÍA",
+          name: "",
+          totalCollected: `Q${data?.totalCollected}`,
+        },
+        {
+          no: "DEVOLUCIÓN DE DESEMBOLSOS",
+          name: "",
+          totalCollected: `Q${data?.disbursementReturns}`,
+        },
+        {
+          no: "COLOCACIÓN DEL DÍA",
+          name: "",
+          totalCollected: `Q${data?.totalRequestedAmount}`,
+        },
+        {
+          no: "Clientes colocados",
+          name: "",
+          totalCollected: `Q${data?.totalApplications}`,
+        },
+        {
+          no: "Papelerías",
+          name: "",
+          totalCollected: `Q${data?.administartiveFee}`,
+        },
+        {
+          no: "ASISTENCIAS",
+          name: "",
+          totalCollected: `Q${data?.assistanceFee}`,
+        },
+        {
+          no: "DESCUENTOS/ASUETO	",
+          name: "",
+          totalCollected: `Q${data?.discountHoliday}`,
+        },
+        {
+          no: "CANCELACIONES ANTICIPADAS	",
+          name: "",
+          totalCollected: `Q${data?.advancedInstallment}`,
+        },
+        { no: "TOTAL", name: "", totalCollected: `Q${data?.total}` },
+      ];
+
+      modifiedData = [...modifiedData, ...otherdata];
+
+      setDataToDownload(modifiedData);
     }
   }, [data]);
-
 
   return (
     <Card className="p-2">
@@ -102,7 +137,7 @@ const CarteraConsolidada = () => {
               locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
+              dateFormat: "d/m/Y",
             }}
           />
         </Col>
@@ -112,7 +147,7 @@ const CarteraConsolidada = () => {
         {data && (
           <>
             <thead>
-              {/*<tr>
+              <tr>
                 <th
                   colSpan="3"
                   className="bg-secondary-subtle text-center fs-5"
@@ -124,12 +159,7 @@ const CarteraConsolidada = () => {
                 <th>No.</th>
                 <th>Agente</th>
                 <th>Cuota</th>
-        </tr>*/}
-              <tr>
-            {headers.map((header) => {
-              return <th key={header.label}>{header.label}</th>;
-            })}
-          </tr>
+              </tr>
             </thead>
             <tbody>
               {data.users.map((user) => {
@@ -200,20 +230,20 @@ const CarteraConsolidada = () => {
           </>
         )}
       </Table>
-      <div className="d-flex justify-content-center mt-2">
       {dataToDownload && (
+        <div className="d-flex justify-content-center mt-2">
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`resumenAsesor.csv`}
+            filename={`cartera-consolidada-${picker}.csv`}
           >
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>
-        </CSVLink>
-        )}
-      </div>
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>{" "}
+          </CSVLink>
+        </div>
+      )}
     </Card>
   );
 };

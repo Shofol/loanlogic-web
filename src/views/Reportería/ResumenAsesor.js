@@ -12,7 +12,7 @@ import { UserContext } from "../../utility/context/User";
 import {
   getConvertDateWithTimeZone,
   formatDateForQuery,
-  calculateTotal
+  calculateTotal,
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
@@ -48,7 +48,7 @@ const ResumenAsesor = () => {
     { label: "Colocación", key: "totalCreditAmount" },
     { label: "Cartera", key: "totalRemainingAmount" },
     { label: "Mora", key: "defaultAmount" },
-    { label: "%", key: "defaultPercentage" }
+    { label: "%", key: "defaultPercentage" },
   ];
 
   // mapping the data for downloading csv file
@@ -69,12 +69,27 @@ const ResumenAsesor = () => {
             defaultAmount: parseFloat(element?.defaultAmount || 0).toFixed(2),
             defaultPercentage: parseFloat(
               element?.defaultPercentage || 0
-            ).toFixed(2)
-          }
+            ).toFixed(2),
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+
+      const totalRow = {
+        no: "Total",
+        agency: null,
+        user: null,
+        currentClients: calculateTotal(data, "currentClients"),
+        newCreditApplications: calculateTotal(data, "newCreditApplications"),
+        totalCreditAmount: calculateTotal(data, "totalCreditAmount"),
+        totalRemainingAmount: calculateTotal(data, "totalRemainingAmount"),
+        defaultAmount: calculateTotal(data, "defaultAmount"),
+        defaultPercentage: parseFloat(
+          calculateTotal(data, "defaultPercentage") || 0
+        ).toFixed(2),
+      };
+
+      modifiedData.push(totalRow);
+      setDataToDownload(modifiedData);
     }
   }, [data]);
 
@@ -111,7 +126,7 @@ const ResumenAsesor = () => {
               locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
+              dateFormat: "d/m/Y",
             }}
           />
         </Col>

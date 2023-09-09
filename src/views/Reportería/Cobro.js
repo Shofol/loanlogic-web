@@ -11,7 +11,7 @@ import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
 import {
   getConvertDateWithTimeZone,
-  formatDateForQuery
+  formatDateForQuery,
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
@@ -31,8 +31,8 @@ const Cobro = () => {
   const fetchData = async () => {
     const response = await api.get(
       `reporting/cobro` +
-      `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
-      `${agency ? `&agency=${agency}` : ""}`
+        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+        `${agency ? `&agency=${agency}` : ""}`
     );
     setData(response.data.data);
   };
@@ -63,7 +63,6 @@ const Cobro = () => {
     );
   };
 
-
   // mapping the header of the table and also the csv
   const headers = [
     { label: "COBRANZA", key: "agency" },
@@ -79,18 +78,44 @@ const Cobro = () => {
         modifiedData = [
           ...modifiedData,
           {
-            agency: element?.date.agency,
+            agency: `Cobro ${element?.date.agency}`,
             date_payment_made: element?.date.payment_made,
             total_payment_made: element?.total.payment_made,
-
-          }
+          },
+          {
+            agency: `Cobro diario ${element?.date.agency}`,
+            date_payment_made: element?.date.credit_fee,
+            total_payment_made: element?.total.credit_fee,
+          },
+          {
+            agency: `Cobro cancelaciones ${element?.date.agency}`,
+            date_payment_made: element?.date.advanced_installment,
+            total_payment_made: element?.total.advanced_installment,
+          },
+          {
+            agency: `Cobros papelerías ${element?.date.agency}`,
+            date_payment_made: element?.date.administrative_fee,
+            total_payment_made: element?.total.administrative_fee,
+          },
+          {
+            agency: `Cobros asistencias ${element?.date.agency}`,
+            date_payment_made: element?.date.assistance_fee,
+            total_payment_made: element?.total.assistance_fee,
+          },
         ];
-
-        setDataToDownload(modifiedData);
       });
+
+      modifiedData = [
+        ...modifiedData,
+        {
+          agency: "Cobros total",
+          date_payment_made: calculateDateTotal(),
+          total_payment_made: calculatTotal(),
+        },
+      ];
+      setDataToDownload(modifiedData);
     }
   }, [data]);
-
 
   return (
     <Card className="p-2">
@@ -121,7 +146,7 @@ const Cobro = () => {
               locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
+              dateFormat: "d/m/Y",
             }}
           />
         </Col>
@@ -221,7 +246,7 @@ const Cobro = () => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`resumenAsesor.csv`}
+            filename={`cobro-${picker}.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />
