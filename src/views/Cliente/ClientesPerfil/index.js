@@ -334,8 +334,8 @@ const ClientesPerfil = () => {
                     className="clickable-row"
                     onClick={(e) => {
                       (item.credit.id == undefined)
-                        ? navigate(`/créditos/visualizar-solicitud/${item.id}`)
-                        : navigate(`/reportería/amortization/${item.credit.id}`);
+                        ? navigate(`/creditos/visualizar-solicitud/${item.id}`)
+                        : navigate(`/reporteria/amortization/${item.credit.id}`);
                     }}
                   >
                     <td>{index + 1}</td>

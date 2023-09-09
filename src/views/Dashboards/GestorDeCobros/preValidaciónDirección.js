@@ -95,7 +95,7 @@ const PreValidaciónDirección = () => {
                   key={data.id}
                   className="clickable-row"
                   onClick={() => {
-                    navigate(`/créditos/visualizar-solicitud/${data.id}`);
+                    navigate(`/creditos/visualizar-solicitud/${data.id}`);
                   }}
                 >
                   <td>{index + 1}</td>
