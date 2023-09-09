@@ -84,7 +84,14 @@ const KPI = () => {
           ...chartData,
           {
             x: pair[0],
-            y: pair[1]
+            y: pair[1],
+            goals: [
+              {
+                name: "Expected",
+                value: data.goal.daily,
+                strokeColor: "#0f502c"
+              }
+            ]
           }
         ];
       });
@@ -213,6 +220,7 @@ const KPI = () => {
           data.products.map((product) => {
             return (
               <CardBody className="border m-2 p-2" key={product.id}>
+                <CardTitle>{product.product_name}</CardTitle>
                 <Row>
                   <Col md="8">
                     <RangeListView
