@@ -80,7 +80,7 @@ const ValidaciónCrédito = () => {
                   key={credit.id}
                   className="clickable-row"
                   onClick={() => {
-                    navigate(`/créditos/visualizar-solicitud/${credit.id}`);
+                    navigate(`/creditos/visualizar-solicitud/${credit.id}`);
                   }}
                 >
                   <td>{index + 1}</td>
@@ -99,7 +99,7 @@ const ValidaciónCrédito = () => {
                       outline
                       color="primary"
                       onClick={(e) => {
-                        navigate(`/créditos/validation/${credit.id}`);
+                        navigate(`/creditos/validation/${credit.id}`);
                         e.stopPropagation();
                       }}
                     >

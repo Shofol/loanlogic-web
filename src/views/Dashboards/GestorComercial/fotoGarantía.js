@@ -70,7 +70,7 @@ const FotoGarantía = () => {
                   key={guarantee.id}
                   className="clickable-row"
                   onClick={() => {
-                    navigate(`/créditos/visualizar-solicitud/${guarantee.id}`);
+                    navigate(`/creditos/visualizar-solicitud/${guarantee.id}`);
                   }}
                 >
                   <td>{index + 1}</td>
@@ -89,7 +89,7 @@ const FotoGarantía = () => {
                       outline
                       color="primary"
                       onClick={(e) => {
-                        navigate(`/créditos/garantía/${guarantee.id}`);
+                        navigate(`/creditos/garantia/${guarantee.id}`);
                         e.stopPropagation();
                       }}
                     >

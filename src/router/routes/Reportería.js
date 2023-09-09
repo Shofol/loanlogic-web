@@ -34,62 +34,62 @@ const TransaccionesMensuales = lazy(() =>
 
 const ReporteríaRoutes = [
   {
-    path: "/reportería/cartera-asesor",
+    path: "/reporteria/cartera-asesor",
     element: <CarteraPorAsesor />
   },
   {
-    path: "/reportería/amortization/:id",
+    path: "/reporteria/amortization/:id",
     element: <Amortization />
   },
   {
-    path: "/reportería/carteraConsolidada",
+    path: "/reporteria/carteraConsolidada",
     element: <CarteraConsolidada />
   },
   {
-    path: "/reportería/resumenAsesor",
+    path: "/reporteria/resumenAsesor",
     element: <ResumenAsesor />
   },
   {
-    path: "/reportería/resumenAgencia",
+    path: "/reporteria/resumenAgencia",
     element: <ResumenAgencia />
   },
   {
-    path: "/reportería/colocación",
+    path: "/reporteria/colocacion",
     element: <Colocación />
   },
   {
-    path: "/reportería/mora",
+    path: "/reporteria/mora",
     element: <Mora />
   },
   {
-    path: "/reportería/cancelaciones-anticipadas",
+    path: "/reporteria/cancelaciones-anticipadas",
     element: <CancelacionesAnticipadas />
   },
   {
-    path: "/reportería/papelerías",
+    path: "/reporteria/papelerias",
     element: <Papelerías />
   },
   {
-    path: "/reportería/asistencias",
+    path: "/reporteria/asistencias",
     element: <Asistencias />
   },
   {
-    path: "/reportería/cobro",
+    path: "/reporteria/cobro",
     element: <Cobro />
   },
   {
-    path: "/reportería/kpi",
+    path: "/reporteria/kpi",
     element: <KPI />
   },
   {
-    path: "/reportería/kpi/:id",
+    path: "/reporteria/kpi/:id",
     element: <KPI />
   },
   {
-    path: "/reportería/transaccionesMensuales",
+    path: "/reporteria/transaccionesMensuales",
     element: <TransaccionesMensuales />
   },
-  { path: "reportería/rankingAsesores", element: <RankingAsesores /> }
+  { path: "reporteria/rankingAsesores", element: <RankingAsesores /> }
 ];
 
 export default ReporteríaRoutes;

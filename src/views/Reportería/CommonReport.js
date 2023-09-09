@@ -16,6 +16,7 @@ import {
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
+import { CSVLink } from "react-csv";
 
 const CommonReport = ({ title }) => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
@@ -23,6 +24,7 @@ const CommonReport = ({ title }) => {
   const { user } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [agency, setAgency] = useState(null);
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   let baseUrl = "";
   if (title === "Mora") {
@@ -62,6 +64,42 @@ const CommonReport = ({ title }) => {
     const previousMonth = current.toLocaleString("default", { month: "long" });
     setPreviousMonth(previousMonth);
   };
+
+
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "No.", key: "no" },
+    { label: "Agencia", key: "agency" },
+    { label: "Cierre "+spanishMonths[`${previousMonth}`], key: "lastMonth" },
+    { label: picker, key: "currentMonth" },
+    { label: "Diferencia %", key: "differenceInPercent" },
+    { label: "Diferencia Monto", key: "differenceInAmount" },
+
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (data) {
+      let modifiedData = [];
+      data.map((element) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            no: element?.id,
+            agency: element?.agency,
+            lastMonth: element?.lastMonth,
+            currentMonth: element?.currentMonth,
+            differenceInPercent: parseFloat(element?.differenceInPercent|| 0).toFixed(2),
+            differenceInAmount: parseFloat(element?.differenceInAmount|| 0).toFixed(2),
+            
+          }
+        ];
+
+        setDataToDownload(modifiedData);
+      });
+    }
+  }, [data]);
+
 
   return (
     <Card className="p-2">
@@ -107,13 +145,18 @@ const CommonReport = ({ title }) => {
 
       <Table className="mt-4" responsive>
         <thead>
-          <tr>
+          {/*<tr>
             <th>No.</th>
             <th>Agencia</th>
             <th>Cierre {spanishMonths[`${previousMonth}`]}</th>
             <th>{picker}</th>
             <th>Diferencia %</th>
             <th>Diferencia Monto</th>
+          </tr>*/}
+          <tr>
+            {headers.map((header) => {
+              return <th key={header.label}>{header.label}</th>;
+            })}
           </tr>
         </thead>
         {data && data.length > 0 && (
@@ -127,7 +170,7 @@ const CommonReport = ({ title }) => {
                     <td>{res?.lastMonth}</td>
                     <td>{res?.currentMonth}</td>
                     <td>
-                      {parseFloat(res?.differenceInPercent || 0).toFixed(2)} %
+                      
                     </td>
                     <td>{res?.differenceInAmount}</td>
                   </tr>
@@ -152,10 +195,18 @@ const CommonReport = ({ title }) => {
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
+      {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`descarga.csv`}
+          >
         <Button.Ripple color="primary" type="reset">
           <Download size={16} />
           <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
+        </Button.Ripple>
+        </CSVLink>
+        )}
       </div>
     </Card>
   );

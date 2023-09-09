@@ -57,6 +57,7 @@ const ClientesPerfil = () => {
             </p>
             <p className="mb-0">DPI: {data?.dpi_number}</p>
             <p>NIT: {data?.nit}</p>
+            {/*
             {data && data.photos_of_bills && (
               <FileListViewer file={data.photos_of_bills} />
             )}
@@ -64,6 +65,7 @@ const ClientesPerfil = () => {
             {data && data.photos_of_the_dpi && (
               <FileListViewer file={data.photos_of_the_dpi} />
             )}
+            */}
           </Col>
           <Col md="6" className="px-4">
             <Row>
@@ -78,7 +80,7 @@ const ClientesPerfil = () => {
                   placeholder="Celular"
                   disabled
                   defaultValue={data?.phone_number}
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
 
@@ -94,7 +96,7 @@ const ClientesPerfil = () => {
                   disabled
                   defaultValue={data?.email}
 
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
 
@@ -109,7 +111,7 @@ const ClientesPerfil = () => {
                   placeholder="Dirección de residencia*"
                   disabled
                   defaultValue={data?.residence_address}
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
 
@@ -125,7 +127,7 @@ const ClientesPerfil = () => {
                   disabled
                   defaultValue={data?.residence_municipality}
 
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
 
@@ -141,7 +143,7 @@ const ClientesPerfil = () => {
                   disabled
                   defaultValue={data?.department_of_residence}
 
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
 
@@ -159,7 +161,7 @@ const ClientesPerfil = () => {
                     data ? getConvertDateWithTimeZone(data?.birth_date) : null
                   }
 
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
 
@@ -175,7 +177,7 @@ const ClientesPerfil = () => {
                   disabled
                   defaultValue={data?.nationality}
 
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
 
@@ -191,7 +193,7 @@ const ClientesPerfil = () => {
                   disabled
                   defaultValue={data?.sex}
 
-                  // tag={Field}
+                // tag={Field}
                 />
               </Col>
             </Row>
@@ -234,6 +236,73 @@ const ClientesPerfil = () => {
             </Row> */}
           </Col>
         </Row>
+        <h4>Documentación</h4>
+        <Table className="mt-2" responsive>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Tipo documento</th>
+              <th>URL document</th>
+              <th>Documento</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {data &&
+              (data.photos_of_the_dpi).length > 0 &&
+              data.photos_of_the_dpi.map((item, index) => {
+                return (
+                  <tr
+                    key={index + 1}
+
+                  >
+                    <td>{index + 1}</td>
+                    <td>DPI</td>
+                    <td>{item}</td>
+                    <td>
+                      <FileListViewer file={[item]} />
+
+                    </td>
+
+
+                  </tr>
+                );
+              })}
+          </tbody>
+        </Table>
+        <Table className="mt-2" responsive>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Tipo documento</th>
+              <th>URL document</th>
+              <th>Documento</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {data &&
+              (data.photos_of_bills).length > 0 &&
+              data.photos_of_bills.map((item, index) => {
+                return (
+                  <tr
+                    key={index + 1}
+
+                  >
+                    <td>{index + 1}</td>
+                    <td>FACTURA</td>
+                    <td>{item}</td>
+                    <td>
+                      <FileListViewer file={[item]} />
+
+                    </td>
+
+
+                  </tr>
+                );
+              })}
+          </tbody>
+        </Table>
         <Input
           type="textarea"
           className="my-2"
@@ -263,10 +332,10 @@ const ClientesPerfil = () => {
                   <tr
                     key={index + 1}
                     className="clickable-row"
-                    onClick={(e) => { 
+                    onClick={(e) => {
                       (item.credit.id == undefined)
-                      ? navigate(`/créditos/visualizar-solicitud/${item.id}`)
-                      : navigate(`/reportería/amortization/${item.credit.id}`);
+                        ? navigate(`/creditos/visualizar-solicitud/${item.id}`)
+                        : navigate(`/reporteria/amortization/${item.credit.id}`);
                     }}
                   >
                     <td>{index + 1}</td>
@@ -286,10 +355,10 @@ const ClientesPerfil = () => {
                     <td>
                       {item.credit.total_amount > 0
                         ? Math.round(
-                            +item.credit.total_paid_amount /
-                              +item.credit.total_amount /
-                              100
-                          )
+                          +item.credit.total_paid_amount /
+                          +item.credit.total_amount /
+                          100
+                        )
                         : 0}
                     </td>
                     {/* <td>Q 950</td> */}

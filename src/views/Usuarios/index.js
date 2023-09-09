@@ -15,6 +15,7 @@ import ReactPaginate from "react-paginate";
 import { UserContext } from "../../utility/context/User";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
 import { useNavigate } from "react-router-dom";
+import { CSVLink } from "react-csv";
 
 const Usuarios = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,6 +29,7 @@ const Usuarios = () => {
   const [user, setUser] = useState(null);
   const currentUser = useContext(UserContext).user;
   const navigate = useNavigate();
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -64,6 +66,45 @@ const Usuarios = () => {
     setTotalPages(response.data.pagination.totalPages);
   };
 
+
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "ID", key: "id" },
+    { label: "Nombre", key: "name" },
+    { label: "Rol", key: "role" },
+    { label: "Agencia", key: "agency" },
+    { label: "Num. Celular", key: "phone" },
+    { label: "Email", key: "email" },
+    { label: "Fecha aniversario", key: "date_of_birth" },
+    { label: "Fecha creación usuario", key: "createdAt" },
+    { label: "Acción", key: "example" }
+
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (users) {
+      let modifiedData = [];
+      users.map((element) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            id: element?.id,
+            name: element?.name,
+            role: element?.role,
+            agency: element?.agency?.join(", "),
+            phone: element?.phone,
+            email: element?.email,
+            date_of_birth: getConvertDateWithTimeZone(element.date_of_birth),
+            createdAt: getConvertDateWithTimeZone(element.createdAt),            
+          }
+        ];
+
+        setDataToDownload(modifiedData);
+      });
+    }
+  }, [users]);
+
   return (
     <Card className="p-2">
       <CardTitle>Usuarios</CardTitle>
@@ -93,7 +134,7 @@ const Usuarios = () => {
       </Row>
       <Table className="mt-4" responsive>
         <thead>
-          <tr>
+          {/*<tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Rol</th>
@@ -103,6 +144,11 @@ const Usuarios = () => {
             <th>Fecha aniversario</th>
             <th>Fecha creación usuario</th>
             <th>Action</th>
+          </tr>*/}
+          <tr>
+            {headers.map((header) => {
+              return <th key={header.label}>{header.label}</th>;
+            })}
           </tr>
         </thead>
         <tbody>
@@ -117,7 +163,7 @@ const Usuarios = () => {
                         currentUser.role !== "AGENT" ||
                         currentUser.role !== "COLLECTION-MANAGER"
                       ) {
-                        navigate(`/reportería/kpi/${user.id}`);
+                        navigate(`/reporteria/kpi/${user.id}`);
                       }
                     }}
                   >
@@ -125,8 +171,8 @@ const Usuarios = () => {
                     <td className="nowrap">{user.name}</td>
                     <td className="nowrap">{user.role}</td>
                     <td>{user?.agency?.join(", ")}</td>
-                    <td>{user.email}</td>
                     <td>{user.phone}</td>
+                    <td>{user.email}</td>
                     <td>
                       {user
                         ? getConvertDateWithTimeZone(user.date_of_birth)
@@ -178,10 +224,18 @@ const Usuarios = () => {
       </div>
 
       <div className="d-flex justify-content-center mt-2">
+      {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`usuarios.csv`}
+          >
         <Button.Ripple color="primary" type="reset">
           <Download size={16} />
           <span className="align-middle mx-25">DESCARGAR</span>
         </Button.Ripple>
+        </CSVLink>
+        )}
       </div>
       <SidebarNewUsers
         open={sidebarOpen}

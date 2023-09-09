@@ -15,12 +15,14 @@ import {
   formatDateForQuery
 } from "../../utility/Utils";
 import api from "../../@core/api/api";
+import { CSVLink } from "react-csv";
 
 const CarteraConsolidada = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
   const [agency, setAgency] = useState(null);
   const [data, setData] = useState(null);
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -34,6 +36,42 @@ const CarteraConsolidada = () => {
     );
     setData(response.data.data);
   };
+
+
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "Example", key: "example" },
+    { label: "Example", key: "example" },
+    { label: "Example", key: "example" },
+    { label: "Example", key: "example" },
+    { label: "Example", key: "example" },
+    { label: "Example", key: "example" },
+
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (data) {
+      let modifiedData = [];
+      data.map((element) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            example: element?.example,
+            example: element?.example,
+            example: element?.example,
+            example: element?.example,
+            example: element?.example,
+            example: element?.example,
+
+          }
+        ];
+
+        setDataToDownload(modifiedData);
+      });
+    }
+  }, [data]);
+
 
   return (
     <Card className="p-2">
@@ -74,7 +112,7 @@ const CarteraConsolidada = () => {
         {data && (
           <>
             <thead>
-              <tr>
+              {/*<tr>
                 <th
                   colSpan="3"
                   className="bg-secondary-subtle text-center fs-5"
@@ -86,7 +124,12 @@ const CarteraConsolidada = () => {
                 <th>No.</th>
                 <th>Agente</th>
                 <th>Cuota</th>
-              </tr>
+        </tr>*/}
+              <tr>
+            {headers.map((header) => {
+              return <th key={header.label}>{header.label}</th>;
+            })}
+          </tr>
             </thead>
             <tbody>
               {data.users.map((user) => {
@@ -158,10 +201,18 @@ const CarteraConsolidada = () => {
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
+      {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`resumenAsesor.csv`}
+          >
         <Button.Ripple color="primary" type="reset">
           <Download size={16} />
           <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
+        </Button.Ripple>
+        </CSVLink>
+        )}
       </div>
     </Card>
   );

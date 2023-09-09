@@ -15,12 +15,14 @@ import {
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
+import { CSVLink } from "react-csv";
 
 const Cobro = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
   const [agency, setAgency] = useState(null);
   const [data, setData] = useState(null);
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -29,8 +31,8 @@ const Cobro = () => {
   const fetchData = async () => {
     const response = await api.get(
       `reporting/cobro` +
-        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
-        `${agency ? `&agency=${agency}` : ""}`
+      `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+      `${agency ? `&agency=${agency}` : ""}`
     );
     setData(response.data.data);
   };
@@ -60,6 +62,35 @@ const Cobro = () => {
       +totalEntry.total.assistance_fee
     );
   };
+
+
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "COBRANZA", key: "agency" },
+    { label: picker, key: "date_payment_made" },
+    { label: "TOTAL DICIEMBRE", key: "total_payment_made" },
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (data) {
+      let modifiedData = [];
+      data.map((element) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            agency: element?.date.agency,
+            date_payment_made: element?.date.payment_made,
+            total_payment_made: element?.total.payment_made,
+
+          }
+        ];
+
+        setDataToDownload(modifiedData);
+      });
+    }
+  }, [data]);
+
 
   return (
     <Card className="p-2">
@@ -100,10 +131,15 @@ const Cobro = () => {
         {data && (
           <>
             <thead>
-              <tr>
+              {/*<tr>
                 <th>COBRANZA</th>
                 <th>{picker}</th>
                 <th>TOTAL DICIEMBRE</th>
+        </tr>*/}
+              <tr>
+                {headers.map((header) => {
+                  return <th key={header.label}>{header.label}</th>;
+                })}
               </tr>
             </thead>
             <tbody>
@@ -181,10 +217,18 @@ const Cobro = () => {
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
+        {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`resumenAsesor.csv`}
+          >
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
+        )}
       </div>
     </Card>
   );

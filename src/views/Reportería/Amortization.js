@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import api from "../../@core/api/api";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import { CSVLink } from "react-csv";
 
 const Amortization = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Amortization = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalValue, setTotalValue] = useState(null);
+  const [dataToDownload, setDataToDownload] = useState(null);
   let { id } = useParams();
 
   // ** Function to handle Pagination
@@ -106,6 +108,112 @@ const Amortization = () => {
       }, 0)
       .toFixed(2);
   };
+
+
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "ID PAGO", key: "id" },
+    { label: "#Pago", key: "no_of_installment" },
+    { label: "Fecha Pago", key: "payment_date" },
+    { label: "Pago realizado", key: "payment_made" },
+    { label: "Monto total", key: "amount_to_pay" },
+    { label: "Cuota crédito (capital + interés + IVA incluidos)", key: "credit_fee" },
+    { label: "Cuota (capital)", key: "credit_capital" },
+    { label: "Interés", key: "credit_interest" },
+
+    { label: "IVA interés", key: "credit_interest_tax" },
+    { label: "Gastos administrativos", key: "administrative_fee" },
+    { label: "IVA Gastos administrativos", key: "administrative_fee_tax" },
+    { label: "Otros gastos (asistencia)", key: "assistance_fee" },
+    { label: "IVA Otros gastos", key: "assistance_fee_tax" },
+    { label: "Descuento días adelantado", key: "discount_holidays_amount" },
+    { label: "Capital días adelantados", key: "discount_holidays_capital" },
+    { label: "Interés días adelantados", key: "discount_holidays_interest" },
+    { label: "IVA días adelantados", key: "discount_holidays_tax" },
+    { label: "Cuota anticipada", key: "advanced_installment" },
+    { label: "Gastos por gestión de cobranza", key: "collection_management_fee" },
+    { label: "IVA gestión cobranza", key: "collection_management_tax" },
+    { label: "Mora", key: "default_amount" },
+    { label: "Interés mora", key: "default_interest" },
+    { label: "IVA interés MORA", key: "default_interest_tax" },
+    { label: "Capital e intereses amortizado", key: "total_paid_amount" },
+    { label: "Capital e interés pendiente", key: "total_pending_amount" },
+    { label: "TOTAL IVA PAGO", key: "total_tax" },
+    { label: "PAGADO Interés Mora con IVA de (12%)", key: "paid_default_interest_with_tax" },
+    { label: "PAGADO Interés Mora sin IVA", key: "paid_default_interest" },
+    { label: "PAGADO IVA Interés Mora", key: "paid_default_interest_tax" },
+    { label: "PAGADO Mora (incluye Interés + IVA)", key: "paid_default_amount" },
+    { label: "PAGADO Mora (sin Interés + IVA)", key: "paid_only_default" },
+    { label: "PAGADO Gastos de cobranza con IVA", key: "paid_collection_management_fee" },
+    { label: "PAGADO Gastos de cobranza sin IVA", key: "paid_collection_management_without_tax" },
+    { label: "PAGADO IVA Gastos de cobranza", key: "paid_collection_management_tax" },
+    { label: "PAGADO Interés Crédito con IVA", key: "paid_credit_interest_with_tax" },
+    { label: "PAGADO Interés Crédito sin IVA", key: "paid_credit_interest" },
+    { label: "PAGADO IVA Interés Crédito", key: "paid_credit_interest_tax" },
+    { label: "PAGADO Capital", key: "paid_credit_capital" },
+    { label: "ESTADO", key: "status" },
+    { label: "Actualizado por usuario", key: "updatedBy" },
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (data) {
+      let modifiedData = [];
+      data.map((element) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+
+            idpago: element?.id,
+            no_of_installment: element?.no_of_installment,
+            payment_date: element?.payment_date,
+            payment_made: element?.payment_made,
+            amount_to_pay: element?.amount_to_pay,
+            credit_fee: element?.credit_fee,
+            credit_capital: element?.credit_capital,
+            credit_interest: element?.credit_interest,
+            credit_interest_tax: element?.credit_interest_tax,
+            administrative_fee: element?.administrative_fee,
+            administrative_fee_tax: element?.administrative_fee_tax,
+            assistance_fee: element?.assistance_fee,
+            assistance_fee_tax: element?.assistance_fee_tax,
+            discount_holidays_amount: element?.discount_holidays_amount,
+            discount_holidays_capital: element?.discount_holidays_capital,
+            discount_holidays_interest: element?.discount_holidays_interest,
+            discount_holidays_tax: element?.discount_holidays_tax,
+            advanced_installment: element?.advanced_installment,
+            collection_management_fee: element?.collection_management_fee,
+            collection_management_tax: element?.collection_management_tax,
+            default_amount: element?.default_amount,
+            default_interest: element?.default_interest,
+            default_interest_tax: element?.default_interest_tax,
+            total_paid_amount: element?.total_paid_amount,
+            total_pending_amount: element?.total_pending_amount,
+            total_tax: element?.total_tax,
+            paid_default_interest_with_tax: element?.paid_default_interest_with_tax,
+            paid_default_interest: element?.paid_default_interest,
+            paid_default_interest_tax: element?.paid_default_interest_tax,
+            paid_default_amount: element?.paid_default_amount,            
+            paid_only_default: element?.paid_only_default,
+            paid_collection_management_fee: element?.paid_collection_management_fee,
+            paid_collection_management_without_tax: element?.paid_collection_management_without_tax,
+            paid_collection_management_tax: element?.paid_collection_management_tax,
+            paid_credit_interest_with_tax: element?.paid_credit_interest_with_tax,
+            paid_credit_interest: element?.paid_credit_interest,
+            paid_credit_interest_tax: element?.paid_credit_interest_tax,
+            paid_credit_capital: element?.paid_credit_capital,
+            status: element?.status,
+            updatedBy: element?.updatedBy,
+           
+          }
+        ];
+
+        setDataToDownload(modifiedData);
+      });
+    }
+  }, [data]);
+
+
 
   return (
     <div>
@@ -202,7 +310,12 @@ const Amortization = () => {
       <Card className="p-2">
         <Table responsive>
           <thead>
-            <tr>
+          <tr>
+            {headers.map((header) => {
+              return <th key={header.label}>{header.label}</th>;
+            })}
+          </tr>
+            {/*<tr>
               <th className="stickyFirstColumn">ID PAGO</th>
               <th className="stickyFirstColumn">#Pago</th>
               <th className="stickySecondColumn">Fecha Pago</th>
@@ -224,7 +337,6 @@ const Amortization = () => {
               <th>Gastos por gestión de cobranza</th>
               <th>IVA gestión cobranza</th>
               <th>Mora</th>
-              {/* <th>IVA MORA</th> */}
               <th>Interés mora</th>
               <th>IVA interés MORA</th>
               <th>Capital e intereses amortizado</th>
@@ -243,8 +355,8 @@ const Amortization = () => {
               <th>PAGADO IVA Interés Crédito</th>
               <th>PAGADO Capital</th>
               <th>ESTADO</th>
-              <th>Actualizado por usuario</th>
-            </tr>
+                <th>Actualizado por usuario</th>
+            </tr>*/}
           </thead>
           <tbody>
             {collection &&
@@ -261,7 +373,7 @@ const Amortization = () => {
                         {debt.no_of_installment}
                       </td>
                       <td className="stickySecondColumn bg-primary-subtle">
-                        {debt.payment_date}
+                        {getConvertDateWithTimeZone(debt.payment_date)}
                       </td>
                       <td>{debt.payment_made}</td>
                       <td>{debt.amount_to_pay}</td>
@@ -362,10 +474,18 @@ const Amortization = () => {
           />
         </div> */}
         <div className="d-flex justify-content-end mt-2">
-          <Button.Ripple color="primary" type="reset">
-            <Download size={16} />
-            <span className="align-middle mx-25">DESCARGAR</span>
-          </Button.Ripple>
+        {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`amortizacion.csv`}
+          >
+        <Button.Ripple color="primary" type="reset">
+          <Download size={16} />
+          <span className="align-middle mx-25">DESCARGAR</span>
+        </Button.Ripple>
+        </CSVLink>
+        )}
         </div>
       </Card>
     </div>
