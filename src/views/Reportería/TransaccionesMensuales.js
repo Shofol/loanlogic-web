@@ -1,16 +1,18 @@
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import React, { useState, useEffect, useContext } from "react";
 import Flatpickr from "react-flatpickr";
+
+import "@styles/react/libs/flatpickr/flatpickr.scss";
+import { Spanish } from "flatpickr/dist/l10n/es";
+import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
+import "flatpickr/dist/plugins/monthSelect/style.css";
+import { Download } from "react-feather";
+import api from "../../@core/api/api";
 import {
   convertDateWithTimeZone,
   formatDateForQuery,
   getConvertDateWithTimeZone,
 } from "../../utility/Utils";
-import { Spanish } from "flatpickr/dist/l10n/es";
-import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
-import { Download } from "react-feather";
-import api from "../../@core/api/api";
-
 import {
   LineChart,
   Line,
@@ -26,7 +28,8 @@ import { chartColors } from "../../configs/data";
 import { CSVLink } from "react-csv";
 
 const TransaccionesMensuales = () => {
-  const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
+  const date = convertDateWithTimeZone(new Date());
+  const [picker, setPicker] = useState(new Date(date));
   const splitedDate = formatDateForQuery(
     getConvertDateWithTimeZone(picker)
   ).split("-");
@@ -211,6 +214,7 @@ const TransaccionesMensuales = () => {
               locale: Spanish,
               static: true,
               altInput: true,
+              disableMobile: true,
               plugins: [
                 new monthSelectPlugin({
                   shorthand: false,

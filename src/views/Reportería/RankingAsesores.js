@@ -8,10 +8,10 @@ import Select from "react-select";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "./Reportería.scss";
 import { Download } from "react-feather";
+import { Spanish } from "flatpickr/dist/l10n/es";
 import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import "flatpickr/dist/plugins/monthSelect/style.css";
 import { UserContext } from "../../utility/context/User";
-import { Spanish } from "flatpickr/dist/l10n/es";
 import {
   convertDateWithTimeZone,
   formatDateForQuery,
@@ -133,6 +133,7 @@ const RankingAsesores = ({ title }) => {
               locale: Spanish,
               static: true,
               altInput: true,
+              disableMobile: true,
               plugins: [
                 new monthSelectPlugin({
                   shorthand: false,
