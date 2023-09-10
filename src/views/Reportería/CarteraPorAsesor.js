@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useCallback,
-  useContext
+  useContext,
 } from "react";
 import {
   Button,
@@ -14,11 +14,11 @@ import {
   CardTitle,
   Col,
   Label,
-  Row
+  Row,
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
-import { agenciasValues, portfolioData } from "../../configs/data";
+import { portfolioData } from "../../configs/data";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
@@ -42,7 +42,7 @@ const CarteraPorAsesor = () => {
     "Miércoles",
     "Jueves",
     "Viernes",
-    "Sábado"
+    "Sábado",
   ];
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const CarteraPorAsesor = () => {
         interés: item.credit.interest,
         "k+i": item.credit.ki,
         saldo: item.credit.total_remaining_amount,
-        pagos: item.credit.total_paid_amount
+        pagos: item.credit.total_paid_amount,
       };
 
       item.debt_collections.map((debt, index) => {
@@ -94,8 +94,8 @@ const CarteraPorAsesor = () => {
             {
               headerName: `${weekDays[new Date(debt.payment_date).getDay()]}`,
               children: [{ field: debt.payment_date, width: 120 }],
-              date: debt.payment_date
-            }
+              date: debt.payment_date,
+            },
           ];
         }
       });
@@ -115,12 +115,16 @@ const CarteraPorAsesor = () => {
 
   // DefaultColDef sets props common to all Columns
   const defaultColDef = useMemo(() => ({
-    sortable: true
+    sortable: true,
   }));
 
   // Example of consuming Grid Event
   const cellClickedListener = useCallback((event) => {
     console.log("cellClicked", event);
+  }, []);
+
+  const onBtnExport = useCallback(() => {
+    gridRef.current.api.exportDataAsCsv({ fileName: "cartera-por-asesor.csv" });
   }, []);
 
   useEffect(() => {
@@ -134,7 +138,7 @@ const CarteraPorAsesor = () => {
     setGestors(
       response.data.data.map((gestor) => ({
         label: gestor.name,
-        value: gestor.id
+        value: gestor.id,
       }))
     );
   };
@@ -206,9 +210,15 @@ const CarteraPorAsesor = () => {
           </div>
         </div>
         <div className="d-flex justify-content-center mt-2">
-          <Button.Ripple color="primary" type="reset">
+          <Button.Ripple
+            color="primary"
+            type="reset"
+            onClick={(e) => {
+              onBtnExport();
+            }}
+          >
             <Download size={16} />
-            <span className="align-middle mx-25">Descargar CSV</span>
+            <span className="align-middle mx-25">DESCARGAR</span>
           </Button.Ripple>
         </div>
       </CardBody>

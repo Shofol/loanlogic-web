@@ -154,6 +154,13 @@ const Desembolso = () => {
                 <span>:</span>
                 <p className="mb-0 ms-1">{data?.credit.disbursement_amount}Q</p>
               </div>
+              <hr></hr>
+              <div className="mb-0 d-flex fw-bold">
+                <p className="acc-desembolso-title">Estado desembolso</p>
+                <span>:</span>
+                <p className="mb-0 ms-1">{data?.debt_collection.status == "PAID" ? "DESEMBOLSADO" : "PENDIENTE" }</p>
+              </div>
+   
             </Col>
           </Row>
           <hr className="mb-0"></hr>

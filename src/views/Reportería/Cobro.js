@@ -11,16 +11,18 @@ import { Download } from "react-feather";
 import { UserContext } from "../../utility/context/User";
 import {
   getConvertDateWithTimeZone,
-  formatDateForQuery
+  formatDateForQuery,
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import api from "../../@core/api/api";
+import { CSVLink } from "react-csv";
 
 const Cobro = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
   const [agency, setAgency] = useState(null);
   const [data, setData] = useState(null);
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -61,6 +63,60 @@ const Cobro = () => {
     );
   };
 
+  // mapping the header of the table and also the csv
+  const headers = [
+    { label: "COBRANZA", key: "agency" },
+    { label: picker, key: "date_payment_made" },
+    { label: "TOTAL DICIEMBRE", key: "total_payment_made" },
+  ];
+
+  // mapping the data for downloading csv file
+  useEffect(() => {
+    if (data) {
+      let modifiedData = [];
+      data.map((element) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            agency: `Cobro ${element?.date.agency}`,
+            date_payment_made: element?.date.payment_made,
+            total_payment_made: element?.total.payment_made,
+          },
+          {
+            agency: `Cobro diario ${element?.date.agency}`,
+            date_payment_made: element?.date.credit_fee,
+            total_payment_made: element?.total.credit_fee,
+          },
+          {
+            agency: `Cobro cancelaciones ${element?.date.agency}`,
+            date_payment_made: element?.date.advanced_installment,
+            total_payment_made: element?.total.advanced_installment,
+          },
+          {
+            agency: `Cobros papelerías ${element?.date.agency}`,
+            date_payment_made: element?.date.administrative_fee,
+            total_payment_made: element?.total.administrative_fee,
+          },
+          {
+            agency: `Cobros asistencias ${element?.date.agency}`,
+            date_payment_made: element?.date.assistance_fee,
+            total_payment_made: element?.total.assistance_fee,
+          },
+        ];
+      });
+
+      modifiedData = [
+        ...modifiedData,
+        {
+          agency: "Cobros total",
+          date_payment_made: calculateDateTotal(),
+          total_payment_made: calculatTotal(),
+        },
+      ];
+      setDataToDownload(modifiedData);
+    }
+  }, [data]);
+
   return (
     <Card className="p-2">
       <Row>
@@ -90,7 +146,7 @@ const Cobro = () => {
               locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
+              dateFormat: "d/m/Y",
             }}
           />
         </Col>
@@ -100,10 +156,15 @@ const Cobro = () => {
         {data && (
           <>
             <thead>
-              <tr>
+              {/*<tr>
                 <th>COBRANZA</th>
                 <th>{picker}</th>
                 <th>TOTAL DICIEMBRE</th>
+        </tr>*/}
+              <tr>
+                {headers.map((header) => {
+                  return <th key={header.label}>{header.label}</th>;
+                })}
               </tr>
             </thead>
             <tbody>
@@ -181,10 +242,18 @@ const Cobro = () => {
         )}
       </Table>
       <div className="d-flex justify-content-center mt-2">
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
+        {dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`cobro-${picker}.csv`}
+          >
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
+        )}
       </div>
     </Card>
   );

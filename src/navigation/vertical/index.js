@@ -81,89 +81,89 @@ export default [
   },
 
   {
-    id: "reportería",
+    id: "reporteria",
     title: "Reportería",
     icon: <File size={20} />,
-    navLink: "/reportería",
+    navLink: "/reporteria",
     children: [
       {
         id: "carteraPorAsesor",
         title: "Cartera por Asesor",
         icon: <Circle size={20} />,
-        navLink: "/reportería/cartera-asesor"
+        navLink: "/reporteria/cartera-asesor"
       },
       {
         id: "carteraConsolidada",
         title: "Cartera Consolidada",
         icon: <Circle size={20} />,
-        navLink: "/reportería/carteraConsolidada"
+        navLink: "/reporteria/carteraConsolidada"
       },
       {
         id: "resumenAsesor",
         title: "Resumen asesor",
         icon: <Circle size={20} />,
-        navLink: "/reportería/resumenAsesor"
+        navLink: "/reporteria/resumenAsesor"
       },
       {
         id: "resumenAgencia",
         title: "Resumen agencia",
         icon: <Circle size={20} />,
-        navLink: "/reportería/resumenAgencia"
+        navLink: "/reporteria/resumenAgencia"
       },
       {
-        id: "colocación",
+        id: "colocacion",
         title: "Colocación",
         icon: <Circle size={20} />,
-        navLink: "/reportería/colocación"
+        navLink: "/reporteria/colocacion"
       },
       {
         id: "mora",
         title: "Mora",
         icon: <Circle size={20} />,
-        navLink: "/reportería/mora"
+        navLink: "/reporteria/mora"
       },
       {
         id: "cancelacionesAnticipadas",
         title: "Cancelaciones",
         icon: <Circle size={20} />,
-        navLink: "/reportería/cancelaciones-anticipadas"
+        navLink: "/reporteria/cancelaciones-anticipadas"
       },
       {
-        id: "papelerías",
+        id: "papelerias",
         title: "Papelerías",
         icon: <Circle size={20} />,
-        navLink: "/reportería/papelerías"
+        navLink: "/reporteria/papelerias"
       },
       {
         id: "asistencias",
         title: "Asistencias",
         icon: <Circle size={20} />,
-        navLink: "/reportería/asistencias"
+        navLink: "/reporteria/asistencias"
       },
       {
         id: "cobro",
         title: "Cobro",
         icon: <Circle size={20} />,
-        navLink: "/reportería/cobro"
+        navLink: "/reporteria/cobro"
       },
       {
         id: "kpiVisualization",
         title: "KPI visualization",
         icon: <Circle size={20} />,
-        navLink: "/reportería/kpi",
+        navLink: "/reporteria/kpi",
         role: "AGENT, COLLECTION-MANAGER"
       },
       {
         id: "rankingAsesores",
         title: "Ranking Asesores",
         icon: <Circle size={20} />,
-        navLink: "reportería/rankingAsesores"
+        navLink: "reporteria/rankingAsesores"
       },
       {
         id: "transaccionesMensuales",
         title: "Transacciones",
         icon: <Circle size={20} />,
-        navLink: "reportería/transaccionesMensuales"
+        navLink: "reporteria/transaccionesMensuales"
       }
     ]
   },
@@ -194,10 +194,10 @@ export default [
     ]
   },
   {
-    id: "créditos",
+    id: "creditos",
     title: "Créditos",
     icon: <PieChart size={20} />,
-    navLink: "/créditos",
+    navLink: "/creditos",
     children: [
       // {
       //   id: "validation",
@@ -218,10 +218,10 @@ export default [
       //   navLink: "/créditos/garantía"
       // },
       {
-        id: "solicitud-crédito",
+        id: "solicitud-credito",
         title: "Solicitud Crédito",
         icon: <Circle size={20} />,
-        navLink: "/créditos/solicitud-crédito"
+        navLink: "/creditos/solicitud-credito"
       }
     ]
   },

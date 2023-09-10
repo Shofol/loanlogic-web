@@ -16,19 +16,19 @@ const SolicitudCrédito = lazy(() =>
 
 const CréditosRoutes = [
   {
-    path: "/créditos/validation/:id",
+    path: "/creditos/validation/:id",
     element: <ValidationForm />
   },
   {
-    path: "/créditos/garantía/:id",
+    path: "/creditos/garantia/:id",
     element: <Garantía />
   },
   {
-    path: "/créditos/visualizar-solicitud/:id",
+    path: "/creditos/visualizar-solicitud/:id",
     element: <VisualizarSolicitud />
   },
   {
-    path: "/créditos/solicitud-crédito",
+    path: "/creditos/solicitud-credito",
     element: <SolicitudCrédito />
   }
 ];

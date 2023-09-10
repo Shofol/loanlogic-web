@@ -6,8 +6,14 @@ const api = axios.create({
 });
 
 let showNotFoundError = true;
+let loadingToast = null;
 
 api.interceptors.request.use(function (config) {
+  if (config.method !== "get") {
+    loadingToast = toast.loading("Loading...", {
+      style: { minWidth: "250px", fontWeight: "bold" }
+    });
+  }
   if (config.method === "get" && config.data) {
     showNotFoundError = config.data.showNotFoundError;
   }
@@ -20,11 +26,17 @@ api.interceptors.request.use(function (config) {
 
 api.interceptors.response.use(
   function (response) {
+    if (loadingToast) {
+      toast.dismiss(loadingToast);
+    }
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
   },
   function (error) {
+    if (loadingToast) {
+      toast.dismiss(loadingToast);
+    }
     if (showNotFoundError) {
       toast.error(error.response.data.error);
     }

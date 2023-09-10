@@ -1,16 +1,18 @@
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import React, { useState, useEffect, useContext } from "react";
 import Flatpickr from "react-flatpickr";
+
+import "@styles/react/libs/flatpickr/flatpickr.scss";
+import { Spanish } from "flatpickr/dist/l10n/es";
+import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
+import "flatpickr/dist/plugins/monthSelect/style.css";
+import { Download } from "react-feather";
+import api from "../../@core/api/api";
 import {
   convertDateWithTimeZone,
   formatDateForQuery,
-  getConvertDateWithTimeZone
+  getConvertDateWithTimeZone,
 } from "../../utility/Utils";
-import { Spanish } from "flatpickr/dist/l10n/es";
-import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
-import { Download } from "react-feather";
-import api from "../../@core/api/api";
-
 import {
   LineChart,
   Line,
@@ -19,10 +21,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend
+  Legend,
 } from "recharts";
 import "@styles/react/libs/charts/recharts.scss";
 import { chartColors } from "../../configs/data";
+import { CSVLink } from "react-csv";
 
 const TransaccionesMensuales = () => {
   const date = convertDateWithTimeZone(new Date());
@@ -36,6 +39,8 @@ const TransaccionesMensuales = () => {
   const [series, setSeries] = useState([]);
   const [dates, setDates] = useState([]);
   const [agenciesData, setagenciesData] = useState([]);
+  const [dataToDownload, setDataToDownload] = useState(null);
+  const [headers, setHeaders] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -65,8 +70,8 @@ const TransaccionesMensuales = () => {
                 ...updatedSeries,
                 {
                   name: date,
-                  [key]: value
-                }
+                  [key]: value,
+                },
               ];
             }
           }
@@ -99,6 +104,53 @@ const TransaccionesMensuales = () => {
     });
     setagenciesData(agencies);
   };
+
+  // mapping data for the excel file
+  useEffect(() => {
+    if (agenciesData && data) {
+      const headers = [
+        { label: "Agencia", key: "agency" },
+        ...dates.map((date) => ({ label: date, key: date })),
+      ];
+      setHeaders(headers);
+
+      let modifiedData = [];
+
+      Object.keys(agenciesData).map((agency, index) => {
+        const newRow = {};
+        newRow.agency = agency;
+
+        Object.entries(agenciesData[`${agency}`])
+          .sort((prev, next) => {
+            const prevDateParts = prev[0].split("-");
+            const nextDateParts = next[0].split("-");
+            return sortByDate(prevDateParts, nextDateParts);
+          })
+          .map(([key, value], idx) => {
+            newRow[`${key}`] = value;
+          });
+
+        modifiedData = [...modifiedData, newRow];
+      });
+
+      const totalRow = {};
+      totalRow.agency = "Total";
+
+      Object.keys(data.total)
+        .sort((prev, next) => {
+          const prevDateParts = prev.split("-");
+          const nextDateParts = next.split("-");
+          return sortByDate(prevDateParts, nextDateParts);
+        })
+        .map((key, idx) => {
+          totalRow[`${key}`] = data.total[`${key}`];
+        });
+
+      modifiedData = [...modifiedData, totalRow];
+
+      setDataToDownload(modifiedData);
+    }
+  }, [agenciesData, data]);
 
   const getSortedTotal = () => {
     return Object.keys(data.total)
@@ -162,13 +214,14 @@ const TransaccionesMensuales = () => {
               locale: Spanish,
               static: true,
               altInput: true,
+              disableMobile: true,
               plugins: [
                 new monthSelectPlugin({
                   shorthand: false,
                   dateFormat: "Y-m",
-                  altFormat: "F, Y"
-                })
-              ]
+                  altFormat: "F, Y",
+                }),
+              ],
             }}
           />
         </Col>
@@ -242,10 +295,18 @@ const TransaccionesMensuales = () => {
       </Table>
 
       <div className="d-flex justify-content-center mt-2">
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
+        {headers.length > 0 && dataToDownload && (
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`resumen-agencia.csv`}
+          >
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>
+          </CSVLink>
+        )}
       </div>
     </Card>
   );

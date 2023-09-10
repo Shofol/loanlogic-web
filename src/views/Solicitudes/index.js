@@ -101,7 +101,7 @@ const Solicitudes = () => {
             outline
             color="success"
             onClick={() => {
-              navigate(`/créditos/validation/${id}`);
+              navigate(`/creditos/validation/${id}`);
             }}
           >
             <Check size={16} />
@@ -124,7 +124,7 @@ const Solicitudes = () => {
   };
 
   const handleRowClick = (id) => {
-    navigate(`/créditos/visualizar-solicitud/${id}`);
+    navigate(`/creditos/visualizar-solicitud/${id}`);
   };
 
   return (

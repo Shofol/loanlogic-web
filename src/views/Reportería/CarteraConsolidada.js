@@ -12,15 +12,17 @@ import { UserContext } from "../../utility/context/User";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import {
   getConvertDateWithTimeZone,
-  formatDateForQuery
+  formatDateForQuery,
 } from "../../utility/Utils";
 import api from "../../@core/api/api";
+import { CSVLink } from "react-csv";
 
 const CarteraConsolidada = () => {
   const [picker, setPicker] = useState(getConvertDateWithTimeZone(new Date()));
   const { user } = useContext(UserContext);
   const [agency, setAgency] = useState(null);
   const [data, setData] = useState(null);
+  const [dataToDownload, setDataToDownload] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -34,6 +36,77 @@ const CarteraConsolidada = () => {
     );
     setData(response.data.data);
   };
+
+  const headers = [
+    { label: "No.", key: "no" },
+    { label: "AGENTE", key: "name" },
+    { label: "CUOTA", key: "totalCollected" },
+  ];
+
+  useEffect(() => {
+    if (data) {
+      let modifiedData = [];
+
+      data.users.map((user) => {
+        modifiedData = [
+          ...modifiedData,
+          {
+            no: user.id,
+            name: user.name,
+            totalCollected: `Q${user.totalCollected}`,
+          },
+        ];
+      });
+
+      const otherdata = [
+        {
+          no: "TOTAL PAGOS DEL DÍA",
+          name: "",
+          totalCollected: `Q${data?.totalCollected}`,
+        },
+        {
+          no: "DEVOLUCIÓN DE DESEMBOLSOS",
+          name: "",
+          totalCollected: `Q${data?.disbursementReturns}`,
+        },
+        {
+          no: "COLOCACIÓN DEL DÍA",
+          name: "",
+          totalCollected: `Q${data?.totalRequestedAmount}`,
+        },
+        {
+          no: "Clientes colocados",
+          name: "",
+          totalCollected: `Q${data?.totalApplications}`,
+        },
+        {
+          no: "Papelerías",
+          name: "",
+          totalCollected: `Q${data?.administartiveFee}`,
+        },
+        {
+          no: "ASISTENCIAS",
+          name: "",
+          totalCollected: `Q${data?.assistanceFee}`,
+        },
+        {
+          no: "DESCUENTOS/ASUETO	",
+          name: "",
+          totalCollected: `Q${data?.discountHoliday}`,
+        },
+        {
+          no: "CANCELACIONES ANTICIPADAS	",
+          name: "",
+          totalCollected: `Q${data?.advancedInstallment}`,
+        },
+        { no: "TOTAL", name: "", totalCollected: `Q${data?.total}` },
+      ];
+
+      modifiedData = [...modifiedData, ...otherdata];
+
+      setDataToDownload(modifiedData);
+    }
+  }, [data]);
 
   return (
     <Card className="p-2">
@@ -64,7 +137,7 @@ const CarteraConsolidada = () => {
               locale: Spanish,
               altInput: true,
               altFormat: "F j, Y",
-              dateFormat: "d/m/Y"
+              dateFormat: "d/m/Y",
             }}
           />
         </Col>
@@ -157,12 +230,20 @@ const CarteraConsolidada = () => {
           </>
         )}
       </Table>
-      <div className="d-flex justify-content-center mt-2">
-        <Button.Ripple color="primary" type="reset">
-          <Download size={16} />
-          <span className="align-middle mx-25">DESCARGAR</span>
-        </Button.Ripple>{" "}
-      </div>
+      {dataToDownload && (
+        <div className="d-flex justify-content-center mt-2">
+          <CSVLink
+            data={dataToDownload}
+            headers={headers}
+            filename={`cartera-consolidada-${picker}.csv`}
+          >
+            <Button.Ripple color="primary" type="reset">
+              <Download size={16} />
+              <span className="align-middle mx-25">DESCARGAR</span>
+            </Button.Ripple>{" "}
+          </CSVLink>
+        </div>
+      )}
     </Card>
   );
 };
