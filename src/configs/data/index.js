@@ -3,14 +3,14 @@ export const agenciasValues = [
   { value: "QUETZALTENANGO", label: "Quetzaltenango" },
   { value: "COATEPEQUE", label: "Coatepeque" },
   { value: "COBÁN", label: "Cobán" },
-  { value: "GUATEMALA", label: "Guatemala" }
+  { value: "GUATEMALA", label: "Guatemala" },
 ];
 export const portfolioData = {
   columns: [
     {
       headerName: "Details",
       children: [
-        { field: "no", pinned: "left", width: 30 },
+        // { field: "no", pinned: "left", width: 30 },
         { field: "cliente", pinned: "left" },
         { field: "telefono", width: 120 },
         { field: "monto", width: 120 },
@@ -22,10 +22,10 @@ export const portfolioData = {
         { field: "interés", width: 120 },
         { field: "k+i", width: 120 },
         { field: "saldo", width: 120 },
-        { field: "pagos", width: 120 }
-      ]
-    }
-  ]
+        { field: "pagos", width: 120 },
+      ],
+    },
+  ],
 };
 
 export const estadoOptions = [
@@ -34,7 +34,7 @@ export const estadoOptions = [
   { label: "PENDIENTE GARANTÍA", value: "PENDING_GUARANTY" },
   {
     label: "PENDIENTE VALIDACIÓN DIRECCIÓN",
-    value: "PENDING_ADDRESS_VALIDATION"
+    value: "PENDING_ADDRESS_VALIDATION",
   },
   { label: "PENDIENTE VALIDACIÓN DATOS", value: "PENDING_DATA_VALIDATION" },
   { label: "PENDIENTE VALIDACIÓN", value: "PENDING_VALIDATION" },
@@ -43,15 +43,15 @@ export const estadoOptions = [
   { label: "RECHAZADO DIRECCIÓN", value: "REFUSED_LOCATION_NOT_COVERED" },
   {
     label: "RECHAZADO INFORMACIÓN INCORRECTA",
-    value: "REFUSED_INCORRECT_DATA"
+    value: "REFUSED_INCORRECT_DATA",
   },
   { label: "RECHAZADO CRITERIOS", value: "REFUSED_CRITERIA" },
   { label: "RECHAZADO VALIDACIÓN", value: "REFUSED_VALIDATION" },
   {
     label: "RECHAZADO PRODUCTO NO ENCONTRADO",
-    value: "REFUSED_PRODUCT_NOT_FOUND"
+    value: "REFUSED_PRODUCT_NOT_FOUND",
   },
-  { label: "ERROR CONFIGURACION PRODUCTO", value: "ERROR_PRODUCT_MATCH" }
+  { label: "ERROR CONFIGURACION PRODUCTO", value: "ERROR_PRODUCT_MATCH" },
 ];
 
 export const nationalities = [
@@ -60,7 +60,7 @@ export const nationalities = [
   { label: "Hondureña", value: "Hondureña" },
   { label: "Mexicana", value: "Mexicana" },
   { label: "Española", value: "Española" },
-  { label: "Otra", value: "Otra" }
+  { label: "Otra", value: "Otra" },
 ];
 
 export const departments = [
@@ -85,7 +85,7 @@ export const departments = [
   { label: "Sololá", value: "Sololá" },
   { label: "Suchitepéquez", value: "Suchitepéquez" },
   { label: "Totonicapán", value: "Totonicapán" },
-  { label: "Zacapa", value: "Zacapa" }
+  { label: "Zacapa", value: "Zacapa" },
 ];
 
 export const municipalitiesValues = [
@@ -97,7 +97,7 @@ export const municipalitiesValues = [
       { label: "Chisec", value: "Chisec" },
       {
         label: "Fray Bartolomé de las Casas",
-        value: "Fray Bartolomé de las Casas"
+        value: "Fray Bartolomé de las Casas",
       },
       { label: "San Cristóbal Verapaz", value: "San Cristóbal Verapaz" },
       { label: "San Pedro Carchá", value: "San Pedro Carchá" },
@@ -113,8 +113,8 @@ export const municipalitiesValues = [
       { label: "San Miguel Tucurú", value: "San Miguel Tucurú" },
       { label: "San Agustín Lanquín", value: "San Agustín Lanquín" },
       { label: "Panzós", value: "Panzós" },
-      { label: "Raxruhá", value: "Raxruhá" }
-    ]
+      { label: "Raxruhá", value: "Raxruhá" },
+    ],
   },
   {
     department: "Baja Verapaz",
@@ -126,8 +126,8 @@ export const municipalitiesValues = [
       { label: "Rabinal", value: "Rabinal" },
       { label: "Cubulco", value: "Cubulco" },
       { label: "Granados", value: "Granados" },
-      { label: "Purulhá", value: "Purulhá" }
-    ]
+      { label: "Purulhá", value: "Purulhá" },
+    ],
   },
   {
     department: "Chimaltenango",
@@ -147,8 +147,8 @@ export const municipalitiesValues = [
       { label: "Santa Cruz Balanyá", value: "Santa Cruz Balanyá" },
       { label: "Acatenango", value: "Acatenango" },
       { label: "San Pedro Yepocapa", value: "San Pedro Yepocapa" },
-      { label: "Parramos", value: "Parramos" }
-    ]
+      { label: "Parramos", value: "Parramos" },
+    ],
   },
   {
     department: "Chiquimula",
@@ -163,8 +163,8 @@ export const municipalitiesValues = [
       { label: "Quezaltepeque", value: "Quezaltepeque" },
       { label: "San Jacinto", value: "San Jacinto" },
       { label: "San José La Arada", value: "San José La Arada" },
-      { label: "San Juan Ermita", value: "San Juan Ermita" }
-    ]
+      { label: "San Juan Ermita", value: "San Juan Ermita" },
+    ],
   },
   {
     department: "Petén",
@@ -180,8 +180,8 @@ export const municipalitiesValues = [
       { label: "Santa Ana", value: "Santa Ana" },
       { label: "La Libertad", value: "La Libertad" },
       { label: "San Andrés", value: "San Andrés" },
-      { label: "San Francisco", value: "San Francisco" }
-    ]
+      { label: "San Francisco", value: "San Francisco" },
+    ],
   },
   {
     department: "El Progreso",
@@ -193,14 +193,14 @@ export const municipalitiesValues = [
       { label: "Morazán", value: "Morazán" },
       {
         label: "San Agustín Acasaguastlán",
-        value: "San Agustín Acasaguastlán"
+        value: "San Agustín Acasaguastlán",
       },
       { label: "San Antonio La Paz", value: "San Antonio La Paz" },
       {
         label: "San Cristóbal Acasaguastlán",
-        value: "San Cristóbal Acasaguastlán"
-      }
-    ]
+        value: "San Cristóbal Acasaguastlán",
+      },
+    ],
   },
   {
     department: "Escuintla",
@@ -216,12 +216,12 @@ export const municipalitiesValues = [
       { label: "San Vicente Pacaya", value: "San Vicente Pacaya" },
       {
         label: "Santa Lucía Cotzumalguapa",
-        value: "Santa Lucía Cotzumalguapa"
+        value: "Santa Lucía Cotzumalguapa",
       },
       { label: "Siquinalá", value: "Siquinalá" },
       { label: "Tiquisate", value: "Tiquisate" },
-      { label: "Guaganazapa", value: "Guaganazapa" }
-    ]
+      { label: "Guaganazapa", value: "Guaganazapa" },
+    ],
   },
   {
     department: "Guatemala",
@@ -242,8 +242,8 @@ export const municipalitiesValues = [
       { label: "Villa Canales", value: "Villa Canales" },
       { label: "Villa Nueva", value: "Villa Nueva" },
       { label: "San José del Golfo", value: "San José del Golfo" },
-      { label: "San Juan Sacatepéquez", value: "San Juan Sacatepéquez" }
-    ]
+      { label: "San Juan Sacatepéquez", value: "San Juan Sacatepéquez" },
+    ],
   },
   {
     department: "Huehuetenango",
@@ -267,7 +267,7 @@ export const municipalitiesValues = [
       { label: "San Pedro Necta", value: "San Pedro Necta" },
       {
         label: "San Rafael La Independencia",
-        value: "San Rafael La Independencia"
+        value: "San Rafael La Independencia",
       },
       { label: "San Rafael Petzal", value: "San Rafael Petzal" },
       { label: "San Sebastián Coatán", value: "San Sebastián Coatán" },
@@ -281,11 +281,11 @@ export const municipalitiesValues = [
       { label: "San Pedro Soloma", value: "San Pedro Soloma" },
       {
         label: "San Sebastián Huehuetenango",
-        value: "San Sebastián Huehuetenango"
+        value: "San Sebastián Huehuetenango",
       },
       { label: "Tectitán", value: "Tectitán" },
-      { label: "Aguacatán", value: "Aguacatán" }
-    ]
+      { label: "Aguacatán", value: "Aguacatán" },
+    ],
   },
   {
     department: "Izabal",
@@ -294,8 +294,8 @@ export const municipalitiesValues = [
       { label: "El Estor", value: "El Estor" },
       { label: "Livingston", value: "Livingston" },
       { label: "Los Amates", value: "Los Amates" },
-      { label: "Morales", value: "Morales" }
-    ]
+      { label: "Morales", value: "Morales" },
+    ],
   },
   {
     department: "Jalapa",
@@ -306,8 +306,8 @@ export const municipalitiesValues = [
       { label: "San Carlos Alzatate", value: "San Carlos Alzatate" },
       { label: "San Luis Jilotepeque", value: "San Luis Jilotepeque" },
       { label: "San Manuel Chaparrón", value: "San Manuel Chaparrón" },
-      { label: "San Pedro Pinula", value: "San Pedro Pinula" }
-    ]
+      { label: "San Pedro Pinula", value: "San Pedro Pinula" },
+    ],
   },
   {
     department: "Jutiapa",
@@ -328,8 +328,8 @@ export const municipalitiesValues = [
       { label: "San José Acatempa", value: "San José Acatempa" },
       { label: "Santa Catarina Mita", value: "Santa Catarina Mita" },
       { label: "Yupiltepeque", value: "Yupiltepeque" },
-      { label: "Zapotitlán", value: "Zapotitlán" }
-    ]
+      { label: "Zapotitlán", value: "Zapotitlán" },
+    ],
   },
   {
     department: "Quetzaltenango",
@@ -357,8 +357,8 @@ export const municipalitiesValues = [
       { label: "Sibilia", value: "Sibilia" },
       { label: "Zunil", value: "Zunil" },
       { label: "Cabricán", value: "Cabricán" },
-      { label: "Cajolá", value: "Cajolá" }
-    ]
+      { label: "Cajolá", value: "Cajolá" },
+    ],
   },
   {
     department: "Quiché",
@@ -378,7 +378,7 @@ export const municipalitiesValues = [
       { label: "San Antonio Ilotenango", value: "San Antonio Ilotenango" },
       {
         label: "San Bartolomé Jocotenango",
-        value: "San Bartolomé Jocotenango"
+        value: "San Bartolomé Jocotenango",
       },
       { label: "San Juan Cotzal", value: "San Juan Cotzal" },
       { label: "San Pedro Jocopilas", value: "San Pedro Jocopilas" },
@@ -386,11 +386,11 @@ export const municipalitiesValues = [
       { label: "Zacualpa", value: "Zacualpa" },
       {
         label: "Santo Tomás Chichicastenango",
-        value: "Santo Tomás Chichicastenango"
+        value: "Santo Tomás Chichicastenango",
       },
       { label: "Santa María Joyabaj", value: "Santa María Joyabaj" },
-      { label: "Santa María Nebaj", value: "Santa María Nebaj" }
-    ]
+      { label: "Santa María Nebaj", value: "Santa María Nebaj" },
+    ],
   },
   {
     department: "Retalhuleu",
@@ -403,8 +403,8 @@ export const municipalitiesValues = [
       { label: "San Felipe", value: "San Felipe" },
       { label: "San Martín Zapotitlán", value: "San Martín Zapotitlán" },
       { label: "San Sebastián", value: "San Sebastián" },
-      { label: "Santa Cruz Muluá", value: "Santa Cruz Muluá" }
-    ]
+      { label: "Santa Cruz Muluá", value: "Santa Cruz Muluá" },
+    ],
   },
   {
     department: "Sacatepéquez",
@@ -416,11 +416,11 @@ export const municipalitiesValues = [
       { label: "Pastores", value: "Pastores" },
       {
         label: "San Antonio Aguas Calientes",
-        value: "San Antonio Aguas Calientes"
+        value: "San Antonio Aguas Calientes",
       },
       {
         label: "San Bartolomé Milpas Altas",
-        value: "San Bartolomé Milpas Altas"
+        value: "San Bartolomé Milpas Altas",
       },
       { label: "San Lucas Sacatepéquez", value: "San Lucas Sacatepéquez" },
       { label: "San Miguel Dueñas", value: "San Miguel Dueñas" },
@@ -430,8 +430,8 @@ export const municipalitiesValues = [
       { label: "Santiago Sacatepéquez", value: "Santiago Sacatepéquez" },
       { label: "Santo Domingo Xenacoj", value: "Santo Domingo Xenacoj" },
       { label: "Sumpango", value: "Sumpango" },
-      { label: "San Juan Alotenango", value: "San Juan Alotenango" }
-    ]
+      { label: "San Juan Alotenango", value: "San Juan Alotenango" },
+    ],
   },
   {
     department: "San Marcos",
@@ -461,15 +461,15 @@ export const municipalitiesValues = [
       { label: "San Pedro Sacatepéquez", value: "San Pedro Sacatepéquez" },
       {
         label: "San Rafael Pie de La Cuesta",
-        value: "San Rafael Pie de La Cuesta"
+        value: "San Rafael Pie de La Cuesta",
       },
       { label: "Sibinal", value: "Sibinal" },
       { label: "Sipacapa", value: "Sipacapa" },
       { label: "Tacaná", value: "Tacaná" },
       { label: "Tajumulco", value: "Tajumulco" },
       { label: "Tejutla", value: "Tejutla" },
-      { label: "La Blanca", value: "La Blanca" }
-    ]
+      { label: "La Blanca", value: "La Blanca" },
+    ],
   },
   {
     department: "Santa Rosa",
@@ -488,8 +488,8 @@ export const municipalitiesValues = [
       { label: "Santa Cruz Naranjo", value: "Santa Cruz Naranjo" },
       { label: "Santa María Ixhuatán", value: "Santa María Ixhuatán" },
       { label: "Taxisco", value: "Taxisco" },
-      { label: "Santa Rosa de Lima", value: "Santa Rosa de Lima" }
-    ]
+      { label: "Santa Rosa de Lima", value: "Santa Rosa de Lima" },
+    ],
   },
   {
     department: "Sololá",
@@ -508,15 +508,15 @@ export const municipalitiesValues = [
       { label: "San Pedro La Laguna", value: "San Pedro La Laguna" },
       {
         label: "Santa Catarina Ixtahuacan",
-        value: "Santa Catarina Ixtahuacan"
+        value: "Santa Catarina Ixtahuacan",
       },
       { label: "Santa Catarina Palopó", value: "Santa Catarina Palopó" },
       { label: "Santa Clara La Laguna", value: "Santa Clara La Laguna" },
       { label: "Santa Cruz La Laguna", value: "Santa Cruz La Laguna" },
       { label: "Santa Lucía Utatlán", value: "Santa Lucía Utatlán" },
       { label: "Santa María Visitación", value: "Santa María Visitación" },
-      { label: "Santiago Atitlán", value: "Santiago Atitlán" }
-    ]
+      { label: "Santiago Atitlán", value: "Santiago Atitlán" },
+    ],
   },
   {
     department: "Suchitepéquez",
@@ -530,7 +530,7 @@ export const municipalitiesValues = [
       { label: "Samayac", value: "Samayac" },
       {
         label: "San Antonio Suchitepéquez",
-        value: "San Antonio Suchitepéquez"
+        value: "San Antonio Suchitepéquez",
       },
       { label: "San Bernardino", value: "San Bernardino" },
       { label: "San Francisco Zapotitlán", value: "San Francisco Zapotitlán" },
@@ -543,12 +543,12 @@ export const municipalitiesValues = [
       { label: "Santa Bárbara", value: "Santa Bárbara" },
       {
         label: "Santo Domingo Suchitepéquez",
-        value: "Santo Domingo Suchitepéquez"
+        value: "Santo Domingo Suchitepéquez",
       },
       { label: "Santo Tomás La Unión", value: "Santo Tomás La Unión" },
       { label: "Zunilito", value: "Zunilito" },
-      { label: "San José La Máquina", value: "San José La Máquina" }
-    ]
+      { label: "San José La Máquina", value: "San José La Máquina" },
+    ],
   },
   {
     department: "Totonicapán",
@@ -559,12 +559,12 @@ export const municipalitiesValues = [
       { label: "San Bartolo", value: "San Bartolo" },
       {
         label: "San Cristóbal Totonicapán",
-        value: "San Cristóbal Totonicapán"
+        value: "San Cristóbal Totonicapán",
       },
       { label: "San Francisco El Alto", value: "San Francisco El Alto" },
       { label: "Santa Lucía La Reforma", value: "Santa Lucía La Reforma" },
-      { label: "Santa María Chiquimula", value: "Santa María Chiquimula" }
-    ]
+      { label: "Santa María Chiquimula", value: "Santa María Chiquimula" },
+    ],
   },
 
   {
@@ -580,9 +580,9 @@ export const municipalitiesValues = [
       { label: "San Diego", value: "San Diego" },
       { label: "Teculután", value: "Teculután" },
       { label: "Usumatlán", value: "Usumatlán" },
-      { label: "San Jorge", value: "San Jorge" }
-    ]
-  }
+      { label: "San Jorge", value: "San Jorge" },
+    ],
+  },
 ];
 
 export const paymentMethods = [
@@ -590,7 +590,7 @@ export const paymentMethods = [
   { value: "WEEKLY", label: "Semanal" },
   { value: "BIWEEKLY", label: "Quincenal" },
   { value: "FORTNIGHTLY", label: "Catorcenal" },
-  { value: "MONTHLY", label: "Mensual (fin de mes)" }
+  { value: "MONTHLY", label: "Mensual (fin de mes)" },
 ];
 
 export const professions = [
@@ -598,40 +598,40 @@ export const professions = [
   { title: "Tiene negocio propio", value: "BUSINESS" },
   {
     title: "Ambas, es asalariado y también tiene negocio propio",
-    value: "SALARIEDANDBUSINESS"
+    value: "SALARIEDANDBUSINESS",
   },
-  { title: "Sin ingresos", value: "NOINCOME" }
+  { title: "Sin ingresos", value: "NOINCOME" },
 ];
 
 export const loanPaymentMethods = [
   { label: "Producto diario", value: "PRODUCTO DIARIO" },
   {
     label: "Producto semanal",
-    value: "PRODUCTO SEMANAL"
+    value: "PRODUCTO SEMANAL",
   },
 
   {
     label: "Quincenal",
-    value: "QUINCENAL"
+    value: "QUINCENAL",
   },
-  { label: "Fin de mes", value: "FIN DE MES" }
+  { label: "Fin de mes", value: "FIN DE MES" },
 ];
 
 export const maritialStatus = [
   { label: "Soltero/a", value: "Single" },
   { label: "Casado/a", value: "Married" },
   { label: "Divorciado/a", value: "Divorced" },
-  { label: "Viudo/a", value: "Widow" }
+  { label: "Viudo/a", value: "Widow" },
 ];
 
 export const sexValues = [
   { label: "Masculino", value: "Male" },
-  { label: "Femenino", value: "Female" }
+  { label: "Femenino", value: "Female" },
 ];
 
 export const wantCredit = [
   { label: "Sí", value: "yes" },
-  { label: "No", value: "no" }
+  { label: "No", value: "no" },
 ];
 
 export const roles = [
@@ -642,89 +642,89 @@ export const roles = [
   { label: "Director ventas", value: "SALES-DIRECTOR" },
   { label: "Director cobranza", value: "COLLECTION-DIRECTOR" },
   { label: "Cartera y contabilidad", value: "ACCOUNTING" },
-  { label: "Administrador", value: "ADMIN" }
+  { label: "Administrador", value: "ADMIN" },
 ];
 
 export const guaranteeTypes = [
   {
     title: "Garantía fiduciaria",
     value: "FIDUCIARIA",
-    tip: "Firma contrato"
+    tip: "Firma contrato",
   },
   {
     title: "Prenda",
     value: "PRENDARIA",
-    tip: "El cliente la puede seguir utilizando"
+    tip: "El cliente la puede seguir utilizando",
   },
   {
     title: "Cheque",
     value: "CHEQUE",
-    tip: "Entrega como garantia en la agencia"
+    tip: "Entrega como garantia en la agencia",
   },
   {
     title: "Mobiliaria",
     value: "MOBILIARIA",
-    tip: "Registro formal ante el registro mercantil, pero el cliente puede seguir utilizando"
+    tip: "Registro formal ante el registro mercantil, pero el cliente puede seguir utilizando",
   },
   {
     title: "Hipotecaria",
     value: "HIPOTECARIA",
-    tip: "Se crea un gravamen sobre la propiedad"
+    tip: "Se crea un gravamen sobre la propiedad",
   },
   {
     title: "Compra - venta;",
     value: "COMPRA_VENTA",
     tip: "Si no me pagas, me quedo con la casa para venderla",
-    disabled: true
+    disabled: true,
   },
   {
     title: "Empeño",
     value: "EMPEÑO",
     tip: "Igual que la prendaria pero se queda en posesión por Al Chilazo",
-    disabled: true
-  }
+    disabled: true,
+  },
 ];
 
 export const tipoDeGarantiaOptions = [
   { value: "FIDUCIARIA", label: "Fiduciaria (firma contrato)" },
   {
     value: "PRENDARIA",
-    label: "Prendaria (el cliente la puede seguir utilizando)"
+    label: "Prendaria (el cliente la puede seguir utilizando)",
   },
   { value: "CHEQUE", label: "Cheque (entrega como garantia en la agencia)" },
   {
     value: "MOBILIARIA",
     label:
-      "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)"
+      "Mobiliaria (registro formal ante el registro mercantil, pero el cliente puede seguir utilizando)",
   },
   {
     value: "HIPOTECARIA",
-    label: "Hipotecaria (se crea un gravamen sobre la propiedad)"
+    label: "Hipotecaria (se crea un gravamen sobre la propiedad)",
   },
   {
     value: "COMPRA_VENTA",
-    label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)"
+    label: "Compra-venta (si no me pagas, me quedo con la casa para venderla)",
   },
   {
     value: "EMPEÑO",
     label:
-      "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)"
-  }
+      "Empeño (igual que la prendaria pero se queda en posesión por Al Chilazo)",
+  },
 ];
 
 export const categoríaValues = [
   {
     label: "Novato",
-    value: "NOVATO"
+    value: "NOVATO",
   },
   {
     label: "Intermedio",
-    value: "INTERMEDIO"
+    value: "INTERMEDIO",
   },
   {
     label: "Experto",
-    value: "EXPERTO"
-  }
+    value: "EXPERTO",
+  },
 ];
 
 export const spanishMonths = {
@@ -739,7 +739,7 @@ export const spanishMonths = {
   September: "Septiembre",
   October: "Octubre",
   November: "Noviembre",
-  December: "Diciembre"
+  December: "Diciembre",
 };
 
 export const chartColors = [
@@ -771,5 +771,5 @@ export const chartColors = [
   "#f39c12",
   "#d35400",
   "#c0392b",
-  "#bdc3c7"
+  "#bdc3c7",
 ];

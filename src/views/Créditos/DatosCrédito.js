@@ -12,7 +12,7 @@ import {
   Input,
   Label,
   Row,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 import "./Créditos.scss";
 import { ArrowRight, Info } from "react-feather";
@@ -21,7 +21,7 @@ import {
   guaranteeTypes,
   loanPaymentMethods,
   paymentMethods,
-  professions
+  professions,
 } from "../../configs/data";
 
 const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
@@ -47,7 +47,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
             credit_destination: "",
             reason_for_credit_request: "",
             gurrentee_items: "",
-            occupation: ""
+            occupation: "",
           }}
           validate={(values) => {
             const errors = {};
@@ -138,7 +138,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                 ¿Cómo quieres pagar tu préstamo?
                 <span className="text-danger">*</span>
               </p>
-              <div className="d-flex">
+              <div className="d-flex flex-column flex-sm-row">
                 {paymentMethods.map((method) => {
                   return (
                     <div
@@ -174,7 +174,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                     Monto deseado del crédito:* de 500 en 500Q
                   </p>
                 </Col>
-                <Col md="8" className="align-items-center d-flex">
+                <Col md="8" className="align-items-center d-flex pt-1 pt-sm-0">
                   <div className="w-100">
                     <ReactSlider
                       value={rangeValue}
