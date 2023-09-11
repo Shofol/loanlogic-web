@@ -143,7 +143,7 @@ const Amortization = () => {
     { label: "IVA interés MORA", key: "default_interest_tax" },
     { label: "Capital e intereses amortizado", key: "total_paid_amount" },
     { label: "Capital e interés pendiente", key: "total_pending_amount" },
-    { label: "TOTAL IVA PAGO", key: "total_tax" },
+    { label: "TOTAL IVA A PAGAR", key: "total_tax" },
     {
       label: "PAGADO Interés Mora con IVA de (12%)",
       key: "paid_default_interest_with_tax",
@@ -174,6 +174,7 @@ const Amortization = () => {
     { label: "PAGADO Interés Crédito sin IVA", key: "paid_credit_interest" },
     { label: "PAGADO IVA Interés Crédito", key: "paid_credit_interest_tax" },
     { label: "PAGADO Capital", key: "paid_credit_capital" },
+    { label: "PAGADO TOTAL IVA", key: "paid_total_tax" },
     { label: "ESTADO", key: "status" },
     { label: "Actualizado por usuario", key: "updatedBy" },
   ];
@@ -229,6 +230,7 @@ const Amortization = () => {
             paid_credit_interest: element?.paid_credit_interest,
             paid_credit_interest_tax: element?.paid_credit_interest_tax,
             paid_credit_capital: element?.paid_credit_capital,
+            paid_total_tax: element?.paid_total_tax,
             status: element?.status,
             updatedBy: element?.updatedBy,
           },
@@ -253,7 +255,7 @@ const Amortization = () => {
             <strong>DPI:</strong> {data?.client.dpi_number}
           </p>
           <p className="mb-0">
-            <strong>Crédito núm:</strong> {data?.credit.id}
+            <strong>Núm .Crédito:</strong> {data?.credit.id}
           </p>
           <hr />
           <Row>
@@ -305,7 +307,12 @@ const Amortization = () => {
           </Row>
 
           <Row>
-            <Col sm="12" md="6" className="offset-md-6">
+            <Col sm="12" md="6">
+              <p className="mb-0 fw-bold">
+                TOTAL ADEUDADO: {data?.credit.total_default_amount}Q
+              </p>
+            </Col>
+            <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
                 Gastos asistencia: Q{data?.credit.assistance_expenses}
               </p>
@@ -313,7 +320,12 @@ const Amortization = () => {
           </Row>
 
           <Row>
-            <Col sm="12" md="6" className="offset-md-6">
+            <Col sm="12" md="6">
+              <p className="mb-0 fw-bold">
+                TOTAL PAGADO: {data?.credit.total_paid_amount}Q
+              </p>
+            </Col>
+            <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
                 Total adeudado: {data?.credit.total_amount}Q
               </p>
@@ -321,7 +333,14 @@ const Amortization = () => {
           </Row>
 
           <Row>
-            <Col sm="12" md="6" className="offset-md-6">
+            <Col sm="12" md="6">
+              <p className="mb-0 fw-bold">
+
+
+                TOTAL PENDIENTE: {data?.credit.total_remaining_amount}Q
+              </p>
+            </Col>
+            <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
                 Interés mora: {data?.credit.late_interest}%
               </p>
@@ -433,6 +452,7 @@ const Amortization = () => {
                       <td>{debt.paid_credit_interest}</td>
                       <td>{debt.paid_credit_interest_tax}</td>
                       <td>{debt.paid_credit_capital}</td>
+                      <td>{debt.paid_total_tax}</td>
                       <td>{debt.status}</td>
                       <td>{debt.updatedBy}</td>
                     </tr>
@@ -445,6 +465,7 @@ const Amortization = () => {
                 <th id="total" colSpan="2" className="stickyFirstColumn">
                   Total :
                 </th>
+                <td></td>
                 <td>{totalValue.payment_made.toFixed(2)}</td>
                 <td>{totalValue.amount_to_pay.toFixed(2)}</td>
                 <td>{totalValue.credit_fee.toFixed(2)}</td>
@@ -501,7 +522,7 @@ const Amortization = () => {
             <CSVLink
               data={dataToDownload}
               headers={headers}
-              filename={`amortizacion.csv`}
+              filename={`amortizacion-credito-${id}.csv`}
             >
               <Button.Ripple color="primary" type="reset">
                 <Download size={16} />

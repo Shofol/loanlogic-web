@@ -163,11 +163,11 @@ const Cobranza = () => {
                   <Cleave
                     className="form-control"
                     placeholder="Pago realizado"
-                    disabled={data?.debt_collection.status === "PAID"}
+                    disabled={data?.debt_collection.status != "PENDING"}
                     options={options}
                     id="pagoRealizado"
                     name="pagoRealizado"
-                    value={payment_made}
+                    value={data?.debt_collection.payment_made > 0 ? data?.debt_collection.payment_made : null}
                     onChange={(e) => setPayment_made(e.target.value)}
                   />
                 </Col>
