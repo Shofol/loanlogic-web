@@ -252,7 +252,7 @@ const Colocación = () => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`colocacion.csv`}
+            filename={`colocacion-${picker}.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />

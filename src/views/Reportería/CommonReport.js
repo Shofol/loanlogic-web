@@ -85,11 +85,13 @@ const CommonReport = ({ title }) => {
           {
             no: element?.id,
             agency: element?.agency,
-            lastMonth: element?.lastMonth,
-            currentMonth: element?.currentMonth,
+            lastMonth: parseFloat(element?.lastMonth|| 0
+              ).toFixed(2),
+            currentMonth: parseFloat(element?.currentMonth|| 0
+              ).toFixed(2),
             differenceInPercent: parseFloat(
               element?.differenceInPercent || 0
-            ).toFixed(2),
+            ).toFixed(2) + '%',
             differenceInAmount: parseFloat(
               element?.differenceInAmount || 0
             ).toFixed(2),
@@ -100,12 +102,15 @@ const CommonReport = ({ title }) => {
       const totalRow = {
         no: "Total",
         agency: null,
-        lastMonth: calculateTotal(data, "lastMonth"),
-        currentMonth: calculateTotal(data, "currentMonth"),
+        lastMonth: parseFloat(calculateTotal(data, "lastMonth")|| 0
+        ).toFixed(2),
+        currentMonth: parseFloat(calculateTotal(data, "currentMonth")|| 0
+        ).toFixed(2),
         differenceInPercent: parseFloat(
           calculateTotal(data, "differenceInPercent") || 0
+        ).toFixed(2) + '%',
+        differenceInAmount: parseFloat(calculateTotal(data, "differenceInAmount")|| 0
         ).toFixed(2),
-        differenceInAmount: calculateTotal(data, "differenceInAmount"),
       };
 
       modifiedData.push(totalRow);
@@ -180,10 +185,14 @@ const CommonReport = ({ title }) => {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{res?.agency}</td>
-                    <td>{res?.lastMonth}</td>
-                    <td>{res?.currentMonth}</td>
-                    <td>{res?.differenceInPercent}</td>
-                    <td>{res?.differenceInAmount}</td>
+                    <td>{parseFloat(res?.lastMonth || 0
+                  ).toFixed(2)}</td>
+                    <td>{parseFloat(res?.currentMonth || 0
+                  ).toFixed(2)}</td>
+                    <td>{parseFloat(res?.differenceInPercent || 0
+                  ).toFixed(2)} %</td>
+                    <td>{parseFloat(res?.differenceInAmount || 0
+                  ).toFixed(2)}</td>
                   </tr>
                 );
               })}
@@ -191,15 +200,18 @@ const CommonReport = ({ title }) => {
             <tfoot>
               <tr>
                 <th colSpan={2}>Total</th>
-                <td>{calculateTotal(data, "lastMonth")}</td>
-                <td>{calculateTotal(data, "currentMonth")}</td>
+                <td>{parseFloat(calculateTotal(data, "lastMonth") || 0
+                  ).toFixed(2)}{" "}</td>
+                <td>{parseFloat(calculateTotal(data, "currentMonth") || 0
+                  ).toFixed(2)}{" "}</td>
                 <td>
                   {parseFloat(
                     calculateTotal(data, "differenceInPercent") || 0
                   ).toFixed(2)}{" "}
                   %
                 </td>
-                <td>{calculateTotal(data, "differenceInAmount")}</td>
+                <td>{parseFloat(calculateTotal(data, "differenceInAmount")|| 0
+                  ).toFixed(2)}{" "}</td>
               </tr>
             </tfoot>
           </>
@@ -210,7 +222,7 @@ const CommonReport = ({ title }) => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`descarga.csv`}
+            filename={`${title}-${picker}.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />

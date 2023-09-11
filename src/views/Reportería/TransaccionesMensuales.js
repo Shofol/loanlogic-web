@@ -299,7 +299,7 @@ const TransaccionesMensuales = () => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`resumen-agencia.csv`}
+            filename={`transacciones.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />

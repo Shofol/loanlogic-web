@@ -79,28 +79,28 @@ const Cobro = () => {
           ...modifiedData,
           {
             agency: `Cobro ${element?.date.agency}`,
-            date_payment_made: element?.date.payment_made,
-            total_payment_made: element?.total.payment_made,
+            date_payment_made: parseFloat(element?.date.payment_made).toFixed(2),
+            total_payment_made: parseFloat(element?.total.payment_made).toFixed(2),
           },
           {
             agency: `Cobro diario ${element?.date.agency}`,
-            date_payment_made: element?.date.credit_fee,
-            total_payment_made: element?.total.credit_fee,
+            date_payment_made: parseFloat(element?.date.credit_fee).toFixed(2),
+            total_payment_made: parseFloat(element?.total.credit_fee).toFixed(2),
           },
           {
             agency: `Cobro cancelaciones ${element?.date.agency}`,
-            date_payment_made: element?.date.advanced_installment,
-            total_payment_made: element?.total.advanced_installment,
+            date_payment_made: parseFloat(element?.date.advanced_installment).toFixed(2),
+            total_payment_made: parseFloat(element?.total.advanced_installment).toFixed(2),
           },
           {
             agency: `Cobros papelerías ${element?.date.agency}`,
-            date_payment_made: element?.date.administrative_fee,
-            total_payment_made: element?.total.administrative_fee,
+            date_payment_made: parseFloat(element?.date.administrative_fee).toFixed(2),
+            total_payment_made: parseFloat(element?.total.administrative_fee).toFixed(2),
           },
           {
             agency: `Cobros asistencias ${element?.date.agency}`,
-            date_payment_made: element?.date.assistance_fee,
-            total_payment_made: element?.total.assistance_fee,
+            date_payment_made: parseFloat(element?.date.assistance_fee).toFixed(2),
+            total_payment_made: parseFloat(element?.total.assistance_fee).toFixed(2),
           },
         ];
       });
@@ -109,8 +109,8 @@ const Cobro = () => {
         ...modifiedData,
         {
           agency: "Cobros total",
-          date_payment_made: calculateDateTotal(),
-          total_payment_made: calculatTotal(),
+          date_payment_made: parseFloat(calculateDateTotal()).toFixed(2),
+          total_payment_made: parseFloat(calculatTotal()).toFixed(2),
         },
       ];
       setDataToDownload(modifiedData);
@@ -179,8 +179,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobro {element.date.agency}</span>
                       </th>
-                      <td>Q {element.date.payment_made}</td>
-                      <td>Q {element.total.payment_made}</td>
+                      <td>Q {parseFloat(element.date.payment_made).toFixed(2)}</td>
+                      <td>Q {parseFloat(element.total.payment_made).toFixed(2)}</td>
                     </tr>
 
                     <tr>
@@ -191,8 +191,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobro diario {element.date.agency}</span>
                       </th>
-                      <td>Q {element.date.credit_fee}</td>
-                      <td>Q {element.total.credit_fee}</td>
+                      <td>Q {parseFloat(element.date.credit_fee).toFixed(2)}</td>
+                      <td>Q {parseFloat(element.total.credit_fee).toFixed(2)}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">
@@ -202,8 +202,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobro cancelaciones {element.date.agency}</span>
                       </th>
-                      <td>Q {element.date.advanced_installment}</td>
-                      <td>Q {element.total.advanced_installment}</td>
+                      <td>Q {parseFloat(element.date.advanced_installment).toFixed(2)}</td>
+                      <td>Q {parseFloat(element.total.advanced_installment).toFixed(2)}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">
@@ -213,8 +213,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobros papelerías {element.date.agency}</span>
                       </th>
-                      <td>Q {element.date.administrative_fee}</td>
-                      <td>Q {element.total.administrative_fee}</td>
+                      <td>Q {parseFloat(element.date.administrative_fee).toFixed(2)}</td>
+                      <td>Q {parseFloat(element.total.administrative_fee).toFixed(2)}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">
@@ -224,8 +224,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobros asistencias {element.date.agency}</span>
                       </th>
-                      <td>Q {element.date.assistance_fee}</td>
-                      <td>Q {element.total.assistance_fee}</td>
+                      <td>Q {parseFloat(element.date.assistance_fee).toFixed(2)}</td>
+                      <td>Q {parseFloat(element.total.assistance_fee).toFixed(2)}</td>
                     </tr>
                   </>
                 );
@@ -234,8 +234,8 @@ const Cobro = () => {
             <tfoot>
               <tr>
                 <th>Cobros total</th>
-                <td>Q {calculateDateTotal()}</td>
-                <td>Q {calculatTotal()}</td>
+                <td>Q {parseFloat(calculateDateTotal()).toFixed(2)}</td>
+                <td>Q {parseFloat(calculatTotal()).toFixed(2)}</td>
               </tr>
             </tfoot>
           </>

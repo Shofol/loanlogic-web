@@ -26,6 +26,7 @@ import "./Reportería.scss";
 import { Download } from "react-feather";
 import api from "../../@core/api/api";
 import { UserContext } from "../../utility/context/User";
+import { getConvertDateWithTimeZone } from "../../utility/Utils";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -65,8 +66,8 @@ const CarteraPorAsesor = () => {
         cliente: `${item.client.name} ${item.client.surname}`,
         telefono: item.client.phone_number,
         monto: item.credit.requested_amount,
-        fechaInicial: item.credit.disbursement_date,
-        fechaFinal: item.credit.lastPayment,
+        fechaInicial: getConvertDateWithTimeZone(item.credit.disbursement_date),
+        fechaFinal: getConvertDateWithTimeZone(item.credit.lastPayment),
         plazo: item.credit.duration,
         plan: item.credit.payment_frequency,
         cuota: item.credit.installment_amount,
@@ -124,7 +125,7 @@ const CarteraPorAsesor = () => {
   }, []);
 
   const onBtnExport = useCallback(() => {
-    gridRef.current.api.exportDataAsCsv({ fileName: "cartera-por-asesor.csv" });
+    gridRef.current.api.exportDataAsCsv({ fileName: `cartera-por-asesor-${new Date().toLocaleDateString()}.csv` });
   }, []);
 
   useEffect(() => {

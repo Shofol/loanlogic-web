@@ -170,7 +170,7 @@ const ResumenAgencia = () => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`resumen-agencia.csv`}
+            filename={`resumen-agencia-${picker}.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />

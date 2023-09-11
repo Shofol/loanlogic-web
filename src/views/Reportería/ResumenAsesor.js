@@ -69,7 +69,7 @@ const ResumenAsesor = () => {
             defaultAmount: parseFloat(element?.defaultAmount || 0).toFixed(2),
             defaultPercentage: parseFloat(
               element?.defaultPercentage || 0
-            ).toFixed(2),
+            ).toFixed(2) + '%',
           },
         ];
       });
@@ -82,10 +82,11 @@ const ResumenAsesor = () => {
         newCreditApplications: calculateTotal(data, "newCreditApplications"),
         totalCreditAmount: calculateTotal(data, "totalCreditAmount"),
         totalRemainingAmount: calculateTotal(data, "totalRemainingAmount"),
-        defaultAmount: calculateTotal(data, "defaultAmount"),
+        defaultAmount: parseFloat(calculateTotal(data, "defaultAmount")|| 0
+        ).toFixed(2),
         defaultPercentage: parseFloat(
           calculateTotal(data, "defaultPercentage") || 0
-        ).toFixed(2),
+        ).toFixed(2) + '%',
       };
 
       modifiedData.push(totalRow);
@@ -168,7 +169,8 @@ const ResumenAsesor = () => {
                 <td>{calculateTotal(data, "newCreditApplications")}</td>
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
                 <td>{calculateTotal(data, "totalRemainingAmount")}</td>
-                <td>{calculateTotal(data, "defaultAmount")}</td>
+                <td>{parseFloat(calculateTotal(data, "defaultAmount")|| 0
+                  ).toFixed(2)}{" "}</td>
                 <td>
                   {parseFloat(
                     calculateTotal(data, "defaultPercentage") || 0
@@ -185,7 +187,7 @@ const ResumenAsesor = () => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`resumen-asesor.csv`}
+            filename={`resumen-asesor-${picker}.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />
