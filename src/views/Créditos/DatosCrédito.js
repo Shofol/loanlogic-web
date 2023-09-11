@@ -283,7 +283,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                 Usted es (seleccione una única opción)
                 <span className="text-danger">*</span>
               </p>
-              <div className="d-flex">
+              <div className="d-flex flex-column flex-sm-row">
                 {professions.map((prof) => {
                   return (
                     <div
