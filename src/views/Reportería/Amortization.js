@@ -111,7 +111,7 @@ const Amortization = () => {
 
   // mapping the header of the table and also the csv
   const headers = [
-    { label: "ID PAGO", key: "id" },
+    { label: "ID PAGO", key: "idpago" },
     { label: "#Pago", key: "no_of_installment" },
     { label: "Fecha Pago", key: "payment_date" },
     { label: "Pago realizado", key: "payment_made" },
@@ -180,9 +180,9 @@ const Amortization = () => {
 
   // mapping the data for downloading csv file
   useEffect(() => {
-    if (data) {
+    if (collection) {
       let modifiedData = [];
-      data.map((element) => {
+      collection.map((element) => {
         modifiedData = [
           ...modifiedData,
           {
