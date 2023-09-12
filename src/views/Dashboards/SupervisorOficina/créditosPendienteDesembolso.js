@@ -49,6 +49,7 @@ const CréditosPendienteDesembolso = () => {
         <thead>
           <tr>
             <th>Sl. No</th>
+            <th>Núm. Solicitud</th>
             <th>Num. Crédito</th>
             <th>Nombre</th>
             <th>Apellidos</th>
@@ -71,6 +72,7 @@ const CréditosPendienteDesembolso = () => {
                   }}
                 >
                   <td>{index + 1}</td>
+                  <td>{item?.credit.application_id}</td>
                   <td>{item?.credit.id}</td>
                   <td>{item?.client.name}</td>
                   <td>{item?.client.surname}</td>
