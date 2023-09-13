@@ -69,7 +69,7 @@ const PreValidaciónDirección = () => {
               navigate("/route");
             }}
           >
-            Ver ruta <Globe size={12} />
+            {/*Ver ruta <Globe size={12} />*/}
           </Button>
         </Col>
       </Row>

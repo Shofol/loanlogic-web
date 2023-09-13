@@ -1,3 +1,4 @@
+import { MoreVertical, Edit, Trash, Check, X } from "react-feather";
 import {
   Table,
   UncontrolledDropdown,
@@ -8,15 +9,16 @@ import {
   Col,
   Button
 } from "reactstrap";
-import { Globe, Edit } from "react-feather";
-import { useNavigate, useParams } from "react-router-dom";
+import { Globe } from "react-feather";
+import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import api from "../../../@core/api/api";
-import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { formatMessage } from "../../../utility/functions/formatMessage";
 import StatusTag from "../../../@core/components/statusTag";
 
-const ValidaciónCrédito = () => {
+const PreValidaciónDirección = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -33,17 +35,31 @@ const ValidaciónCrédito = () => {
 
   const fetchData = async () => {
     const response = await api.get(
-      `tasks/credit-validation?page=${currentPage}&pageSize=10`
+      `tasks/address-validation?page=${currentPage}&pageSize=10`
     );
     setData(response.data.data);
     setTotalPages(response.data.pagination.totalPages);
+  };
+
+  const handleAction = async (e, action, id) => {
+    e.stopPropagation();
+
+    try {
+      const response = await api.put(`tasks/address-validation/${id}`, {
+        status: action === "accept" ? true : false
+      });
+      fetchData();
+      toast.success(`Successfully updated stats`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
       <Row className="mb-1">
         <Col md="6">
-          <h4 className="mb-1">Validación Crédito</h4>
+          <h4 className="mb-1">Validación Créditos Montos Elevados</h4>
         </Col>
         <Col md="6" className="d-flex justify-content-end">
           <Button
@@ -54,7 +70,7 @@ const ValidaciónCrédito = () => {
             }}
           >
             {/*Ver ruta <Globe size={12} />*/}
-            </Button>
+          </Button>
         </Col>
       </Row>
       <Table responsive>
@@ -68,42 +84,51 @@ const ValidaciónCrédito = () => {
             <th>Municipio</th>
             <th>Departamento</th>
             <th>Estado</th>
-            <th>Validar</th>
+            <th>Pre-validar</th>
           </tr>
         </thead>
         <tbody>
           {data &&
-            data.length > 0 &&
-            data.map((credit, index) => {
+            data.map((data, index) => {
               return (
                 <tr
-                  key={credit.id}
+                  key={data.id}
                   className="clickable-row"
                   onClick={() => {
-                    navigate(`/creditos/visualizar-solicitud/${credit.id}`);
+                    navigate(`/creditos/visualizar-solicitud/${data.id}`);
                   }}
                 >
                   <td>{index + 1}</td>
-                  <td>{credit.id}</td>
-                  <td>{credit?.client.name}</td>
-                  <td>{credit?.client.surname}</td>
-                  <td>{credit?.client.residence_address}</td>
-                  <td>{credit?.client.residence_municipality}</td>
-                  <td>{credit?.client.department_of_residence}</td>
+                  <td>{data.id}</td>
+                  <td>{data?.client.name}</td>
+                  <td>{data?.client.surname}</td>
+                  <td>{data?.client.residence_address}</td>
+                  <td>{data?.client.residence_municipality}</td>
+                  <td>{data?.client.department_of_residence}</td>
+                  {/* <td>{data.status}</td> */}
                   <td>
-                    <StatusTag status={credit.status} />
+                    <StatusTag status={data.status} />
                   </td>
-                  <td>
+                  <td
+                    className="d-flex gap-1"
+                    width={"150px"}
+                    style={{ width: "150px" }}
+                  >
                     <Button.Ripple
                       className="btn-icon"
                       outline
-                      color="primary"
-                      onClick={(e) => {
-                        navigate(`/creditos/validation/${credit.id}`);
-                        e.stopPropagation();
-                      }}
+                      color="danger"
+                      onClick={(e) => handleAction(e, "accept", data.id)}
                     >
-                      <Edit size={16} />
+                      <Check size={16} />
+                    </Button.Ripple>
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="danger"
+                      onClick={(e) => handleAction(e, "reject", data.id)}
+                    >
+                      <X size={16} />
                     </Button.Ripple>
                   </td>
                 </tr>
@@ -138,4 +163,4 @@ const ValidaciónCrédito = () => {
   );
 };
 
-export default ValidaciónCrédito;
+export default PreValidaciónDirección;

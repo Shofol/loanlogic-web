@@ -3,9 +3,7 @@ import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
 import { Card, CardTitle, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import ValidaciónDatos from "./validaciónDatos";
-import ValidaciónCrédito from "./validaciónCrédito";
-import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
+import ValidaciónCréditosMontosElevados from "./validaciónCréditosMontosElevados";
 import "./asistenteAdministrativo.scss";
 import MoraPorAgente from "../Stats/MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";
@@ -55,16 +53,9 @@ const AsistenteAdministrativo = () => {
         </Col>
       </Row>
       <Card className="my-2 p-2">
-        <ValidaciónDatos />
+        <ValidaciónCréditosMontosElevados />
       </Card>
 
-      <Card className="my-2 p-2">
-        <ValidaciónCrédito />
-      </Card>
-
-      <Card className="my-2 p-2">
-        <CréditosPendienteDesembolso />
-      </Card>
 
       <Card className="my-2 p-2">
         <MoraPorAgente />

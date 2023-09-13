@@ -4,8 +4,6 @@ import { Card, CardTitle, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import ValidaciónDatos from "./validaciónDatos";
-import ValidaciónCrédito from "./validaciónCrédito";
-import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
 import "./asistenteAdministrativo.scss";
 import MoraPorAgente from "../Stats/MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";

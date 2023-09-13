@@ -43,8 +43,8 @@ const FotoGarantía = () => {
               navigate("/route");
             }}
           >
-            Ver ruta <Globe size={12} />
-          </Button>
+            {/*Ver ruta <Globe size={12} />*/}
+            </Button>
         </Col>
       </Row>
       <Table responsive>
