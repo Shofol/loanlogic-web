@@ -52,13 +52,13 @@ const ConfigForm = () => {
     { value: "MONTHLY", label: "Mensual (fin de mes)" }
   ];
 
-  const duraciónOptions = [
+  /*const duraciónOptions = [
     { value: "DAYS", label: "Días" },
     { value: "WEEKS", label: "Semanas" },
-    // { value: "CATORCENAS", label: "Catorcenas" },
-    // { value: "QUINCENAS", label: "Quincenas" },
+    { value: "FOURTEEN", label: "Catorcenas" },
+    { value: "FORTNIGHT", label: "Quincenas" },
     { value: "MONTHS", label: "Meses" }
-  ];
+  ];*/
 
   const paísOptions = [{ value: "QUENTZAL", label: "Guatemala - Quetzal" }];
 
@@ -67,7 +67,7 @@ const ConfigForm = () => {
     product_code: product ? product.product_code : "",
     frequency: product ? product.frequency : "",
     duration: product ? product.duration : "",
-    duration_frequency: product ? product.duration_frequency : "",
+    //duration_frequency: product ? product.duration_frequency : "",
     guarantee_type: product ? product.guarantee_type : [],
     minimum_amount: product ? product.minimum_amount : "",
     maximum_amount: product ? product.maximum_amount : "",
@@ -137,9 +137,9 @@ const ConfigForm = () => {
               if (!values.duration) {
                 errors.duration = requiredMsg;
               }
-              if (values.duration_frequency.length === 0) {
+              /*if (values.duration_frequency.length === 0) {
                 errors.duration_frequency = requiredMsg;
-              }
+              }*/
               if (!values.minimum_amount) {
                 errors.minimum_amount = requiredMsg;
               }
@@ -277,7 +277,7 @@ const ConfigForm = () => {
                       className="text-danger"
                     />
                   </Col>
-                  <Col sm="6" md="3" className="mb-1">
+                  {/*<Col sm="6" md="3" className="mb-1">
                     <Label className="form-label">
                       Duración (unidad)<span className="text-danger">*</span>
                     </Label>
@@ -300,6 +300,27 @@ const ConfigForm = () => {
                     <ErrorMessage
                       component="div"
                       name="duration_frequency"
+                      className="text-danger"
+                    />
+                    </Col>*/}
+                  <Col sm="12" md="3" className="mb-1">
+                    <Label className="form-label" for="management_days">
+                      Días Gestión de Cobranza automática
+                      <span className="text-danger">*</span>
+                    </Label>
+                    <InputGroup>
+                      <Input
+                        type="number"
+                        name="management_days"
+                        id="management_days"
+                        placeholder="90 días"
+                        tag={Field}
+                      />
+                      <InputGroupText>Días</InputGroupText>
+                    </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="management_days"
                       className="text-danger"
                     />
                   </Col>
@@ -497,28 +518,6 @@ const ConfigForm = () => {
                     <ErrorMessage
                       component="div"
                       name="management_expenses"
-                      className="text-danger"
-                    />
-                  </Col>
-
-                  <Col sm="12" md="3" className="mb-1">
-                    <Label className="form-label" for="management_days">
-                      Días Gestión de Cobranza automática
-                      <span className="text-danger">*</span>
-                    </Label>
-                    <InputGroup>
-                      <Input
-                        type="number"
-                        name="management_days"
-                        id="management_days"
-                        placeholder="90 días"
-                        tag={Field}
-                      />
-                      <InputGroupText>Días</InputGroupText>
-                    </InputGroup>
-                    <ErrorMessage
-                      component="div"
-                      name="management_days"
                       className="text-danger"
                     />
                   </Col>

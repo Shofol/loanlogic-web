@@ -41,7 +41,7 @@ const ProductosLista = () => {
     { label: "Código del producto", key: "product_code" },
     { label: "Periodicidad de cobros", key: "frequency" },
     { label: "Duración (valor)", key: "duration" },
-    { label: "Duración (unidad)", key: "duration_frequency" },
+    //{ label: "Duración (unidad)", key: "duration_frequency" },
     { label: "Interés crédito (IVA includo)", key: "credit_interest" },
     { label: "Agencias", key: "agency" },
   ];
@@ -60,7 +60,7 @@ const ProductosLista = () => {
             product_code: element?.product_code,
             frequency: element?.frequency,
             duration: element?.duration,
-            duration_frequency: element?.duration_frequency,
+            //duration_frequency: element?.duration_frequency,
             credit_interest: element?.credit_interest,
             agency: (element?.agencies || []).join(", "),
           },
@@ -94,26 +94,26 @@ const ProductosLista = () => {
         <tbody>
           {products.length > 0
             ? products.map((product, index) => {
-                return (
-                  <tr
-                    key={product.id}
-                    className="clickable-row"
-                    onClick={() => {
-                      navigate(`/productos/config/${product.id}`);
-                    }}
-                  >
-                    <td>{index + 1}</td>
-                    <td>{product.id}</td>
-                    <td className="nowrap">{product.product_name}</td>
-                    <td>{product.product_code}</td>
-                    <td>{product.frequency}</td>
-                    <td>{product.duration}</td>
-                    <td>{product.duration_frequency}</td>
-                    <td>{product.credit_interest}</td>
-                    <td>{product.agencies.join(", ")}</td>
-                  </tr>
-                );
-              })
+              return (
+                <tr
+                  key={product.id}
+                  className="clickable-row"
+                  onClick={() => {
+                    navigate(`/productos/config/${product.id}`);
+                  }}
+                >
+                  <td>{index + 1}</td>
+                  <td>{product.id}</td>
+                  <td className="nowrap">{product.product_name}</td>
+                  <td>{product.product_code}</td>
+                  <td>{product.frequency}</td>
+                  <td>{product.duration}</td>
+                  {/*<td>{product.duration_frequency}</td>*/}
+                  <td>{product.credit_interest}</td>
+                  <td>{product.agencies.join(", ")}</td>
+                </tr>
+              );
+            })
             : null}
         </tbody>
       </Table>
