@@ -4,6 +4,7 @@ import { Card, CardTitle, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import ValidaciónDatos from "./validaciónDatos";
+import AsignarNit from "./asignarNit";
 import "./asistenteAdministrativo.scss";
 import MoraPorAgente from "../Stats/MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";
@@ -52,15 +53,16 @@ const AsistenteAdministrativo = () => {
           </Card>
         </Col>
       </Row>
+
+      <Card className="my-2 p-2">
+        <AsignarNit />
+      </Card>
+
       <Card className="my-2 p-2">
         <ValidaciónDatos />
       </Card>
 
-      {/* <Card className="my-2 p-2">
-        <ValidaciónCrédito />
-      </Card>
-
-      <Card className="my-2 p-2">
+      {/*<Card className="my-2 p-2">
         <CréditosPendienteDesembolso />
       </Card>
 

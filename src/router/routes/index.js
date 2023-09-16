@@ -43,6 +43,7 @@ import ReporteríaRoutes from "./Reportería";
 import SolicitudesRoutes from "./Solicitudes";
 import ClientesListaRoutes from "./ClientesLista";
 import UsuariosRoutes from "./Usuarios";
+import NITRoutes from "./Nit";
 import Route from "../../views/Route";
 
 // ** Merge Routes
@@ -102,7 +103,8 @@ const Routes = [
   ...ReporteríaRoutes,
   ...SolicitudesRoutes,
   ...ClientesListaRoutes,
-  ...UsuariosRoutes
+  ...UsuariosRoutes,
+  ...NITRoutes
 ];
 
 const getRouteMeta = (route) => {
