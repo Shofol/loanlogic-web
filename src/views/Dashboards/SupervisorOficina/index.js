@@ -6,6 +6,8 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 import PreValidaciónDirección from "../GestorDeCobros/preValidaciónDirección";
 import ValidaciónCrédito from "./validaciónCrédito";
 import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
+import AsignarGestorCobranza from "./asignarGestorCobranza";
+import AsignarAgente from "./asignarAgente";
 import "./supervisorOficina.scss";
 import MoraPorAgente from "../Stats/MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";
@@ -66,6 +68,15 @@ const SupervisorOficina = () => {
         <CréditosPendienteDesembolso />
       </Card>
 
+      <Card className="my-2 p-2">
+        <AsignarGestorCobranza />
+      </Card>
+
+
+      <Card className="my-2 p-2">
+        <AsignarAgente />
+      </Card>
+      
       <Card className="my-2 p-2">
         <MoraPorAgente />
       </Card>

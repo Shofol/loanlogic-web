@@ -44,6 +44,8 @@ import SolicitudesRoutes from "./Solicitudes";
 import ClientesListaRoutes from "./ClientesLista";
 import UsuariosRoutes from "./Usuarios";
 import NITRoutes from "./Nit";
+import AsignarGestorCobranza from "./AsignarGestorCobranza";
+import AsignarAgente from "./AsignarAgente";
 import Route from "../../views/Route";
 
 // ** Merge Routes
@@ -104,7 +106,9 @@ const Routes = [
   ...SolicitudesRoutes,
   ...ClientesListaRoutes,
   ...UsuariosRoutes,
-  ...NITRoutes
+  ...NITRoutes,
+  ...AsignarGestorCobranza,
+  ...AsignarAgente
 ];
 
 const getRouteMeta = (route) => {
