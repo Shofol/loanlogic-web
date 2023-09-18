@@ -146,7 +146,7 @@ const Desembolso = () => {
                 <p className="acc-desembolso-title">Gastos administrativos</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.credit.administrative_expenses}q
+                  {data?.credit.administrative_expenses}Q
                 </p>
               </div>
               <div className="mb-0 d-flex fw-bold">
