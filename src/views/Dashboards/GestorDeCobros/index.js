@@ -10,6 +10,7 @@ import Recuperación from "../Stats/Recuperación";
 import RecuperaciónDiaria from "../GestorComercial/recuperaciónDiaria";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
+import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
 
 const GestorDeCobros = () => {
   const { colors } = useContext(ThemeColors);
@@ -30,22 +31,7 @@ const GestorDeCobros = () => {
         </Col>
 
         <Col>
-          <Card className="h-100">
-            <CardTitle className="mb-0 p-1 fs-5">
-              DESGLOSE RECUPERACIÓN
-            </CardTitle>
-            <ListGroup className="fs-6 px-1">
-              <ListGroupItem>Ingresos recuperación: 850Q</ListGroupItem>
-              <ListGroupItem>Ingresos por papelería: 300 Q</ListGroupItem>
-              <ListGroupItem>Ingresos por asistencias: 50Q</ListGroupItem>
-              <ListGroupItem>
-                Ingresos por adelantos: (voluntario) 300Q
-              </ListGroupItem>
-              <ListGroupItem>
-                Ingresos por anticipios: (días corridos) 200Q
-              </ListGroupItem>
-            </ListGroup>
-          </Card>
+          <DesgloseRecuperación/>
         </Col>
       </Row>
 

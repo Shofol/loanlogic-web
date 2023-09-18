@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, Row, Col, Input, Label, Button } from "reactstrap";
+import { Card, Row, Col, Input, Label, Button, CardSubtitle } from "reactstrap";
 import "../Cobranza/cobranza.scss";
 import OverviewCircle from "../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { Printer, Save } from "react-feather";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
 
@@ -12,6 +12,7 @@ const Desembolso = () => {
   const { colors } = useContext(ThemeColors);
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -37,17 +38,30 @@ const Desembolso = () => {
     <div id="section-to-print">
       <Card className="p-2">
         <div className="contentWidth mx-auto">
-          <h4>
-            {" "}
-            {data?.client.name} {data?.client.surname}{" "}
-            {data?.client.second_surname}
-          </h4>
+          <CardSubtitle
+            tag="h4"
+            className="cursor-pointer link text-primary link-underline-primary"
+            onClick={() => {
+              navigate(`/clientes/${data?.client.id}`);
+            }}
+          >
+            {`${data?.client.name.toUpperCase()} ` +
+              `${data?.client.surname.toUpperCase()} ` + `${data?.client.second_surname.toUpperCase()}`
+            }
+          </CardSubtitle>
           <p className="mb-0">
             <strong>DPI:</strong> {data?.client.dpi_number}
           </p>
-          <p className="mb-0">
-            <strong>Crédito núm:</strong> {data?.credit.id}
-          </p>
+          <CardSubtitle
+            tag="h5"
+            className="cursor-pointer link text-primary link-underline-primary"
+            style={{ 'marginTop': 'auto' }}
+            onClick={() => {
+              navigate(`/reporteria/amortization/${data?.credit.id}`);
+            }}
+          >
+            <strong>Núm. Crédito:</strong> {` ${data?.credit.id}`}
+          </CardSubtitle>
           <hr />
           <Row>
             <Col sm="12" md="6">
@@ -101,7 +115,7 @@ const Desembolso = () => {
                       completed: Math.round(
                         (data?.debt_collection.total_paid_amount /
                           data?.credit.total_amount) *
-                          100
+                        100
                       )
                     }}
                     title="Crédito pendiente"
@@ -158,9 +172,9 @@ const Desembolso = () => {
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Estado desembolso</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">{data?.debt_collection.status == "PAID" ? "DESEMBOLSADO" : "PENDIENTE" }</p>
+                <p className="mb-0 ms-1">{data?.debt_collection.status == "PAID" ? "DESEMBOLSADO" : "PENDIENTE"}</p>
               </div>
-   
+
             </Col>
           </Row>
           <hr className="mb-0"></hr>

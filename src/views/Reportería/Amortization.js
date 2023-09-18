@@ -309,7 +309,7 @@ const Amortization = () => {
           <Row>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                TOTAL ADEUDADO: {data?.credit.total_default_amount}Q
+                TOTAL MORA: {data?.credit.total_default_amount}Q
               </p>
             </Col>
             <Col sm="12" md="6">

@@ -14,6 +14,7 @@ import Desembolso from "../Stats/Desembolso";
 import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
+import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
 
 const SupervisorOficina = () => {
   const { colors } = useContext(ThemeColors);
@@ -38,22 +39,7 @@ const SupervisorOficina = () => {
         </Col>
 
         <Col className="statColumn">
-          <Card className="h-100">
-            <CardTitle className="mb-0 p-1 fs-5">
-              DESGLOSE RECUPERACIÓN
-            </CardTitle>
-            <ListGroup className="fs-6 px-1">
-              <ListGroupItem>Ingresos recuperación: 850Q</ListGroupItem>
-              <ListGroupItem>Ingresos por papelería: 300 Q</ListGroupItem>
-              <ListGroupItem>Ingresos por asistencias: 50Q</ListGroupItem>
-              <ListGroupItem>
-                Ingresos por adelantos: (voluntario) 300Q
-              </ListGroupItem>
-              <ListGroupItem>
-                Ingresos por anticipios: (días corridos) 200Q
-              </ListGroupItem>
-            </ListGroup>
-          </Card>
+        <DesgloseRecuperación />
         </Col>
       </Row>
       <Card className="my-2 p-2">

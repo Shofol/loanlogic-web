@@ -42,7 +42,7 @@ const CréditosPendienteDesembolso = () => {
             }}
           >
             {/*Ver ruta <Globe size={12} />*/}
-            </Button>
+          </Button>
         </Col>
       </Row>
       <Table responsive>
