@@ -42,9 +42,10 @@ const Cobro = () => {
       (element) => element.date.agency === "TOTAL"
     )[0];
     return (
-      +totalEntry.date.payment_made +
+      //+totalEntry.date.payment_made +
       +totalEntry.date.credit_fee +
       +totalEntry.date.advanced_installment +
+      +totalEntry.date.holidays_fee +
       +totalEntry.date.administrative_fee +
       +totalEntry.date.assistance_fee
     );
@@ -55,9 +56,10 @@ const Cobro = () => {
       (element) => element.total.agency === "TOTAL"
     )[0];
     return (
-      +totalEntry.total.payment_made +
+      //+totalEntry.total.payment_made +
       +totalEntry.total.credit_fee +
       +totalEntry.total.advanced_installment +
+      +totalEntry.date.holidays_fee +
       +totalEntry.total.administrative_fee +
       +totalEntry.total.assistance_fee
     );
@@ -88,9 +90,14 @@ const Cobro = () => {
             total_payment_made: parseFloat(element?.total.credit_fee).toFixed(2),
           },
           {
-            agency: `Cobro cancelaciones ${element?.date.agency}`,
+            agency: `Cobro adelantos (voluntario) ${element?.date.agency}`,
             date_payment_made: parseFloat(element?.date.advanced_installment).toFixed(2),
             total_payment_made: parseFloat(element?.total.advanced_installment).toFixed(2),
+          },
+          {
+            agency: `Cobro anticipios (días corridos) ${element?.date.agency}`,
+            date_payment_made: parseFloat(element?.date.holidays_fee).toFixed(2),
+            total_payment_made: parseFloat(element?.total.holidays_fee).toFixed(2),
           },
           {
             agency: `Cobros papelerías ${element?.date.agency}`,
@@ -200,10 +207,21 @@ const Cobro = () => {
                           className="bg"
                           style={{ backgroundColor: chartColors[index] }}
                         ></span>
-                        <span>Cobro cancelaciones {element.date.agency}</span>
+                        <span>Cobro adelantos (voluntario) {element.date.agency}</span>
                       </th>
                       <td>Q {parseFloat(element.date.advanced_installment).toFixed(2)}</td>
                       <td>Q {parseFloat(element.total.advanced_installment).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <th className="custom-header">
+                        <span
+                          className="bg"
+                          style={{ backgroundColor: chartColors[index] }}
+                        ></span>
+                        <span>Cobro anticipios (días corridos) {element.date.agency}</span>
+                      </th>
+                      <td>Q {parseFloat(element.date.holidays_fee).toFixed(2)}</td>
+                      <td>Q {parseFloat(element.total.holidays_fee).toFixed(2)}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">

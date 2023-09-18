@@ -33,8 +33,9 @@ const Cobranza = () => {
     console.log(data);
     try {
       const response = await API.put(`/client/nit/${id}`, values);
-      setData(response.data.data);
+      //setData(response.data.data);
       toast.success(response.data.message);
+      navigate(-1);
     } catch (error) {
       console.log(error);
     }

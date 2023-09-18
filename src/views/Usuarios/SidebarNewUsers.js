@@ -321,7 +321,6 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 id="hf-picker"
                 className="form-control"
                 onChange={(dateStr, instance) => {
-                  alert(dateStr);
                   setPicker(dateStr);
                   setFieldValue(
                     "date_of_birth",
