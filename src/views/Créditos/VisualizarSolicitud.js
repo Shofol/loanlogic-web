@@ -379,7 +379,7 @@ const VisualizarSolicitud = () => {
                 </Col>
                 <Col sm="3">
                   <Label className="form-label" for="second_name">
-                    Si la respuesta es sí, indicar las instituciones y monto{" "}
+                    Segundo Nombre
                   </Label>
                   <Input
                     disabled

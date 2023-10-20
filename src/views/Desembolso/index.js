@@ -183,11 +183,11 @@ const Desembolso = () => {
             <Col md="5">
               <h5 className="fw-bold mb-0 mt-1 ps-0">
                 Capital e intereses amortizado:{" "}
-                {data?.debt_collection.total_paid_amount}Q
+                {parseFloat(data?.debt_collection.total_paid_amount).toFixed(2)}Q
               </h5>
               <h5 className="fw-bold mb-0 ps-0">
                 Capital e interés pendiente:{" "}
-                {data?.debt_collection.total_pending_amount}Q
+                {parseFloat(data?.debt_collection.total_pending_amount).toFixed(2)}Q
               </h5>
             </Col>
 

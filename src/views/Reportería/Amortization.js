@@ -53,6 +53,7 @@ const Amortization = () => {
             amount_to_pay: prev.amount_to_pay + +next.amount_to_pay,
             credit_fee: prev.credit_fee + +next.credit_fee,
             credit_capital: prev.credit_capital + +next.credit_capital,
+            credit_interest_with_tax: prev.credit_interest_with_tax + +next.credit_interest_with_tax,
             credit_interest: prev.credit_interest + +next.credit_interest,
             credit_interest_tax:
               prev.credit_interest_tax + +next.credit_interest_tax,
@@ -72,6 +73,7 @@ const Amortization = () => {
               +next.discount_holidays_interest,
             discount_holidays_tax:
               prev.discount_holidays_tax + +next.discount_holidays_tax,
+            cumulative_default_interest_with_tax: parseFloat(prev.cumulative_default_interest_with_tax) + +parseFloat(next.cumulative_default_interest_with_tax),
             total_paid_amount: prev.total_paid_amount + +next.total_paid_amount,
             total_pending_amount:
               prev.total_pending_amount + +next.total_pending_amount,
@@ -83,6 +85,7 @@ const Amortization = () => {
           amount_to_pay: 0,
           credit_fee: 0,
           credit_capital: 0,
+          credit_interest_with_tax: 0,
           credit_interest: 0,
           credit_interest_tax: 0,
           administrative_fee: 0,
@@ -93,6 +96,7 @@ const Amortization = () => {
           discount_holidays_capital: 0,
           discount_holidays_interest: 0,
           discount_holidays_tax: 0,
+          cumulative_default_interest_with_tax: 0,
           total_paid_amount: 0,
           total_pending_amount: 0,
           total_tax: 0,
@@ -117,11 +121,13 @@ const Amortization = () => {
     { label: "Pago realizado", key: "payment_made" },
     { label: "Monto total", key: "amount_to_pay" },
     {
-      label: "Cuota crédito (capital + interés + IVA incluidos)",
+      label: "Cuota original (capital + interés + IVA incluidos)",
       key: "credit_fee",
     },
     { label: "Cuota (capital)", key: "credit_capital" },
-    { label: "Interés", key: "credit_interest" },
+    { label: "Interés (con IVA)", key: "credit_interest_with_tax" },
+
+    { label: "Interés (sin IVA)", key: "credit_interest" },
 
     { label: "IVA interés", key: "credit_interest_tax" },
     { label: "Gastos administrativos", key: "administrative_fee" },
@@ -139,6 +145,11 @@ const Amortization = () => {
     },
     { label: "IVA gestión cobranza", key: "collection_management_tax" },
     { label: "Mora", key: "default_amount" },
+    { label: "Interés Mora + IVA", key: "default_interest_with_tax" },
+    { label: "ACUMULADO Interés Mora + IVA", key: "cumulative_default_interest_with_tax" },
+
+
+
     { label: "Interés mora", key: "default_interest" },
     { label: "IVA interés MORA", key: "default_interest_tax" },
     { label: "Capital e intereses amortizado", key: "total_paid_amount" },
@@ -194,6 +205,7 @@ const Amortization = () => {
             amount_to_pay: element?.amount_to_pay,
             credit_fee: element?.credit_fee,
             credit_capital: element?.credit_capital,
+            credit_interest_with_tax: element?.credit_interest_with_tax,
             credit_interest: element?.credit_interest,
             credit_interest_tax: element?.credit_interest_tax,
             administrative_fee: element?.administrative_fee,
@@ -208,6 +220,8 @@ const Amortization = () => {
             collection_management_fee: element?.collection_management_fee,
             collection_management_tax: element?.collection_management_tax,
             default_amount: element?.default_amount,
+            default_interest_with_tax: element?.default_interest_with_tax,
+            cumulative_default_interest_with_tax: element?.cumulative_default_interest_with_tax,
             default_interest: element?.default_interest,
             default_interest_tax: element?.default_interest_tax,
             total_paid_amount: element?.total_paid_amount,
@@ -335,8 +349,6 @@ const Amortization = () => {
           <Row>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-
-
                 TOTAL PENDIENTE: {data?.credit.total_remaining_amount}Q
               </p>
             </Col>
@@ -421,6 +433,7 @@ const Amortization = () => {
                       <td>{debt.amount_to_pay}</td>
                       <td>{debt.credit_fee}</td>
                       <td>{debt.credit_capital}</td>
+                      <td>{debt.credit_interest_with_tax}</td>
                       <td>{debt.credit_interest}</td>
                       <td>{debt.credit_interest_tax}</td>
                       <td>{debt.administrative_fee}</td>
@@ -435,6 +448,8 @@ const Amortization = () => {
                       <td>{debt.collection_management_fee}</td>
                       <td>{debt.collection_management_tax}</td>
                       <td>{debt.default_amount}</td>
+                      <td>{debt.default_interest_with_tax}</td>
+                      <td>{debt.cumulative_default_interest_with_tax}</td>
                       <td>{debt.default_interest}</td>
                       <td>{debt.default_interest_tax}</td>
                       <td>{debt.total_paid_amount}</td>
@@ -470,6 +485,7 @@ const Amortization = () => {
                 <td>{totalValue.amount_to_pay.toFixed(2)}</td>
                 <td>{totalValue.credit_fee.toFixed(2)}</td>
                 <td>{totalValue.credit_capital.toFixed(2)}</td>
+                <td>{totalValue.credit_interest_with_tax.toFixed(2)}</td>
                 <td>{totalValue.credit_interest.toFixed(2)}</td>
                 <td>{totalValue.credit_interest_tax.toFixed(2)}</td>
                 <td>{totalValue.administrative_fee.toFixed(2)}</td>
@@ -484,8 +500,10 @@ const Amortization = () => {
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
+                <td>-</td>        
+                <td>{totalValue.cumulative_default_interest_with_tax.toFixed(2)}</td>
                 <td>-</td>
-                <td>-</td>
+                <td>-</td>    
                 <td>{totalValue.total_paid_amount.toFixed(2)}</td>
                 <td>{totalValue.total_pending_amount.toFixed(2)}</td>
                 <td>{totalValue.total_tax.toFixed(2)}</td>
