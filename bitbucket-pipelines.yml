@@ -1,12 +1,11 @@
-#image: 'atlassian/default-image:4'
+image: 'atlassian/default-image:4'
 #image: node:16
-image: node:20.8.1
 
 pipelines:
   default:
     - step:
         name: Build and test the app
-        image: 'node:latest'
+        image: 'node:20.8.1'
         script:
           - npm install --legacy-peer-deps
           #- npm test
@@ -15,7 +14,7 @@ pipelines:
     deploy-s3:
       - step:
           name: Build and test the app
-          image: 'node:latest'
+          image: 'node:20.8.1'
           script:
             - npm install --legacy-peer-deps
             #- npm test
@@ -47,7 +46,7 @@ pipelines:
     master:
       - step:
           name: Build and test the app
-          image: 'node:latest'
+          image: 'node:20.8.1'
           script:
             - npm install --legacy-peer-deps
             #- npm test
