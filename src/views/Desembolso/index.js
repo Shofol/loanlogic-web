@@ -199,6 +199,7 @@ const Desembolso = () => {
                       className="me-1"
                       color="primary"
                       type="submit"
+                      disabled={data?.debt_collection.status != "PENDING"}
                       onClick={submit}
                     >
                       <Save size={16} />
