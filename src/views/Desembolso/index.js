@@ -34,6 +34,18 @@ const Desembolso = () => {
     }
   };
 
+
+  const cancel = async () => {
+    try {
+      const response = await API.put(`/credit/cancel/${data?.credit.id}`);
+
+      toast.success(response.data.message);
+      navigate(-1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div id="section-to-print">
       <Card className="p-2">
@@ -219,6 +231,19 @@ const Desembolso = () => {
                       <Printer size={16} />
                       <span className="align-middle mx-25">
                         Imprimir ticket
+                      </span>
+                    </Button.Ripple>
+                    
+                    <Button.Ripple
+                      className="timeline"
+                      color="danger"
+                      type="submit"
+                      disabled={data?.debt_collection.status != "PENDING"}
+                      onClick={cancel}
+                    >
+                      <Save size={16} />
+                      <span className="align-middle mx-25">
+                        Cancelar Desembolso
                       </span>
                     </Button.Ripple>
                   </div>
