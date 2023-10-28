@@ -302,7 +302,7 @@ const Amortization = () => {
           <Row>
             <Col sm="12" md="6">
               <p className="mb-0">
-                Cuota crédito: {data?.credit.installment_amount}Q
+                Cuota crédito: {parseFloat(data?.credit.installment_amount).toFixed(2)}Q
               </p>
             </Col>
             <Col sm="12" md="6">
