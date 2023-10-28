@@ -150,9 +150,9 @@ const Desembolso = () => {
                 </p>
               </div>
               <div className="mb-0 d-flex fw-bold">
-                <p className="acc-desembolso-title">Total adeudado</p>
+                <p className="acc-desembolso-title">Monto solicitado</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">{data?.credit.total_amount}Q</p>
+                <p className="mb-0 ms-1">{data?.credit.requested_amount}Q</p>
               </div>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Gastos administrativos</p>
