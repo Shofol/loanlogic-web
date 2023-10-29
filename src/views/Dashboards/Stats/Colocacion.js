@@ -31,7 +31,7 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
     <>
       <OverviewCircle
         data={{ completed: completedResult }}
-        title="Colocacion"
+        title="Colocación"
         text={
           data ? `${Math.round(data.totalRequestedAmount)} Q / ${Math.round(data.dailyGoal)} Q` : null
         }
