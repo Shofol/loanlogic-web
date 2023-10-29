@@ -42,7 +42,7 @@ const ResumenAsesor = () => {
   const headers = [
     { label: "No.", key: "no" },
     { label: "Oficina", key: "agency" },
-    { label: "Asesor", key: "user" },
+    { label: "Promotor", key: "user" },
     { label: "Clientes activos", key: "currentClients" },
     { label: "Clientes colocados", key: "newCreditApplications" },
     { label: "Colocación", key: "totalCreditAmount" },
@@ -96,7 +96,7 @@ const ResumenAsesor = () => {
 
   return (
     <Card className="p-2">
-      <CardTitle>Resumen diario asesor</CardTitle>
+      <CardTitle>Resumen diario promotor</CardTitle>
       <Row>
         <Col md="6">
           <Label className="form-label">Oficina</Label>
@@ -190,7 +190,7 @@ const ResumenAsesor = () => {
           <CSVLink
             data={dataToDownload}
             headers={headers}
-            filename={`resumen-asesor-${picker}.csv`}
+            filename={`resumen-promotor-${picker}.csv`}
           >
             <Button.Ripple color="primary" type="reset">
               <Download size={16} />

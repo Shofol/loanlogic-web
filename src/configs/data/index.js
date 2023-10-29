@@ -635,7 +635,7 @@ export const wantCredit = [
 ];
 
 export const roles = [
-  { label: "Gestor comercial", value: "AGENT" },
+  { label: "Promotor", value: "AGENT" },
   { label: "Gestor de cobros", value: "COLLECTION-MANAGER" },
   { label: "Supervisor oficina", value: "SUPERVISOR" },
   { label: "Asistente administrativo", value: "ASSISTANT" },

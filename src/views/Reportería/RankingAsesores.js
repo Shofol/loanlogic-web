@@ -66,7 +66,7 @@ const RankingAsesores = ({ title }) => {
   const headers = [
     { label: "No.", key: "no" },
     { label: "Oficina", key: "agency" },
-    { label: "Asesor", key: "user" },
+    { label: "Promotor", key: "user" },
     { label: calculateDate(), key: "totalRequestedAmount" },
     { label: "Meta", key: "userGoal" },
     { label: "% Efectividad", key: "percentageEfficiency" },
@@ -99,7 +99,7 @@ const RankingAsesores = ({ title }) => {
 
   return (
     <Card className="p-2">
-      <CardTitle>Ranking Asesores</CardTitle>
+      <CardTitle>Ranking Promotores</CardTitle>
       <Row>
         <Col md="6">
           <Label className="form-label">Oficina</Label>
@@ -151,7 +151,7 @@ const RankingAsesores = ({ title }) => {
           {/*<tr>
             <th>No.</th>
             <th>Oficina</th>
-            <th>Asesor</th>
+            <th>Promotor</th>
             <th>{calculateDate()}</th>
             <th>Meta</th>
             <th>% Efectividad</th>

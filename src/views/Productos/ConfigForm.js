@@ -572,7 +572,7 @@ const ConfigForm = () => {
                   />
 
                   <RangeList
-                    label="Bono (colocación asesores)"
+                    label="Bono (colocación promotores)"
                     assosLabel="bonus"
                     fieldName="bonuses"
                     values={values}

@@ -23,7 +23,7 @@ export default [
     children: [
       {
         id: "gestorComercial",
-        title: "Gestor comercial",
+        title: "Promotor",
         icon: <Circle size={20} />,
         navLink: "/dashboard/gestorComercial",
         role: "AGENT"
@@ -88,7 +88,7 @@ export default [
     children: [
       {
         id: "carteraPorAsesor",
-        title: "Cartera por Asesor",
+        title: "Cartera Promotor",
         icon: <Circle size={20} />,
         navLink: "/reporteria/cartera-asesor"
       },
@@ -100,7 +100,7 @@ export default [
       },
       {
         id: "resumenAsesor",
-        title: "Resumen asesor",
+        title: "Resumen Promotor",
         icon: <Circle size={20} />,
         navLink: "/reporteria/resumenAsesor"
       },
@@ -155,7 +155,7 @@ export default [
       },
       {
         id: "rankingAsesores",
-        title: "Ranking Asesores",
+        title: "Ranking Promotores",
         icon: <Circle size={20} />,
         navLink: "reporteria/rankingAsesores"
       },

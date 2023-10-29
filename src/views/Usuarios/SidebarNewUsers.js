@@ -57,7 +57,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
     <Sidebar
       size="lg"
       open={open}
-      title="New User"
+      title="Nuevo Usuario"
       headerClassName="mb-1"
       contentClassName="pt-0"
       toggleSidebar={toggleSidebar}
@@ -115,7 +115,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
           }
           if (
             values.role === "Agente de cobranza" ||
-            (values.role === "Gestor comercial" && !values.category)
+            (values.role === "Promotor" && !values.category)
           ) {
             errors.category = requiredMsg;
           }

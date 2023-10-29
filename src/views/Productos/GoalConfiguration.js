@@ -41,7 +41,7 @@ const GoalConfiguration = () => {
         <CardTitle tag="h4">Configurar metas</CardTitle>
       </CardHeader>
       <CardBody>
-        <h4 className="ps-2">Asesores</h4>
+        <h4 className="ps-2">Promotores</h4>
         {data &&
           data
             .filter((item) => item.role === "AGENT")

@@ -125,7 +125,7 @@ const CarteraPorAsesor = () => {
   }, []);
 
   const onBtnExport = useCallback(() => {
-    gridRef.current.api.exportDataAsCsv({ fileName: `cartera-por-asesor-${new Date().toLocaleDateString()}.csv` });
+    gridRef.current.api.exportDataAsCsv({ fileName: `cartera-por-promotor-${new Date().toLocaleDateString()}.csv` });
   }, []);
 
   useEffect(() => {
@@ -170,7 +170,7 @@ const CarteraPorAsesor = () => {
           </Col>
 
           <Col className="mb-1" md="3" sm="12">
-            <Label className="form-label">Gestor</Label>
+            <Label className="form-label">Promotor</Label>
             <Select
               isClearable={false}
               theme={selectThemeColors}

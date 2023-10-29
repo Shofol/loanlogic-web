@@ -138,7 +138,7 @@ const EditUser = ({ showModal, user, onClose }) => {
               }
               if (
                 values.role === "Agente de cobranza" ||
-                (values.role === "Gestor comercial" && !values.category)
+                (values.role === "Promotor" && !values.category)
               ) {
                 errors.category = requiredMsg;
               }
