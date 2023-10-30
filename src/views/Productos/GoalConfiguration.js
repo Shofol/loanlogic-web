@@ -8,7 +8,7 @@ import {
   Input,
   Label
 } from "reactstrap";
-import AsesoresForm from "../Reportería/AsesoresForm";
+import AsesoresForm from "../Reporteria/AsesoresForm";
 import api from "../../@core/api/api";
 import { Save } from "react-feather";
 import { toast } from "react-hot-toast";

@@ -1,38 +1,41 @@
 import { lazy } from "react";
-import RankingAsesores from "../../views/Reportería/RankingAsesores";
+import RankingAsesores from "../../views/Reporteria/RankingAsesores";
 
 const CarteraPorAsesor = lazy(() =>
-  import("../../views/Reportería/CarteraPorAsesor")
+  import("../../views/Reporteria/CarteraPorAsesor")
 );
 
 const CarteraConsolidada = lazy(() =>
-  import("../../views/Reportería/CarteraConsolidada")
+  import("../../views/Reporteria/CarteraConsolidada")
 );
 
-const Amortization = lazy(() => import("../../views/Reportería/Amortization"));
+const Amortization = lazy(() => import("../../views/Reporteria/Amortization"));
 
 const ResumenAsesor = lazy(() =>
-  import("../../views/Reportería/ResumenAsesor")
+  import("../../views/Reporteria/ResumenAsesor")
 );
 
-const Colocación = lazy(() => import("../../views/Reportería/Colocación"));
+const Colocación = lazy(() => import("../../views/Reporteria/Colocación"));
 
-const Mora = lazy(() => import("../../views/Reportería/Mora"));
+const Mora = lazy(() => import("../../views/Reporteria/Mora"));
 const CancelacionesAnticipadas = lazy(() =>
-  import("../../views/Reportería/CancelacionesAnticipadas")
+  import("../../views/Reporteria/CancelacionesAnticipadas")
 );
-const Papelerías = lazy(() => import("../../views/Reportería/Papelerías"));
-const Asistencias = lazy(() => import("../../views/Reportería/Asistencias"));
-const Cobro = lazy(() => import("../../views/Reportería/Cobro"));
+const Papelerías = lazy(() => import("../../views/Reporteria/Papelerías"));
+const Asistencias = lazy(() => import("../../views/Reporteria/Asistencias"));
+const Cobro = lazy(() => import("../../views/Reporteria/Cobro"));
 const ResumenAgencia = lazy(() =>
-  import("../../views/Reportería/ResumenAgencia")
+  import("../../views/Reporteria/ResumenAgencia")
 );
-const KPI = lazy(() => import("../../views/Reportería/KPI"));
+const KPI = lazy(() => import("../../views/Reporteria/KPI"));
 const TransaccionesMensuales = lazy(() =>
-  import("../../views/Reportería/TransaccionesMensuales")
+  import("../../views/Reporteria/TransaccionesMensuales")
+);
+const FormatoAsistencias = lazy(() =>
+  import("../../views/Reporteria/FormatoAsistencias")
 );
 
-const ReporteríaRoutes = [
+const ReporteriaRoutes = [
   {
     path: "/reporteria/cartera-asesor",
     element: <CarteraPorAsesor />
@@ -74,6 +77,10 @@ const ReporteríaRoutes = [
     element: <Asistencias />
   },
   {
+    path: "/reporteria/formatoAsistencias",
+    element: <FormatoAsistencias />
+  },
+  {
     path: "/reporteria/cobro",
     element: <Cobro />
   },
@@ -92,4 +99,4 @@ const ReporteríaRoutes = [
   { path: "reporteria/rankingAsesores", element: <RankingAsesores /> }
 ];
 
-export default ReporteríaRoutes;
+export default ReporteriaRoutes;

@@ -11,7 +11,7 @@ const RangeListView = ({ assosLabel, values }) => {
               <Row key={index}>
                 <Col sm="12" md="4" className="mb-1">
                   <Label className="form-label" for="minimum_range">
-                    Rango mínimo
+                    Rango mínimo (incluído)
                   </Label>
                   <InputGroup>
                     <Input
@@ -28,7 +28,7 @@ const RangeListView = ({ assosLabel, values }) => {
 
                 <Col sm="12" md="4" className="mb-1">
                   <Label className="form-label" for="maximum_range">
-                    Rango máximo
+                    Rango máximo (NO incluído)
                   </Label>
                   <InputGroup>
                     <Input

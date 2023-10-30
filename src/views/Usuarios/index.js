@@ -6,7 +6,7 @@ import { selectThemeColors } from "@utils";
 import Select from "react-select";
 // ** Styles
 import "@styles/react/libs/flatpickr/flatpickr.scss";
-import "../Reportería/Reportería.scss";
+import "../Reporteria/Reportería.scss";
 import { Download, Edit, User } from "react-feather";
 import SidebarNewUsers from "./SidebarNewUsers";
 import EditUser from "./EditUser";

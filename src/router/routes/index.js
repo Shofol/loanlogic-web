@@ -39,7 +39,7 @@ import CréditosRoutes from "./Créditos";
 import DashboardRoutes from "./Dashboards";
 import CobranzaRoutes from "./Cobranza";
 import DesembolsoRoutes from "./Desembolso";
-import ReporteríaRoutes from "./Reportería";
+import ReporteriaRoutes from "./Reporteria";
 import SolicitudesRoutes from "./Solicitudes";
 import ClientesListaRoutes from "./ClientesLista";
 import UsuariosRoutes from "./Usuarios";
@@ -102,7 +102,7 @@ const Routes = [
   ...DashboardRoutes,
   ...CobranzaRoutes,
   ...DesembolsoRoutes,
-  ...ReporteríaRoutes,
+  ...ReporteriaRoutes,
   ...SolicitudesRoutes,
   ...ClientesListaRoutes,
   ...UsuariosRoutes,

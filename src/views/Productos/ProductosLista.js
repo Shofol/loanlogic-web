@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Card, CardTitle, Table } from "reactstrap";
 // ** Styles
 import "@styles/react/libs/flatpickr/flatpickr.scss";
-import "../Reportería/Reportería.scss";
+import "../Reporteria/Reportería.scss";
 import { Download } from "react-feather";
 import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";

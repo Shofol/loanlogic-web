@@ -141,6 +141,12 @@ export default [
         navLink: "/reporteria/asistencias"
       },
       {
+        id: "formatoAsistencias",
+        title: "Formato Asistencias",
+        icon: <Circle size={20} />,
+        navLink: "/reporteria/FormatoAsistencias"
+      },
+      {
         id: "cobro",
         title: "Cobro",
         icon: <Circle size={20} />,
