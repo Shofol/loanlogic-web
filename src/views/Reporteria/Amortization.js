@@ -8,6 +8,7 @@ import ReactPaginate from "react-paginate";
 import api from "../../@core/api/api";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
 import { CSVLink } from "react-csv";
+import moment from"moment";
 
 const Amortization = () => {
   const navigate = useNavigate();
@@ -427,7 +428,7 @@ const Amortization = () => {
                         {debt.no_of_installment}
                       </td>
                       <td className="stickySecondColumn bg-primary-subtle">
-                        {getConvertDateWithTimeZone(debt.payment_date)}
+                        {moment(debt.payment_date).format("DD/MM/YYYY")}
                       </td>
                       <td>{debt.payment_made}</td>
                       <td>{debt.amount_to_pay}</td>
