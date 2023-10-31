@@ -222,95 +222,95 @@ const Solicitudes = () => {
                   <th>No.</th>
                   <th>
                     <span style={{ whiteSpace: "nowrap" }}>Num. Solicitud</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
                   <th>
                     <span>Nombre</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
                   <th>
                     <span>Apellidos</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
                   <th>
                     <span>Monto</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
                   <th>
                     <span>Producto</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
                   <th>
                     <span>Municipio</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
                   <th>
                     <span>Departamento</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
 
                   <th>
                     <span>Fecha petición</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="fechaPetición"
                       id="fechaPetición"
                       placeholder="Fecha petición"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
 
                   <th>
                     <span>Estado</span>
-                    <Input
+                    {/*<Input
                       type="text"
                       name="productoNombre"
                       id="productoNombre"
                       placeholder="Nombre del producto"
                       className="table-filter"
-                    />
+                    />*/}
                   </th>
                   <th>Action</th>
                 </tr>

@@ -17,7 +17,7 @@ import {
 export default [
   {
     id: "dashboard",
-    title: "Dashboard",
+    title: "Panel",
     icon: <Home size={20} />,
     navLink: "/home",
     children: [
