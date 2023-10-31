@@ -196,7 +196,7 @@ const TransaccionesMensuales = () => {
 
   return (
     <Card className="p-2">
-      <CardTitle>Transacciones Mensuales</CardTitle>
+      <CardTitle>Pagos Mensuales</CardTitle>
       <Row>
         <Col md="6" className="d-flex flex-column">
           <Label className="form-label" for="hf-picker">
@@ -217,7 +217,7 @@ const TransaccionesMensuales = () => {
               disableMobile: true,
               plugins: [
                 new monthSelectPlugin({
-                  shorthand: false,
+                  shorthand: true,
                   dateFormat: "Y-m",
                   altFormat: "F, Y",
                 }),

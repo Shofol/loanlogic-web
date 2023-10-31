@@ -63,7 +63,7 @@ const CarteraPorAsesor = () => {
     const data = response.data.data;
     const modData = data.map((item) => {
       let updatedData = {
-        cliente: `${item.client.name} ${item.client.surname}`,
+        cliente: `${item.client.name} ${item.client.second_name || ''} ${item.client.surname} ${item.client.second_surname || ''}`,
         telefono: item.client.phone_number,
         monto: item.credit.requested_amount,
         fechaInicial: getConvertDateWithTimeZone(item.credit.disbursement_date),
