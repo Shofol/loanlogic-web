@@ -124,7 +124,7 @@ export default [
       },
       {
         id: "cancelacionesAnticipadas",
-        title: "Cancelaciones",
+        title: "Anticipos",
         icon: <Circle size={20} />,
         navLink: "/reporteria/cancelaciones-anticipadas"
       },

@@ -4,7 +4,7 @@ import CommonReport from "./CommonReport";
 const CancelacionesAnticipadas = () => {
   return (
     <div>
-      <CommonReport title={"Cancelaciones anticipadas"} />
+      <CommonReport title={"Pagos anticipados"} />
     </div>
   );
 };

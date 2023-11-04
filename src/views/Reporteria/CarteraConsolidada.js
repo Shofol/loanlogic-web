@@ -39,7 +39,7 @@ const CarteraConsolidada = () => {
 
   const headers = [
     { label: "No.", key: "no" },
-    { label: "AGENTE", key: "name" },
+    { label: "PROMOTOR", key: "name" },
     { label: "CUOTA", key: "totalCollected" },
   ];
 
@@ -70,14 +70,19 @@ const CarteraConsolidada = () => {
           totalCollected: `Q${data?.disbursementReturns}`,
         },
         {
-          no: "COLOCACIÓN DEL DÍA",
+          no: "SOLICITUDES DEL DÍA",
           name: "",
           totalCollected: `Q${data?.totalRequestedAmount}`,
         },
         {
+          no: "COLOCACIÓN DEL DÍA",
+          name: "",
+          totalCollected: `Q${data?.totalRequesteDisburseddAmount}`,
+        },
+        {
           no: "Clientes colocados",
           name: "",
-          totalCollected: `Q${data?.totalApplications}`,
+          totalCollected: `Q${data?.totalApplicationsDisbursed}`,
         },
         {
           no: "Papelerías",
@@ -95,7 +100,7 @@ const CarteraConsolidada = () => {
           totalCollected: `Q${data?.discountHoliday}`,
         },
         {
-          no: "CANCELACIONES ANTICIPADAS	",
+          no: "PAGOS ANTICIPADAS	",
           name: "",
           totalCollected: `Q${data?.advancedInstallment}`,
         },
@@ -157,7 +162,7 @@ const CarteraConsolidada = () => {
               </tr>
               <tr>
                 <th>No.</th>
-                <th>Agente</th>
+                <th>Promotor</th>
                 <th>Cuota</th>
               </tr>
             </thead>
@@ -187,15 +192,21 @@ const CarteraConsolidada = () => {
                 </td>
               </tr>
               <tr>
-                <th colSpan="2">Colocación del día</th>
+                <th colSpan="2">Solicitudes del día</th>
                 <td className="bg-body-secondary fw-bold">
                   Q {data?.totalRequestedAmount}
                 </td>
               </tr>
               <tr>
+                <th colSpan="2">Colocación del día</th>
+                <td className="bg-body-secondary fw-bold">
+                  Q {data?.totalRequesteDisburseddAmount}
+                </td>
+              </tr>
+              <tr>
                 <th colSpan="2">Clientes colocados</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.totalApplications}
+                  {data?.totalApplicationsDisbursed}
                 </td>
               </tr>
               <tr>
@@ -217,7 +228,7 @@ const CarteraConsolidada = () => {
                 </td>
               </tr>
               <tr>
-                <th colSpan="2">Cancelaciones anticipadas</th>
+                <th colSpan="2">Pagos anticipados</th>
                 <td className="bg-body-secondary fw-bold">
                   Q {data?.advancedInstallment}
                 </td>

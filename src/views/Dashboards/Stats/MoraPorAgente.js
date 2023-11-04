@@ -20,13 +20,24 @@ import api from "../../../@core/api/api";
 
 export const columns = [
   {
-    name: "Agente",
+    name: "Promotor",
     selector: (row) => row.agente,
     cell: (row) => {
       return (
         <div className="d-flex flex-column w-100">
           <p className="mb-0 fw-bold">{`${row.agente}`}</p>
           <p className="mb-0 text-black-50">{`${row.subTitle}`}</p>
+        </div>
+      );
+    }
+  },
+  {
+    name: "Mora",
+    selector: (row) => row.default_amount,
+    cell: (row) => {
+      return (
+        <div className="d-flex flex-column w-100">
+          <p className="mb-0 fw-bold">{`${row.default_amount}`} Q</p>
         </div>
       );
     }
@@ -67,6 +78,7 @@ const MoraPorAgente = () => {
       setRows(
         data.map((item) => {
           return {
+            default_amount: item.default_amount,
             progress: item.default_percentage,
             progressColor: returnColor(item.default_percentage),
             agente: `${item.user.name}`,
@@ -78,21 +90,19 @@ const MoraPorAgente = () => {
   }, [data]);
 
   const returnColor = (value) => {
-    if (value < 25) {
-      return "danger";
-    } else if (value >= 25 && value <= 50) {
-      return "warning";
-    } else if (value >= 50 && value <= 75) {
-      return "info";
-    } else {
+    if (value < 4) {
       return "success";
+    } else if (value >= 4 && value < 8) {
+      return "warning";
+    } else {
+      return "danger";
     }
   };
 
   return (
     <Card>
       <div className="d-flex justify-content-between align-items-center">
-        <CardHeader tag="h4">Mora por agente</CardHeader>
+        <CardHeader tag="h4">Mora por promotor</CardHeader>
 
         <UncontrolledDropdown>
           <DropdownToggle

@@ -263,7 +263,7 @@ const KPI = () => {
                             : ""
                         }
                       />
-                      <span>{`Penalización 50% bono por mora > 10%`}</span>
+                      <span>{`Penalización 50% bono por mora > 8%`}</span>
                       <span className="fs-3 fw-bold">
                         Q {product.final_bonus}
                       </span>

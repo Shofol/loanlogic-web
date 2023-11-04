@@ -33,7 +33,7 @@ const CommonReport = ({ title }) => {
     baseUrl = `reporting/assistance`;
   } else if (title === "Papelerías") {
     baseUrl = `reporting/stationery`;
-  } else if (title === "Cancelaciones anticipadas") {
+  } else if (title === "Pagos anticipados") {
     baseUrl = `reporting/advance_payment`;
   }
 
@@ -70,7 +70,8 @@ const CommonReport = ({ title }) => {
     { label: "No.", key: "no" },
     { label: "Agencia", key: "agency" },
     { label: "Cierre " + spanishMonths[`${previousMonth}`], key: "lastMonth" },
-    { label: picker, key: "currentMonth" },
+    { label: picker, key: "todayAmount" },
+    { label: "Acumulado hasta el " + picker, key: "currentMonth" },
     { label: "Diferencia %", key: "differenceInPercent" },
     { label: "Diferencia Monto", key: "differenceInAmount" },
   ];
@@ -87,8 +88,10 @@ const CommonReport = ({ title }) => {
             agency: element?.agency,
             lastMonth: parseFloat(element?.lastMonth|| 0
               ).toFixed(2),
-            currentMonth: parseFloat(element?.currentMonth|| 0
+              todayAmount: parseFloat(element?.todayAmount|| 0
               ).toFixed(2),
+              currentMonth: parseFloat(element?.currentMonth|| 0
+                ).toFixed(2),
             differenceInPercent: parseFloat(
               element?.differenceInPercent || 0
             ).toFixed(2) + '%',
@@ -103,6 +106,8 @@ const CommonReport = ({ title }) => {
         no: "Total",
         agency: null,
         lastMonth: parseFloat(calculateTotal(data, "lastMonth")|| 0
+        ).toFixed(2),
+        todayAmount: parseFloat(calculateTotal(data, "todayAmount")|| 0
         ).toFixed(2),
         currentMonth: parseFloat(calculateTotal(data, "currentMonth")|| 0
         ).toFixed(2),
@@ -187,7 +192,9 @@ const CommonReport = ({ title }) => {
                     <td>{res?.agency}</td>
                     <td>{parseFloat(res?.lastMonth || 0
                   ).toFixed(2)}</td>
-                    <td>{parseFloat(res?.currentMonth || 0
+                    <td>{parseFloat(res?.todayAmount || 0
+                  ).toFixed(2)}</td>
+                  <td>{parseFloat(res?.currentMonth || 0
                   ).toFixed(2)}</td>
                     <td>{parseFloat(res?.differenceInPercent || 0
                   ).toFixed(2)} %</td>
@@ -202,7 +209,9 @@ const CommonReport = ({ title }) => {
                 <th colSpan={2}>Total</th>
                 <td>{parseFloat(calculateTotal(data, "lastMonth") || 0
                   ).toFixed(2)}{" "}</td>
-                <td>{parseFloat(calculateTotal(data, "currentMonth") || 0
+                <td>{parseFloat(calculateTotal(data, "todayAmount") || 0
+                  ).toFixed(2)}{" "}</td>
+                  <td>{parseFloat(calculateTotal(data, "currentMonth") || 0
                   ).toFixed(2)}{" "}</td>
                 <td>
                   {parseFloat(

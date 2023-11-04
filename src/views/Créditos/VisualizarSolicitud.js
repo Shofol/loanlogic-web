@@ -759,7 +759,7 @@ const VisualizarSolicitud = () => {
                     name="entry_date"
                     id="entry_date"
                     defaultValue={
-                      data
+                      data?.client.entry_date
                         ? getConvertDateWithTimeZone(data?.client.entry_date)
                         : null
                     }
@@ -916,7 +916,7 @@ const VisualizarSolicitud = () => {
                     name="start_date"
                     id="start_date"
                     defaultValue={
-                      data
+                      data?.client.start_date
                         ? getConvertDateWithTimeZone(data?.client.start_date)
                         : null
                     }
