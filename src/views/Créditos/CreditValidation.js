@@ -103,7 +103,7 @@ const CreditValidation = ({ validation }) => {
               </Col>
               <Col sm="4">
                 <Input
-                  type="text"
+                  type="textarea"
                   name="payment_day"
                   id="payment_day"
                   placeholder="Modalidad de pago"
