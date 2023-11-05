@@ -46,7 +46,7 @@ const ResumenAsesor = () => {
     { label: "Clientes activos", key: "currentClients" },
     { label: "Clientes colocados", key: "newCreditApplications" },
     { label: "Colocación", key: "totalCreditAmount" },
-    { label: "Cartera", key: "totalRemainingAmount" },
+    { label: "Cartera", key: "totalPortfolio" },
     { label: "Mora", key: "defaultAmount" },
     { label: "%", key: "defaultPercentage" },
   ];
@@ -65,7 +65,7 @@ const ResumenAsesor = () => {
             currentClients: element?.currentClients,
             newCreditApplications: element?.newCreditApplications,
             totalCreditAmount: element?.totalCreditAmount,
-            totalRemainingAmount: element?.totalRemainingAmount,
+            totalPortfolio: element?.totalPortfolio,
             defaultAmount: parseFloat(element?.defaultAmount || 0).toFixed(2),
             defaultPercentage: parseFloat(
               element?.defaultPercentage || 0
@@ -81,7 +81,7 @@ const ResumenAsesor = () => {
         currentClients: calculateTotal(data, "currentClients"),
         newCreditApplications: calculateTotal(data, "newCreditApplications"),
         totalCreditAmount: calculateTotal(data, "totalCreditAmount"),
-        totalRemainingAmount: calculateTotal(data, "totalRemainingAmount"),
+        totalPortfolio: calculateTotal(data, "totalPortfolio"),
         defaultAmount: parseFloat(calculateTotal(data, "defaultAmount")|| 0
         ).toFixed(2),
         defaultPercentage: parseFloat(
@@ -153,7 +153,7 @@ const ResumenAsesor = () => {
                     <td>{res?.currentClients}</td>
                     <td>{res?.newCreditApplications}</td>
                     <td>{res?.totalCreditAmount}</td>
-                    <td>{parseFloat(res?.totalRemainingAmount || 0).toFixed(2)}</td>
+                    <td>{parseFloat(res?.totalPortfolio || 0).toFixed(2)}</td>
 
                     <td>{parseFloat(res?.defaultAmount || 0).toFixed(2)}</td>
                     <td>
@@ -169,9 +169,8 @@ const ResumenAsesor = () => {
                 <td>{calculateTotal(data, "currentClients")}</td>
                 <td>{calculateTotal(data, "newCreditApplications")}</td>
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
-                <td>{parseFloat(calculateTotal(data, "totalRemainingAmount")|| 0
+                <td>{parseFloat(calculateTotal(data, "totalPortfolio")|| 0
                   ).toFixed(2)}{" "}</td>
-                <td></td>
                 <td>{parseFloat(calculateTotal(data, "defaultAmount")|| 0
                   ).toFixed(2)}{" "}</td>
                 <td>
