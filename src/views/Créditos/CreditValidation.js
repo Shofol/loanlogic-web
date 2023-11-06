@@ -103,6 +103,7 @@ const CreditValidation = ({ validation }) => {
               </Col>
               <Col sm="4">
                 <Input
+                  maxLength="255"
                   type="textarea"
                   name="payment_day"
                   id="payment_day"
@@ -295,6 +296,7 @@ const CreditValidation = ({ validation }) => {
                   Comentario
                 </Label>
                 <Input
+                  maxLength="255"
                   name="comment"
                   type="textarea"
                   id="comment"

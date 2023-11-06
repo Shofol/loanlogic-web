@@ -304,6 +304,7 @@ const ClientesPerfil = () => {
           </tbody>
         </Table>
         <Input
+          maxLength="255"
           type="textarea"
           className="my-2"
           placeholder="Personal Comments"

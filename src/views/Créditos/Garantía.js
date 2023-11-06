@@ -121,6 +121,7 @@ const Garantía = () => {
                     Descripción<span className="text-danger">*</span>
                   </Label>
                   <Input
+                    maxLength="255"
                     type="textarea"
                     name="description"
                     id="description"

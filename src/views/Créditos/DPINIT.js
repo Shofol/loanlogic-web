@@ -413,6 +413,7 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
                     <span className="text-danger">*</span>
                   </Label>
                   <Input
+                    maxLength="255"
                     type="textarea"
                     name="credit_institutions_and_amount"
                     id="credit_institutions_and_amount"

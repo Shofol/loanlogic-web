@@ -244,6 +244,7 @@ const ValidationForm = () => {
                   </Col>
                   <Col sm="4">
                     <Input
+                      maxLength="255"
                       type="textarea"
                       name="payment_day"
                       id="payment_day"
@@ -510,6 +511,7 @@ const ValidationForm = () => {
                       Comentario
                     </Label>
                     <Input
+                      maxLength="255"
                       name="comment"
                       // value={value}
                       type="textarea"

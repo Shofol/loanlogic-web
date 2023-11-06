@@ -251,6 +251,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                 </Col>
                 <Col md="4" className="mt-3">
                   <Input
+                    maxLength="255"
                     type="textarea"
                     name="credit_destination"
                     tag={Field}
