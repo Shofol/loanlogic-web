@@ -636,13 +636,36 @@ export const wantCredit = [
 
 export const roles = [
   { label: "Promotor", value: "AGENT" },
-  { label: "Gestor de cobros", value: "COLLECTION-MANAGER" },
-  { label: "Supervisor oficina", value: "SUPERVISOR" },
-  { label: "Asistente administrativo", value: "ASSISTANT" },
-  { label: "Director ventas", value: "SALES-DIRECTOR" },
-  { label: "Director cobranza", value: "COLLECTION-DIRECTOR" },
-  { label: "Cartera y contabilidad", value: "ACCOUNTING" },
+  { label: "Gestor de Cobros", value: "COLLECTION-MANAGER" },
+  { label: "Supervisor de Sucursal", value: "SUPERVISOR" },
+  { label: "Auxiliar Comercial", value: "ASSISTANT" },
+  { label: "Jefe Comercial", value: "SALES-DIRECTOR" },
+  { label: "Supervisor de Cobro", value: "COLLECTION-DIRECTOR" },
+  { label: "Auxiliar Operativo", value: "ACCOUNTING" },
+  { label: "Gerente Comercial", value: "COMERCIAL-EXECUTIVE" },
+  { label: "Gerente Financiero", value: "FINANCE-EXECUTIVE" },
+  { label: "Jefe de Soporte", value: "SUPPORT-EXECUTIVE" },
   { label: "Administrador", value: "ADMIN" },
+];
+
+export const parentesco = [
+  { label: "Hermano", value: "HERMANO" },
+  { label: "Hermana", value: "HERMANA" },
+  { label: "Papá", value: "PAPA" },
+  { label: "Mamá", value: "MAMA" },
+  { label: "Abuelo", value: "ABUELO" },
+  { label: "Abuela", value: "ABUELA" },
+  { label: "Primo", value: "PRIMO" },
+  { label: "Prima", value: "PRIMA" },
+  { label: "Sobrino", value: "SOBRINO" },
+  { label: "Sobrina", value: "SOBRINA" },
+  { label: "Cuñado", value: "CUÑADO" },
+  { label: "Cuñada", value: "CUÑADA" },
+  { label: "Tía", value: "TIA" },
+  { label: "Tío", value: "TIO" },
+  { label: "Hijo", value: "HIJO" },
+  { label: "Hija", value: "HIJA" },
+ 
 ];
 
 export const guaranteeTypes = [

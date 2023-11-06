@@ -249,6 +249,9 @@ const ValidationForm = () => {
                       id="payment_day"
                       placeholder="Modalidad de pago"
                       //tag={Field}
+                      onBlur={(e) => {
+                        setFieldValue("payment_day", e.target.value);
+                      }}
                     />
                     <ErrorMessage
                       component="div"

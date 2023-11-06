@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactSlider from "react-slider";
 import {
   Button,
@@ -23,9 +23,31 @@ import {
   paymentMethods,
   professions,
 } from "../../configs/data";
+import Select from "react-select";
+import { selectThemeColors } from "@utils";
+import API from "../../@core/api/api";
+
+
 
 const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
   const [rangeValue, setRangeValue] = useState(500);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [minValue, setMinValue] = useState([]);
+  const [maxValue, setMaxValue] = useState([]);
+
+  useEffect(() => {
+    setMinValue(parseInt(500));
+    setMaxValue(parseInt(20000));
+    fetchData();
+  }, [currentPage]);
+
+  const fetchData = async () => {
+    const response = await API.get(
+      `product/label`
+    );
+    setProducts([...response.data.data]);
+  };
 
   return (
     <div className="px-2">
@@ -42,7 +64,8 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
         <Formik
           initialValues={{
             // loan_payment_method: "",
-            loan_payment_time: "",
+            //loan_payment_time: "",
+            product_id : null,
             credit_amount: "500",
             credit_destination: "",
             reason_for_credit_request: "",
@@ -56,9 +79,13 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
             //     "Se requiere el método de pago del préstamo";
             // }
 
-            if (!values.loan_payment_time) {
+            /*if (!values.loan_payment_time) {
               errors.loan_payment_time =
                 "Se requiere tiempo de pago del préstamo";
+            }*/
+            if (!values.product_id) {
+              errors.product_id =
+                "Se requiere seleccionar el producto del préstamo";
             }
             if (!values.credit_destination) {
               errors.credit_destination = "Se requiere el destino del crédito";
@@ -98,7 +125,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
             stepper.next();
           }}
         >
-          {({ handleSubmit, setFieldValue, resetForm }) => (
+          {({ handleSubmit, setFieldValue, resetForm, values }) => (
             <Form onSubmit={handleSubmit}>
               {/* <p htmlFor="loan_payment_method">
                 Método de pago del préstamo
@@ -134,11 +161,30 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                 className="text-danger"
               /> */}
 
-              <p htmlFor="loan_payment_time" className="mt-2">
+              <p htmlFor="product_id" className="mt-2">
                 ¿Cómo quieres pagar tu préstamo?
                 <span className="text-danger">*</span>
               </p>
-              <div className="d-flex flex-column flex-sm-row">
+
+              <div className="d-flex flex-column flex-sb-row">
+                <Select
+                  theme={selectThemeColors}
+                  className="react-select"
+                  classNamePrefix="select"
+                  options={products}
+                  isClearable={false}
+                  value={products.filter((product) => product.value === values.product_id)}
+                  name="product_id"
+                  onChange={(option) => {
+                    console.log("OPTION",option)
+                    setMinValue(parseInt(option.min));
+                    setMaxValue(parseInt(option.max));
+                    setRangeValue(parseFloat(option.min));
+                    setFieldValue("product_id", option.value)
+                  }
+                  }
+                />
+                {/*}
                 {paymentMethods.map((method) => {
                   return (
                     <div
@@ -161,10 +207,11 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                     </div>
                   );
                 })}
+                */}
               </div>
               <ErrorMessage
                 component="div"
-                name="loan_payment_time"
+                name="product_id"
                 className="text-danger"
               />
 
@@ -181,8 +228,8 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                       className="horizontal-slider"
                       thumbClassName="example-thumb"
                       trackClassName="example-track"
-                      min={500}
-                      max={20000}
+                      min={minValue }
+                      max={maxValue }
                       step={500}
                       tag={Field}
                       name="credit_amount"
@@ -255,7 +302,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                       value={gurrentee_items.value}
                       disabled={gurrentee_items.disabled}
                       tag={Field}
-                      // checked={true}
+                    // checked={true}
                     />
                     <Label
                       htmlFor={gurrentee_items.value}
@@ -318,7 +365,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
                   type="submit"
                   color="primary"
                   className="btn-next"
-                  // onClick={onSubmit}
+                // onClick={onSubmit}
                 >
                   <span className="align-middle d-sm-inline-block d-none">
                     Siguiente
