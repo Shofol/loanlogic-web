@@ -20,6 +20,7 @@ export default [
     title: "Panel",
     icon: <Home size={20} />,
     navLink: "/home",
+    role: "AGENT, COLLECTION-MANAGER, SUPERVISOR','ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
     children: [
       {
         id: "gestorComercial",
@@ -54,7 +55,7 @@ export default [
         title: "Administrador",
         icon: <Circle size={20} />,
         navLink: "/dashboard/administrador",
-        role: "SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, ADMIN"
+        role: "SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN"
       }
     ]
   },
@@ -77,7 +78,8 @@ export default [
     id: "clientes",
     title: "Clientes",
     icon: <Users size={20} />,
-    navLink: "/clientes"
+    navLink: "/clientes",
+    role: "COLLECTION-MANAGER, SUPERVISOR','ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
   },
 
   {
@@ -90,67 +92,88 @@ export default [
         id: "carteraPorAsesor",
         title: "Cartera Promotor",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/cartera-asesor"
+        navLink: "/reporteria/cartera-asesor",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "carteraConsolidada",
         title: "Cartera Consolidada",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/carteraConsolidada"
+        navLink: "/reporteria/carteraConsolidada",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "resumenAsesor",
         title: "Resumen Promotor",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/resumenAsesor"
+        navLink: "/reporteria/resumenAsesor",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "resumenAgencia",
         title: "Resumen agencia",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/resumenAgencia"
+        navLink: "/reporteria/resumenAgencia",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
       },
       {
         id: "colocacion",
         title: "Colocación",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/colocacion"
+        navLink: "/reporteria/colocacion",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "mora",
         title: "Mora",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/mora"
+        navLink: "/reporteria/mora",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "cancelacionesAnticipadas",
         title: "Anticipos",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/cancelaciones-anticipadas"
+        navLink: "/reporteria/cancelaciones-anticipadas",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "papelerias",
         title: "Papelerías",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/papelerias"
+        navLink: "/reporteria/papelerias",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "asistencias",
         title: "Asistencias",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/asistencias"
+        navLink: "/reporteria/asistencias",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "formatoAsistencias",
         title: "Formato Asistencias",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/FormatoAsistencias"
+        navLink: "/reporteria/FormatoAsistencias",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "cobro",
         title: "Cobro",
         icon: <Circle size={20} />,
-        navLink: "/reporteria/cobro"
+        navLink: "/reporteria/cobro",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       },
       {
         id: "kpiVisualization",
@@ -163,13 +186,16 @@ export default [
         id: "rankingAsesores",
         title: "Ranking Promotores",
         icon: <Circle size={20} />,
-        navLink: "reporteria/rankingAsesores"
+        navLink: "reporteria/rankingAsesores",
+        role: "AGENT, COLLECTION-MANAGER"
       },
       {
         id: "transaccionesMensuales",
         title: "Transacciones",
         icon: <Circle size={20} />,
-        navLink: "reporteria/transaccionesMensuales"
+        navLink: "reporteria/transaccionesMensuales",
+        role: "SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
+
       }
     ]
   },
@@ -178,24 +204,29 @@ export default [
     title: "Productos",
     icon: <Package size={20} />,
     navLink: "/productos",
+    role: "ADMIN",
     children: [
       {
         id: "productConfig",
         title: "Configurar",
         icon: <Circle size={20} />,
-        navLink: "/productos/config"
+        navLink: "/productos/config",
+        role: "ADMIN",
+
       },
       {
         id: "goalConfig",
         title: "Configurar metas",
         icon: <Circle size={20} />,
-        navLink: "/productos/goal-config"
+        navLink: "/productos/goal-config",
+        role: "SALES-DIRECTOR, ADMIN",
       },
       {
         id: "productList",
         title: "Lista productos",
         icon: <Circle size={20} />,
-        navLink: "/productos/lista"
+        navLink: "/productos/lista",
+        role: "ADMIN",
       }
     ]
   },
@@ -236,6 +267,7 @@ export default [
     id: "usuarios",
     title: "Usuarios",
     icon: <User size={20} />,
-    navLink: "/usuarios"
+    navLink: "/usuarios",
+    role: "ADMIN"
   }
 ];
