@@ -8,6 +8,8 @@ import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { CSVLink } from "react-csv";
+import { paymentMethods } from "../../configs/data";
+
 
 const ProductosLista = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +17,17 @@ const ProductosLista = () => {
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
   const [dataToDownload, setDataToDownload] = useState(null);
+
+  function trans (string){
+    let translation = string;
+
+    var result = paymentMethods.filter(obj => {
+      return obj.value === string
+    })
+
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
@@ -58,7 +71,7 @@ const ProductosLista = () => {
             id: element?.id,
             product_name: element?.product_name,
             product_code: element?.product_code,
-            frequency: element?.frequency,
+            frequency: element ? trans(element.frequency) : '',
             duration: element?.duration,
             //duration_frequency: element?.duration_frequency,
             credit_interest: element?.credit_interest,
@@ -106,7 +119,7 @@ const ProductosLista = () => {
                   <td>{product.id}</td>
                   <td className="nowrap">{product.product_name}</td>
                   <td>{product.product_code}</td>
-                  <td>{product.frequency}</td>
+                  <td>{product.frequency ? trans(product.frequency) : ''}</td>
                   <td>{product.duration}</td>
                   {/*<td>{product.duration_frequency}</td>*/}
                   <td>{product.credit_interest}</td>

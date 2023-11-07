@@ -101,7 +101,7 @@ const Usuarios = () => {
           {
             id: element?.id,
             name: element?.name,
-            role: element?.role,
+            role: element? trans(element.role) : '',
             agency: element?.agency?.join(", "),
             phone: element?.phone,
             email: element?.email,
