@@ -187,7 +187,7 @@ export default [
         title: "Ranking Promotores",
         icon: <Circle size={20} />,
         navLink: "reporteria/rankingAsesores",
-        role: "AGENT, COLLECTION-MANAGER"
+        role: "AGENT, COLLECTION-MANAGER, SUPERVISOR, ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
       },
       {
         id: "transaccionesMensuales",
