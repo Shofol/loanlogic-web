@@ -312,7 +312,6 @@ const Solicitudes = () => {
                       className="table-filter"
                     />*/}
                   </th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -335,12 +334,6 @@ const Solicitudes = () => {
                         <td>{getConvertDateWithTimeZone(app.createdAt)}</td>
                         <td>
                           <StatusTag status={app.status} />
-                        </td>
-                        <td
-                          className="d-flex gap-1"
-                          style={{ maxWidth: "150px" }}
-                        >
-                          {renderAction(app.id, app.status)}
                         </td>
                       </tr>
                     );

@@ -8,7 +8,8 @@ import ReactPaginate from "react-paginate";
 import api from "../../@core/api/api";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
 import { CSVLink } from "react-csv";
-import moment from"moment";
+import moment from "moment";
+import StatusTag from "../../@core/components/statusTag";
 
 const Amortization = () => {
   const navigate = useNavigate();
@@ -266,12 +267,21 @@ const Amortization = () => {
               " " +
               data?.client.second_surname}
           </h4>
-          <p className="mb-0">
-            <strong>DPI:</strong> {data?.client.dpi_number}
-          </p>
-          <p className="mb-0">
-            <strong>Núm .Crédito:</strong> {data?.credit.id}
-          </p>
+          <Row>
+            <Col sm="12" md="6">
+              <p className="mb-0">
+                <strong>DPI:</strong> {data?.client.dpi_number}
+              </p>
+              <p className="mb-0">
+                <strong>Núm .Crédito:</strong> {data?.credit.id}
+              </p>
+            </Col>
+            <Col sm="12" md="6">
+              <div className="mt-1">
+                <StatusTag status={data?.credit.status} />
+              </div>
+            </Col>
+          </Row>
           <hr />
           <Row>
             <Col sm="12" md="6">
@@ -501,10 +511,10 @@ const Amortization = () => {
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
-                <td>-</td>        
+                <td>-</td>
                 <td>{totalValue.cumulative_default_interest_with_tax.toFixed(2)}</td>
                 <td>-</td>
-                <td>-</td>    
+                <td>-</td>
                 <td>{totalValue.total_paid_amount.toFixed(2)}</td>
                 <td>{totalValue.total_pending_amount.toFixed(2)}</td>
                 <td>{totalValue.total_tax.toFixed(2)}</td>
