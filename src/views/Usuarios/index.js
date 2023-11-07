@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, Card, CardTitle, Col, Label, Row, Table } from "reactstrap";
 import Flatpickr from "react-flatpickr";
-import { agenciasValues } from "../../configs/data";
+import { agenciasValues, roles } from "../../configs/data";
 import { selectThemeColors } from "@utils";
 import Select from "react-select";
 // ** Styles
@@ -16,6 +16,7 @@ import { UserContext } from "../../utility/context/User";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
 import { useNavigate } from "react-router-dom";
 import { CSVLink } from "react-csv";
+
 
 const Usuarios = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,6 +79,17 @@ const Usuarios = () => {
     { label: "Fecha creación usuario", key: "createdAt" },
     { label: "Acción", key: "example" },
   ];
+
+  function trans (string){
+    let translation = string;
+
+    var result = roles.filter(obj => {
+      return obj.value === string
+    })
+
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
 
   // mapping the data for downloading csv file
   useEffect(() => {
@@ -166,7 +178,7 @@ const Usuarios = () => {
                   >
                     <td>{user.id}</td>
                     <td className="nowrap">{user.name}</td>
-                    <td className="nowrap">{user.role}</td>
+                    <td className="nowrap">{trans(user.role)}</td>
                     <td>{user?.agency?.join(", ")}</td>
                     <td>{user.phone}</td>
                     <td>{user.email}</td>
