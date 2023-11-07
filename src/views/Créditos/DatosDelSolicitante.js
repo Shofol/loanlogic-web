@@ -33,6 +33,8 @@ import { mapMuniValue } from "../../utility/Utils";
 const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef();
+  const [isSecondNameNotRequired, setisSecondNameNotRequired] = useState(false);
+
 
   const mapFormValues = () => {
     return {
@@ -86,6 +88,9 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
             }
             if (!values.name) {
               errors.name = requiredMsg;
+            }
+            if (!isSecondNameNotRequired && !values.second_name) {
+              errors.second_name = requiredMsg;
             }
             if (!values.phone_number) {
               errors.phone_number = requiredMsg;
@@ -191,7 +196,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                     className="text-danger"
                   />
                 </Col>
-                <Col sm="3">
+                <Col sm="2">
                   <Label className="form-label" for="name">
                     Nombre<span className="text-danger">*</span>
                   </Label>
@@ -208,9 +213,12 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                     className="text-danger"
                   />
                 </Col>
-                <Col sm="3">
+                <Col sm="2">
                   <Label className="form-label" for="second_name">
                     Segundo nombre
+                    {!isSecondNameNotRequired && (
+                      <span className="text-danger">*</span>
+                    )}
                   </Label>
                   <Input
                     type="text"
@@ -219,11 +227,23 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                     placeholder="Segundo nombre"
                     tag={Field}
                   />
-                  {/* <ErrorMessage
+                  <ErrorMessage
                     component="div"
                     name="second_name"
                     className="text-danger"
-                  /> */}
+                  />
+                </Col>
+                <Col sm="2" className="d-flex align-items-center">
+                  <Input
+                    type="checkbox"
+                    checked={isSecondNameNotRequired}
+                    onChange={(e) => {
+                      setisSecondNameNotRequired(!isSecondNameNotRequired);
+                    }}
+                  />
+                  <Label className="form-check-label ms-1" for="terms">
+                    Sin Segundo Nombre
+                  </Label>
                 </Col>
               </Row>
 
