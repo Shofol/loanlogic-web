@@ -10,11 +10,13 @@ import {
   Row
 } from "reactstrap";
 import FileListViewer from "../../@core/components/fileListViewer";
+import moment from "moment";
 
 const Guarantee = ({ guarantee }) => {
   return (
     <Card className="p-2">
       <CardTitle className="text-center">Garantía</CardTitle>
+      <div className="text-center">{guarantee ? moment(guarantee?.createdAt).format("HH:mm:ss DD/MM/YYYY"): ''}</div>
       <CardBody>
         <Form>
           <Row>

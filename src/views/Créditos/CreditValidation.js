@@ -12,11 +12,13 @@ import {
 } from "reactstrap";
 import FileListViewer from "../../@core/components/fileListViewer";
 import { Info } from "react-feather";
+import moment from "moment";
 
 const CreditValidation = ({ validation }) => {
   return (
     <Card className="p-2">
       <CardTitle className="text-center">Validación de crédito</CardTitle>
+      <div className="text-center">{validation ? moment(validation?.createdAt).format("HH:mm:ss DD/MM/YYYY"): ''}</div>
       <CardBody>
         <Form>
           <dl>

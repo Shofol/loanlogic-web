@@ -32,6 +32,7 @@ import CreditValidation from "./CreditValidation";
 import StatusTag from "../../@core/components/statusTag";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
 import FileListViewer from "../../@core/components/fileListViewer";
+import moment from "moment";
 
 const VisualizarSolicitud = () => {
   const [active, setActive] = useState("1");
@@ -153,7 +154,7 @@ const VisualizarSolicitud = () => {
                 {/* : Q1000 - 28D */}
               </CardSubtitle>
               <CardSubtitle className="mt-1" tag="h4">
-                Solicitud crédito
+                Solicitud crédito: {moment(data?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
               </CardSubtitle>
               <div className="mt-1">
                 <StatusTag status={data?.status} />
