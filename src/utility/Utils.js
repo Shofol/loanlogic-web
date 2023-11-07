@@ -32,6 +32,18 @@ export const convertDateWithTimeZone = (date) => {
 };
 
 export const getConvertDateWithTimeZone = (date) => {
+  if (date.indexOf("T00:00:00.000Z") >= 0) {
+    let subs = date.substring(0, date.indexOf("T"))
+    const dateArray = subs.split('-');
+    return dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0];;
+  } else {
+    return new Date(date).toLocaleDateString({
+      timeZone: defaultTimeZone
+    });
+  }
+};
+
+export const getFormatDate = (date) => {
   return new Date(date).toLocaleDateString({
     timeZone: defaultTimeZone
   });
