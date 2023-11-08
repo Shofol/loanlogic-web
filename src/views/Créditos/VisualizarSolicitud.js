@@ -24,7 +24,9 @@ import {
   guaranteeTypes,
   loanPaymentMethods,
   paymentMethods,
-  professions
+  professions,
+  sexValues,
+  maritialStatus
 } from "../../configs/data";
 import { TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import Guarantee from "./Guarantee";
@@ -34,10 +36,32 @@ import { getConvertDateWithTimeZone } from "../../utility/Utils";
 import FileListViewer from "../../@core/components/fileListViewer";
 import moment from "moment";
 
+
 const VisualizarSolicitud = () => {
   const [active, setActive] = useState("1");
   const [guarantee, setGuarantee] = useState(null);
   const [validationData, setValidationData] = useState(null);
+
+  function transCivilStatus (string){
+    let translation = string;
+
+    var result = maritialStatus.filter(obj => {
+      return obj.value === string
+    })
+
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
+  function transSex (string){
+    let translation = string;
+
+    var result = sexValues.filter(obj => {
+      return obj.value === string
+    })
+
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
 
   const toggle = (tab) => {
     if (active !== tab) {
@@ -519,7 +543,7 @@ const VisualizarSolicitud = () => {
                     name="civil_status"
                     id="civil_status"
                     placeholder="Estado civil"
-                    defaultValue={data?.client.civil_status}
+                    defaultValue={data ? transCivilStatus(data.client.civil_status):''}
                   />
                 </Col>
 
@@ -533,7 +557,7 @@ const VisualizarSolicitud = () => {
                     name="sex"
                     id="sex"
                     placeholder="Sexo"
-                    defaultValue={data?.client.sex}
+                    defaultValue={data ? transSex(data.client.sex) :''}
                   />
                 </Col>
 
