@@ -152,6 +152,7 @@ const VisualizarSolicitud = () => {
                 {`${data?.client.name.toUpperCase()} ` +
                   `${data?.client.surname.toUpperCase()}`}
                 {/* : Q1000 - 28D */}
+                {data && data.is_new_client == false ? " (RENOVACIÓN)" : " (NUEVO)"}
               </CardSubtitle>
               <CardSubtitle className="mt-1" tag="h4">
                 Solicitud crédito: {moment(data?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
