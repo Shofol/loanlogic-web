@@ -48,18 +48,18 @@ const RankingAsesores = ({ title }) => {
 
   const calculateDate = () => {
     // checking if the month is greater/equal to today's date
-    if (new Date(selectedDate).getMonth() >= new Date(date).getMonth()) {
+    /*if (new Date(selectedDate).getMonth() >= new Date(date).getMonth()) {
       return getConvertDateWithTimeZone(new Date(date));
-    } else {
+    } else {*/
       // setting the date as the last day of the previous month
       let modifiedDate = new Date(selectedDate);
       modifiedDate = new Date(
         modifiedDate.getFullYear(),
-        modifiedDate.getMonth() + 1,
+        modifiedDate.getMonth() + 2,
         0
       );
       return getConvertDateWithTimeZone(modifiedDate);
-    }
+    //}
   };
 
   // mapping the header of the table and also the csv
