@@ -162,7 +162,7 @@ const DatosCrédito = ({ stepper, onSubmit, onOccupationSelect }) => {
               /> */}
 
               <p htmlFor="product_id" className="mt-2">
-                ¿Cómo quieres pagar tu préstamo?
+                ¿Qué producto desea?
                 <span className="text-danger">*</span>
               </p>
 

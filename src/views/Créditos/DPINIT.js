@@ -238,7 +238,7 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
                       setFieldValue("expiration_date", dateStr);
                     }}
                     name="expiration_date"
-                    key={values.expiration_date}
+                    //key={values.expiration_date}
                     options={{
                       locale: Spanish,
                       altInput: true,

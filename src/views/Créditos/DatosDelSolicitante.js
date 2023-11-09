@@ -396,7 +396,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("birth_date", dateStr);
                     }}
-                    key={values.birth_date}
+                    //key={values.birth_date}
                     options={{
                       locale: Spanish,
                       altInput: true,

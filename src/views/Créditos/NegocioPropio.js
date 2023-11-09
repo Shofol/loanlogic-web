@@ -128,7 +128,7 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                     onChange={(selectedDates, dateStr, instance) => {
                       setFieldValue("start_date", dateStr);
                     }}
-                    key={values.start_date}
+                    //key={values.start_date}
                     options={{
                       locale: Spanish,
                       altInput: true,
