@@ -30,6 +30,7 @@ import {
   getConvertDateWithTimeZone
 } from "../../utility/Utils";
 import { Spanish } from "flatpickr/dist/l10n/es";
+import moment from "moment";
 
 const Solicitudes = () => {
   const { user } = useContext(UserContext);
@@ -312,6 +313,16 @@ const Solicitudes = () => {
                       className="table-filter"
                     />*/}
                   </th>
+                  <th>
+                    <span>Última actualización</span>
+                    {/*<Input
+                      type="text"
+                      name="fechaPetición"
+                      id="fechaPetición"
+                      placeholder="Fecha petición"
+                      className="table-filter"
+                    />*/}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -331,10 +342,11 @@ const Solicitudes = () => {
                         <td>{app.product_id}</td>
                         <td>{app.client.residence_municipality}</td>
                         <td>{app.client.department_of_residence}</td>
-                        <td>{getConvertDateWithTimeZone(app.createdAt)}</td>
+                        <td>{moment(app.createdAt).format("DD/MM/YYYY @ HH:mm:ss")}</td>
                         <td>
                           <StatusTag status={app.status} />
                         </td>
+                        <td>{moment(app.updatedAt).format("DD/MM/YYYY @ HH:mm:ss")}</td>
                       </tr>
                     );
                   })}
