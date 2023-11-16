@@ -12,6 +12,8 @@ import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
 import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
+import CréditosPendienteDesembolso from "./../SupervisorOficina/créditosPendienteDesembolso";
+import RecuperaciónDiaria from "./../GestorComercial/recuperaciónDiaria";
 
 const AsistenteAdministrativo = () => {
   const { colors } = useContext(ThemeColors);
@@ -48,13 +50,13 @@ const AsistenteAdministrativo = () => {
         <ValidaciónDatos />
       </Card>
 
-      {/*<Card className="my-2 p-2">
+      <Card className="my-2 p-2">
         <CréditosPendienteDesembolso />
       </Card>
 
       <Card className="my-2 p-2">
-        <MoraPorAgente />
-      </Card> */}
+        <RecuperaciónDiaria />
+      </Card>
     </div>
   );
 };
