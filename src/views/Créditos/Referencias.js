@@ -10,7 +10,12 @@ import {
   Label,
   Row
 } from "reactstrap";
+import Select from "react-select";
+import { selectThemeColors } from "@utils";
 import "./Créditos.scss";
+import {
+  parentesco
+} from "../../configs/data";
 import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import { ErrorMessage, Field, Formik } from "formik";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
@@ -169,7 +174,7 @@ const Referencias = ({ stepper, onSubmit, onPrevious, data }) => {
             stepper.next();
           }}
         >
-          {({ handleSubmit, setFieldValue, resetForm }) => (
+          {({ handleSubmit, setFieldValue, resetForm, values }) => (
             <Form onSubmit={handleSubmit}>
               {referenciasFamiliares.map((ref) => {
                 return (
@@ -202,12 +207,28 @@ const Referencias = ({ stepper, onSubmit, onPrevious, data }) => {
                       >
                         Parentesco<span className="text-danger">*</span>
                       </Label>
-                      <Input
+                      {/*<Input
                         type="text"
                         name={`f_references_relationship${ref}`}
                         id={`f_references_relationship${ref}`}
                         placeholder="Parentesco"
                         tag={Field}
+                      />*/}
+                      <Select
+                        theme={selectThemeColors}
+                        className="react-select"
+                        classNamePrefix="select"
+                        options={parentesco}
+                        isClearable={false}
+                        value={parentesco.filter(
+                          (relacion) => relacion.value === values[`f_references_relationship${ref}`]
+                        )}
+                        name={`f_references_relationship${ref}`}
+                        onChange={(option) =>{
+                          console.log("OPTION", option)
+                          setFieldValue(`f_references_relationship${ref}`, option.value)
+                          }
+                        }
                       />
                       <ErrorMessage
                         component="div"
@@ -302,6 +323,21 @@ const Referencias = ({ stepper, onSubmit, onPrevious, data }) => {
                         placeholder="Parentesco"
                         tag={Field}
                       />
+                      {/*
+                      <Select
+                        theme={selectThemeColors}
+                        className="react-select"
+                        classNamePrefix="select"
+                        options={parentesco}
+                        isClearable={false}
+                        value={parentesco.filter(
+                          (status) => status.value === values.p_references_relationship+''+ref
+                        )}
+                        name={`p_references_relationship${ref}`}
+                        onChange={(option) =>
+                          setFieldValue(values.p_references_relationship+''+ref, option.value)
+                        }
+                      />*/}
                       <ErrorMessage
                         component="div"
                         name={`p_references_relationship${ref}`}
