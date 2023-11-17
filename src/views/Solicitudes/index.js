@@ -43,6 +43,7 @@ const Solicitudes = () => {
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
   const [status, setStatus] = useState([]);
+  const [idsearch, setIDSearch] = useState([]);
   const date = convertDateWithTimeZone(new Date());
   const today = new Date(date);
   let prevDay = new Date(date);
@@ -67,7 +68,7 @@ const Solicitudes = () => {
     });
     const response = await API.get(
       `credit-application?page=${currentPage}&pageSize=10&sortOrder=DESC&sortField=createdAt` +
-        params
+      params
     );
     setData([...response.data.data]);
     setTotalPages(response.data.pagination.totalPages);
@@ -79,12 +80,19 @@ const Solicitudes = () => {
     fetchData();
   };
 
+  const handleChange = (event) => {
+    setIDSearch(event.target.value)
+  };
+
   const setSearchParams = () => {
     if (agency.length > 0) {
       queryParams.agency = agency.join(",");
     }
     if (status.length > 0) {
       queryParams.status = status.join(",");
+    }
+    if (idsearch.length > 0) {
+      queryParams.idsearch = idsearch;
     }
     queryParams.startDate = new Date(desdePicker).toLocaleDateString("en-CA");
     queryParams.endDate = new Date(hastaPicker).toLocaleDateString("en-CA");
@@ -137,7 +145,7 @@ const Solicitudes = () => {
       <CardBody>
         <Form>
           <Row>
-            <Col md="6" sm="12" className="mb-1">
+            <Col md="4" sm="12" className="mb-1">
               <Label className="form-label">Agencias</Label>
               <Select
                 isClearable={false}
@@ -152,7 +160,7 @@ const Solicitudes = () => {
                 }
               />
             </Col>
-            <Col md="6" sm="12" className="mb-1">
+            <Col md="4" sm="12" className="mb-1">
               <Label className="form-label">Estado</Label>
               <Select
                 isClearable={false}
@@ -167,6 +175,16 @@ const Solicitudes = () => {
                 }
               />
             </Col>
+            <Col md="4" sm="12" className="mb-1">
+              <Label className="form-label">ID crédito/solicitud</Label>
+              <Input
+                type="text"
+                name="idsearch"
+                id="idsearch"
+                placeholder="ID Crédito o ID solicitud"
+                onChange={handleChange}
+              />
+            </Col>
             <Col md="6">
               <Label className="form-label" for="hf-picker">
                 Desde el
@@ -176,6 +194,7 @@ const Solicitudes = () => {
                 id="hf-picker"
                 className="form-control"
                 onChange={(selectedDates, dateStr, instance) => {
+                  console.log(dateStr);
                   setDesdePicker(dateStr);
                 }}
                 options={{
@@ -194,9 +213,9 @@ const Solicitudes = () => {
                 value={hastaPicker}
                 id="hf-picker"
                 className="form-control"
-                onChange={(selectedDates, dateStr, instance) =>
+                onChange={(selectedDates, dateStr, instance) => {
                   setHastaPicker(dateStr)
-                }
+                }}
                 options={{
                   locale: Spanish,
                   altInput: true,
@@ -303,6 +322,8 @@ const Solicitudes = () => {
                     />*/}
                   </th>
 
+                
+
                   <th>
                     <span>Estado</span>
                     {/*<Input
@@ -313,6 +334,7 @@ const Solicitudes = () => {
                       className="table-filter"
                     />*/}
                   </th>
+
                   <th>
                     <span>Última actualización</span>
                     {/*<Input

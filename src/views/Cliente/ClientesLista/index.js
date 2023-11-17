@@ -42,10 +42,15 @@ const ClientesLista = () => {
   const [agency, setAgency] = useState([]);
   const [status, setStatus] = useState([]);
   const [queryParams, setQueryParams] = useState({});
+  const [idsearch, setIDSearch] = useState([]);
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
     setCurrentPage(page.selected);
+  };
+
+  const handleChange = (event) => {
+    setIDSearch(event.target.value)
   };
 
   useEffect(() => {
@@ -76,6 +81,9 @@ const ClientesLista = () => {
     if (status.length > 0) {
       queryParams.status = status.join(",");
     }
+    if (idsearch.length > 0) {
+      queryParams.idsearch = idsearch;
+    }
     queryParams.startDate = new Date(desdePicker).toLocaleDateString("en-CA");
     queryParams.endDate = new Date(hastaPicker).toLocaleDateString("en-CA");
   };
@@ -89,7 +97,7 @@ const ClientesLista = () => {
       <CardBody>
         <Form>
           <Row>
-            <Col md="6" sm="12" className="mb-1">
+            <Col md="4" sm="12" className="mb-1">
               <Label className="form-label">Agencias</Label>
               <Select
                 isClearable={false}
@@ -104,7 +112,7 @@ const ClientesLista = () => {
                 }
               />
             </Col>
-            <Col md="6" sm="12" className="mb-1">
+            <Col md="4" sm="12" className="mb-1">
               <Label className="form-label">Estado</Label>
               <Select
                 isClearable={false}
@@ -117,6 +125,16 @@ const ClientesLista = () => {
                 onChange={(option) =>
                   setStatus(option.map((option) => option.value))
                 }
+              />
+            </Col>
+            <Col md="4" sm="12" className="mb-1">
+              <Label className="form-label">DPI o Nombre o Apellido</Label>
+              <Input
+                type="text"
+                name="idsearch"
+                id="idsearch"
+                placeholder="DPI, Nombre o Apellido"
+                onChange={handleChange}
               />
             </Col>
             <Col md="6">
