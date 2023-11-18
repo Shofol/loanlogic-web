@@ -665,7 +665,14 @@ export const parentesco = [
   { label: "Tío", value: "TIO" },
   { label: "Hijo", value: "HIJO" },
   { label: "Hija", value: "HIJA" },
- 
+
+];
+
+export const relacion = [
+  { label: "Amigo", value: "AMIGO" },
+  { label: "Amiga", value: "AMIGA" },
+  { label: "Conocido", value: "CONOCIDO" },
+  { label: "Conocida", value: "CONOCIDA" },
 ];
 
 export const guaranteeTypes = [

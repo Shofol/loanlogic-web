@@ -230,7 +230,7 @@ const Cobranza = () => {
                       onClick={submit}
                     >
                       <Save size={16} />
-                      <span className="align-middle mx-25">Guardar</span>
+                      <span className="align-middle mx-25">Pagar</span>
                     </Button.Ripple>
                     <Button.Ripple
                       outline
