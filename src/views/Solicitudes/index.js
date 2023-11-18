@@ -200,7 +200,7 @@ const Solicitudes = () => {
                 options={{
                   locale: Spanish,
                   altInput: true,
-                  altFormat: "F j, Y",
+                  altFormat: "j F Y",
                   dateFormat: "Y-m-d"
                 }}
               />
@@ -219,7 +219,7 @@ const Solicitudes = () => {
                 options={{
                   locale: Spanish,
                   altInput: true,
-                  altFormat: "F j, Y",
+                  altFormat: "j F Y",
                   dateFormat: "Y-m-d"
                 }}
               />

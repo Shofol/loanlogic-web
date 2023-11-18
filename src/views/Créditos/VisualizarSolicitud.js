@@ -214,7 +214,7 @@ const VisualizarSolicitud = () => {
             </div> */}
 
                 <p htmlFor="loan_payment_time">
-                  ¿Cómo quieres pagar tu préstamo?
+                  ¿Qué producto desea?
                 </p>
                 <div className="d-flex">
                   {paymentMethods.map((method) => {

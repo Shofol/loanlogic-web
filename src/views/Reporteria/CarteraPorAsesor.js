@@ -27,6 +27,7 @@ import { Download } from "react-feather";
 import api from "../../@core/api/api";
 import { UserContext } from "../../utility/context/User";
 import { getConvertDateWithTimeZone } from "../../utility/Utils";
+import moment from "moment";
 
 const CarteraPorAsesor = () => {
   const gridRef = useRef(); // Optional - for accessing Grid's API
@@ -78,7 +79,7 @@ const CarteraPorAsesor = () => {
       };
 
       item.debt_collections.map((debt, index) => {
-        updatedData[`${debt.payment_date}`] = debt.payment_made;
+        updatedData[`${moment(debt.payment_date).format("DD/MM/YY")}`] = debt.payment_made;
       });
       // });
       return updatedData;
@@ -93,8 +94,8 @@ const CarteraPorAsesor = () => {
           newColumns = [
             ...newColumns,
             {
-              headerName: `${weekDays[new Date(debt.payment_date).getDay()]}`,
-              children: [{ field: debt.payment_date, width: 120 }],
+              headerName: `${weekDays[new Date(debt.payment_date).getDay()+1]}`,
+              children: [{ field: moment(debt.payment_date).format("DD/MM/YY"), width: 120 }],
               date: debt.payment_date,
             },
           ];

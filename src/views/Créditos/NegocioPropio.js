@@ -132,7 +132,7 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                     options={{
                       locale: Spanish,
                       altInput: true,
-                      altFormat: "F j, Y",
+                      altFormat: "j F Y",
                       dateFormat: "Y-m-d",
                       defaultDate: values.start_date
                         ? new Date(values?.start_date.split("T")[0])

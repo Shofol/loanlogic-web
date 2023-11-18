@@ -126,7 +126,7 @@ const ResumenAsesor = () => {
             options={{
               locale: Spanish,
               altInput: true,
-              altFormat: "F j, Y",
+              altFormat: "j F Y",
               dateFormat: "d/m/Y",
             }}
           />

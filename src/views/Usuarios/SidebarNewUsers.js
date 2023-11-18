@@ -330,7 +330,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 options={{
                   locale: Spanish,
                   altInput: true,
-                  altFormat: "F j, Y",
+                  altFormat: "j F Y",
                   dateFormat: "d/m/Y",
                   defaultDate: new Date(convertDateWithTimeZone(new Date()))
                 }}
@@ -355,7 +355,7 @@ const SidebarNewUsers = ({ open, toggleSidebar, onClose }) => {
                 options={{
                   locale: Spanish,
                   altInput: true,
-                  altFormat: "F j, Y",
+                  altFormat: "j F Y",
                   dateFormat: "d/m/Y",
                   defaultDate: new Date(convertDateWithTimeZone(new Date()))
                 }}

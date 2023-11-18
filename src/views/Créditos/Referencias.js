@@ -14,7 +14,8 @@ import Select from "react-select";
 import { selectThemeColors } from "@utils";
 import "./Créditos.scss";
 import {
-  parentesco
+  parentesco,
+  relacion
 } from "../../configs/data";
 import { ArrowLeft, ArrowRight, Info } from "react-feather";
 import { ErrorMessage, Field, Formik } from "formik";
@@ -316,28 +317,29 @@ const Referencias = ({ stepper, onSubmit, onPrevious, data }) => {
                       >
                         Parentesco<span className="text-danger">*</span>
                       </Label>
-                      <Input
+                      {/*<Input
                         type="text"
                         name={`p_references_relationship${ref}`}
                         id={`p_references_relationship${ref}`}
                         placeholder="Parentesco"
                         tag={Field}
-                      />
-                      {/*
-                      <Select
+                      />*/}
+                     <Select
                         theme={selectThemeColors}
                         className="react-select"
                         classNamePrefix="select"
-                        options={parentesco}
+                        options={relacion}
                         isClearable={false}
-                        value={parentesco.filter(
-                          (status) => status.value === values.p_references_relationship+''+ref
+                        value={relacion.filter(
+                          (rel) => rel.value === values[`p_references_relationship${ref}`]
                         )}
                         name={`p_references_relationship${ref}`}
-                        onChange={(option) =>
-                          setFieldValue(values.p_references_relationship+''+ref, option.value)
+                        onChange={(option) =>{
+                          console.log("OPTION", option)
+                          setFieldValue(`p_references_relationship${ref}`, option.value)
+                          }
                         }
-                      />*/}
+                      />
                       <ErrorMessage
                         component="div"
                         name={`p_references_relationship${ref}`}

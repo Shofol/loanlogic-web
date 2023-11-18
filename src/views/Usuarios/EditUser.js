@@ -375,7 +375,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                         options={{
                           locale: Spanish,
                           altInput: true,
-                          altFormat: "F j, Y",
+                          altFormat: "j F Y",
                           dateFormat: "d/m/Y",
                           defaultDate: new Date(
                             user?.date_of_birth.split("T")[0]
@@ -407,7 +407,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                         options={{
                           locale: Spanish,
                           altInput: true,
-                          altFormat: "F j, Y",
+                          altFormat: "j F Y",
                           dateFormat: "d/m/Y",
                           defaultDate: new Date(user?.start_date.split("T")[0])
                         }}

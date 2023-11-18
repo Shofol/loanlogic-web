@@ -151,7 +151,7 @@ const ClientesLista = () => {
                 options={{
                   locale: Spanish,
                   altInput: true,
-                  altFormat: "F j, Y",
+                  altFormat: "j F Y",
                   dateFormat: "Y-m-d"
                 }}
               />
@@ -170,7 +170,7 @@ const ClientesLista = () => {
                 options={{
                   locale: Spanish,
                   altInput: true,
-                  altFormat: "F j, Y",
+                  altFormat: "j F Y",
                   dateFormat: "Y-m-d"
                 }}
               />

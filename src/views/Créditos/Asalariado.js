@@ -149,7 +149,7 @@ const Asalariado = ({ stepper, onSubmit, data }) => {
                     options={{
                       locale: Spanish,
                       altInput: true,
-                      altFormat: "F j, Y",
+                      altFormat: "j F Y",
                       dateFormat: "Y-m-d",
                       defaultDate: new Date()
                     }}
