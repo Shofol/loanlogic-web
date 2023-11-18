@@ -83,6 +83,7 @@ const PreValidaciónDirección = () => {
             <th>Dirección</th>
             <th>Municipio</th>
             <th>Departamento</th>
+            <th>Promotor</th>
             <th>Estado</th>
             <th>Pre-validar</th>
           </tr>
@@ -105,7 +106,7 @@ const PreValidaciónDirección = () => {
                   <td>{data?.client.residence_address}</td>
                   <td>{data?.client.residence_municipality}</td>
                   <td>{data?.client.department_of_residence}</td>
-                  {/* <td>{data.status}</td> */}
+                  <td>{data?.user.name} {data?.user.family_name}</td>
                   <td>
                     <StatusTag status={data.status} />
                   </td>
