@@ -479,7 +479,7 @@ const Amortization = () => {
                       <td>{debt.paid_credit_interest_tax}</td>
                       <td>{debt.paid_credit_capital}</td>
                       <td>{debt.paid_total_tax}</td>
-                      <td>{debt.status}</td>
+                      <td>{debt.status == "PAID" ? "PAGADO": (debt.status == "PENDING" ? "PENDIENTE" : (debt.status == "PARTIALLY_PAID" ? "PAGO PARCIAL" : "IMPAGO"))}</td>
                       <td>{debt.updatedBy}</td>
                     </tr>
                   );
