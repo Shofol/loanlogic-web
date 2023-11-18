@@ -58,8 +58,8 @@ const CarteraPorAsesor = () => {
   const fetchData = async () => {
     const response = await api.get(
       `credit/portfolio/agent` +
-        `${agency ? `?agency=${agency}` : ""}` +
-        `${agent ? `&agent=${agent}` : ""}`
+      `${agency ? `?agency=${agency}` : ""}` +
+      `${agent ? `&agent=${agent}` : ""}`
     );
     const data = response.data.data;
     const modData = data.map((item) => {
@@ -67,6 +67,7 @@ const CarteraPorAsesor = () => {
         cliente: `${item.client.name} ${item.client.second_name || ''} ${item.client.surname} ${item.client.second_surname || ''}`,
         telefono: item.client.phone_number,
         monto: item.credit.requested_amount,
+        promotor: item.credit.user.name + ' ' + item.credit.user.family_name,
         fechaInicial: getConvertDateWithTimeZone(item.credit.disbursement_date),
         fechaFinal: getConvertDateWithTimeZone(item.credit.lastPayment),
         plazo: item.credit.duration,
@@ -94,7 +95,7 @@ const CarteraPorAsesor = () => {
           newColumns = [
             ...newColumns,
             {
-              headerName: `${weekDays[new Date(debt.payment_date).getDay()+1]}`,
+              headerName: `${weekDays[new Date(debt.payment_date).getDay() + 1]}`,
               children: [{ field: moment(debt.payment_date).format("DD/MM/YY"), width: 120 }],
               date: debt.payment_date,
             },
@@ -137,11 +138,18 @@ const CarteraPorAsesor = () => {
 
   const fetchGestorData = async () => {
     const response = await api.get(`/user?agency=${agency}&role=agent`);
-    setGestors(
-      response.data.data.map((gestor) => ({
+    let agentArray = [{
+      label: "TODOS",
+      value: "ALL"
+    }];
+
+    response.data.data.map((gestor) => (
+      agentArray.push({
         label: gestor.name + ' ' + gestor.family_name,
         value: gestor.id,
-      }))
+      })))
+    setGestors(
+      agentArray
     );
   };
 

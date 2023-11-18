@@ -14,6 +14,7 @@ export const portfolioData = {
         { field: "cliente", pinned: "left" },
         { field: "telefono", width: 120 },
         { field: "monto", width: 120 },
+        { field: "promotor", width: 160 },
         { field: "fechaInicial", width: 120 },
         { field: "fechaFinal", width: 120 },
         { field: "plazo", width: 120 },
