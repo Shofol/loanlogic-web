@@ -139,7 +139,7 @@ const CarteraPorAsesor = () => {
     const response = await api.get(`/user?agency=${agency}&role=agent`);
     setGestors(
       response.data.data.map((gestor) => ({
-        label: gestor.name,
+        label: gestor.name + ' ' + gestor.family_name,
         value: gestor.id,
       }))
     );
