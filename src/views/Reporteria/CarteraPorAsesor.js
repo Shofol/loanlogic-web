@@ -18,7 +18,7 @@ import {
 } from "reactstrap";
 import Select from "react-select";
 import { selectThemeColors } from "@utils";
-import { portfolioData } from "../../configs/data";
+import { portfolioData, paymentMethods, sexValues, maritialStatus } from "../../configs/data";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
@@ -55,6 +55,37 @@ const CarteraPorAsesor = () => {
     fetchData();
   }, [agency, agent]);
 
+  function transFrequency (string){
+    let translation = string;
+
+    var result = paymentMethods.filter(obj => {
+      return obj.value === string
+    })
+
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
+
+  function transCivilStatus (string){
+    let translation = string;
+
+    var result = maritialStatus.filter(obj => {
+      return obj.value === string
+    })
+
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
+  function transSex (string){
+    let translation = string;
+
+    var result = sexValues.filter(obj => {
+      return obj.value === string
+    })
+
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
   const fetchData = async () => {
     const response = await api.get(
       `credit/portfolio/agent` +
@@ -64,19 +95,37 @@ const CarteraPorAsesor = () => {
     const data = response.data.data;
     const modData = data.map((item) => {
       let updatedData = {
+       
         cliente: `${item.client.name} ${item.client.second_name || ''} ${item.client.surname} ${item.client.second_surname || ''}`,
+        "número crédito": item.credit.id,
+        sucursal: item.credit.agency,
+        "DPI Cliente": item.client.dpi_number,
+        "Género": transSex(item.client.sex),
+        "fecha nacimiento": getConvertDateWithTimeZone(item.client.birth_date), 
         telefono: item.client.phone_number,
+        dirección: item.client.residence_address,
+        departamento: item.client.neighborhood_region,
+        municipio: item.client.neighborhood_city,
         monto: item.credit.requested_amount,
-        promotor: item.credit.user.name + ' ' + item.credit.user.family_name,
+        "nombre promotor": item.credit.user.name + ' ' + item.credit.user.family_name,
+        "estado civil": transCivilStatus(item.client.civil_status),
+        "profesión": item.client.profession,
+        "lugar de trabajo": item.client.company_name,
+        "nombre de negocio": item.client.business_name,
+        "dirección de negocio": item.client.work_address,
+        "tipo de garantía": item.credit.guaranty,
+        "fecha de desembolso": moment(item.credit.disbursement_date).format("DD/MM/YYYY"),
         fechaInicial: getConvertDateWithTimeZone(item.credit.disbursement_date),
         fechaFinal: getConvertDateWithTimeZone(item.credit.lastPayment),
         plazo: item.credit.duration,
-        plan: item.credit.payment_frequency,
+        plan: transFrequency(item.credit.payment_frequency),
         cuota: item.credit.installment_amount,
         interés: item.credit.interest,
         "k+i": item.credit.ki,
         saldo: item.credit.total_remaining_amount,
         pagos: item.credit.total_paid_amount,
+        "días mora": item.credit.last_unpaid_date ? moment().diff(item.credit.last_unpaid_date, 'days'): 0,
+        "monto de cuotas en mora": item.credit.nextPayment,
       };
 
       item.debt_collections.map((debt, index) => {
