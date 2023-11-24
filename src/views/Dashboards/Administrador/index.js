@@ -11,6 +11,7 @@ import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
 import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
+import PreValidacionEdad from "./validacionEdad";
 
 const AsistenteAdministrativo = () => {
   const { colors } = useContext(ThemeColors);
@@ -38,8 +39,13 @@ const AsistenteAdministrativo = () => {
           <DesgloseRecuperación/>
         </Col>
       </Row>
+      
       <Card className="my-2 p-2">
         <ValidaciónCréditosMontosElevados />
+      </Card>
+  
+      <Card className="my-2 p-2">
+        <PreValidacionEdad />
       </Card>
 
 

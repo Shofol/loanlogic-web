@@ -120,7 +120,7 @@ const AsignarGestorCobranza = () => {
 
             <Col md="6" id="section-to-hide">
               <Col className="mb-1" sm="12">
-                <Label className="form-label">Asignar agente:</Label>
+                <Label className="form-label">Asignar promotor:</Label>
                 <Select
                   isClearable={false}
                   theme={selectThemeColors}

@@ -19,7 +19,7 @@ import { agenciasValues, estadoOptions } from "../../../configs/data";
 import Flatpickr from "react-flatpickr";
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import ReactPaginate from "react-paginate";
-import { Search } from "react-feather";
+import { Search, Edit } from "react-feather";
 import API from "../../../@core/api/api";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../utility/context/User";
@@ -271,28 +271,85 @@ const ClientesLista = () => {
                       className="table-filter"
                     />*/}
                   </th>
+                  <th>
+                    <span>Editar</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {data.length > 0 &&
                   data.map((client, index) => {
-                    return (
-                      <tr
-                        key={client.id}
-                        onClick={() => navigate(`/clientes/${client.id}`)}
-                        className="clickable-row"
-                      >
-                        <td>{index + 1}</td>
-                        <td>{client.id}</td>
-                        <td>{client.name}</td>
-                        <td>{client.surname}</td>
-                        <td>{client.residence_address}</td>
-                        <td>{client.dpi_number}</td>
-                        <td>{client.residence_municipality}</td>
-                        <td>{client.department_of_residence}</td>
-                        <td>{client.phone_number}</td>
-                      </tr>
-                    );
+                    if (user.role == 'ADMIN' || user.ole == 'SUPPORT-EXECUTIVE') {
+                      return (
+                        <tr
+                          className="clickable-row"
+                        >
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{index + 1}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.id}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.name}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.surname}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.residence_address}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.dpi_number}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.residence_municipality}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.department_of_residence}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.phone_number}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/edit/${client.id}`)}
+                          >
+                            <Edit></Edit>
+                          </td>
+                        </tr>
+                      );
+                    }
+                    else {
+
+                      return (
+                        <tr
+                          key={client.id}
+                          onClick={() => navigate(`/clientes/${client.id}`)}
+                          className="clickable-row"
+                        >
+                          <td >{index + 1}</td>
+                          <td>{client.id}</td>
+                          <td>{client.name}</td>
+                          <td>{client.surname}</td>
+                          <td>{client.residence_address}</td>
+                          <td>{client.dpi_number}</td>
+                          <td>{client.residence_municipality}</td>
+                          <td>{client.department_of_residence}</td>
+                          <td>{client.phone_number}</td>
+                          <td></td>
+                        </tr>
+                      );
+                    }
                   })}
               </tbody>
             </Table>

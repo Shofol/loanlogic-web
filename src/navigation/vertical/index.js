@@ -64,7 +64,8 @@ export default [
     id: "solicitudes",
     title: "Solicitudes",
     icon: <FileText size={20} />,
-    navLink: "/solicitudes"
+    navLink: "/solicitudes",
+    role: "AGENT, COLLECTION-MANAGER, SUPERVISOR','ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
   },
 
   // {
@@ -87,6 +88,7 @@ export default [
     title: "Reportería",
     icon: <File size={20} />,
     navLink: "/reporteria",
+    role: "AGENT, COLLECTION-MANAGER, SUPERVISOR','ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
     children: [
       {
         id: "carteraPorAsesor",
@@ -235,6 +237,7 @@ export default [
     title: "Créditos",
     icon: <PieChart size={20} />,
     navLink: "/creditos",
+    role: "AGENT, COLLECTION-MANAGER, SUPERVISOR','ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
     children: [
       // {
       //   id: "validation",

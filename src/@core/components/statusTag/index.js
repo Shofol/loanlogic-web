@@ -25,6 +25,7 @@ const StatusTag = ({ status }) => {
     { en: 'PENDING_NIT', es: 'PENDIENTE NIT' },
     { en: 'CANCELED', es: 'CANCELADO' },
     { en: 'REFUSED_AGE', es: 'RECHAZADO EDAD'},
+    { en: 'PENDING_AGE_VALIDATION', es: 'PENDIENTE VALIDACIÓN EDAD'},
 
     // Credits
     { en: 'PENDING', es: 'PENDIENTE' },

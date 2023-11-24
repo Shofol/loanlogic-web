@@ -26,10 +26,15 @@ export const portfolioData = {
         { field: "estado civil", width: 120 },
         { field: "profesión", width: 120 },
         { field: "lugar de trabajo", width: 160 },
+        { field: "dirección de trabajo", width: 300 },
+        { field: "departamento de trabajo", width: 250 },
+        { field: "municipio de trabajo", width: 180 },
         { field: "nombre de negocio", width: 200 },
         { field: "dirección de negocio", width: 300 },
+        { field: "departamento de negocio", width: 250 },
+        { field: "municipio de negocio", width: 180 },
         { field: "tipo de garantía", width: 200 },
-        { field: "fecha de desembolso", width: 120 },
+        { field: "fecha de desembolso", width: 200 },
         { field: "fechaInicial", width: 120 },
         { field: "fechaFinal", width: 120 },
         { field: "plazo", width: 120 },
@@ -70,6 +75,8 @@ export const estadoOptions = [
     value: "REFUSED_PRODUCT_NOT_FOUND",
   },
   { label: "ERROR CONFIGURACION PRODUCTO", value: "ERROR_PRODUCT_MATCH" },
+  { label: "PENDIENTE VALIDACIÓN EDAD", value: "PENDING_AGE_VALIDATION" },
+
 ];
 
 export const nationalities = [

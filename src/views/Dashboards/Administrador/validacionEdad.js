@@ -18,7 +18,7 @@ import { toast } from "react-hot-toast";
 import { formatMessage } from "../../../utility/functions/formatMessage";
 import StatusTag from "../../../@core/components/statusTag";
 
-const PreValidaciónDirección = () => {
+const PreValidacionEdad = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -35,7 +35,7 @@ const PreValidaciónDirección = () => {
 
   const fetchData = async () => {
     const response = await api.get(
-      `tasks/address-validation?page=${currentPage}&pageSize=10`
+      `tasks/age-validation?page=${currentPage}&pageSize=10`
     );
     setData(response.data.data);
     setTotalPages(response.data.pagination.totalPages);
@@ -45,7 +45,7 @@ const PreValidaciónDirección = () => {
     e.stopPropagation();
 
     try {
-      const response = await api.put(`tasks/address-validation/${id}`, {
+      const response = await api.put(`tasks/age-validation/${id}`, {
         status: action === "accept" ? true : false
       });
       fetchData();
@@ -59,7 +59,7 @@ const PreValidaciónDirección = () => {
     <>
       <Row className="mb-1">
         <Col md="6">
-          <h4 className="mb-1">Validación Créditos Montos Elevados</h4>
+          <h4 className="mb-1">Validación Edad Mayores 65 Años</h4>
         </Col>
         <Col md="6" className="d-flex justify-content-end">
           <Button
@@ -164,4 +164,4 @@ const PreValidaciónDirección = () => {
   );
 };
 
-export default PreValidaciónDirección;
+export default PreValidacionEdad;

@@ -44,7 +44,7 @@ const RecuperaciónDiaria = () => {
     <>
       <Row className="mb-1">
         <Col md="6">
-        <h4 className="mb-1">Asignar Agente</h4>
+        <h4 className="mb-1">Asignar Promotor</h4>
         </Col>
         <Col md="6" className="d-flex justify-content-end">
           <Button
