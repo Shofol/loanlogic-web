@@ -1,22 +1,20 @@
 import React, { useContext } from "react";
-import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
-import { Card, CardTitle, Col, Row } from "reactstrap";
+import { Card, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
-import { ListGroup, ListGroupItem } from "reactstrap";
-import PreValidaciónDirección from "../GestorDeCobros/preValidaciónDirección";
-import ValidaciónCrédito from "./validaciónCrédito";
-import CréditosPendienteDesembolso from "./créditosPendienteDesembolso";
-import AsignarGestorCobranza from "./asignarGestorCobranza";
-import AsignarAgente from "./asignarAgente";
-import "./supervisorOficina.scss";
+import PreValidaciónDirección from "../Secciones/preValidaciónDirección";
+import ValidaciónCrédito from "../Secciones/validaciónCrédito";
+import CréditosPendienteDesembolso from "../Secciones/créditosPendienteDesembolso";
+import AsignarAgente from "../Secciones/asignarAgente";
+import "./supervisorSucursal.scss";
 import MoraPorAgente from "../Stats/MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";
 import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
 import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
+import RecuperaciónDiaria from "../Secciones/recuperaciónDiaria";
 
-const SupervisorOficina = () => {
+const SupervisorSucursal = () => {
   const { colors } = useContext(ThemeColors);
 
   return (
@@ -39,9 +37,10 @@ const SupervisorOficina = () => {
         </Col>
 
         <Col className="statColumn">
-        <DesgloseRecuperación />
+          <DesgloseRecuperación />
         </Col>
       </Row>
+
       <Card className="my-2 p-2">
         <PreValidaciónDirección />
       </Card>
@@ -55,19 +54,19 @@ const SupervisorOficina = () => {
       </Card>
 
       <Card className="my-2 p-2">
-        <AsignarGestorCobranza />
+        <RecuperaciónDiaria />
       </Card>
-
 
       <Card className="my-2 p-2">
         <AsignarAgente />
       </Card>
-      
+
       <Card className="my-2 p-2">
         <MoraPorAgente />
       </Card>
+
     </div>
   );
 };
 
-export default SupervisorOficina;
+export default SupervisorSucursal;

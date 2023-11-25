@@ -1,21 +1,18 @@
 import React, { useContext } from "react";
-import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
-import { Card, CardTitle, Col, Row } from "reactstrap";
+import { Card, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
-import { ListGroup, ListGroupItem } from "reactstrap";
-import ValidaciónDatos from "./validaciónDatos";
-import AsignarNit from "./asignarNit";
-import "./asistenteAdministrativo.scss";
-import MoraPorAgente from "../Stats/MoraPorAgente";
+import ValidaciónDatos from "../Secciones/validaciónDatos";
+import AsignarNit from "../Secciones/asignarNit";
+import "./auxiliarComercial.scss";
 import Desembolso from "../Stats/Desembolso";
 import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
 import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
-import CréditosPendienteDesembolso from "./../SupervisorOficina/créditosPendienteDesembolso";
-import RecuperaciónDiaria from "./../GestorComercial/recuperaciónDiaria";
+import CréditosPendienteDesembolso from "../Secciones/créditosPendienteDesembolso";
+import RecuperaciónDiaria from "../Secciones/recuperaciónDiaria";
 
-const AsistenteAdministrativo = () => {
+const AuxiliarComercial = () => {
   const { colors } = useContext(ThemeColors);
 
   return (
@@ -38,7 +35,7 @@ const AsistenteAdministrativo = () => {
         </Col>
 
         <Col className="statColumn">
-        <DesgloseRecuperación />
+          <DesgloseRecuperación />
         </Col>
       </Row>
 
@@ -61,4 +58,4 @@ const AsistenteAdministrativo = () => {
   );
 };
 
-export default AsistenteAdministrativo;
+export default AuxiliarComercial;

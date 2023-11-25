@@ -23,10 +23,10 @@ export default [
     role: "AGENT, COLLECTION-MANAGER, SUPERVISOR','ASSISTANT, SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN",
     children: [
       {
-        id: "gestorComercial",
+        id: "promotor",
         title: "Promotor",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/gestorComercial",
+        navLink: "/dashboard/promotor",
         role: "AGENT"
       },
       {
@@ -37,25 +37,62 @@ export default [
         role: "COLLECTION-MANAGER"
       },
       {
-        id: "supervisorOficina",
-        title: "Supervisor Oficina",
+        id: "supervisorSucursal",
+        title: "Supervisor Sucursal",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/supervisorOficina",
+        navLink: "/dashboard/supervisorSucursal",
         role: "SUPERVISOR"
       },
       {
-        id: "asistenteAdministrativo",
-        title: "Asis. Administrativo",
+        id: "auxiliarComercial",
+        title: "Aux. Comercial",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/asistenteAdministrativo",
+        navLink: "/dashboard/auxiliarComercial",
         role: "ASSISTANT"
+      },
+      {
+        id: "jefeComercial",
+        title: "Jefe Comercial",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/jefeComercial",
+        role: "SALES-DIRECTOR"
+      },   {
+        id: "supervisorCobros",
+        title: "Supervisor Cobros",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/supervisorCobros",
+        role: "COLLECTION-DIRECTOR"
+      },   {
+        id: "auxiliarOperativo",
+        title: "Aux. Operativo",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/auxiliarOperativo",
+        role: "ACCOUNTING"
+      },   {
+        id: "gerenteComercial",
+        title: "Gerente Comercial",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/gerenteComercial",
+        role: "COMERCIAL-EXECUTIVE"
+      },   {
+        id: "gerenteFinanciero",
+        title: "Gerente Financiero",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/gerenteFinanciero",
+        role: "FINANCE-EXECUTIVE"
+      },   {
+        id: "jefeSoporte",
+        title: "Jefe de Soporte",
+        icon: <Circle size={20} />,
+        navLink: "/dashboard/jefeSoporte",
+        role: "SUPPORT-EXECUTIVE"
       },
       {
         id: "Administrador",
         title: "Administrador",
         icon: <Circle size={20} />,
         navLink: "/dashboard/administrador",
-        role: "SALES-DIRECTOR, COLLECTION-DIRECTOR, ACCOUNTING, COMERCIAL-EXECUTIVE, FINANCE-EXECUTIVE, SUPPORT-EXECUTIVE, ADMIN"
+        role: "ADMIN"
       }
     ]
   },

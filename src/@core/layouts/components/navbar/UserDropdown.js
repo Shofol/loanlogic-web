@@ -26,11 +26,23 @@ import {
 
 // ** Default Avatar Image
 import defaultAvatar from "@src/assets/images/portrait/small/avatar-s-11.jpg";
+import { roles } from "../../../../configs/data"
 
 const UserDropdown = () => {
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  function transRole (string){
+    let translation = string;
+  
+    var result = roles.filter(obj => {
+      return obj.value === string
+    })
+  
+    if(result && result[0]){ translation = result[0].label}
+    return translation;
+  }
 
   return (
     <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
@@ -43,7 +55,7 @@ const UserDropdown = () => {
         {user && (
           <div className="user-nav d-sm-flex d-none">
             <span className="user-name fw-bold">{`${user.name} ${user.family_name}`}</span>
-            <span className="user-status">{user.role}</span>
+            <span className="user-status">{transRole(user.role)}</span>
           </div>
         )}
         <Avatar

@@ -1,19 +1,15 @@
 import React, { useContext } from "react";
-import OverviewCircle from "../../../@core/components/stats/OverviewCircle";
-import { Card, CardTitle, Col, Row } from "reactstrap";
+import { Card, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
-import { ListGroup, ListGroupItem } from "reactstrap";
-import ValidaciónCréditosMontosElevados from "./validaciónCréditosMontosElevados";
-import "./asistenteAdministrativo.scss";
+import "./administrador.scss";
 import MoraPorAgente from "../Stats/MoraPorAgente";
 import Desembolso from "../Stats/Desembolso";
 import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
 import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
-import PreValidacionEdad from "./validacionEdad";
 
-const AsistenteAdministrativo = () => {
+const AuxiliarComercial = () => {
   const { colors } = useContext(ThemeColors);
 
   return (
@@ -36,24 +32,16 @@ const AsistenteAdministrativo = () => {
         </Col>
 
         <Col className="statColumn">
-          <DesgloseRecuperación/>
+          <DesgloseRecuperación />
         </Col>
       </Row>
-      
-      <Card className="my-2 p-2">
-        <ValidaciónCréditosMontosElevados />
-      </Card>
-  
-      <Card className="my-2 p-2">
-        <PreValidacionEdad />
-      </Card>
-
 
       <Card className="my-2 p-2">
         <MoraPorAgente />
       </Card>
+
     </div>
   );
 };
 
-export default AsistenteAdministrativo;
+export default AuxiliarComercial;

@@ -279,7 +279,7 @@ const ClientesLista = () => {
               <tbody>
                 {data.length > 0 &&
                   data.map((client, index) => {
-                    if (user.role == 'ADMIN' || user.ole == 'SUPPORT-EXECUTIVE') {
+                    if (user.role == 'ADMIN' || user.role == 'SUPPORT-EXECUTIVE') {
                       return (
                         <tr
                           className="clickable-row"

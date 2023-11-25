@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
-import { Card, Col, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import Recuperación from "../Stats/Recuperación";
-import RecuperaciónDiaria from "../Secciones/recuperaciónDiaria";
 import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
 import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
 
-const GestorDeCobros = () => {
+const AuxiliarOperativo = () => {
   const { colors } = useContext(ThemeColors);
 
   return (
@@ -26,16 +25,12 @@ const GestorDeCobros = () => {
         </Col>
 
         <Col>
-          <DesgloseRecuperación/>
+          <DesgloseRecuperación />
         </Col>
       </Row>
-
-      <Card className="my-2 p-2">
-        <RecuperaciónDiaria />
-      </Card>
 
     </div>
   );
 };
 
-export default GestorDeCobros;
+export default AuxiliarOperativo;

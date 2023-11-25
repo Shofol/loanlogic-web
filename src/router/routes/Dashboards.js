@@ -1,19 +1,39 @@
 import { lazy } from "react";
 
-const GestorComercial = lazy(() =>
-  import("../../views/Dashboards/GestorComercial")
+const Promotor = lazy(() =>
+  import("../../views/Dashboards/Promotor")
 );
 
 const GestorDeCobros = lazy(() =>
   import("../../views/Dashboards/GestorDeCobros")
 );
 
-const SupervisorOficina = lazy(() =>
-  import("../../views/Dashboards/SupervisorOficina")
+const SupervisorSucursal = lazy(() =>
+  import("../../views/Dashboards/SupervisorSucursal")
 );
 
-const AsistenteAdministrativo = lazy(() =>
-  import("../../views/Dashboards/AsistenteAdministrativo")
+const AuxiliarComercial = lazy(() =>
+  import("../../views/Dashboards/AuxiliarComercial")
+);
+
+const JefeComercial = lazy(() =>
+  import("../../views/Dashboards/JefeComercial")
+);
+
+const SupervisorCobros = lazy(() =>
+  import("../../views/Dashboards/SupervisorCobros")
+);
+const AuxiliarOperativo = lazy(() =>
+  import("../../views/Dashboards/AuxiliarOperativo")
+);
+const GerenteComercial = lazy(() =>
+  import("../../views/Dashboards/GerenteComercial")
+);
+const GerenteFinanciero = lazy(() =>
+  import("../../views/Dashboards/GerenteFinanciero")
+);
+const JefeSoporte = lazy(() =>
+  import("../../views/Dashboards/JefeSoporte")
 );
 
 const Administrador = lazy(() =>
@@ -22,20 +42,44 @@ const Administrador = lazy(() =>
 
 const DashboardRoutes = [
   {
-    path: "/dashboard/gestorComercial",
-    element: <GestorComercial />
+    path: "/dashboard/promotor",
+    element: <Promotor />
   },
   {
     path: "/dashboard/gestorDeCobros",
     element: <GestorDeCobros />
   },
   {
-    path: "/dashboard/supervisorOficina",
-    element: <SupervisorOficina />
+    path: "/dashboard/supervisorSucursal",
+    element: <SupervisorSucursal />
   },
   {
-    path: "/dashboard/asistenteAdministrativo",
-    element: <AsistenteAdministrativo />
+    path: "/dashboard/auxiliarComercial",
+    element: <AuxiliarComercial />
+  },
+  {
+    path: "/dashboard/jefeComercial",
+    element: <JefeComercial />
+  },
+  {
+    path: "/dashboard/supervisorCobros",
+    element: <SupervisorCobros />
+  },
+  {
+    path: "/dashboard/auxiliarOperativo",
+    element: <AuxiliarOperativo />
+  },
+  {
+    path: "/dashboard/gerenteComercial",
+    element: <GerenteComercial />
+  },
+  {
+    path: "/dashboard/gerenteFinanciero",
+    element: <GerenteFinanciero />
+  },
+  {
+    path: "/dashboard/jefeSoporte",
+    element: <JefeSoporte />
   },
   {
     path: "/dashboard/administrador",
