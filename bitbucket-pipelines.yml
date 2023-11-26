@@ -11,7 +11,7 @@ pipelines:
           #- npm test
           - npm run build
   branches:
-    deploy-s3:
+    testing:
       - step:
           name: Build and test the app
           image: 'node:20.8.1'
