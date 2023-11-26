@@ -24,14 +24,10 @@ const VerticalLayout = (props) => {
     setUser(newUser);
 
     console.log("Vertical Layout -> navigation")
-    console.log("newUser", newUser)
 
     let filteredMenuTemp = [];
     navigation.map((element) => {
-      console.log("element.role", element.role)
-      console.log("newUser.role", newUser.role)
-
-      if (element.role.includes(newUser.role)) filteredMenuTemp.push(element)
+      if (newUser && element.role.includes(newUser.role)) filteredMenuTemp.push(element)
     });
     setFilteredMenu(filteredMenuTemp)
     console.log("filteredMenu", filteredMenuTemp)
