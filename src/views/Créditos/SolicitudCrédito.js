@@ -1,9 +1,18 @@
 import React from "react";
 // ** React Imports
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 // ** Custom Components
 import Wizard from "@components/wizard";
+import DatosCrédito from "./DatosCrédito";
+import DatosDelSolicitante from "./DatosDelSolicitante";
+import DPINIT from "./DPINIT";
+import Asalariado from "./Asalariado";
+import NegocioPropio from "./NegocioPropio";
+import Referencias from "./Referencias";
+import api from "../../@core/api/api";
+import { toast } from "react-hot-toast";
+import { formatMessage } from "../../utility/functions/formatMessage";
 import {
   Briefcase,
   CreditCard,
@@ -12,16 +21,8 @@ import {
   Globe,
   User
 } from "react-feather";
-import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import api from "../../@core/api/api";
 import { useRoledRoute } from "../../utility/hooks/useRoledRoute";
-import Asalariado from "./Asalariado";
-import DPINIT from "./DPINIT";
-import DatosCrédito from "./DatosCrédito";
-import DatosDelSolicitante from "./DatosDelSolicitante";
-import NegocioPropio from "./NegocioPropio";
-import Referencias from "./Referencias";
 
 const SolicitudCrédito = () => {
   // ** Ref
@@ -85,7 +86,6 @@ const SolicitudCrédito = () => {
             setOccupation(occupation);
           }}
           onSubmit={(value) => {
-            console.log(value)
             setValueToSubmit({ ...valueToSubmit, ...value });
           }}
         />

@@ -1,13 +1,7 @@
-import "@styles/react/libs/flatpickr/flatpickr.scss";
-import { selectThemeColors } from "@utils";
-import { Spanish } from "flatpickr/dist/l10n/es";
-import { ErrorMessage, Field, Formik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight } from "react-feather";
-import Flatpickr from "react-flatpickr";
-import Select from "react-select";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Button,
+  Card,
   CardBody,
   CardHeader,
   CardTitle,
@@ -17,15 +11,22 @@ import {
   Label,
   Row
 } from "reactstrap";
-import api from "../../@core/api/api";
-import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
+import "./Créditos.scss";
+import { ArrowLeft, ArrowRight, Info } from "react-feather";
+import Select from "react-select";
+import { selectThemeColors } from "@utils";
 import {
   departments,
   municipalitiesValues,
   wantCredit
 } from "../../configs/data";
+import FileUploaderMultiple from "../../@core/components/file-uploader/FileUploaderMultiple";
+import { ErrorMessage, Field, Formik } from "formik";
+import Flatpickr from "react-flatpickr";
+import "@styles/react/libs/flatpickr/flatpickr.scss";
+import { Spanish } from "flatpickr/dist/l10n/es";
+import api from "../../@core/api/api";
 import { mapMuniValue } from "../../utility/Utils";
-import "./Créditos.scss";
 
 const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
   const [municipalities, setMunicipalities] = useState([]);
