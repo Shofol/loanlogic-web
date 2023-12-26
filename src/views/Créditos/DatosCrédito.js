@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from "react";
+import { selectThemeColors } from "@utils";
+import { ErrorMessage, Field, Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { ArrowRight, Info } from "react-feather";
+import Select from "react-select";
 import ReactSlider from "react-slider";
 import {
   Button,
-  Card,
   CardBody,
-  CardHeader,
-  CardSubtitle,
-  CardTitle,
   Col,
   Form,
   Input,
   Label,
   Row,
-  UncontrolledTooltip,
+  UncontrolledTooltip
 } from "reactstrap";
-import "./Créditos.scss";
-import { ArrowRight, Info } from "react-feather";
-import { ErrorMessage, Field, Formik } from "formik";
+import API from "../../@core/api/api";
 import {
   guaranteeTypes,
-  loanPaymentMethods,
-  paymentMethods,
-  professions,
+  professions
 } from "../../configs/data";
-import Select from "react-select";
-import { selectThemeColors } from "@utils";
-import API from "../../@core/api/api";
+import "./Créditos.scss";
 
 
 

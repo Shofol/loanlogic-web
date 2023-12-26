@@ -1,5 +1,5 @@
 // ** React Imports
-import { useEffect, useState, createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { agenciasValues } from "../../configs/data";
 
 // ** Create Context
@@ -13,14 +13,16 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     let updatedAgencies = [];
-    user.agency.map((ag) => {
-      updatedAgencies = [
-        ...updatedAgencies,
-        agenciasValues.filter((agency) => agency.value === ag)[0]
-      ];
-    });
-    user.agency = updatedAgencies;
-    setUser(user);
+    if (user) {
+      user.agency.map((ag) => {
+        updatedAgencies = [
+          ...updatedAgencies,
+          agenciasValues.filter((agency) => agency.value === ag)[0]
+        ];
+      });
+      user.agency = updatedAgencies;
+      setUser(user);
+    }
   }, []);
 
   return (
@@ -28,4 +30,4 @@ const UserProvider = ({ children }) => {
   );
 };
 
-export { UserProvider, UserContext };
+export { UserContext, UserProvider };
