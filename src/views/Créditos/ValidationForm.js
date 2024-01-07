@@ -117,6 +117,7 @@ const ValidationForm = () => {
               toast.success(`${response.data.message}`);
               navigate(-1);
             } catch (error) {
+              toast.danger(error);
               console.log(error);
             }
           }}
