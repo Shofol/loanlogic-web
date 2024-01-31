@@ -28,10 +28,12 @@ const StatusTag = ({ status }) => {
     { en: 'PENDING_AGE_VALIDATION', es: 'PENDIENTE VALIDACIÓN EDAD'},
 
     // Credits
-    { en: 'PENDING', es: 'PENDIENTE' },
-    { en: 'LATE', es: 'TARDE' },
-    { en: 'FINISHED', es: 'FINALIZADO' },
-    { en: 'CANCELED', es: 'CANCELADO' }
+    { en: 'PENDING', es: 'VIGENTE' },
+    { en: 'DELAY', es: 'VENCIDO' },
+    { en: 'OVERDUE', es: 'COBRO' },
+    { en: 'PUNISHMENT', es: 'CASTIGO' },
+    { en: 'FINISHED', es: 'CANCELADO' },
+    { en: 'CANCELED', es: 'RECHAZADO' }
     
     // X
 
