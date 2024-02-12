@@ -157,7 +157,7 @@ const CuotaAdelantada = () => {
                 <p className="acc-title">Interés mora</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.default_interest} Q
+                  {data?.debt_collection.default_interest_with_tax} Q
                 </p>
               </div>
               <hr></hr>
