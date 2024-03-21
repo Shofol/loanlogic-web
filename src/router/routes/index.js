@@ -38,6 +38,7 @@ import ProductosRoutes from "./Productos";
 import CréditosRoutes from "./Créditos";
 import DashboardRoutes from "./Dashboards";
 import CobranzaRoutes from "./Cobranza";
+import CuotaAdelantadaRoutes from "./CuotaAdelantada";
 import DesembolsoRoutes from "./Desembolso";
 import ReporteriaRoutes from "./Reporteria";
 import SolicitudesRoutes from "./Solicitudes";
@@ -101,6 +102,7 @@ const Routes = [
   ...CréditosRoutes,
   ...DashboardRoutes,
   ...CobranzaRoutes,
+  ...CuotaAdelantadaRoutes,
   ...DesembolsoRoutes,
   ...ReporteriaRoutes,
   ...SolicitudesRoutes,

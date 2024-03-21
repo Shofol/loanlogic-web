@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, Row, Col, Input, Label, Button, CardSubtitle } from "reactstrap";
-import "./cobranza.scss";
+import "./cuotaAdelantada.scss";
 import OverviewCircle from "../../@core/components/stats/OverviewCircle";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import { Printer, Save } from "react-feather";
@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
 import Cleave from "cleave.js/react";
 
-const Cobranza = () => {
+const CuotaAdelantada = () => {
   const { colors } = useContext(ThemeColors);
   const { id } = useParams();
   const [payment_made, setPayment_made] = useState("");
@@ -23,7 +23,7 @@ const Cobranza = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await API.get(`/debt/collection/${id}`);
+    const response = await API.get(`/debt/collection/next/${id}`);
     setData(response.data.data);
   };
 
@@ -230,7 +230,7 @@ const Cobranza = () => {
                       onClick={submit}
                     >
                       <Save size={16} />
-                      <span className="align-middle mx-25">Pagar</span>
+                      <span className="align-middle mx-25">Adelantar Cuota</span>
                     </Button.Ripple>
                     <Button.Ripple
                       outline
@@ -257,4 +257,4 @@ const Cobranza = () => {
   );
 };
 
-export default Cobranza;
+export default CuotaAdelantada;
