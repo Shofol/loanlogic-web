@@ -78,6 +78,7 @@ const ConfigForm = () => {
     late_interest: product ? product.late_interest : "",
     management_expenses: product ? product.management_expenses : "",
     management_days: product ? product.management_days : "",
+    punishment_days: product ? product.punishment_days : "",
     assistance_expenses: product ? product.assistance_expenses : "",
     agencies: product ? product.agencies : [],
     administrative_expenses: product ? product.administrative_expenses : [],
@@ -166,6 +167,8 @@ const ConfigForm = () => {
               }
               if (!values.management_days) {
                 errors.management_days = requiredMsg;
+              }if (!values.punishment_days) {
+                errors.punishment_days = requiredMsg;
               }
               if (!values.assistance_expenses) {
                 errors.assistance_expenses = requiredMsg;
@@ -232,7 +235,7 @@ const ConfigForm = () => {
                       className="text-danger"
                     />
                   </Col>
-                  <Col sm="12" md="6" className="mb-1">
+                  <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label">
                       Periodicidad de cobros
                       <span className="text-danger">*</span>
@@ -305,7 +308,7 @@ const ConfigForm = () => {
                     </Col>*/}
                   <Col sm="12" md="3" className="mb-1">
                     <Label className="form-label" for="management_days">
-                      Días Gestión de Cobranza automática
+                      Días Gestión de Cobranza Automática
                       <span className="text-danger">*</span>
                     </Label>
                     <InputGroup>
@@ -321,6 +324,27 @@ const ConfigForm = () => {
                     <ErrorMessage
                       component="div"
                       name="management_days"
+                      className="text-danger"
+                    />
+                  </Col>
+                  <Col sm="12" md="3" className="mb-1">
+                    <Label className="form-label" for="punishment_days">
+                      Días Consideración Castigo Automático
+                      <span className="text-danger">*</span>
+                    </Label>
+                    <InputGroup>
+                      <Input
+                        type="number"
+                        name="punishment_days"
+                        id="punishment_days"
+                        placeholder="180 días"
+                        tag={Field}
+                      />
+                      <InputGroupText>Días</InputGroupText>
+                    </InputGroup>
+                    <ErrorMessage
+                      component="div"
+                      name="punishment_days"
                       className="text-danger"
                     />
                   </Col>

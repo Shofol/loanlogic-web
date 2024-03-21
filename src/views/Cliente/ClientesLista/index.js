@@ -272,7 +272,19 @@ const ClientesLista = () => {
                     />*/}
                   </th>
                   <th>
-                    <span>Editar</span>
+                    {data.length > 0 &&
+                      data.map((client, index) => {
+                        if (user.role == 'ADMIN' || user.role == 'SUPPORT-EXECUTIVE') {
+                          return (
+                            <span>Editar</span>
+                          );
+                        }
+                        else {
+                          return (
+                            <span>Pagar</span>
+                          );
+                        }
+                      })}
                   </th>
                 </tr>
               </thead>
@@ -333,20 +345,50 @@ const ClientesLista = () => {
 
                       return (
                         <tr
-                          key={client.id}
-                          onClick={() => navigate(`/clientes/${client.id}`)}
                           className="clickable-row"
                         >
-                          <td >{index + 1}</td>
-                          <td>{client.id}</td>
-                          <td>{client.name}</td>
-                          <td>{client.surname}</td>
-                          <td>{client.residence_address}</td>
-                          <td>{client.dpi_number}</td>
-                          <td>{client.residence_municipality}</td>
-                          <td>{client.department_of_residence}</td>
-                          <td>{client.phone_number}</td>
-                          <td></td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{index + 1}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.id}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.name}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.surname}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.residence_address}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.dpi_number}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.residence_municipality}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.department_of_residence}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/clientes/${client.id}`)}
+                          >{client.phone_number}</td>
+                          <td
+                            key={client.id}
+                            onClick={() => navigate(`/cuota-adelantada/${client.id}`)}
+                          >
+                            <Edit></Edit>
+                          </td>
                         </tr>
                       );
                     }

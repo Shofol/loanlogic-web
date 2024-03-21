@@ -75,11 +75,47 @@ const Amortization = () => {
               +next.discount_holidays_interest,
             discount_holidays_tax:
               prev.discount_holidays_tax + +next.discount_holidays_tax,
+            only_default: prev.only_default + +next.only_default,
+            default_interest_with_tax: prev.default_interest_with_tax + +next.default_interest_with_tax,
             cumulative_default_interest_with_tax: parseFloat(prev.cumulative_default_interest_with_tax) + +parseFloat(next.cumulative_default_interest_with_tax),
-            total_paid_amount: prev.total_paid_amount + +next.total_paid_amount,
-            total_pending_amount:
-              prev.total_pending_amount + +next.total_pending_amount,
+
+            default_amount: prev.default_amount + +next.default_amount,
+            default_interest: prev.default_interest + +next.default_interest,
+            default_interest_tax: prev.default_interest_tax + +next.default_interest_tax,
+
             total_tax: prev.total_tax + +next.total_tax,
+            paid_default_interest_with_tax: prev.paid_default_interest_with_tax + +next.paid_default_interest_with_tax,
+            advanced_installment: prev.advanced_installment + +next.advanced_installment,
+            collection_management_fee: prev.collection_management_fee + +next.collection_management_fee,
+            collection_management_tax: prev.collection_management_tax + +next.collection_management_tax,
+
+            paid_default_interest: prev.paid_default_interest + +next.paid_default_interest,
+            paid_default_interest_tax: prev.paid_default_interest_tax + +next.paid_default_interest_tax,
+            paid_default_amount: prev.paid_default_amount + +next.paid_default_amount,
+            paid_only_default: prev.paid_only_default + +next.paid_only_default,
+            paid_collection_management_fee: prev.paid_collection_management_fee + +next.paid_collection_management_fee,
+            paid_collection_management_without_tax: prev.paid_collection_management_without_tax + +next.paid_collection_management_without_tax,
+            paid_collection_management_tax: prev.paid_collection_management_tax + +next.paid_collection_management_tax,
+            paid_credit_interest_with_tax: prev.paid_credit_interest_with_tax + +next.paid_credit_interest_with_tax,
+            paid_credit_interest: prev.paid_credit_interest + +next.paid_credit_interest,
+            paid_credit_interest_tax: prev.paid_credit_interest_tax + +next.paid_credit_interest_tax,
+            paid_credit_capital: prev.paid_credit_capital + +next.paid_credit_capital,
+            paid_credit_interest_with_tax_from_cuota: prev.paid_credit_interest_with_tax_from_cuota + +next.paid_credit_interest_with_tax_from_cuota,
+            paid_credit_interest_from_cuota: prev.paid_credit_interest_from_cuota + +next.paid_credit_interest_from_cuota,
+            paid_credit_interest_tax_from_cuota: prev.paid_credit_interest_tax_from_cuota + +next.paid_credit_interest_tax_from_cuota,
+            paid_credit_capital_from_cuota: prev.paid_credit_capital_from_cuota + +next.paid_credit_capital_from_cuota,
+            paid_credit_interest_with_tax_from_default: prev.paid_credit_interest_with_tax_from_default + +next.paid_credit_interest_with_tax_from_default,
+            paid_credit_interest_from_default: prev.paid_credit_interest_from_default + +next.paid_credit_interest_from_default,
+            paid_credit_interest_tax_from_default: prev.paid_credit_interest_tax_from_default + +next.paid_credit_interest_tax_from_default,
+            paid_credit_capital_from_default: prev.paid_credit_capital_from_default + +next.paid_credit_capital_from_default,
+
+            paid_credit_interest_with_tax_from_advanced: prev.paid_credit_interest_with_tax_from_advanced + +next.paid_credit_interest_with_tax_from_advanced,
+            paid_credit_interest_from_advanced: prev.paid_credit_interest_from_advanced + +next.paid_credit_interest_from_advanced,
+            paid_credit_interest_tax_from_advanced: prev.paid_credit_interest_tax_from_advanced + +next.paid_credit_interest_tax_from_advanced,
+            paid_credit_capital_from_advanced: prev.paid_credit_capital_from_advanced + +next.paid_credit_capital_from_advanced,
+
+            paid_total_tax: prev.paid_total_tax + +next.paid_total_tax,
+
           };
         },
         {
@@ -98,10 +134,44 @@ const Amortization = () => {
           discount_holidays_capital: 0,
           discount_holidays_interest: 0,
           discount_holidays_tax: 0,
+          only_default: 0,
+          default_interest_with_tax: 0,
           cumulative_default_interest_with_tax: 0,
-          total_paid_amount: 0,
-          total_pending_amount: 0,
+
+          default_amount: 0,
+          default_interest: 0,
+          default_interest_tax: 0,
+
           total_tax: 0,
+          advanced_installment: 0,
+          collection_management_fee: 0,
+          collection_management_tax: 0,
+          paid_default_interest_with_tax: 0,
+          paid_default_interest: 0,
+          paid_default_interest_tax: 0,
+          paid_default_amount: 0,
+          paid_only_default: 0,
+          paid_collection_management_fee: 0,
+          paid_collection_management_without_tax: 0,
+          paid_collection_management_tax: 0,
+          paid_credit_interest_with_tax: 0,
+          paid_credit_interest: 0,
+          paid_credit_interest_tax: 0,
+          paid_credit_capital: 0,
+          paid_credit_interest_with_tax_from_cuota: 0,
+          paid_credit_interest_from_cuota: 0,
+          paid_credit_interest_tax_from_cuota: 0,
+          paid_credit_capital_from_cuota: 0,
+          paid_credit_interest_with_tax_from_default: 0,
+          paid_credit_interest_from_default: 0,
+          paid_credit_interest_tax_from_default: 0,
+          paid_credit_capital_from_default: 0,
+          paid_credit_interest_with_tax_from_advanced: 0,
+          paid_credit_interest_from_advanced: 0,
+          paid_credit_interest_tax_from_advanced: 0,
+          paid_credit_capital_from_advanced: 0,
+          paid_total_tax: 0,
+
         }
       )
     );
@@ -146,9 +216,10 @@ const Amortization = () => {
       key: "collection_management_fee",
     },
     { label: "IVA gestión cobranza", key: "collection_management_tax" },
-    { label: "Mora", key: "default_amount" },
+    { label: "Cuota Mora", key: "only_default" },
     { label: "Interés Mora + IVA", key: "default_interest_with_tax" },
     { label: "ACUMULADO Interés Mora + IVA", key: "cumulative_default_interest_with_tax" },
+    { label: "Mora Total", key: "default_amount" },
 
 
 
@@ -187,6 +258,27 @@ const Amortization = () => {
     { label: "PAGADO Interés Crédito sin IVA", key: "paid_credit_interest" },
     { label: "PAGADO IVA Interés Crédito", key: "paid_credit_interest_tax" },
     { label: "PAGADO Capital", key: "paid_credit_capital" },
+    {
+      label: "PAGADO DE CUOTA Interés Crédito con IVA",
+      key: "paid_credit_interest_with_tax_from_cuota",
+    },
+    { label: "PAGADO DE CUOTA Interés Crédito sin IVA", key: "paid_credit_interest_from_cuota" },
+    { label: "PAGADO DE CUOTA IVA Interés Crédito", key: "paid_credit_interest_tax_from_cuota" },
+    { label: "PAGADO DE CUOTA Capital", key: "paid_credit_capital_from_cuota" },
+    {
+      label: "PAGADO DE MORA Interés Crédito con IVA",
+      key: "paid_credit_interest_with_tax_from_default",
+    },
+    { label: "PAGADO DE MORA Interés Crédito sin IVA", key: "paid_credit_interest_from_default" },
+    { label: "PAGADO DE MORA IVA Interés Crédito", key: "paid_credit_interest_tax_from_default" },
+    { label: "PAGADO DE MORA Capital", key: "paid_credit_capital_from_default" },
+    {
+      label: "PAGADO DE AVANCE Interés Crédito con IVA",
+      key: "paid_credit_interest_with_tax_from_advanced",
+    },
+    { label: "PAGADO DE AVANCE Interés Crédito sin IVA", key: "paid_credit_interest_from_advanced" },
+    { label: "PAGADO DE AVANCE IVA Interés Crédito", key: "paid_credit_interest_tax_from_advanced" },
+    { label: "PAGADO DE AVANCE Capital", key: "paid_credit_capital_from_advanced" },
     { label: "PAGADO TOTAL IVA", key: "paid_total_tax" },
     { label: "ESTADO", key: "status" },
     { label: "Actualizado por usuario", key: "updatedBy" },
@@ -224,6 +316,7 @@ const Amortization = () => {
             default_amount: element?.default_amount,
             default_interest_with_tax: element?.default_interest_with_tax,
             cumulative_default_interest_with_tax: element?.cumulative_default_interest_with_tax,
+            only_default: element?.only_default,
             default_interest: element?.default_interest,
             default_interest_tax: element?.default_interest_tax,
             total_paid_amount: element?.total_paid_amount,
@@ -246,6 +339,25 @@ const Amortization = () => {
             paid_credit_interest: element?.paid_credit_interest,
             paid_credit_interest_tax: element?.paid_credit_interest_tax,
             paid_credit_capital: element?.paid_credit_capital,
+
+            paid_credit_interest_with_tax_from_cuota:
+              element?.paid_credit_interest_with_tax_from_cuota,
+            paid_credit_interest_from_cuota: element?.paid_credit_interest_from_cuota,
+            paid_credit_interest_tax_from_cuota: element?.paid_credit_interest_tax_from_cuota,
+            paid_credit_capital_from_cuota: element?.paid_credit_capital_from_cuota,
+
+            paid_credit_interest_with_tax_from_default:
+              element?.paid_credit_interest_with_tax_from_default,
+            paid_credit_interest_from_default: element?.paid_credit_interest_from_default,
+            paid_credit_interest_tax_from_default: element?.paid_credit_interest_tax_from_default,
+            paid_credit_capital_from_default: element?.paid_credit_capital_from_default,
+
+            paid_credit_interest_with_tax_from_advanced:
+              element?.paid_credit_interest_with_tax_from_advanced,
+            paid_credit_interest_from_advanced: element?.paid_credit_interest_from_advanced,
+            paid_credit_interest_tax_from_advanced: element?.paid_credit_interest_tax_from_advanced,
+            paid_credit_capital_from_advanced: element?.paid_credit_capital_from_advanced,
+
             paid_total_tax: element?.paid_total_tax,
             status: element?.status,
             updatedBy: element?.updatedBy,
@@ -427,7 +539,7 @@ const Amortization = () => {
             {collection &&
               collection.length > 0 &&
               collection
-                .sort((prev, next) => prev.id - next.id)
+                .sort((prev, next) => prev.no_of_installment - next.no_of_installment)
                 .map((debt) => {
                   return (
                     <tr key={debt.id}>
@@ -458,9 +570,10 @@ const Amortization = () => {
                       <td>{debt.advanced_installment}</td>
                       <td>{debt.collection_management_fee}</td>
                       <td>{debt.collection_management_tax}</td>
-                      <td>{debt.default_amount}</td>
+                      <td>{debt.only_default}</td>
                       <td>{debt.default_interest_with_tax}</td>
                       <td>{debt.cumulative_default_interest_with_tax}</td>
+                      <td>{debt.default_amount}</td>
                       <td>{debt.default_interest}</td>
                       <td>{debt.default_interest_tax}</td>
                       <td>{debt.total_paid_amount}</td>
@@ -474,12 +587,29 @@ const Amortization = () => {
                       <td>{debt.paid_collection_management_fee}</td>
                       <td>{debt.paid_collection_management_without_tax}</td>
                       <td>{debt.paid_collection_management_tax}</td>
+
                       <td>{debt.paid_credit_interest_with_tax}</td>
                       <td>{debt.paid_credit_interest}</td>
                       <td>{debt.paid_credit_interest_tax}</td>
                       <td>{debt.paid_credit_capital}</td>
+
+                      <td>{debt.paid_credit_interest_with_tax_from_cuota}</td>
+                      <td>{debt.paid_credit_interest_from_cuota}</td>
+                      <td>{debt.paid_credit_interest_tax_from_cuota}</td>
+                      <td>{debt.paid_credit_capital_from_cuota}</td>
+
+                      <td>{debt.paid_credit_interest_with_tax_from_default}</td>
+                      <td>{debt.paid_credit_interest_from_default}</td>
+                      <td>{debt.paid_credit_interest_tax_from_default}</td>
+                      <td>{debt.paid_credit_capital_from_default}</td>
+
+                      <td>{debt.paid_credit_interest_with_tax_from_advanced}</td>
+                      <td>{debt.paid_credit_interest_from_advanced}</td>
+                      <td>{debt.paid_credit_interest_tax_from_advanced}</td>
+                      <td>{debt.paid_credit_capital_from_advanced}</td>
+
                       <td>{debt.paid_total_tax}</td>
-                      <td>{debt.status == "PAID" ? "PAGADO": (debt.status == "PENDING" ? "PENDIENTE" : (debt.status == "PARTIALLY_PAID" ? "PAGO PARCIAL" : "IMPAGO"))}</td>
+                      <td>{debt.status == "PAID" ? "PAGADO" : (debt.status == "PENDING" ? "PENDIENTE" : (debt.status == "PARTIALLY_PAID" ? "PAGO PARCIAL" : "IMPAGO"))}</td>
                       <td>{debt.updatedBy}</td>
                     </tr>
                   );
@@ -507,17 +637,48 @@ const Amortization = () => {
                 <td>{totalValue.discount_holidays_capital.toFixed(2)}</td>
                 <td>{totalValue.discount_holidays_interest.toFixed(2)}</td>
                 <td>{totalValue.discount_holidays_tax.toFixed(2)}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{totalValue.advanced_installment.toFixed(2)}</td>
+                <td>{totalValue.collection_management_fee.toFixed(2)}</td>
+                <td>{totalValue.collection_management_tax.toFixed(2)}</td>
+                <td>{totalValue.only_default.toFixed(2)}</td>
+                <td>{totalValue.default_interest_with_tax.toFixed(2)}</td>
                 <td>{totalValue.cumulative_default_interest_with_tax.toFixed(2)}</td>
+
+                <td>{totalValue.default_amount.toFixed(2)}</td>
+                <td>{totalValue.default_interest.toFixed(2)}</td>
+                <td>{totalValue.default_interest_tax.toFixed(2)}</td>
+
                 <td>-</td>
                 <td>-</td>
-                <td>{totalValue.total_paid_amount.toFixed(2)}</td>
-                <td>{totalValue.total_pending_amount.toFixed(2)}</td>
+
                 <td>{totalValue.total_tax.toFixed(2)}</td>
+
+                <td>{totalValue.paid_default_interest_with_tax.toFixed(2)}</td>
+                <td>{totalValue.paid_default_interest.toFixed(2)}</td>
+                <td>{totalValue.paid_default_interest_tax.toFixed(2)}</td>
+                <td>{totalValue.paid_default_amount.toFixed(2)}</td>
+                <td>{totalValue.paid_only_default.toFixed(2)}</td>
+                <td>{totalValue.paid_collection_management_fee.toFixed(2)}</td>
+                <td>{totalValue.paid_collection_management_without_tax.toFixed(2)}</td>
+                <td>{totalValue.paid_collection_management_tax.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_with_tax.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_tax.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_capital.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_with_tax_from_cuota.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_from_cuota.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_tax_from_cuota.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_capital_from_cuota.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_with_tax_from_default.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_from_default.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_tax_from_default.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_capital_from_default.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_with_tax_from_advanced.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_from_advanced.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_interest_tax_from_advanced.toFixed(2)}</td>
+                <td>{totalValue.paid_credit_capital_from_advanced.toFixed(2)}</td>
+                <td>{totalValue.paid_total_tax.toFixed(2)}</td>
+                <td>-</td>
                 <td>-</td>
               </tr>
             </tfoot>
