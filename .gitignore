@@ -2,6 +2,7 @@
 
 # ENV CONFIG
 /src/@core/api/config.js
+.env
 
 # dependencies
 /node_modules

@@ -98,8 +98,9 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
+    "start": "vite --mode localhost",
+    "build:production": "vite build --mode production",
+    "build:testing": "vite build --mode testing",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.js\"",
     "lint": "eslint src/**/*.js src/**/*.js",
