@@ -1,8 +1,8 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { baseURL } from "./config";
+
 const api = axios.create({
-  baseURL: baseURL
+  baseURL: import.meta.env.VITE_REACT_APP_BASE_URL
 });
 
 let showNotFoundError = true;
