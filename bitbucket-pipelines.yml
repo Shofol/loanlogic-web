@@ -10,12 +10,6 @@ pipelines:
           - npm run build:testing
   branches:
     testing:
-      #- step:
-      #    name: Build .env source file
-      #    script:
-      #      - echo export BASE_URL="https://testing-api.alchilazo.com.gt/api/" > build.env
-      #    artifacts:
-      #      - build.env
       - step:
           name: Build and test the app
           image: node:20.8.1

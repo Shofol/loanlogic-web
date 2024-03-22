@@ -12,14 +12,16 @@ const UserProvider = ({ children }) => {
   //** ComponentDidMount
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    let updatedAgencies = [];
-    user.agency.map((ag) => {
-      updatedAgencies = [
-        ...updatedAgencies,
-        agenciasValues.filter((agency) => agency.value === ag)[0]
-      ];
-    });
-    user.agency = updatedAgencies;
+    if (user) {
+      let updatedAgencies = [];
+      user.agency.map((ag) => {
+        updatedAgencies = [
+          ...updatedAgencies,
+          agenciasValues.filter((agency) => agency.value === ag)[0]
+        ];
+      });
+      user.agency = updatedAgencies;
+    }
     setUser(user);
   }, []);
 
