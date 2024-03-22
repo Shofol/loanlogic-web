@@ -45,7 +45,7 @@ pipelines:
           image: node:20.8.1
           script:
             - npm install --legacy-peer-deps
-            - - npm run build:production
+            - npm run build:production
           artifacts:
             - dist/**
       - step:
