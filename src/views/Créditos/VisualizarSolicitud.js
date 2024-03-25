@@ -42,24 +42,24 @@ const VisualizarSolicitud = () => {
   const [guarantee, setGuarantee] = useState(null);
   const [validationData, setValidationData] = useState(null);
 
-  function transCivilStatus (string){
+  function transCivilStatus(string) {
     let translation = string;
 
     var result = maritialStatus.filter(obj => {
       return obj.value === string
     })
 
-    if(result && result[0]){ translation = result[0].label}
+    if (result && result[0]) { translation = result[0].label }
     return translation;
   }
-  function transSex (string){
+  function transSex(string) {
     let translation = string;
 
     var result = sexValues.filter(obj => {
       return obj.value === string
     })
 
-    if(result && result[0]){ translation = result[0].label}
+    if (result && result[0]) { translation = result[0].label }
     return translation;
   }
 
@@ -354,6 +354,28 @@ const VisualizarSolicitud = () => {
                     );
                   })}
                 </div>
+                <Row className="mt-3">
+                <Col md="4" className="d-flex align-items-center gap-2">
+                  <p>
+                    Coordenadas GPS: Direción de la solicitud
+                  </p>
+                </Col>
+                <Col md="6" className="d-flex align-items-center gap-2">
+                  {data?.application_latitude ? (
+                    <a
+                      className="text-green"
+                      target="_blank"
+                      href={`https://www.google.com/maps/place/${data?.application_latitude},${data?.application_longitude}`}
+                    >
+                      Latitud: {data?.application_latitude} <br />
+                      Longitud: {data?.application_longitude}
+                    </a>
+                  ) : (
+                    "Sin coordenadas GPS"
+                  )}
+
+                </Col>
+              </Row>
               </CardBody>
             )}
           </Card>
@@ -543,7 +565,7 @@ const VisualizarSolicitud = () => {
                     name="civil_status"
                     id="civil_status"
                     placeholder="Estado civil"
-                    defaultValue={data ? transCivilStatus(data.client.civil_status):''}
+                    defaultValue={data ? transCivilStatus(data.client.civil_status) : ''}
                   />
                 </Col>
 
@@ -557,7 +579,7 @@ const VisualizarSolicitud = () => {
                     name="sex"
                     id="sex"
                     placeholder="Sexo"
-                    defaultValue={data ? transSex(data.client.sex) :''}
+                    defaultValue={data ? transSex(data.client.sex) : ''}
                   />
                 </Col>
 
@@ -586,6 +608,28 @@ const VisualizarSolicitud = () => {
                   {data && (
                     <FileListViewer file={data?.client.photos_of_bills} />
                   )}
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col md="4" className="d-flex align-items-center gap-2">
+                  <p>
+                    Coordenadas GPS: Direción de residencia
+                  </p>
+                </Col>
+                <Col md="6" className="d-flex align-items-center gap-2">
+                  {data?.client.residence_latitude ? (
+                    <a
+                      className="text-green"
+                      target="_blank"
+                      href={`https://www.google.com/maps/place/${data?.client.residence_latitude},${data?.client.residence_longitude}`}
+                    >
+                      Latitud: {data?.client.residence_latitude} <br />
+                      Longitud: {data?.client.residence_longitude}
+                    </a>
+                  ) : (
+                    "Sin coordenadas GPS"
+                  )}
+
                 </Col>
               </Row>
             </CardBody>
@@ -658,8 +702,8 @@ const VisualizarSolicitud = () => {
                     defaultValue={
                       data
                         ? getConvertDateWithTimeZone(
-                            data?.client.expiration_date
-                          )
+                          data?.client.expiration_date
+                        )
                         : null
                     }
                   />
@@ -909,6 +953,28 @@ const VisualizarSolicitud = () => {
                   />
                 </Col>
               </Row>
+              <Row className="mt-3">
+                <Col md="4" className="d-flex align-items-center gap-2">
+                  <p>
+                    Coordenadas GPS: Direción del trabajo
+                  </p>
+                </Col>
+                <Col md="6" className="d-flex align-items-center gap-2">
+                  {data?.client.work_latitude ? (
+                    <a
+                      className="text-green"
+                      target="_blank"
+                      href={`https://www.google.com/maps/place/${data?.client.work_latitude},${data?.client.work_longitude}`}
+                    >
+                      Latitud: {data?.client.work_latitude} <br />
+                      Longitud: {data?.client.work_longitude}
+                    </a>
+                  ) : (
+                    "Sin coordenadas GPS"
+                  )}
+
+                </Col>
+              </Row>
             </CardBody>
           </Card>
 
@@ -1026,6 +1092,28 @@ const VisualizarSolicitud = () => {
                     defaultValue={data?.client.business_phone}
                     placeholder="Teléfono del negocio"
                   />
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col md="4" className="d-flex align-items-center gap-2">
+                  <p>
+                    Coordenadas GPS: Direción del negocio propio
+                  </p>
+                </Col>
+                <Col md="6" className="d-flex align-items-center gap-2">
+                  {data?.client.business_latitude ? (
+                    <a
+                      className="text-green"
+                      target="_blank"
+                      href={`https://www.google.com/maps/place/${data?.client.business_latitude},${data?.client.business_longitude}`}
+                    >
+                      Latitud: {data?.client.business_latitude} <br />
+                      Longitud: {data?.client.business_longitude}
+                    </a>
+                  ) : (
+                    "Sin coordenadas GPS"
+                  )}
+
                 </Col>
               </Row>
             </CardBody>
