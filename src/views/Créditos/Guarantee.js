@@ -90,6 +90,28 @@ const Guarantee = ({ guarantee }) => {
               </div>
             </Col>
           </Row>
+          <Row className="mt-3">
+                <Col md="4" className="d-flex align-items-center gap-2">
+                  <p>
+                    Coordenadas GPS: Direción formulario garantía
+                  </p>
+                </Col>
+                <Col md="6" className="d-flex align-items-center gap-2">
+                  {guarantee?.guaranty_latitude ? (
+                    <a
+                      className="text-green"
+                      target="_blank"
+                      href={`https://www.google.com/maps/place/${guarantee?.guaranty_latitude},${guarantee?.guaranty_longitude}`}
+                    >
+                      Latitud: {guarantee?.guaranty_latitude} <br />
+                      Longitud: {guarantee?.guaranty_longitude}
+                    </a>
+                  ) : (
+                    "Sin coordenadas GPS"
+                  )}
+
+                </Col>
+              </Row>
         </Form>
       </CardBody>
     </Card>

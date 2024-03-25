@@ -343,6 +343,29 @@ const CreditValidation = ({ validation }) => {
               </div>
             </Col>
           </Row>
+          <Row className="mt-3">
+                <Col md="6" className="d-flex align-items-center gap-2">
+                  <p>
+                    Coordenadas GPS: Direción formulario validación del crédito
+                  </p>
+                </Col>
+                <Col md="4" className="d-flex align-items-center gap-2">
+                  {validation?.validation_latitude ? (
+                    <a
+                      className="text-green"
+                      target="_blank"
+                      href={`https://www.google.com/maps/place/${validation?.validation_latitude},${validation?.validation_longitude}`}
+                    >
+                      Latitud: {validation?.validation_latitude} <br />
+                      Longitud: {validation?.validation_longitude}
+                    </a>
+                  ) : (
+                    "Sin coordenadas GPS"
+                  )}
+
+                </Col>
+              </Row>
+
         </Form>
 
         {/* <Row>
