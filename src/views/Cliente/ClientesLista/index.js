@@ -273,18 +273,11 @@ const ClientesLista = () => {
                   </th>
                   <th>
                     {data.length > 0 &&
-                      data.map((client, index) => {
-                        if (user.role == 'ADMIN' || user.role == 'SUPPORT-EXECUTIVE') {
-                          return (
-                            <span>Editar</span>
-                          );
-                        }
-                        else {
-                          return (
-                            <span>Pagar</span>
-                          );
-                        }
-                      })}
+                      (user.role === 'ADMIN' || user.role === 'SUPPORT-EXECUTIVE' ? (
+                        <span>Editar</span>
+                      ) : (
+                        <span>Pagar</span>
+                      ))}
                   </th>
                 </tr>
               </thead>
