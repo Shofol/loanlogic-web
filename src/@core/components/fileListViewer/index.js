@@ -9,7 +9,7 @@ const FileListViewer = ({ file }) => {
   return (
     <>
       {file.map((photo, index) => {
-        const isImage = photo.includes("png") || photo.includes("jpg");
+        const isImage = photo.includes("png") || photo.includes("jpg") || photo.includes("New%20File");
         return (
           <div key={index}>
             {isImage && (
