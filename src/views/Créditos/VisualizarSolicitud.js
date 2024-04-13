@@ -217,28 +217,96 @@ const VisualizarSolicitud = () => {
                   ¿Qué producto desea?
                 </p>
                 <div className="d-flex">
-                  {paymentMethods.map((method) => {
-                    return (
-                      <div
-                        key={method.value}
-                        className="form-check mb-sm-2 mb-md-1 me-md-2"
-                      >
-                        <Input
-                          disabled
-                          type="radio"
-                          id={method.value}
-                          name="loan_payment_time"
-                          checked={data.loan_payment_time === method.value}
-                        />
-                        <Label
-                          className="form-check-label"
-                          htmlFor={method.value}
-                        >
-                          {method.label}
-                        </Label>
-                      </div>
-                    );
-                  })}
+                  <div
+                    key='Diario'
+                    className="form-check mb-sm-2 mb-md-1 me-md-2"
+                  >
+                    <Input
+                      disabled
+                      type="radio"
+                      id="daily_frequency"
+                      name="daily_frequency"
+                      checked={data?.product?.frequency === 'DAILY'}
+                    />
+                    <Label
+                      className="form-check-label"
+                      htmlFor='Diario'
+                    >
+                      Diario
+                    </Label>
+                  </div>
+                  <div
+                    key='Semanal'
+                    className="form-check mb-sm-2 mb-md-1 me-md-2"
+                  >
+                    <Input
+                      disabled
+                      type="radio"
+                      id="weekly_frequency"
+                      name="weekly_frequency"
+                      checked={data?.product?.frequency === 'WEEKLY'}
+                    />
+                    <Label
+                      className="form-check-label"
+                      htmlFor='Semanal'
+                    >
+                      Semanal
+                    </Label>
+                  </div>
+                  <div
+                    key='Quincenal'
+                    className="form-check mb-sm-2 mb-md-1 me-md-2"
+                  >
+                    <Input
+                      disabled
+                      type="radio"
+                      id="biweekly_frequency"
+                      name="biweekly_frequency"
+                      checked={data?.product?.frequency === 'BIWEEKLY'}
+                    />
+                    <Label
+                      className="form-check-label"
+                      htmlFor='Quincenal'
+                    >
+                      Quincenal
+                    </Label>
+                  </div>
+                  <div
+                    key='Catorcenal'
+                    className="form-check mb-sm-2 mb-md-1 me-md-2"
+                  >
+                    <Input
+                      disabled
+                      type="radio"
+                      id="fortnightly_frequency"
+                      name="fortnightly_frequency"
+                      checked={data?.product?.frequency === 'FORTNIGHTLY'}
+                    />
+                    <Label
+                      className="form-check-label"
+                      htmlFor='Catorcenal'
+                    >
+                      Catorcenal
+                    </Label>
+                  </div>
+                  <div
+                    key='Mensual'
+                    className="form-check mb-sm-2 mb-md-1 me-md-2"
+                  >
+                    <Input
+                      disabled
+                      type="radio"
+                      id="monthly_frequency"
+                      name="monthly_frequency"
+                      checked={data?.product?.frequency === 'MONTHLY'}
+                    />
+                    <Label
+                      className="form-check-label"
+                      htmlFor='Mensual'
+                    >
+                      Mensual (fin de mes)
+                    </Label>
+                  </div>
                 </div>
                 <Row className="mt-2">
                   <Col md="4">
@@ -355,27 +423,27 @@ const VisualizarSolicitud = () => {
                   })}
                 </div>
                 <Row className="mt-3">
-                <Col md="4" className="d-flex align-items-center gap-2">
-                  <p>
-                    Coordenadas GPS: Direción de la solicitud
-                  </p>
-                </Col>
-                <Col md="6" className="d-flex align-items-center gap-2">
-                  {data?.application_latitude ? (
-                    <a
-                      className="text-green"
-                      target="_blank"
-                      href={`https://www.google.com/maps/place/${data?.application_latitude},${data?.application_longitude}`}
-                    >
-                      Latitud: {data?.application_latitude} <br />
-                      Longitud: {data?.application_longitude}
-                    </a>
-                  ) : (
-                    "Sin coordenadas GPS"
-                  )}
+                  <Col md="4" className="d-flex align-items-center gap-2">
+                    <p>
+                      Coordenadas GPS: Direción de la solicitud
+                    </p>
+                  </Col>
+                  <Col md="6" className="d-flex align-items-center gap-2">
+                    {data?.application_latitude ? (
+                      <a
+                        className="text-green"
+                        target="_blank"
+                        href={`https://www.google.com/maps/place/${data?.application_latitude},${data?.application_longitude}`}
+                      >
+                        Latitud: {data?.application_latitude} <br />
+                        Longitud: {data?.application_longitude}
+                      </a>
+                    ) : (
+                      "Sin coordenadas GPS"
+                    )}
 
-                </Col>
-              </Row>
+                  </Col>
+                </Row>
               </CardBody>
             )}
           </Card>
