@@ -51,24 +51,24 @@ const Guarantee = ({ guarantee }) => {
 
           <Row className="mt-1">
             <Col sm="6">
-              <Label className="form-label">Modelo</Label>
+              <Label className="form-label">Marca</Label>
               <Input
                 type="text"
                 name="model"
                 id="model"
-                placeholder="Modelo"
+                placeholder="Marca"
                 defaultValue={guarantee?.model}
                 disabled
               />
             </Col>
 
             <Col sm="6">
-              <Label className="form-label">Número de série</Label>
+              <Label className="form-label">Número de serie</Label>
               <Input
                 type="text"
                 name="serial_number"
                 id="serial_number"
-                placeholder="Número de série"
+                placeholder="Número de serie"
                 defaultValue={guarantee?.serial_number}
                 disabled
               />
