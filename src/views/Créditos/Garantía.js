@@ -140,23 +140,23 @@ const Garantía = () => {
 
               <Row className="mt-1">
                 <Col sm="6">
-                  <Label className="form-label">Modelo</Label>
+                  <Label className="form-label">Marca</Label>
                   <Input
                     type="text"
                     name="model"
                     id="model"
-                    placeholder="Modelo"
+                    placeholder="Marca"
                     tag={Field}
                   />
                 </Col>
 
                 <Col sm="6">
-                  <Label className="form-label">Número de série</Label>
+                  <Label className="form-label">Número de serie</Label>
                   <Input
                     type="text"
                     name="serial_number"
                     id="serial_number"
-                    placeholder="Número de série"
+                    placeholder="Número de serie"
                     tag={Field}
                   />
                 </Col>
