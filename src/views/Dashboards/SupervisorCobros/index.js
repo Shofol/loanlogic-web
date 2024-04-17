@@ -7,6 +7,8 @@ import MoraStat from "../Stats/Mora";
 import Colocacion from "../Stats/Colocacion";
 import DesgloseRecuperación from "../Stats/DesgloseRecuperación";
 import MoraPorAgente from "../Stats/MoraPorAgente";
+import ValidaciónCréditosMontosElevados from "../Secciones/validaciónCréditosMontosElevados";
+
 
 const SupervisorCobros = () => {
   const { colors } = useContext(ThemeColors);
@@ -30,6 +32,10 @@ const SupervisorCobros = () => {
           <DesgloseRecuperación />
         </Col>
       </Row>
+
+      <Card className="my-2 p-2">
+        <ValidaciónCréditosMontosElevados />
+      </Card>
 
       <Card className="my-2 p-2">
         <AsignarGestorCobranza />
