@@ -33,6 +33,7 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
   const mapFormValues = () => {
     return {
       business_name: data ? data.business_name : "",
+      business_description: data ? data.business_description : "",
       start_date: data ? data.start_date : null,
       nit5: data ? data.nit5 : "",
       monthly_sales: data ? data.monthly_sales : "",
@@ -66,6 +67,9 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
 
             if (!values.business_name) {
               errors.business_name = requiredMsg;
+            }
+            if (!values.business_description) {
+              errors.business_description = requiredMsg;
             }
             if (!values.start_date) {
               errors.start_date = requiredMsg;
@@ -119,6 +123,24 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                 </Col>
 
                 <Col sm="3" className="mt-1">
+                  <Label className="form-label" for="business_description">
+                    Giro de negocio<span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="business_description"
+                    id="business_description"
+                    placeholder="Giro de negocio"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="business_description"
+                    className="text-danger"
+                  />
+                </Col>
+
+                <Col sm="3" className="mt-1">
                   <Label className="form-label" for="start_date">
                     Fecha de inicio<span className="text-danger">*</span>
                   </Label>
@@ -164,6 +186,10 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                   />
                 </Col>
 
+
+              </Row>
+
+              <Row className="mt-1">
                 <Col sm="3" className="mt-1">
                   <Label className="form-label" for="monthly_sales">
                     Ventas mensuales
@@ -179,9 +205,6 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                     <InputGroupText>Q</InputGroupText>
                   </InputGroup>
                 </Col>
-              </Row>
-
-              <Row className="mt-1">
                 <Col sm="3" className="mt-1">
                   <Label className="form-label" for="monthly_expenses5">
                     Gastos mensuales
