@@ -199,6 +199,24 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                 </Col>
 
                 <Col sm="3" className="mt-1">
+                  <Label className="form-label" for="business_phone">
+                    Teléfono del negocio<span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="number"
+                    name="business_phone"
+                    id="business_phone"
+                    placeholder="Teléfono del negocio"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="business_phone"
+                    className="text-danger"
+                  />
+                </Col>
+
+                <Col sm="3" className="mt-1">
                   <Label className="form-label" for="business_address">
                     Dirección del negocio<span className="text-danger">*</span>
                   </Label>
@@ -282,23 +300,7 @@ const NegocioPropio = ({ stepper, onSubmit, data }) => {
                   />
                 </Col>
 
-                <Col sm="3" className="mt-1">
-                  <Label className="form-label" for="business_phone">
-                    Teléfono del negocio<span className="text-danger">*</span>
-                  </Label>
-                  <Input
-                    type="number"
-                    name="business_phone"
-                    id="business_phone"
-                    placeholder="Teléfono del negocio"
-                    tag={Field}
-                  />
-                  <ErrorMessage
-                    component="div"
-                    name="business_phone"
-                    className="text-danger"
-                  />
-                </Col>
+
               </Row>
               <div className="d-flex justify-content-end mt-2">
                 <Button
