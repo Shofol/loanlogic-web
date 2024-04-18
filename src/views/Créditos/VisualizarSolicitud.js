@@ -1067,6 +1067,20 @@ const VisualizarSolicitud = () => {
                 </Col>
 
                 <Col sm="3">
+                  <Label className="form-label" for="business_description">
+                  Giro de negocio
+                  </Label>
+                  <Input
+                    disabled
+                    type="text"
+                    name="business_description"
+                    id="business_description"
+                    defaultValue={data?.client.business_description}
+                    placeholder="Giro de negocio"
+                  />
+                </Col>
+
+                <Col sm="3">
                   <Label className="form-label" for="start_date">
                     Fecha de inicio
                   </Label>
@@ -1098,7 +1112,11 @@ const VisualizarSolicitud = () => {
                   />
                 </Col>
 
-                <Col sm="3">
+              </Row>
+
+              <Row className="mt-1">
+
+              <Col sm="3">
                   <Label className="form-label" for="monthly_sales">
                     Ventas mensuales
                   </Label>
@@ -1114,9 +1132,7 @@ const VisualizarSolicitud = () => {
                     <InputGroupText>Q</InputGroupText>
                   </InputGroup>
                 </Col>
-              </Row>
-
-              <Row className="mt-1">
+                
                 <Col sm="3">
                   <Label className="form-label" for="monthly_expenses5">
                     Gastos mensuales
@@ -1147,7 +1163,7 @@ const VisualizarSolicitud = () => {
                     placeholder="Teléfono del negocio"
                   />
                 </Col>
-                
+
                 <Col sm="3">
                   <Label className="form-label" for="business_address">
                     Dirección del negocio
