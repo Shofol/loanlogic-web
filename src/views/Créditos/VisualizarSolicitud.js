@@ -1135,6 +1135,20 @@ const VisualizarSolicitud = () => {
                 </Col>
 
                 <Col sm="3">
+                  <Label className="form-label" for="business_phone">
+                    Teléfono del negocio
+                  </Label>
+                  <Input
+                    disabled
+                    type="text"
+                    name="business_phone"
+                    id="business_phone"
+                    defaultValue={data?.client.business_phone}
+                    placeholder="Teléfono del negocio"
+                  />
+                </Col>
+                
+                <Col sm="3">
                   <Label className="form-label" for="business_address">
                     Dirección del negocio
                   </Label>
@@ -1148,19 +1162,7 @@ const VisualizarSolicitud = () => {
                   />
                 </Col>
 
-                <Col sm="3">
-                  <Label className="form-label" for="business_phone">
-                    Teléfono del negocio
-                  </Label>
-                  <Input
-                    disabled
-                    type="text"
-                    name="business_phone"
-                    id="business_phone"
-                    defaultValue={data?.client.business_phone}
-                    placeholder="Teléfono del negocio"
-                  />
-                </Col>
+                
               </Row>
               <Row className="mt-3">
                 <Col md="4" className="d-flex align-items-center gap-2">
