@@ -74,6 +74,22 @@ const Desembolso = () => {
           >
             <strong>Núm. Crédito:</strong> {` ${data?.credit.id}`}
           </CardSubtitle>
+          {data?.credit && data?.credit.application && data?.credit.application?.pdf && (
+            <Button
+              color="success"
+              className="btn-sm position-absolute"
+              style={{ top: "20px", right: "20px" }}
+            >
+              <a
+                className="text-white"
+                target="_blank"
+                href={data.credit.application.pdf}
+                download={`${data?.client.name}_${data?.id}`}
+              >
+                Descargar PAGARÉ
+              </a>
+            </Button>
+          )}
           <hr />
           <Row>
             <Col sm="12" md="6">
@@ -233,7 +249,7 @@ const Desembolso = () => {
                         Imprimir ticket
                       </span>
                     </Button.Ripple>
-                    
+
                     <Button.Ripple
                       className="timeline"
                       color="danger"
