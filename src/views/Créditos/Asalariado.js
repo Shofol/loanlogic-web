@@ -137,7 +137,7 @@ const Asalariado = ({ stepper, onSubmit, data }) => {
 
                 <Col sm="3" className="mt-1">
                   <Label className="form-label" for="entry_date">
-                    Fecha de ingreo<span className="text-danger">*</span>
+                    Fecha de ingreso<span className="text-danger">*</span>
                   </Label>
 
                   <Flatpickr
