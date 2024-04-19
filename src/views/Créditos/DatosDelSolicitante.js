@@ -129,7 +129,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
               errors.birth_date = requiredMsg;
             }
             if (!values.sex) {
-              errors.birth_date = requiredMsg;
+              errors.sex = requiredMsg;
             }
             if (!values.civil_status) {
               errors.civil_status = requiredMsg;
@@ -388,7 +388,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                 </Col>
                 <Col sm="3">
                   <Label className="form-label" for="birth_date">
-                    Fecha de nacimiento<span className="text-danger">*</span>
+                    Fecha de nacimiento: {values?.birth_date}<span className="text-danger">*</span>
                   </Label>
                   <Flatpickr
                     id="hf-picker"
@@ -400,11 +400,10 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                     options={{
                       locale: Spanish,
                       altInput: true,
+                      disabled: values.birth_date ? true : false,
                       altFormat: "j F Y",
                       dateFormat: "Y-m-d",
-                      defaultDate: values.birth_date
-                        ? new Date(values?.birth_date.split("T")[0])
-                        : null
+                      defaultDate: data?.birth_date ? new Date(data.birth_date): null
                     }}
                   />
                   <ErrorMessage
@@ -543,7 +542,7 @@ const DatosDelSolicitante = ({ stepper, onSubmit, data }) => {
                   type="submit"
                   color="primary"
                   className="btn-next"
-                  // onClick={onSubmit}
+                // onClick={onSubmit}
                 >
                   <span className="align-middle d-sm-inline-block d-none">
                     Siguiente

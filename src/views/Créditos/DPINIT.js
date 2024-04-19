@@ -52,7 +52,7 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
       place_of_birth_region: data ? data.place_of_birth_region : "",
       neighborhood_city: data ? data.neighborhood_city : "",
       neighborhood_region: data ? data.neighborhood_region : "",
-      expiration_date: data ? data.expiration_date : null,
+      expiration_date: null, //data ? data.expiration_date : null,
       photos_of_the_dpi: [],
       nit: data ? data.nit : "",
       is_have_credit: "",
@@ -244,9 +244,9 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
                       altInput: true,
                       altFormat: "j F Y",
                       dateFormat: "Y-m-d",
-                      defaultDate: values.expiration_date
+                      /*defaultDate: values.expiration_date
                         ? new Date(values?.expiration_date.split("T")[0])
-                        : null
+                        : null*/
                     }}
                   />
                   <ErrorMessage
