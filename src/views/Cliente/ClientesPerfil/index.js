@@ -248,7 +248,7 @@ const ClientesPerfil = () => {
             </tr>
           </thead>
           <tbody>
-            {data &&
+            {data && data.photos_of_the_dpi &&
               (data.photos_of_the_dpi).length > 0 &&
               data.photos_of_the_dpi.map((item, index) => {
                 return (
@@ -281,7 +281,7 @@ const ClientesPerfil = () => {
             </tr>
           </thead>
           <tbody>
-            {data &&
+            {data && data.photos_of_bills &&
               (data.photos_of_bills).length > 0 &&
               data.photos_of_bills.map((item, index) => {
                 return (
