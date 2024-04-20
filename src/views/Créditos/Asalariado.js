@@ -36,7 +36,6 @@ const Asalariado = ({ stepper, onSubmit, data }) => {
       position: data ? data.position : "",
       monthly_income: data ? data.monthly_income : "",
       monthly_expenses: data ? data.monthly_expenses : "",
-      date_and_number_of_income: data ? data.date_and_number_of_income : "",
       immediate_boss_name: data ? data.immediate_boss_name : "",
       work_address: data ? data.work_address : "",
       work_department: data ? data.work_department : "",
@@ -85,9 +84,6 @@ const Asalariado = ({ stepper, onSubmit, data }) => {
             }
             if (!values.work_address) {
               errors.work_address = requiredMsg;
-            }
-            if (!values.date_and_number_of_income) {
-              errors.date_and_number_of_income = requiredMsg;
             }
             if (!values.work_phone) {
               errors.work_phone = requiredMsg;
@@ -224,25 +220,6 @@ const Asalariado = ({ stepper, onSubmit, data }) => {
                 </Col>
 
                 <Col sm="3" className="mt-1">
-                  <Label className="form-label" for="date_and_number_of_income">
-                    Fecha y número de ingresos{" "}
-                    <span className="text-danger">*</span>
-                  </Label>
-                  <Input
-                    type="text"
-                    name="date_and_number_of_income"
-                    id="date_and_number_of_income"
-                    placeholder="Fecha y número de ingresos"
-                    tag={Field}
-                  />
-                  <ErrorMessage
-                    component="div"
-                    name="date_and_number_of_income"
-                    className="text-danger"
-                  />
-                </Col>
-
-                <Col sm="3" className="mt-1">
                   <Label className="form-label" for="immediate_boss_name">
                     Nombre del jefe inmediato
                     <span className="text-danger">*</span>
@@ -257,6 +234,25 @@ const Asalariado = ({ stepper, onSubmit, data }) => {
                   <ErrorMessage
                     component="div"
                     name="immediate_boss_name"
+                    className="text-danger"
+                  />
+                </Col>
+
+
+                <Col sm="3" className="mt-1">
+                  <Label className="form-label" for="work_phone">
+                    Teléfono del trabajo<span className="text-danger">*</span>
+                  </Label>
+                  <Input
+                    type="number"
+                    name="work_phone"
+                    id="work_phone"
+                    placeholder="Teléfono del trabajo"
+                    tag={Field}
+                  />
+                  <ErrorMessage
+                    component="div"
+                    name="work_phone"
                     className="text-danger"
                   />
                 </Col>
@@ -364,23 +360,7 @@ const Asalariado = ({ stepper, onSubmit, data }) => {
                   />
                 </Col> */}
 
-                <Col sm="3" className="mt-1">
-                  <Label className="form-label" for="work_phone">
-                    Teléfono del trabajo<span className="text-danger">*</span>
-                  </Label>
-                  <Input
-                    type="number"
-                    name="work_phone"
-                    id="work_phone"
-                    placeholder="Teléfono del trabajo"
-                    tag={Field}
-                  />
-                  <ErrorMessage
-                    component="div"
-                    name="work_phone"
-                    className="text-danger"
-                  />
-                </Col>
+                
               </Row>
               <div className="d-flex justify-content-end mt-2">
                 <Button

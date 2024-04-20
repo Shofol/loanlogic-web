@@ -950,20 +950,6 @@ const VisualizarSolicitud = () => {
                 </Col>
 
                 <Col sm="3">
-                  <Label className="form-label" for="date_and_number_of_income">
-                    Fecha y número de ingresos
-                  </Label>
-                  <Input
-                    disabled
-                    type="text"
-                    name="date_and_number_of_income"
-                    id="date_and_number_of_income"
-                    defaultValue={data?.client.date_and_number_of_income}
-                    placeholder="Fecha y número de ingresos"
-                  />
-                </Col>
-
-                <Col sm="3">
                   <Label className="form-label" for="immediate_boss_name">
                     Nombre del jefe inmediato
                   </Label>
@@ -990,6 +976,20 @@ const VisualizarSolicitud = () => {
                     placeholder="Dirección del trabajo"
                   />
                 </Col>
+
+                <Col sm="3">
+                  <Label className="form-label" for="work_phone">
+                    Teléfono del trabajo
+                  </Label>
+                  <Input
+                    disabled
+                    type="text"
+                    name="work_phone"
+                    id="work_phone"
+                    defaultValue={data?.client.work_phone}
+                    placeholder="Teléfono del trabajo"
+                  />
+                </Col>
               </Row>
 
               <Row className="mt-1">
@@ -1007,19 +1007,6 @@ const VisualizarSolicitud = () => {
                   />
                 </Col>
 
-                <Col sm="3">
-                  <Label className="form-label" for="work_phone">
-                    Teléfono del trabajo
-                  </Label>
-                  <Input
-                    disabled
-                    type="text"
-                    name="work_phone"
-                    id="work_phone"
-                    defaultValue={data?.client.work_phone}
-                    placeholder="Teléfono del trabajo"
-                  />
-                </Col>
               </Row>
               <Row className="mt-3">
                 <Col md="4" className="d-flex align-items-center gap-2">
