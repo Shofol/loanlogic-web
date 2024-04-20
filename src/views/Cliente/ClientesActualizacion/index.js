@@ -34,6 +34,7 @@ const ClientesActualizacion = () => {
   const [municipalities, setMunicipalities] = useState([]);
   const munRef = useRef();
   const [data, setData] = useState(null);
+  const [dpi_number, setDpiNumber] = useState(null);
 
   const mapFormValues = () => {
     return {
@@ -80,6 +81,9 @@ const ClientesActualizacion = () => {
     const response = await API.get(`client/${id}`);
     console.log("SET FORM VALUES => DATA ", response.data.data)
     setFormValues(response.data.data);
+    if(response.data.data.dpi_number){ 
+      setDpiNumber(response.data.data.dpi_number);
+    }
   };
 
     function customValues (data)  {
@@ -98,7 +102,7 @@ const ClientesActualizacion = () => {
       profession: data.profession,
       civil_status: data.civil_status,
       sex: data.sex,
-      nationality: data.nationality,
+      nationality: data.nationality
       }
     };
   
@@ -109,7 +113,7 @@ const ClientesActualizacion = () => {
         <CardHeader>
           <CardTitle className="text-center">
             Actualizar datos cliente:
-            <div className="text-center">DPI: {data?.dpi_number}</div>
+            <div className="text-center">DPI: {dpi_number}</div>
           </CardTitle>
         </CardHeader>
         <CardBody>
