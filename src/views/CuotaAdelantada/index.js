@@ -32,7 +32,7 @@ const CuotaAdelantada = () => {
       payment_made: payment_made
     };
     try {
-      const response = await API.put(`/debt/collection/${id}`, values);
+      const response = await API.put(`/debt/collection/${data?.debt_collection?.id}`, values);
       setData(response.data.data);
       toast.success(response.data.message);
     } catch (error) {
