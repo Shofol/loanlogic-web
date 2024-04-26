@@ -58,7 +58,7 @@ const DashboardRoutes = [
     element: <AuxiliarComercial />
   },
   {
-    path: "/dashboard/jefeComercial",
+    path: "/dashboard/supervisorRegional",
     element: <JefeComercial />
   },
   {
