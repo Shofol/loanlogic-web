@@ -664,7 +664,7 @@ export const roles = [
   { label: "Gestor de Cobros", value: "COLLECTION-MANAGER" },
   { label: "Supervisor de Sucursal", value: "SUPERVISOR" },
   { label: "Auxiliar Comercial", value: "ASSISTANT" },
-  { label: "Jefe Comercial", value: "SALES-DIRECTOR" },
+  { label: "Supervisor Regional", value: "SALES-DIRECTOR" },
   { label: "Supervisor de Cobro", value: "COLLECTION-DIRECTOR" },
   { label: "Auxiliar Operativo", value: "ACCOUNTING" },
   { label: "Gerente Comercial", value: "COMERCIAL-EXECUTIVE" },

@@ -51,10 +51,10 @@ export default [
         role: "ASSISTANT"
       },
       {
-        id: "jefeComercial",
-        title: "Jefe Comercial",
+        id: "supervisorRegional",
+        title: "Supervisor Regional",
         icon: <Circle size={20} />,
-        navLink: "/dashboard/jefeComercial",
+        navLink: "/dashboard/supervisorRegional",
         role: "SALES-DIRECTOR"
       },   {
         id: "supervisorCobros",
