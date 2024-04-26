@@ -36,7 +36,7 @@ const ClientesLista = () => {
   prevDay = new Date(prevDay.setDate(prevDay.getDate() - 7));
   const [desdePicker, setDesdePicker] = useState(prevDay);
   const [hastaPicker, setHastaPicker] = useState(today);
-
+  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [agency, setAgency] = useState([]);
@@ -46,16 +46,16 @@ const ClientesLista = () => {
 
   // ** Function to handle Pagination
   const handlePagination = (page) => {
-    setCurrentPage(page.selected);
-  };
-
-  const handleChange = (event) => {
-    setIDSearch(event.target.value)
+    setCurrentPage(page.selected + 1);
   };
 
   useEffect(() => {
     handleSearch();
-  }, []);
+  }, [currentPage]);
+
+  const handleChange = (event) => {
+    setIDSearch(event.target.value)
+  };
 
   const fetchData = async () => {
     let params = ``;
@@ -66,6 +66,7 @@ const ClientesLista = () => {
       `client?page=${currentPage}&sortField=updatedAt&sortOrder=DESC&pageSize=10` + params
     );
     setData([...response.data.data]);
+    setTotalPages(response.data.pagination.totalPages);
     setQueryParams({});
   };
 
@@ -283,110 +284,37 @@ const ClientesLista = () => {
               </thead>
               <tbody>
                 {data.length > 0 &&
-                  data.map((client, index) => {
-                    if (user.role == 'ADMIN' || user.role == 'SUPPORT-EXECUTIVE') {
-                      return (
-                        <tr
-                          className="clickable-row"
-                        >
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{index + 1}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.id}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.name}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.surname}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.residence_address}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.dpi_number}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.residence_municipality}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.department_of_residence}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.phone_number}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/edit/${client.id}`)}
-                          >
-                            <Edit></Edit>
-                          </td>
-                        </tr>
-                      );
-                    }
-                    else {
-
-                      return (
-                        <tr
-                          className="clickable-row"
-                        >
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{index + 1}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.id}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.name}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.surname}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.residence_address}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.dpi_number}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.residence_municipality}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.department_of_residence}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/clientes/${client.id}`)}
-                          >{client.phone_number}</td>
-                          <td
-                            key={client.id}
-                            onClick={() => navigate(`/cuota-adelantada/${client.id}`)}
-                          >
-                            <Edit></Edit>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  })}
+                  data.map((client, index) => (
+                    <tr key={client.id} className="clickable-row" onClick={() => navigate(`/clientes/${client.id}`)}>
+                      <td>{index + 1}</td>
+                      <td>{client.id}</td>
+                      <td>{client.name}</td>
+                      <td>{client.surname}</td>
+                      <td>{client.residence_address}</td>
+                      <td>{client.dpi_number}</td>
+                      <td>{client.residence_municipality}</td>
+                      <td>{client.department_of_residence}</td>
+                      <td>{client.phone_number}</td>
+                      {user.role === 'ADMIN' || user.role === 'SUPPORT-EXECUTIVE' ? (
+                        <td onClick={(e) => {
+                          e.stopPropagation(); // Prevents the row click event from being triggered
+                          navigate(`/clientes/edit/${client.id}`);
+                        }}>
+                          <Edit />
+                        </td>
+                      ) : (
+                        <td onClick={(e) => {
+                          e.stopPropagation(); // Prevents the row click event from being triggered
+                          navigate(`/cuota-adelantada/${client.id}`);
+                        }}>
+                          <Edit />
+                        </td>
+                      )}
+                    </tr>
+                  ))}
               </tbody>
+
+
             </Table>
 
             <div className="d-flex justify-content-center my-1">
@@ -406,7 +334,8 @@ const ClientesLista = () => {
                 previousLinkClassName="page-link"
                 nextClassName="page-item next-item"
                 previousClassName="page-item prev-item"
-                pageCount={Math.ceil(data.length / 7) || 1}
+                pageCount={totalPages}
+                //pageCount={Math.ceil(data.length / 7) || 1}
                 onPageChange={(page) => handlePagination(page)}
                 containerClassName="pagination react-paginate separated-pagination pagination-sm justify-content-end pe-1 mt-1"
               />
