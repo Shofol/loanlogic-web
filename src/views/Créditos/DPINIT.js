@@ -86,6 +86,9 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
             if (!values.dpi_number) {
               errors.dpi_number = requiredMsg;
             }
+            if ((values.dpi_number).length !=13) {
+              errors.dpi_number = requiredMsg;
+            }
 
             if (!values.place_of_birth_city) {
               errors.place_of_birth_city = requiredMsg;
@@ -142,8 +145,16 @@ const DPINIT = ({ stepper, onSubmit, setDPIData }) => {
                     id="dpi_number"
                     placeholder="Número DPI"
                     tag={Field}
+                    pattern="[0-9]*"
                     onBlur={() => {
                       fetchDPIData(values);
+                    }}
+                    onKeyPress={(e) => {
+                      // Allow only numbers
+                      const charCode = e.which ? e.which : e.keyCode;
+                      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        e.preventDefault();
+                      }
                     }}
                   />
                   <ErrorMessage
