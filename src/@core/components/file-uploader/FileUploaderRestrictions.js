@@ -20,7 +20,7 @@ const FileUploaderRestrictions = () => {
     },
     onDrop: (acceptedFiles, rejectedFiles) => {
       if (rejectedFiles.length) {
-        toast.error('You can only upload image Files!.')
+        toast.error('¡Sólo se pueden subir imágenes!.')
       } else {
         setFiles([...files, ...acceptedFiles.map(file => Object.assign(file))])
       }

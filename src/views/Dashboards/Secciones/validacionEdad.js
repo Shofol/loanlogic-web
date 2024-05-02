@@ -49,7 +49,7 @@ const PreValidacionEdad = () => {
         status: action === "accept" ? true : false
       });
       fetchData();
-      toast.success(`Successfully updated stats`);
+      toast.success(`Actualización exitosa`);
     } catch (error) {
       console.log(error);
     }

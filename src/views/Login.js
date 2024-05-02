@@ -94,7 +94,7 @@ const Login = () => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 try {
                   const response = await unApi.post("/user/login", values);
-                  toast.success(`Succesfully Logged In`);
+                  toast.success(`Conexión exitosa`);
                   localStorage.setItem("gesToken", response.data.token);
                   localStorage.setItem(
                     "user",

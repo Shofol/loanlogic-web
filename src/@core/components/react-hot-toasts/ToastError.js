@@ -13,7 +13,7 @@ const ToastError = () => {
           <X size='32' className='mb-1' />
           <h5 className='mb-1 fw-bolder'>Error</h5>
           <p className='mb-50'>Creates a notification with an animated error icon.</p>
-          <Button color='danger' onClick={() => toast.error("This didn't work.")}>
+          <Button color='danger' onClick={() => toast.error("Error: Esto no ha funcionado.")}>
             Error
           </Button>
         </div>
