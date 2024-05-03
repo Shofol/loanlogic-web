@@ -46,7 +46,7 @@ const ValidaciónDatos = () => {
         status: action === "accept" ? true : false
       });
       fetchData();
-      toast.success(`Successfully updated status`);
+      toast.success(`Actualización exitosa`);
     } catch (error) {
       console.log(error);
     }

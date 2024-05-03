@@ -24,7 +24,7 @@ const FileUploaderMultiple = ({ setFieldValue, fieldName }) => {
 
   const handleUpload = () => {
     if (setFieldValue && fieldName) {
-      toast.success("Uploaded Successfully");
+      toast.success("Subido correctamente");
       setFieldValue(fieldName, files);
     }
   };

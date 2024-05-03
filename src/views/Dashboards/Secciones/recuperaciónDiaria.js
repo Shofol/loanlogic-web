@@ -77,7 +77,7 @@ const RecuperaciónDiaria = () => {
             data.map((pdData, index) => {
               return (
                 <tr
-                  key={pdData.client.dpi_number}
+                  key={pdData.debt_collections.id}
                   className="clickable-row"
                   onClick={() => {
                     navigate(`/clientes/${pdData.client.id}`);

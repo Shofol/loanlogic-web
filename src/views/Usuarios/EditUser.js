@@ -154,7 +154,7 @@ const EditUser = ({ showModal, user, onClose }) => {
                   onClose();
                 }, 100);
 
-                toast.success(`Successfully saved`);
+                toast.success(`Guardado correctamente`);
               } catch (error) {
                 console.log(error);
               }

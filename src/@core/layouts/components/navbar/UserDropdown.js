@@ -109,7 +109,7 @@ const UserDropdown = () => {
           }}
         >
           <Power size={14} className="me-75" />
-          <span className="align-middle">Logout</span>
+          <span className="align-middle">Desconexión</span>
         </DropdownItem>
       </DropdownMenu>
     </UncontrolledDropdown>
