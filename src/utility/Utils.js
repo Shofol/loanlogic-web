@@ -70,7 +70,9 @@ export const formatDateForQuery = (date) => {
 
 export const calculateTotal = (arr, key) => {
   const result = arr.reduce(function (acc, obj) {
-    return acc + obj[`${key}`];
+    if (typeof obj[`${key}`] == "number") {
+      return acc + obj[`${key}`];
+    } else return acc;
   }, 0);
   return typeof result !== "number" ? "-" : result;
 };

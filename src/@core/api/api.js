@@ -10,7 +10,7 @@ let loadingToast = null;
 
 api.interceptors.request.use(function (config) {
   if (config.method !== "get") {
-    loadingToast = toast.loading("Loading...", {
+    loadingToast = toast.loading("Cargando...", {
       style: { minWidth: "250px", fontWeight: "bold" }
     });
   }
