@@ -26,6 +26,8 @@ const CommonReport = ({ title }) => {
   const [agency, setAgency] = useState(null);
   const [dataToDownload, setDataToDownload] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   let baseUrl = "";
   if (title === "Mora") {
     baseUrl = `reporting/mora`;
@@ -48,8 +50,8 @@ const CommonReport = ({ title }) => {
   const fetchData = async () => {
     const response = await api.get(
       baseUrl +
-        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
-        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+      `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+      `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
     );
     setData(response.data.data);
   };
@@ -86,12 +88,12 @@ const CommonReport = ({ title }) => {
           {
             no: element?.id,
             agency: element?.agency,
-            lastMonth: parseFloat(element?.lastMonth|| 0
-              ).toFixed(2),
-              todayAmount: parseFloat(element?.todayAmount|| 0
-              ).toFixed(2),
-              currentMonth: parseFloat(element?.currentMonth|| 0
-                ).toFixed(2),
+            lastMonth: parseFloat(element?.lastMonth || 0
+            ).toFixed(2),
+            todayAmount: parseFloat(element?.todayAmount || 0
+            ).toFixed(2),
+            currentMonth: parseFloat(element?.currentMonth || 0
+            ).toFixed(2),
             differenceInPercent: parseFloat(
               element?.differenceInPercent || 0
             ).toFixed(2) + '%',
@@ -105,16 +107,16 @@ const CommonReport = ({ title }) => {
       const totalRow = {
         no: "Total",
         agency: null,
-        lastMonth: parseFloat(calculateTotal(data, "lastMonth")|| 0
+        lastMonth: parseFloat(calculateTotal(data, "lastMonth") || 0
         ).toFixed(2),
-        todayAmount: parseFloat(calculateTotal(data, "todayAmount")|| 0
+        todayAmount: parseFloat(calculateTotal(data, "todayAmount") || 0
         ).toFixed(2),
-        currentMonth: parseFloat(calculateTotal(data, "currentMonth")|| 0
+        currentMonth: parseFloat(calculateTotal(data, "currentMonth") || 0
         ).toFixed(2),
         differenceInPercent: parseFloat(
           calculateTotal(data, "differenceInPercent") || 0
         ).toFixed(2) + '%',
-        differenceInAmount: parseFloat(calculateTotal(data, "differenceInAmount")|| 0
+        differenceInAmount: parseFloat(calculateTotal(data, "differenceInAmount") || 0
         ).toFixed(2),
       };
 
@@ -190,16 +192,16 @@ const CommonReport = ({ title }) => {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{res?.agency}</td>
-                    <td>{parseFloat(res?.lastMonth || 0
-                  ).toFixed(2)}</td>
-                    <td>{parseFloat(res?.todayAmount || 0
-                  ).toFixed(2)}</td>
-                  <td>{parseFloat(res?.currentMonth || 0
-                  ).toFixed(2)}</td>
-                    <td>{parseFloat(res?.differenceInPercent || 0
-                  ).toFixed(2)} %</td>
-                    <td>{parseFloat(res?.differenceInAmount || 0
-                  ).toFixed(2)}</td>
+                    <td>{formatter.format(parseFloat(res?.lastMonth || 0
+                    ).toFixed(2))}</td>
+                    <td>{formatter.format(parseFloat(res?.todayAmount || 0
+                    ).toFixed(2))}</td>
+                    <td>{formatter.format(parseFloat(res?.currentMonth || 0
+                    ).toFixed(2))}</td>
+                    <td>{formatter.format(parseFloat(res?.differenceInPercent || 0
+                    ).toFixed(2))} %</td>
+                    <td>{formatter.format(parseFloat(res?.differenceInAmount || 0
+                    ).toFixed(2))}</td>
                   </tr>
                 );
               })}
@@ -207,20 +209,20 @@ const CommonReport = ({ title }) => {
             <tfoot>
               <tr>
                 <th colSpan={2}>Total</th>
-                <td>{parseFloat(calculateTotal(data, "lastMonth") || 0
-                  ).toFixed(2)}{" "}</td>
-                <td>{parseFloat(calculateTotal(data, "todayAmount") || 0
-                  ).toFixed(2)}{" "}</td>
-                  <td>{parseFloat(calculateTotal(data, "currentMonth") || 0
-                  ).toFixed(2)}{" "}</td>
+                <td>{formatter.format(parseFloat(calculateTotal(data, "lastMonth") || 0
+                ).toFixed(2))}{" "}</td>
+                <td>{formatter.format(parseFloat(calculateTotal(data, "todayAmount") || 0
+                ).toFixed(2))}{" "}</td>
+                <td>{formatter.format(parseFloat(calculateTotal(data, "currentMonth") || 0
+                ).toFixed(2))}{" "}</td>
                 <td>
-                  {parseFloat(
+                  {formatter.format(parseFloat(
                     calculateTotal(data, "differenceInPercent") || 0
-                  ).toFixed(2)}{" "}
+                  ).toFixed(2))}{" "}
                   %
                 </td>
-                <td>{parseFloat(calculateTotal(data, "differenceInAmount")|| 0
-                  ).toFixed(2)}{" "}</td>
+                <td>{formatter.format(parseFloat(calculateTotal(data, "differenceInAmount") || 0
+                ).toFixed(2))}{" "}</td>
               </tr>
             </tfoot>
           </>

@@ -42,6 +42,8 @@ const TransaccionesMensuales = () => {
   const [dataToDownload, setDataToDownload] = useState(null);
   const [headers, setHeaders] = useState([]);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, [selectedDate]);
@@ -231,7 +233,7 @@ const TransaccionesMensuales = () => {
         <div className="recharts-wrapper pt-2 mb-2">
           {data?.totalTransactions && (
             <CardTitle className="text-center">
-              {data?.totalTransactions} Transacciones
+              {formatter.format(data?.totalTransactions)} Transacciones
             </CardTitle>
           )}
           <ResponsiveContainer>

@@ -33,6 +33,8 @@ const RankingAsesores = ({ title }) => {
   const [agency, setAgency] = useState(null);
   const [dataToDownload, setDataToDownload] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, [selectedDate, agency]);
@@ -172,10 +174,10 @@ const RankingAsesores = ({ title }) => {
                   <td>{index + 1}</td>
                   <td>{res?.agency}</td>
                   <td>{res?.user}</td>
-                  <td>{res?.totalRequestedAmount}</td>
-                  <td>{res?.userGoal}</td>
-                  <td>{parseFloat(res?.percentageEfficiency).toFixed(2)} %</td>
-                  <td>{res?.differenceInAmount}</td>
+                  <td>{formatter.format(res?.totalRequestedAmount)}</td>
+                  <td>{formatter.format(res?.userGoal)}</td>
+                  <td>{formatter.format(parseFloat(res?.percentageEfficiency).toFixed(2))} %</td>
+                  <td>{formatter.format(res?.differenceInAmount)}</td>
                 </tr>
               );
             })}

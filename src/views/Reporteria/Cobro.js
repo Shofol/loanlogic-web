@@ -24,6 +24,8 @@ const Cobro = () => {
   const [data, setData] = useState(null);
   const [dataToDownload, setDataToDownload] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, [agency, picker]);
@@ -69,7 +71,7 @@ const Cobro = () => {
   const headers = [
     { label: "COBRANZA", key: "agency" },
     { label: picker, key: "date_payment_made" },
-    { label: "TOTAL DICIEMBRE", key: "total_payment_made" },
+    { label: "TOTAL MES EN CURSO", key: "total_payment_made" },
   ];
 
   // mapping the data for downloading csv file
@@ -186,8 +188,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobro {element.date.agency}</span>
                       </th>
-                      <td>Q {parseFloat(element.date.payment_made).toFixed(2)}</td>
-                      <td>Q {parseFloat(element.total.payment_made).toFixed(2)}</td>
+                      <td>Q {formatter.format(parseFloat(element.date.payment_made).toFixed(2))}</td>
+                      <td>Q {formatter.format(parseFloat(element.total.payment_made).toFixed(2))}</td>
                     </tr>
 
                     <tr>
@@ -198,8 +200,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobro diario {element.date.agency}</span>
                       </th>
-                      <td>Q {parseFloat(element.date.credit_fee).toFixed(2)}</td>
-                      <td>Q {parseFloat(element.total.credit_fee).toFixed(2)}</td>
+                      <td>Q {formatter.format(parseFloat(element.date.credit_fee).toFixed(2))}</td>
+                      <td>Q {formatter.format(parseFloat(element.total.credit_fee).toFixed(2))}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">
@@ -209,8 +211,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobro adelantos (voluntario) {element.date.agency}</span>
                       </th>
-                      <td>Q {parseFloat(element.date.advanced_installment).toFixed(2)}</td>
-                      <td>Q {parseFloat(element.total.advanced_installment).toFixed(2)}</td>
+                      <td>Q {formatter.format(parseFloat(element.date.advanced_installment).toFixed(2))}</td>
+                      <td>Q {formatter.format(parseFloat(element.total.advanced_installment).toFixed(2))}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">
@@ -220,8 +222,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobro anticipios (días corridos) {element.date.agency}</span>
                       </th>
-                      <td>Q {parseFloat(element.date.holidays_fee).toFixed(2)}</td>
-                      <td>Q {parseFloat(element.total.holidays_fee).toFixed(2)}</td>
+                      <td>Q {formatter.format(parseFloat(element.date.holidays_fee).toFixed(2))}</td>
+                      <td>Q {formatter.format(parseFloat(element.total.holidays_fee).toFixed(2))}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">
@@ -231,8 +233,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobros papelerías {element.date.agency}</span>
                       </th>
-                      <td>Q {parseFloat(element.date.administrative_fee).toFixed(2)}</td>
-                      <td>Q {parseFloat(element.total.administrative_fee).toFixed(2)}</td>
+                      <td>Q {formatter.format(parseFloat(element.date.administrative_fee).toFixed(2))}</td>
+                      <td>Q {formatter.format(parseFloat(element.total.administrative_fee).toFixed(2))}</td>
                     </tr>
                     <tr>
                       <th className="custom-header">
@@ -242,8 +244,8 @@ const Cobro = () => {
                         ></span>
                         <span>Cobros asistencias {element.date.agency}</span>
                       </th>
-                      <td>Q {parseFloat(element.date.assistance_fee).toFixed(2)}</td>
-                      <td>Q {parseFloat(element.total.assistance_fee).toFixed(2)}</td>
+                      <td>Q {formatter.format(parseFloat(element.date.assistance_fee).toFixed(2))}</td>
+                      <td>Q {formatter.format(parseFloat(element.total.assistance_fee).toFixed(2))}</td>
                     </tr>
                   </>
                 );
@@ -252,8 +254,8 @@ const Cobro = () => {
             <tfoot>
               <tr>
                 <th>Cobros total</th>
-                <td>Q {parseFloat(calculateDateTotal()).toFixed(2)}</td>
-                <td>Q {parseFloat(calculatTotal()).toFixed(2)}</td>
+                <td>Q {formatter.format(parseFloat(calculateDateTotal()).toFixed(2))}</td>
+                <td>Q {formatter.format(parseFloat(calculatTotal()).toFixed(2))}</td>
               </tr>
             </tfoot>
           </>

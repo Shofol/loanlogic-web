@@ -25,6 +25,8 @@ const ResumenAsesor = () => {
   const [agency, setAgency] = useState(null);
   const [dataToDownload, setDataToDownload] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, [picker, agency]);
@@ -32,8 +34,8 @@ const ResumenAsesor = () => {
   const fetchData = async () => {
     const response = await api.get(
       "reporting/resumen-asesor" +
-        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
-        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+      `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+      `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
     );
     setData(response.data.data);
   };
@@ -82,7 +84,7 @@ const ResumenAsesor = () => {
         newCreditApplications: calculateTotal(data, "newCreditApplications"),
         totalCreditAmount: calculateTotal(data, "totalCreditAmount"),
         totalPortfolio: calculateTotal(data, "totalPortfolio"),
-        defaultAmount: parseFloat(calculateTotal(data, "defaultAmount")|| 0
+        defaultAmount: parseFloat(calculateTotal(data, "defaultAmount") || 0
         ).toFixed(2),
         defaultPercentage: parseFloat(
           calculateTotal(data, "defaultPercentage") || 0
@@ -150,14 +152,14 @@ const ResumenAsesor = () => {
                     <td>{res?.no}</td>
                     <td>{res?.agency}</td>
                     <td>{res?.user}</td>
-                    <td>{res?.currentClients}</td>
-                    <td>{res?.newCreditApplications}</td>
-                    <td>{res?.totalCreditAmount}</td>
-                    <td>{parseFloat(res?.totalPortfolio || 0).toFixed(2)}</td>
+                    <td>{formatter.format(res?.currentClients)}</td>
+                    <td>{formatter.format(res?.newCreditApplications)}</td>
+                    <td>{formatter.format(res?.totalCreditAmount)}</td>
+                    <td>{formatter.format(parseFloat(res?.totalPortfolio || 0).toFixed(2))}</td>
 
-                    <td>{parseFloat(res?.defaultAmount || 0).toFixed(2)}</td>
+                    <td>{formatter.format(parseFloat(res?.defaultAmount || 0).toFixed(2))}</td>
                     <td>
-                      {parseFloat(res?.defaultPercentage || 0).toFixed(2)} %
+                      {formatter.format(parseFloat(res?.defaultPercentage || 0).toFixed(2))} %
                     </td>
                   </tr>
                 );
@@ -166,17 +168,17 @@ const ResumenAsesor = () => {
             <tfoot>
               <tr>
                 <th colSpan={3}>Total</th>
-                <td>{calculateTotal(data, "currentClients")}</td>
-                <td>{calculateTotal(data, "newCreditApplications")}</td>
-                <td>{calculateTotal(data, "totalCreditAmount")}</td>
-                <td>{parseFloat(calculateTotal(data, "totalPortfolio")|| 0
-                  ).toFixed(2)}{" "}</td>
-                <td>{parseFloat(calculateTotal(data, "defaultAmount")|| 0
-                  ).toFixed(2)}{" "}</td>
+                <td>{formatter.format(calculateTotal(data, "currentClients"))}</td>
+                <td>{formatter.format(calculateTotal(data, "newCreditApplications"))}</td>
+                <td>{formatter.format(calculateTotal(data, "totalCreditAmount"))}</td>
+                <td>{formatter.format(parseFloat(calculateTotal(data, "totalPortfolio") || 0
+                ).toFixed(2))}{" "}</td>
+                <td>{formatter.format(parseFloat(calculateTotal(data, "defaultAmount") || 0
+                ).toFixed(2))}{" "}</td>
                 <td>
-                  {parseFloat(
+                  {formatter.format(parseFloat(
                     calculateTotal(data, "defaultPercentage") || 0
-                  ).toFixed(2)}{" "}
+                  ).toFixed(2))}{" "}
                   %
                 </td>
               </tr>

@@ -27,6 +27,8 @@ const Colocación = () => {
   const [products, setProducts] = useState([]);
   const [dataToDownload, setDataToDownload] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -45,7 +47,7 @@ const Colocación = () => {
   const fetchProducts = async () => {
     const response = await api.get(
       `product/list?sortField=id&sortOrder=ASC` +
-        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+      `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
     );
     setProducts(
       response.data.data.map((product) => ({
@@ -58,9 +60,9 @@ const Colocación = () => {
   const fetchData = async () => {
     const response = await api.get(
       `reporting/colocacion` +
-        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
-        `${product ? `&product=${product}` : ""}` +
-        `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
+      `${picker ? `?date=${formatDateForQuery(picker)}` : ""}` +
+      `${product ? `&product=${product}` : ""}` +
+      `${agency && agency.length > 0 ? `&agency=${agency.join(",")}` : ""}`
     );
     setData(response.data.data);
   };
@@ -212,15 +214,15 @@ const Colocación = () => {
                   <tr key={index}>
                     <td>{res?.no}</td>
                     <td>{res?.agency}</td>
-                    <td>{res?.todayCreditApplications}</td>
-                    <td>{res?.todayCreditAmount}</td>
-                    <td>{res?.currentMonthCreditAmount}</td>
-                    <td>{res?.currentMonthGoal}</td>
-                    <td>{res?.currentMonthCreditApplications}</td>
+                    <td>{formatter.format(res?.todayCreditApplications)}</td>
+                    <td>{formatter.format(res?.todayCreditAmount)}</td>
+                    <td>{formatter.format(res?.currentMonthCreditAmount)}</td>
+                    <td>{formatter.format(res?.currentMonthGoal)}</td>
+                    <td>{formatter.format(res?.currentMonthCreditApplications)}</td>
                     <td>
-                      {parseFloat(res?.currentMonthPercentage).toFixed(2)} %
+                      {formatter.format(parseFloat(res?.currentMonthPercentage).toFixed(2))} %
                     </td>
-                    <td>{res?.currentMonthDifference}</td>
+                    <td>{formatter.format(res?.currentMonthDifference)}</td>
                   </tr>
                 );
               })}
@@ -228,20 +230,20 @@ const Colocación = () => {
             <tfoot>
               <tr>
                 <th colSpan={2}>Total</th>
-                <td>{calculateTotal(data, "todayCreditApplications")}</td>
-                <td>{calculateTotal(data, "todayCreditAmount")}</td>
-                <td>{calculateTotal(data, "currentMonthCreditAmount")}</td>
-                <td>{calculateTotal(data, "currentMonthGoal")}</td>
+                <td>{formatter.format(calculateTotal(data, "todayCreditApplications"))}</td>
+                <td>{formatter.format(calculateTotal(data, "todayCreditAmount"))}</td>
+                <td>{formatter.format(calculateTotal(data, "currentMonthCreditAmount"))}</td>
+                <td>{formatter.format(calculateTotal(data, "currentMonthGoal"))}</td>
                 <td>
-                  {calculateTotal(data, "currentMonthCreditApplications")}
+                  {formatter.format(calculateTotal(data, "currentMonthCreditApplications"))}
                 </td>
                 <td>
-                  {parseFloat(
+                  {formatter.format(parseFloat(
                     calculateTotal(data, "currentMonthPercentage")
-                  ).toFixed(2)}{" "}
+                  ).toFixed(2))}{" "}
                   %
                 </td>
-                <td>{calculateTotal(data, "currentMonthDifference")}</td>
+                <td>{formatter.format(calculateTotal(data, "currentMonthDifference"))}</td>
               </tr>
             </tfoot>
           </>

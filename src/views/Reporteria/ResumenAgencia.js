@@ -23,6 +23,8 @@ const ResumenAgencia = () => {
   const [data, setData] = useState(null);
   const [dataToDownload, setDataToDownload] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, [picker]);
@@ -30,7 +32,7 @@ const ResumenAgencia = () => {
   const fetchData = async () => {
     const response = await api.get(
       "reporting/resumen-agency" +
-        `${picker ? `?date=${formatDateForQuery(picker)}` : ""}`
+      `${picker ? `?date=${formatDateForQuery(picker)}` : ""}`
     );
     setData(response.data.data);
   };
@@ -134,11 +136,11 @@ const ResumenAgencia = () => {
                     <td>{res?.currentClients}</td>
                     <td>{res?.newCreditApplications}</td>
                     <td>{res?.totalCreditAmount}</td>
-                    <td>{parseFloat(res?.totalPortfolio || 0).toFixed(2)}</td>
+                    <td>{formatter.format(parseFloat(res?.totalPortfolio || 0).toFixed(2))}</td>
 
-                    <td>{parseFloat(res?.defaultAmount || 0).toFixed(2)}</td>
+                    <td>{formatter.format(parseFloat(res?.defaultAmount || 0).toFixed(2))}</td>
                     <td>
-                      {parseFloat(res?.defaultPercentage || 0).toFixed(2)} %
+                      {formatter.format(parseFloat(res?.defaultPercentage || 0).toFixed(2))} %
                     </td>
                   </tr>
                 );
@@ -150,19 +152,19 @@ const ResumenAgencia = () => {
                 <td>{calculateTotal(data, "newCreditApplications")}</td>
                 <td>{calculateTotal(data, "totalCreditAmount")}</td>
                 <td>
-                  {parseFloat(
+                  {formatter.format(parseFloat(
                     calculateTotal(data, "totalPortfolio") || 0
-                  ).toFixed(2)}
+                  ).toFixed(2))}
                 </td>
                 <td>
-                  {parseFloat(
+                  {formatter.format(parseFloat(
                     calculateTotal(data, "defaultAmount") || 0
-                  ).toFixed(2)}
+                  ).toFixed(2))}
                 </td>
                 <td style={{ whiteSpace: "nowrap" }}>
-                  {parseFloat(
+                  {formatter.format(parseFloat(
                     calculateTotal(data, "defaultPercentage") || 0
-                  ).toFixed(2)}{" "}
+                  ).toFixed(2))}{" "}
                   %
                 </td>
               </tr>
