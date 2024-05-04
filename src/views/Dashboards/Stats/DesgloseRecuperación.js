@@ -9,6 +9,8 @@ const Recuperación = ({ height, fontSize, smallTitle = false }) => {
   const [data, setData] = useState(null);
   //const [completedResult, setCompletedResult] = useState(0);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -25,17 +27,17 @@ const Recuperación = ({ height, fontSize, smallTitle = false }) => {
           DESGLOSE RECUPERACIÓN
         </CardTitle>
         <ListGroup className="fs-6 px-1">
-          <ListGroupItem>Ingresos recuperación: {data?.collected} Q</ListGroupItem>
-          <ListGroupItem>Ingresos por papelería: {data?.administrative} Q</ListGroupItem>
-          <ListGroupItem>Ingresos por asistencias: {data?.assistance} Q</ListGroupItem>
+          <ListGroupItem>Ingresos recuperación: {formatter.format(data?.collected)} Q</ListGroupItem>
+          <ListGroupItem>Ingresos por papelería: {formatter.format(data?.administrative)} Q</ListGroupItem>
+          <ListGroupItem>Ingresos por asistencias: {formatter.format(data?.assistance)} Q</ListGroupItem>
           <ListGroupItem>
-            Ingresos por adelantos: (voluntario) {data?.advanced} Q
+            Ingresos por adelantos: (voluntario) {formatter.format(data?.advanced)} Q
           </ListGroupItem>
           <ListGroupItem>
-            Ingresos por anticipios: (días corridos) {data?.holidays} Q
+            Ingresos por anticipios: (días corridos) {formatter.format(data?.holidays)} Q
           </ListGroupItem>
           <ListGroupItem><strong>
-            Ingresos recuperación TOTAL: {data?.total_collected} Q
+            Ingresos recuperación TOTAL: {formatter.format(data?.total_collected)} Q
             </strong>
           </ListGroupItem>
         </ListGroup>
