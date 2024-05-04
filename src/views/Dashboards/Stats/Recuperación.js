@@ -8,6 +8,8 @@ const Recuperación = ({ height, fontSize, smallTitle = false }) => {
   const [data, setData] = useState(null);
   const [completedResult, setCompletedResult] = useState(0);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,7 +23,7 @@ const Recuperación = ({ height, fontSize, smallTitle = false }) => {
     if (data) {
       setCompletedResult(
         +data.total > 0
-          ? Math.round((+data.total_collected / +data.total) * 100)
+          ? formatter.format(Math.round((+data.total_collected / +data.total) * 100))
           : 0
       );
     }
@@ -33,7 +35,7 @@ const Recuperación = ({ height, fontSize, smallTitle = false }) => {
         data={{ completed: completedResult }}
         title="RECUPERACIÓN"
         subTitle="(sin incluir avances)"
-        text={data ? `${Math.round(data.total_collected)} Q / ${Math.round(data.total)} Q` : null}
+        text={data ? `${formatter.format(Math.round(data.total_collected))} Q / ${formatter.format(Math.round(data.total))} Q` : null}
         height={height}
         fontSize={fontSize}
         smallTitle={smallTitle}

@@ -64,6 +64,8 @@ const MoraPorAgente = () => {
   const [data, setData] = useState(null);
   const [rows, setRows] = useState([]);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -78,8 +80,8 @@ const MoraPorAgente = () => {
       setRows(
         data.map((item) => {
           return {
-            default_amount: item.default_amount,
-            progress: item.default_percentage,
+            default_amount: formatter.format(item.default_amount),
+            progress: formatter.format(item.default_percentage),
             progressColor: returnColor(item.default_percentage),
             agente: `${item.user.name}`,
             subTitle: `${item.user.family_name}`

@@ -8,6 +8,8 @@ const Desembolso = () => {
   const [data, setData] = useState(null);
   const [completedResult, setCompletedResult] = useState(0);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,7 +23,7 @@ const Desembolso = () => {
     if (data) {
       setCompletedResult(
         +data.total > 0
-          ? Math.round((+data.total_disbursement / +data.total) * 100)
+          ? formatter.format(Math.round((+data.total_disbursement / +data.total) * 100))
           : 0
       );
     }
@@ -32,7 +34,7 @@ const Desembolso = () => {
       <OverviewCircle
         data={{ completed: completedResult }}
         title="DESEMBOLSO"
-        text={data ? `${Math.round(data.total_disbursement)} Q / ${Math.round(data.total)} Q` : null}
+        text={data ? `${formatter.format(Math.round(data.total_disbursement))} Q / ${formatter.format(Math.round(data.total))} Q` : null}
         height="150"
         fontSize="2rem"
         smallTitle={true}

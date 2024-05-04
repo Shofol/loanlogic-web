@@ -8,6 +8,8 @@ const MoraStat = ({ height, fontSize, smallTitle = false }) => {
   const [data, setData] = useState(null);
   const [completedResult, setCompletedResult] = useState(0);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,7 +23,7 @@ const MoraStat = ({ height, fontSize, smallTitle = false }) => {
     if (data) {
       setCompletedResult(
         +data.totalAmount > 0
-          ? Math.round((+data.totalDefault / +data.totalAmount) * 100)
+          ? formatter.format(Math.round((+data.totalDefault / +data.totalAmount) * 100))
           : 0
       );
     }
@@ -32,7 +34,7 @@ const MoraStat = ({ height, fontSize, smallTitle = false }) => {
       <OverviewCircle
         data={{ completed: completedResult }}
         title="MORA"
-        text={data ? `${Math.round(data.totalDefault)} Q / ${Math.round(data.totalAmount)} Q` : null}
+        text={data ? `${formatter.format(Math.round(data.totalDefault))} Q / ${formatter.format(Math.round(data.totalAmount))} Q` : null}
         height={height}
         fontSize={fontSize}
         smallTitle={smallTitle}

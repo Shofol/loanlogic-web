@@ -21,6 +21,8 @@ const RecuperaciónDiaria = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   // ** Function to handle Pagination
   const handlePagination = (page) => {
     setCurrentPage(page.selected + 1);
@@ -89,7 +91,7 @@ const RecuperaciónDiaria = () => {
                   <td>{pdData?.client.surname}</td>
                   <td>{pdData?.client.residence_address}</td>
                   <td>{pdData?.client.residence_municipality}</td>
-                  <td>{pdData?.debt_collections.amount_to_pay}</td>
+                  <td>{formatter.format(pdData?.debt_collections.amount_to_pay)}</td>
                   {/* <td> 
                     <StatusTag status={pdData?}/>
                   </td> */}

@@ -12,6 +12,8 @@ const CréditosPendienteDesembolso = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [data, setData] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   // // ** Function to handle Pagination
   // const handlePagination = (page) => {
   //   setCurrentPage(page.selected + 1);
@@ -78,7 +80,7 @@ const CréditosPendienteDesembolso = () => {
                   <td>{item?.client.surname}</td>
                   <td>{item?.client.residence_address}</td>
                   <td>{item?.client.residence_municipality}</td>
-                  <td>{item?.credit.disbursement_amount}</td>
+                  <td>{formatter.format(item?.credit.disbursement_amount)}</td>
                   <td>
                     <StatusTag status={item?.debt_collections.status} />
                   </td>

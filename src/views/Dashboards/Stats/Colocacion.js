@@ -8,6 +8,8 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
   const [data, setData] = useState(null);
   const [completedResult, setCompletedResult] = useState(0);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,7 +23,7 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
     if (data) {
       setCompletedResult(
         +data.dailyGoal > 0
-          ? Math.round((+data.totalRequestedAmount / +data.dailyGoal) * 100)
+          ? formatter.format(Math.round((+data.totalRequestedAmount / +data.dailyGoal) * 100))
           : 0
       );
     }
@@ -33,7 +35,7 @@ const Colocacion = ({ height, fontSize, smallTitle = false }) => {
         data={{ completed: completedResult }}
         title="Colocación"
         text={
-          data ? `${Math.round(data.totalRequestedAmount)} Q / ${Math.round(data.dailyGoal)} Q` : null
+          data ? `${formatter.format(Math.round(data.totalRequestedAmount))} Q / ${formatter.format(Math.round(data.dailyGoal))} Q` : null
         }
         height={height}
         fontSize={fontSize}
