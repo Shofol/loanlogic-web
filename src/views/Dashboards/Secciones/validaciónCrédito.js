@@ -67,6 +67,7 @@ const ValidaciónCrédito = () => {
             <th>Dirección</th>
             <th>Municipio</th>
             <th>Departamento</th>
+            <th>Promotor</th>
             <th>Estado</th>
             <th>Validar</th>
           </tr>
@@ -90,6 +91,7 @@ const ValidaciónCrédito = () => {
                   <td>{credit?.client.residence_address}</td>
                   <td>{credit?.client.residence_municipality}</td>
                   <td>{credit?.client.department_of_residence}</td>
+                  <td>{credit?.user.name} {credit?.user.family_name}</td>
                   <td>
                     <StatusTag status={credit.status} />
                   </td>

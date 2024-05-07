@@ -58,6 +58,7 @@ const CréditosPendienteDesembolso = () => {
             <th>Dirección</th>
             <th>Municipio</th>
             <th>Monto desembolso</th>
+            <th>Promotor</th>
             <th>Desembolso</th>
             <th>Estado</th>
           </tr>
@@ -81,6 +82,7 @@ const CréditosPendienteDesembolso = () => {
                   <td>{item?.client.residence_address}</td>
                   <td>{item?.client.residence_municipality}</td>
                   <td>{formatter.format(item?.credit.disbursement_amount)}</td>
+                  <td>{item?.credit.user.name} {item?.credit.user.family_name}</td>
                   <td>
                     <StatusTag status={item?.debt_collections.status} />
                   </td>

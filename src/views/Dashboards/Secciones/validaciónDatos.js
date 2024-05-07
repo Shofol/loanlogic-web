@@ -80,6 +80,7 @@ const ValidaciónDatos = () => {
             <th>Dirección</th>
             <th>Municipio</th>
             <th>Departamento</th>
+            <th>Promotor</th>
             <th>Estado</th>
             <th>Pre-validar</th>
           </tr>
@@ -103,6 +104,7 @@ const ValidaciónDatos = () => {
                   <td>{data?.client.residence_address}</td>
                   <td>{data?.client.residence_municipality}</td>
                   <td>{data?.client.department_of_residence}</td>
+                  <td>{data?.user.name} {data?.user.family_name}</td>
                   <td>
                     <StatusTag status={data.status} />
                   </td>

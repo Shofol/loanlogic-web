@@ -57,6 +57,7 @@ const FotoGarantía = () => {
             <th>Dirección</th>
             <th>Municipio</th>
             <th>Departamento</th>
+            <th>Promotor</th>
             <th>Estado</th>
             <th>Validar</th>
           </tr>
@@ -80,6 +81,7 @@ const FotoGarantía = () => {
                   <td>{guarantee?.client.residence_address}</td>
                   <td>{guarantee?.client.residence_municipality}</td>
                   <td>{guarantee?.client.department_of_residence}</td>
+                  <td>{guarantee?.user.name} {guarantee?.user.family_name}</td>
                   <td>
                     <StatusTag status={guarantee.status} />
                   </td>

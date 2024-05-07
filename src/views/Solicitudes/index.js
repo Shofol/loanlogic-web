@@ -312,6 +312,17 @@ const Solicitudes = () => {
                   </th>
 
                   <th>
+                    <span>Promotor</span>
+                    {/*<Input
+                      type="text"
+                      name="fechaPetición"
+                      id="fechaPetición"
+                      placeholder="Fecha petición"
+                      className="table-filter"
+                    />*/}
+                  </th>
+
+                  <th>
                     <span>Fecha petición</span>
                     {/*<Input
                       type="text"
@@ -364,6 +375,7 @@ const Solicitudes = () => {
                         <td>{app.product_id}</td>
                         <td>{app.client.residence_municipality}</td>
                         <td>{app.client.department_of_residence}</td>
+                        <td>{app?.user.name} {app?.user.family_name}</td>
                         <td>{moment(app.createdAt).format("DD/MM/YYYY @ HH:mm:ss")}</td>
                         <td>
                           <StatusTag status={app.status} />
