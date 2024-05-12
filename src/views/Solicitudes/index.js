@@ -52,6 +52,8 @@ const Solicitudes = () => {
   const [hastaPicker, setHastaPicker] = useState(today);
   const [queryParams, setQueryParams] = useState({});
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   // ** Function to handle Pagination
   const handlePagination = (page) => {
     setCurrentPage(page.selected + 1);
@@ -371,7 +373,7 @@ const Solicitudes = () => {
                         <td>{app.id}</td>
                         <td>{app.client.name}</td>
                         <td>{app.client.surname}</td>
-                        <td>{app.credit_amount}</td>
+                        <td>{formatter.format(app.credit_amount)}</td>
                         <td>{app.product_id}</td>
                         <td>{app.client.residence_municipality}</td>
                         <td>{app.client.department_of_residence}</td>

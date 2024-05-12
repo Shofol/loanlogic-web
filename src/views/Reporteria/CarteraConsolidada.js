@@ -24,6 +24,8 @@ const CarteraConsolidada = () => {
   const [data, setData] = useState(null);
   const [dataToDownload, setDataToDownload] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, [agency, picker]);
@@ -172,7 +174,7 @@ const CarteraConsolidada = () => {
                   <tr key={user.id}>
                     <td>{user.id}</td>
                     <td>{user.name}</td>
-                    <td>Q {user.totalCollected}</td>
+                    <td>Q {formatter.format(user.totalCollected)}</td>
                   </tr>
                 );
               })}
@@ -182,60 +184,60 @@ const CarteraConsolidada = () => {
               <tr>
                 <th colSpan="2">TOTAL PAGOS DEL DÍA</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.totalCollected}
+                  Q {formatter.format(data?.totalCollected)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Devolución de desembolsos</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.disbursementReturns}
+                  Q {formatter.format(data?.disbursementReturns)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Solicitudes del día</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.totalRequestedAmount}
+                  Q {formatter.format(data?.totalRequestedAmount)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Colocación del día</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.totalRequesteDisburseddAmount}
+                  Q {formatter.format(data?.totalRequesteDisburseddAmount)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Clientes colocados</th>
                 <td className="bg-body-secondary fw-bold">
-                  {data?.totalApplicationsDisbursed}
+                  {formatter.format(data?.totalApplicationsDisbursed)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Papelerías</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.administartiveFee}
+                  Q {formatter.format(data?.administartiveFee)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Asistencias</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.assistanceFee}
+                  Q {formatter.format(data?.assistanceFee)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Descuentos/Asueto</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.discountHoliday}
+                  Q {formatter.format(data?.discountHoliday)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">Pagos anticipados</th>
                 <td className="bg-body-secondary fw-bold">
-                  Q {data?.advancedInstallment}
+                  Q {formatter.format(data?.advancedInstallment)}
                 </td>
               </tr>
               <tr>
                 <th colSpan="2">TOTAL</th>
-                <td className="bg-body-secondary fw-bold">Q {data?.total}</td>
+                <td className="bg-body-secondary fw-bold">Q {formatter.format(data?.total)}</td>
               </tr>
             </tfoot>
           </>

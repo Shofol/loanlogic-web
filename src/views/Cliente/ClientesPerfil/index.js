@@ -28,6 +28,8 @@ const ClientesPerfil = () => {
   // const [totalPages, setTotalPages] = useState(1);
   const [history, setHistory] = useState(null);
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   // ** Function to handle Pagination
   // const handlePagination = (page) => {
   //   setCurrentPage(page.selected + 1);
@@ -348,19 +350,19 @@ const ClientesPerfil = () => {
                     <td>
                       <StatusTag status={item.status} />
                     </td>
-                    <td>{item.credit_amount}</td>
+                    <td>{formatter.format(item.credit_amount)}</td>
                     <td>
                       {" "}
                       <StatusTag status={item.credit.status} />
                     </td>
                     <td>
-                      {item.credit.total_amount > 0
+                      {formatter.format(item.credit.total_amount > 0
                         ? Math.round(
                           +item.credit.total_paid_amount /
                           +item.credit.total_amount /
                           100
                         )
-                        : 0}
+                        : 0)}
                     </td>
                     {/* <td>Q 950</td> */}
                   </tr>
