@@ -32,7 +32,7 @@ export const columns = [
     }
   },
   {
-    name: "Mora",
+    name: "Monto Mora",
     selector: (row) => row.default_amount,
     cell: (row) => {
       return (
@@ -43,7 +43,7 @@ export const columns = [
     }
   },
   {
-    name: "Progress",
+    name: "Porcentaje Mora",
     selector: (row) => row.progress,
     cell: (row) => {
       return (
