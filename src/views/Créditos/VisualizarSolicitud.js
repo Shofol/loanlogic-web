@@ -1006,6 +1006,19 @@ const VisualizarSolicitud = () => {
                     placeholder="Municipio del trabajo"
                   />
                 </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="work_department">
+                    Departamento del trabajo
+                  </Label>
+                  <Input
+                    disabled
+                    type="text"
+                    name="work_department"
+                    id="work_department"
+                    placeholder="Departamento del trabajo"
+                    defaultValue={data?.client.work_department}
+                  />
+                </Col>
 
               </Row>
               <Row className="mt-3">
@@ -1165,7 +1178,34 @@ const VisualizarSolicitud = () => {
                   />
                 </Col>
 
-                
+                <Row>
+                <Col sm="3">
+                  <Label className="form-label" for="business_municipality">
+                    Municipio del negocio
+                  </Label>
+                  <Input
+                    disabled
+                    type="text"
+                    name="business_municipality"
+                    id="business_municipality"
+                    placeholder="Municipio del negocio"
+                    defaultValue={data?.client.business_municipality}
+                  />
+                </Col>
+                <Col sm="3">
+                  <Label className="form-label" for="business_department">
+                    Departamento del negocio
+                  </Label>
+                  <Input
+                    disabled
+                    type="text"
+                    name="business_department"
+                    id="business_department"
+                    placeholder="Departamento del negocio"
+                    defaultValue={data?.client.business_department}
+                  />
+                </Col>
+                </Row>
               </Row>
               <Row className="mt-3">
                 <Col md="4" className="d-flex align-items-center gap-2">
