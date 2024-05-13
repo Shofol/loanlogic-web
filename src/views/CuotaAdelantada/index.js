@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { formatMessage } from "../../utility/functions/formatMessage";
 import Cleave from "cleave.js/react";
+import moment from "moment";
 
 const CuotaAdelantada = () => {
   const { colors } = useContext(ThemeColors);
@@ -136,7 +137,7 @@ const CuotaAdelantada = () => {
                 <p className="acc-title">Fecha Pago</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.payment_date}
+                  {moment(data?.debt_collection.payment_date).format("DD/MM/YYYY")}
                 </p>
               </div>
               <div className="mb-0 d-flex">
