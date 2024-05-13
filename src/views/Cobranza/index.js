@@ -73,7 +73,7 @@ const Cobranza = () => {
           <Row>
             <Col sm="12" md="6">
               <p className="mb-0">
-                Fecha crédito: {data?.credit.disbursement_date}
+                Fecha crédito: {moment(data?.credit.disbursement_date).format("DD/MM/YYYY")}
               </p>
             </Col>
             <Col sm="12" md="6">

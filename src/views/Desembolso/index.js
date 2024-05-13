@@ -7,6 +7,7 @@ import { Printer, Save } from "react-feather";
 import { useNavigate, useParams } from "react-router-dom";
 import API from "../../@core/api/api";
 import { toast } from "react-hot-toast";
+import moment from "moment";
 
 const Desembolso = () => {
   const { colors } = useContext(ThemeColors);
@@ -95,7 +96,7 @@ const Desembolso = () => {
             <Col sm="12" md="6">
               <p className="mb-0">
                 {" "}
-                Fecha crédito: {data?.credit.disbursement_date}
+                Fecha crédito: {moment(data?.credit.disbursement_date).format("DD/MM/YYYY")}
               </p>
             </Col>
             <Col sm="12" md="6">
@@ -162,7 +163,7 @@ const Desembolso = () => {
                 <p className="acc-desembolso-title">Fecha Desembolso</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.payment_date}
+                  {moment(data?.debt_collection.payment_date).format("DD/MM/YYYY")}
                 </p>
               </div>
               <div className="mb-0 d-flex fw-bold">
