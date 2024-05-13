@@ -49,6 +49,7 @@ const ClientesActualizacion = () => {
       residence_municipality: data ? data.residence_municipality : "",
       department_of_residence: data ? data.department_of_residence : "",
       birth_date: data ? data.birth_date : null,
+      expiration_date: data ? data.expiration_date : null,
       profession: data ? data.profession : "",
       civil_status: data ? data.civil_status : "",
       sex: data ? data.sex : "",
@@ -69,10 +70,10 @@ const ClientesActualizacion = () => {
 
   useEffect(() => {
     //if (id) {
-      fetchData();
+    fetchData();
     //} else {
-      //console.log("SET FORM VALUES => USE EFFECT ", mapFormValues())
-      //setFormValues(mapFormValues());
+    //console.log("SET FORM VALUES => USE EFFECT ", mapFormValues())
+    //setFormValues(mapFormValues());
     //}
   }, [id]);
 
@@ -81,13 +82,13 @@ const ClientesActualizacion = () => {
     const response = await API.get(`client/${id}`);
     console.log("SET FORM VALUES => DATA ", response.data.data)
     setFormValues(response.data.data);
-    if(response.data.data.dpi_number){ 
+    if (response.data.data.dpi_number) {
       setDpiNumber(response.data.data.dpi_number);
     }
   };
 
-    function customValues (data)  {
-      return {
+  function customValues(data) {
+    return {
       name: data.name,
       second_name: data.second_name,
       surname: data.surname,
@@ -99,13 +100,14 @@ const ClientesActualizacion = () => {
       residence_municipality: data.residence_municipality,
       department_of_residence: data.department_of_residence,
       birth_date: data.birth_date,
+      expiration_date: data.expiration_date,
       profession: data.profession,
       civil_status: data.civil_status,
       sex: data.sex,
-      nationality: data.nationality
-      }
-    };
-  
+      nationality: data.nationality,
+    }
+  };
+
 
   return (
     <div>
@@ -172,7 +174,10 @@ const ClientesActualizacion = () => {
                 errors.birth_date = requiredMsg;
               }
               if (!values.sex) {
-                errors.birth_date = requiredMsg;
+                errors.sex = requiredMsg;
+              }
+              if (!values.expiration_date) {
+                errors.expiration_date = requiredMsg;
               }
               if (!values.civil_status) {
                 errors.civil_status = requiredMsg;
@@ -184,16 +189,16 @@ const ClientesActualizacion = () => {
               return errors;
             }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-            //onSubmit(values);
-            try {
-              const response = await API.put(`/client/edit/${id}`, customValues(values));
-              setData(response.data.data);
-              console.log("SUCCESS TOAS", response.data.message)
-              toast.success(response.data.message);
-            } catch (error) {
-              console.log(error);
-            }
-          }}
+              //onSubmit(values);
+              try {
+                const response = await API.put(`/client/edit/${id}`, customValues(values));
+                setData(response.data.data);
+                console.log("SUCCESS TOAS", response.data.message)
+                toast.success(response.data.message);
+              } catch (error) {
+                console.log(error);
+              }
+            }}
           >
             {/*{({ handleSubmit, setFieldValue, resetForm, values }) 
             */}
@@ -432,8 +437,8 @@ const ClientesActualizacion = () => {
                         altFormat: "j F Y",
                         dateFormat: "Y-m-d",
                         defaultDate: values?.birth_date
-                        ? new Date(values?.birth_date.split("T")[0])
-                        : null
+                          ? new Date(values?.birth_date.split("T")[0])
+                          : null
                       }}
                     />
                     <ErrorMessage
@@ -442,6 +447,36 @@ const ClientesActualizacion = () => {
                       className="text-danger"
                     />
                   </Col>
+                  <Col sm="3">
+                    <Label className="form-label" for="expiration_date">
+                      Fecha de vencimiento del DPI<span className="text-danger">*</span>
+                    </Label>
+                    <Flatpickr
+                      id="hf-picker"
+                      className="form-control"
+                      onChange={(selectedDates, dateStr, instance) => {
+                        setFieldValue("expiration_date", dateStr);
+                      }}
+                      key={values.expiration_date}
+                      options={{
+                        locale: Spanish,
+                        altInput: true,
+                        altFormat: "j F Y",
+                        dateFormat: "Y-m-d",
+                        defaultDate: values?.expiration_date
+                          ? new Date(values?.expiration_date.split("T")[0])
+                          : null
+                      }}
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="expiration_date"
+                      className="text-danger"
+                    />
+                  </Col>
+
+                </Row>
+                <Row className="mt-1">
                   <Col sm="3">
                     <Label className="form-label" for="profession">
                       Profesión<span className="text-danger">*</span>
@@ -459,9 +494,6 @@ const ClientesActualizacion = () => {
                       className="text-danger"
                     />
                   </Col>
-                </Row>
-
-                <Row className="mt-1">
                   <Col sm="3">
                     <Label className="form-label" for="civil_status">
                       Estado civil<span className="text-danger">*</span>
@@ -541,7 +573,7 @@ const ClientesActualizacion = () => {
                     type="submit"
                     color="primary"
                     className="btn-next"
-                    //onClick={submit}
+                  //onClick={submit}
                   >
                     <span className="align-middle d-sm-inline-block d-none">
                       Guardar
