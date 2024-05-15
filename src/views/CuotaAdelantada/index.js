@@ -192,7 +192,7 @@ const CuotaAdelantada = () => {
               <Row className="d-flex fw-bold mb-sm-2">
                 <div className="mb-0 d-flex">
                   <p className="acc-title">Estado</p>
-                  <p className="mb-0 ms-1">{data?.debt_collection.status == "PAID" ? "PAGADO" : (data?.debt_collection.status == "PARTIALLY_PAID" ? "PAGO PARCIAL" : (data?.debt_collection.status == "PENDING" ? "PENDIENTE" : "IMPAGO"))}</p>
+                  <p className="mb-0 ms-1">{data?.debt_collection.status == "PAID" ? "PAGADO" : (data?.debt_collection.status == "PARTIALLY_PAID" ? "PAGO PARCIAL" : (data?.debt_collection.status == "PENDING" ? "PENDIENTE" :  (data?.debt_collection.status == "UNPAID" ? "IMPAGO":  (data?.debt_collection.status == "CANCELED" ? "CANCELADO" : data?.debt_collection.status))))}</p>
                 </div>
               </Row>
 
