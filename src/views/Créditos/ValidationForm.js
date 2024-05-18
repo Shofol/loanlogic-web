@@ -89,6 +89,12 @@ const ValidationForm = () => {
             if (values.guarantee_approved === null) {
               errors.guarantee_approved = requiredMsg;
             }
+            if (values.evidences.length === 0) {
+              errors.evidences = requiredMsg;
+            }
+            if (values.work_documents.length === 0) {
+              errors.work_documents = requiredMsg;
+            }
             if (values.comment === null) {
               errors.comment = requiredMsg;
             }
@@ -478,25 +484,35 @@ const ValidationForm = () => {
 
               <Row>
                 <Col sm="2">
-                  <p className="fw-bold">Fotos de la casa</p>
+                  <p className="fw-bold">Fotos de la casa<span className="text-danger">*</span></p>
                 </Col>
                 <Col sm="4">
                   <FileUploaderMultiple
                     setFieldValue={setFieldValue}
                     fieldName="evidences"
                   />
+                  <ErrorMessage
+                      component="div"
+                      name="evidences"
+                      className="text-danger"
+                    />
                 </Col>
               </Row>
 
               <Row>
                 <Col sm="2">
-                  <p className="fw-bold">Fotos del negocio</p>
+                  <p className="fw-bold">Fotos del negocio<span className="text-danger">*</span></p>
                 </Col>
                 <Col sm="4">
                   <FileUploaderMultiple
                     setFieldValue={setFieldValue}
                     fieldName="work_documents"
                   />
+                  <ErrorMessage
+                      component="div"
+                      name="work_documents"
+                      className="text-danger"
+                    />
                 </Col>
               </Row>
 
