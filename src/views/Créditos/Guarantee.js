@@ -93,7 +93,7 @@ const Guarantee = ({ guarantee }) => {
           <Row className="mt-3">
                 <Col md="4" className="d-flex align-items-center gap-2">
                   <p>
-                    Coordenadas GPS: Direción formulario garantía
+                    Coordenadas GPS: Dirección formulario garantía
                   </p>
                 </Col>
                 <Col md="6" className="d-flex align-items-center gap-2">

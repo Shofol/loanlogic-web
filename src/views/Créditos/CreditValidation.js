@@ -346,7 +346,7 @@ const CreditValidation = ({ validation }) => {
           <Row className="mt-3">
                 <Col md="6" className="d-flex align-items-center gap-2">
                   <p>
-                    Coordenadas GPS: Direción formulario validación del crédito
+                    Coordenadas GPS: Dirección formulario validación del crédito
                   </p>
                 </Col>
                 <Col md="4" className="d-flex align-items-center gap-2">

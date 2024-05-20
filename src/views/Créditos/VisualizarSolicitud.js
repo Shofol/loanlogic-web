@@ -425,7 +425,7 @@ const VisualizarSolicitud = () => {
                 <Row className="mt-3">
                   <Col md="4" className="d-flex align-items-center gap-2">
                     <p>
-                      Coordenadas GPS: Direción de la solicitud
+                      Coordenadas GPS: Dirección de la solicitud
                     </p>
                   </Col>
                   <Col md="6" className="d-flex align-items-center gap-2">
@@ -681,7 +681,7 @@ const VisualizarSolicitud = () => {
               <Row className="mt-3">
                 <Col md="4" className="d-flex align-items-center gap-2">
                   <p>
-                    Coordenadas GPS: Direción de residencia
+                    Coordenadas GPS: Dirección de residencia
                   </p>
                 </Col>
                 <Col md="6" className="d-flex align-items-center gap-2">
@@ -1024,7 +1024,7 @@ const VisualizarSolicitud = () => {
               <Row className="mt-3">
                 <Col md="4" className="d-flex align-items-center gap-2">
                   <p>
-                    Coordenadas GPS: Direción del trabajo
+                    Coordenadas GPS: Dirección del trabajo
                   </p>
                 </Col>
                 <Col md="6" className="d-flex align-items-center gap-2">
@@ -1210,7 +1210,7 @@ const VisualizarSolicitud = () => {
               <Row className="mt-3">
                 <Col md="4" className="d-flex align-items-center gap-2">
                   <p>
-                    Coordenadas GPS: Direción del negocio propio
+                    Coordenadas GPS: Dirección del negocio propio
                   </p>
                 </Col>
                 <Col md="6" className="d-flex align-items-center gap-2">
