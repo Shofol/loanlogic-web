@@ -10,6 +10,7 @@ import "../Reporteria/Reportería.scss";
 import { Download, Edit, User } from "react-feather";
 import SidebarNewUsers from "./SidebarNewUsers";
 import EditUser from "./EditUser";
+import EditPassword from "./EditPassword";
 import API from "../../@core/api/api";
 import ReactPaginate from "react-paginate";
 import { UserContext } from "../../utility/context/User";
@@ -24,6 +25,7 @@ const Usuarios = () => {
   // const [previousMonth, setPreviousMonth] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [passwordEdit, setPasswordEdit] = useState(false);
   const [agent, setAgent] = useState(null);
   const [users, setUsers] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -49,6 +51,11 @@ const Usuarios = () => {
     setEdit(true);
   };
 
+  const handlePasswordEdit = (user) => {
+    setUser(user);
+    setPasswordEdit(true);
+  };
+
   useEffect(() => {
     if (agent && agent.length > 0) {
       fetchData();
@@ -59,8 +66,8 @@ const Usuarios = () => {
     const response = await API.get(
       agent && agent.length > 0
         ? `user?agency=${agent.join(
-            ","
-          )}&page=${currentPage}&pageSize=12&sortOrder=ASC&sortField=createdAt`
+          ","
+        )}&page=${currentPage}&pageSize=12&sortOrder=ASC&sortField=createdAt`
         : `user?page=${currentPage}&pageSize=12&sortOrder=ASC&sortField=createdAt`
     );
     setUsers([...response.data.data]);
@@ -77,17 +84,17 @@ const Usuarios = () => {
     { label: "Email", key: "email" },
     { label: "Fecha aniversario", key: "date_of_birth" },
     { label: "Fecha creación usuario", key: "createdAt" },
-    { label: "Acción", key: "example" },
+    { label: "Editar usuario", key: "example" },
   ];
 
-  function trans (string){
+  function trans(string) {
     let translation = string;
 
     var result = roles.filter(obj => {
       return obj.value === string
     })
 
-    if(result && result[0]){ translation = result[0].label}
+    if (result && result[0]) { translation = result[0].label }
     return translation;
   }
 
@@ -101,7 +108,7 @@ const Usuarios = () => {
           {
             id: element?.id,
             name: element?.name,
-            role: element? trans(element.role) : '',
+            role: element ? trans(element.role) : '',
             agency: element?.agency?.join(", "),
             phone: element?.phone,
             email: element?.email,
@@ -143,72 +150,76 @@ const Usuarios = () => {
       </Row>
       <Table className="mt-4" responsive>
         <thead>
-          {/*<tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Rol</th>
-            <th>Agencia</th>
-            <th>Email</th>
-            <th>Num. Celular</th>
-            <th>Fecha aniversario</th>
-            <th>Fecha creación usuario</th>
-            <th>Action</th>
-          </tr>*/}
           <tr>
             {headers.map((header) => {
               return <th key={header.label}>{header.label}</th>;
             })}
+            {currentUser.role === "ADMIN" && <th>Nueva contraseña</th>}
           </tr>
         </thead>
         <tbody>
           {users.length > 0
             ? users.map((user, index) => {
-                return (
-                  <tr
-                    className="clickable-row"
-                    key={user.id}
-                    onClick={() => {
-                      if (
-                        currentUser.role !== "AGENT" ||
-                        currentUser.role !== "COLLECTION-MANAGER"
-                      ) {
-                        navigate(`/reporteria/kpi/${user.id}`);
-                      }
-                    }}
-                  >
-                    <td>{user.id}</td>
-                    <td className="nowrap">{user.name}</td>
-                    <td className="nowrap">{trans(user.role)}</td>
-                    <td>{user?.agency?.join(", ")}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.email}</td>
-                    <td>
-                      {user
-                        ? getConvertDateWithTimeZone(user.date_of_birth)
-                        : null}
-                    </td>
-                    <td>
-                      {user ? getConvertDateWithTimeZone(user.createdAt) : null}
-                    </td>
+              return (
+                <tr
+                  className="clickable-row"
+                  key={user.id}
+                  onClick={() => {
+                    if (
+                      currentUser.role !== "AGENT" ||
+                      currentUser.role !== "COLLECTION-MANAGER"
+                    ) {
+                      navigate(`/reporteria/kpi/${user.id}`);
+                    }
+                  }}
+                >
+                  <td>{user.id}</td>
+                  <td className="nowrap">{user.name}</td>
+                  <td className="nowrap">{trans(user.role)}</td>
+                  <td>{user?.agency?.join(", ")}</td>
+                  <td>{user.phone}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    {user ? getConvertDateWithTimeZone(user.date_of_birth) : null}
+                  </td>
+                  <td>
+                    {user ? getConvertDateWithTimeZone(user.createdAt) : null}
+                  </td>
+                  <td>
+                    <Button.Ripple
+                      className="btn-icon"
+                      outline
+                      color="primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit(user);
+                      }}
+                    >
+                      <Edit size={16} />
+                    </Button.Ripple>
+                  </td>
+                  {currentUser.role === "ADMIN" && (
                     <td>
                       <Button.Ripple
                         className="btn-icon"
                         outline
-                        color="primary"
+                        color="warning"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleEdit(user);
+                          handlePasswordEdit(user);
                         }}
                       >
                         <Edit size={16} />
                       </Button.Ripple>
                     </td>
-                  </tr>
-                );
-              })
+                  )}
+                </tr>
+              );
+            })
             : null}
         </tbody>
       </Table>
+
       <div className="d-flex justify-content-center my-1">
         <ReactPaginate
           nextLabel=""
@@ -259,6 +270,14 @@ const Usuarios = () => {
         onClose={() => {
           fetchData();
           setEdit(false);
+        }}
+      />
+      <EditPassword
+        showModal={passwordEdit}
+        user={user}
+        onClose={() => {
+          fetchData();
+          setPasswordEdit(false);
         }}
       />
     </Card>
