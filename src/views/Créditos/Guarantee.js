@@ -76,7 +76,7 @@ const Guarantee = ({ guarantee }) => {
           </Row>
 
           <Row className="mt-2">
-            <Col sm="6">
+            <Col sm="12">
               <p className="fs-6">
                 Foto de la garantía<span className="text-danger">*</span>
               </p>
