@@ -15,6 +15,8 @@ const Desembolso = () => {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -102,7 +104,7 @@ const Desembolso = () => {
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
                 {" "}
-                Monto solicitado: {data?.credit.requested_amount}Q
+                Monto solicitado: {formatter.format(data?.credit.requested_amount)} Q
               </p>
             </Col>
           </Row>
@@ -113,7 +115,7 @@ const Desembolso = () => {
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
                 {" "}
-                Capital crédito: {data?.credit.total_credit_amount}Q
+                Capital crédito: {formatter.format(data?.credit.total_credit_amount)} Q
               </p>
             </Col>
           </Row>
@@ -121,12 +123,12 @@ const Desembolso = () => {
             <Col sm="12" md="6">
               <p className="mb-0">
                 {" "}
-                Cuota crédito: {parseFloat(data?.credit.installment_amount).toFixed(2)}Q
+                Cuota crédito: {formatter.format(parseFloat(data?.credit.installment_amount).toFixed(2))} Q
               </p>
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Total adeudado: {data?.credit.total_amount}Q
+                Total adeudado: {formatter.format(data?.credit.total_amount)} Q
               </p>
             </Col>
           </Row>
@@ -148,7 +150,7 @@ const Desembolso = () => {
                       )
                     }}
                     title="Crédito pendiente"
-                    text={`${data?.debt_collection.total_paid_amount} Q / ${data?.credit.total_amount} Q`}
+                    text={`${formatter.format(data?.debt_collection.total_paid_amount)} Q / ${formatter.format(data?.credit.total_amount)} Q`}
                     height="150"
                     fontSize="2rem"
                     fixedHeight={false}
@@ -169,19 +171,19 @@ const Desembolso = () => {
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Monto solicitado</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">{data?.credit.requested_amount}Q</p>
+                <p className="mb-0 ms-1">{formatter.format(data?.credit.requested_amount)} Q</p>
               </div>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Gastos administrativos</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.credit.administrative_expenses}Q
+                  {formatter.format(data?.credit.administrative_expenses)} Q
                 </p>
               </div>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Asistencias</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">{data?.credit.assistance_expenses}Q</p>
+                <p className="mb-0 ms-1">{formatter.format(data?.credit.assistance_expenses)} Q</p>
               </div>
 
               <div className="mb-0 d-flex fw-bold">
@@ -189,13 +191,13 @@ const Desembolso = () => {
                   Descuento días adelantado
                 </p>
                 <span>:</span>
-                <p className="mb-0 ms-1"> {data?.credit.holidays_discount} Q</p>
+                <p className="mb-0 ms-1"> {formatter.format(data?.credit.holidays_discount)} Q</p>
               </div>
               <hr></hr>
               <div className="mb-0 d-flex fw-bold">
                 <p className="acc-desembolso-title">Total desembolso</p>
                 <span>:</span>
-                <p className="mb-0 ms-1">{data?.credit.disbursement_amount}Q</p>
+                <p className="mb-0 ms-1">{formatter.format(data?.credit.disbursement_amount)} Q</p>
               </div>
               <hr></hr>
               <div className="mb-0 d-flex fw-bold">
@@ -212,11 +214,11 @@ const Desembolso = () => {
             <Col md="5">
               <h5 className="fw-bold mb-0 mt-1 ps-0">
                 Capital e intereses amortizado:{" "}
-                {parseFloat(data?.debt_collection.total_paid_amount).toFixed(2)}Q
+                {formatter.format(parseFloat(data?.debt_collection.total_paid_amount).toFixed(2))} Q
               </h5>
               <h5 className="fw-bold mb-0 ps-0">
                 Capital e interés pendiente:{" "}
-                {parseFloat(data?.debt_collection.total_pending_amount).toFixed(2)}Q
+                {formatter.format(parseFloat(data?.debt_collection.total_pending_amount).toFixed(2))} Q
               </h5>
             </Col>
 

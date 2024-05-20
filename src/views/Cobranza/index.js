@@ -19,6 +19,8 @@ const Cobranza = () => {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
 
+  const formatter = new Intl.NumberFormat('en-US');
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -78,7 +80,7 @@ const Cobranza = () => {
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Monto solicitado: {data?.credit.requested_amount} Q
+                Monto solicitado: {formatter.format(data?.credit.requested_amount)} Q
               </p>
             </Col>
           </Row>
@@ -88,19 +90,19 @@ const Cobranza = () => {
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Capital crédito: {data?.credit.total_credit_amount} Q
+                Capital crédito: {formatter.format(data?.credit.total_credit_amount)} Q
               </p>
             </Col>
           </Row>
           <Row>
             <Col sm="12" md="6">
               <p className="mb-0">
-                Cuota crédito: {data?.debt_collection.credit_fee} Q
+                Cuota crédito: {formatter.format(data?.debt_collection.credit_fee)} Q
               </p>
             </Col>
             <Col sm="12" md="6">
               <p className="mb-0 fw-bold">
-                Total adeudado: {data?.credit.total_amount} Q
+                Total adeudado: {formatter.format(data?.credit.total_amount)} Q
               </p>
             </Col>
           </Row>
@@ -122,7 +124,7 @@ const Cobranza = () => {
                       )
                     }}
                     title="Crédito pendiente"
-                    text={`${data?.debt_collection.total_paid_amount} Q / ${data?.credit.total_amount} Q`}
+                    text={`${formatter.format(data?.debt_collection.total_paid_amount)} Q / ${formatter.format(data?.credit.total_amount)} Q`}
                     height="150"
                     fontSize="2rem"
                     fixedHeight={false}
@@ -144,21 +146,21 @@ const Cobranza = () => {
                 <p className="acc-title">Cuota crédito</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.credit_fee} Q
+                  {formatter.format(data?.debt_collection.credit_fee)} Q
                 </p>
               </div>
               <div className="mb-0 d-flex">
                 <p className="acc-title">Mora</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.default_amount} Q
+                  {formatter.format(data?.debt_collection.default_amount)} Q
                 </p>
               </div>
               <div className="mb-0 d-flex">
                 <p className="acc-title">Interés mora</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.default_interest_with_tax} Q
+                  {formatter.format(data?.debt_collection.default_interest_with_tax)} Q
                 </p>
               </div>
               <hr></hr>
@@ -166,7 +168,7 @@ const Cobranza = () => {
                 <p className="acc-title">Monto total</p>
                 <span>:</span>
                 <p className="mb-0 ms-1">
-                  {data?.debt_collection.amount_to_pay} Q
+                  {formatter.format(data?.debt_collection.amount_to_pay)} Q
                 </p>
               </div>
               <hr></hr>
@@ -211,11 +213,11 @@ const Cobranza = () => {
             <Col md="6">
               <h5 className="fw-bold mb-0 mt-1 ps-0">
                 Capital e intereses amortizado:{" "}
-                {parseFloat(data?.debt_collection.total_paid_amount).toFixed(2)} Q
+                {formatter.format(parseFloat(data?.debt_collection.total_paid_amount).toFixed(2))} Q
               </h5>
               <h5 className="fw-bold mb-0 ps-0">
                 Capital e interés pendiente:{" "}
-                {parseFloat(data?.debt_collection.total_pending_amount).toFixed(2)} Q
+                {formatter.format(parseFloat(data?.debt_collection.total_pending_amount).toFixed(2))} Q
               </h5>
             </Col>
 
