@@ -144,9 +144,11 @@ const Login = () => {
                       <Label className="form-label" for="login-password">
                         Contraseña
                       </Label>
+                      {/*
                       <Link to="/forgot-password">
                         <small>¿Ha olvidado su contraseña?</small>
                       </Link>
+                      */}
                     </div>
                     <InputPasswordToggle
                       className="input-group-merge"
