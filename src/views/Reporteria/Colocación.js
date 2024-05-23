@@ -72,8 +72,8 @@ const Colocación = () => {
     { label: "#Solicitudes", key: "todayCreditApplications" },
     { label: picker, key: "todayCreditAmount" },
     { label: "Colocación al " + picker, key: "currentMonthCreditAmount" },
-    { label: "Meta Diciembre", key: "currentMonthGoal" },
-    { label: "#Total Diciembre", key: "currentMonthCreditApplications" },
+    { label: "Meta mes en curso", key: "currentMonthGoal" },
+    { label: "#Total mes en curso", key: "currentMonthCreditApplications" },
     { label: "% Cumplido", key: "currentMonthPercentage" },
     { label: "Diferencia", key: "currentMonthDifference" },
   ];
