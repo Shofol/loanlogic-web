@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Col, Row } from "reactstrap";
+import { Card, Col, Row } from "reactstrap";
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 import Recuperación from "../Stats/Recuperación";
 import MoraStat from "../Stats/Mora";
