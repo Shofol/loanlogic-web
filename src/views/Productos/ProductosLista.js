@@ -40,7 +40,7 @@ const ProductosLista = () => {
 
   const fetchData = async () => {
     const response = await API.get(
-      `product?page=${currentPage}&sortField=id&sortOrder=ASC&pageSize=10`
+      `product?page=${currentPage}&sortField=id&sortOrder=ASC&pageSize=50`
     );
     setProducts([...response.data.data]);
     setTotalPages(response.data.pagination.totalPages);
