@@ -33,7 +33,7 @@ const ClientesLista = () => {
   const date = convertDateWithTimeZone(new Date());
   const today = new Date(date);
   let prevDay = new Date(date);
-  prevDay = new Date(prevDay.setDate(prevDay.getDate() - 7));
+  prevDay = new Date(prevDay.setDate(prevDay.getDate() - 90));
   const [desdePicker, setDesdePicker] = useState(prevDay);
   const [hastaPicker, setHastaPicker] = useState(today);
   const [totalPages, setTotalPages] = useState(1);
