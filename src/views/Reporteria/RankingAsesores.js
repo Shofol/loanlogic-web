@@ -99,7 +99,7 @@ const RankingAsesores = ({ title }) => {
 
   return (
     <Card className="p-2">
-      <CardTitle>Ranking Promotores</CardTitle>
+      <CardTitle>Ranking Colocación Promotores</CardTitle>
       <Row>
         <Col md="6">
           <Label className="form-label">Oficina</Label>
