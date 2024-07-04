@@ -84,7 +84,7 @@ const CréditosPendienteDesembolso = () => {
                   <td>{formatter.format(item?.credit.disbursement_amount)}</td>
                   <td>{item?.credit.user.name} {item?.credit.user.family_name}</td>
                   <td>
-                    <StatusTag status={item?.debt_collections.status} />
+                    <StatusTag status={item?.debt_collections.status == 'PENDING' ? 'PENDING_DISBURSEMENT': item?.debt_collections.status} />
                   </td>
 
                   <td>

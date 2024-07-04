@@ -29,6 +29,7 @@ const StatusTag = ({ status }) => {
 
     // Credits
     { en: 'PENDING', es: 'VIGENTE' },
+    { en: 'PENDING_DISBURSEMENT', es: 'PENDIENTE DESEMBOLSO' },
     { en: 'DELAY', es: 'VENCIDO' },
     { en: 'OVERDUE', es: 'COBRO' },
     { en: 'PUNISHMENT', es: 'CASTIGO' },
