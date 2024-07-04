@@ -80,7 +80,7 @@ const CréditosPendienteDesembolso = () => {
                   <td>{item?.client.residence_municipality}</td>
                   <td>{item?.credit.disbursement_amount}</td>
                   <td>
-                    <StatusTag status={item?.debt_collections.status} />
+                    <StatusTag status={item?.debt_collections.status == 'PENDING' ? 'PENDING_DISBURSEMENT': item?.debt_collections.status} />
                   </td>
 
                   <td>
