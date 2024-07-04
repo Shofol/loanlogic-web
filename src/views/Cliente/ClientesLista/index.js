@@ -138,6 +138,7 @@ const ClientesLista = () => {
                 onChange={handleChange}
               />
             </Col>
+            {/*
             <Col md="6">
               <Label className="form-label" for="hf-picker">
                 Desde el
@@ -175,7 +176,7 @@ const ClientesLista = () => {
                   dateFormat: "Y-m-d"
                 }}
               />
-            </Col>
+            </Col>*/}
 
             <div className="d-flex justify-content-end">
               <Button.Ripple
