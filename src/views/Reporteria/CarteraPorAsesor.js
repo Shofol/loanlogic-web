@@ -191,7 +191,7 @@ const CarteraPorAsesor = () => {
   }, [agency]);
 
   const fetchGestorData = async () => {
-    const response = await api.get(`/user?agency=${agency}&role=agent`);
+    const response = await api.get(`/user?agency=${agency}&role=agent&pageSize=100`);
     let agentArray = [{
       label: "TODOS",
       value: "ALL"
