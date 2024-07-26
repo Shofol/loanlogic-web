@@ -184,10 +184,11 @@ const Garantía = () => {
             values.guarantees.forEach((guarantee, index) => {
               Object.keys(guarantee).forEach((key) => {
                 if (key === "photo") {
-                  console.log("key === photo");
+                  // Ensure photo is always an array
+                  if (!Array.isArray(guarantee[key])) {
+                    guarantee[key] = [guarantee[key]];
+                  }
                   guarantee[key].forEach((file) => {
-                    console.log("file", file);
-                    console.log("file.name", file.name);
                     form.append(`guarantees[${index}][${key}]`, file, file.name);
                   });
                 } else {
